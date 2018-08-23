@@ -1,0 +1,6 @@
+framework module Pods_springDream {
+  umbrella header "Pods-springDream-umbrella.h"
+
+  export *
+  module * { export * }
+}
