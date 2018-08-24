@@ -39,11 +39,12 @@
 
         //导航栏返回按钮设置
         if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] &&
-            ![controller isKindOfClass:NSClassFromString(@"")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HHPersonCenter")]&&
             ![controller isKindOfClass:NSClassFromString(@"HHShoppingVC")] &&
-            ![controller isKindOfClass:NSClassFromString(@"HHCartVC")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HHHomeVC")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HHRecommandVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HJNavigationController")] &&
-            ![controller isKindOfClass:NSClassFromString(@"HHPersenCenterVC")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HHGoodListVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HJTabBarController")]) {
          
             //Log 视图加载

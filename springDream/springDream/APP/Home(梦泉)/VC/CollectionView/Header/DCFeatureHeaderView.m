@@ -14,12 +14,6 @@
 #import "DCFeatureTitleItem.h"
 // Views
 
-// Vendors
-
-// Categories
-
-// Others
-
 @interface DCFeatureHeaderView ()
 /* 属性标题 */
 @property (strong , nonatomic)UILabel *headerLabel;
@@ -44,9 +38,8 @@
 - (void)setUpUI
 {
     _headerLabel = [[UILabel alloc] init];
-    _headerLabel.font  = FONT(15);
+    _headerLabel.font  = FONT(13);
     [self addSubview:_headerLabel];
-    
     
     _bottomView = [UIView new];
     _bottomView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:0.65];
@@ -56,8 +49,6 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-
 
     [_headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self)setOffset:DCMargin];
@@ -76,7 +67,7 @@
 - (void)setHeadTitle:(NSString *)headTitle
 {
     _headTitle = headTitle;
-    _headerLabel.text = headTitle;
+    _headerLabel.text = [NSString stringWithFormat:@"[%@]",headTitle];
 }
 
 @end

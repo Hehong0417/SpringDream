@@ -24,7 +24,7 @@
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
-        self.collectionView.backgroundColor = kWhiteColor;
+        self.collectionView.backgroundColor = KVCBackGroundColor;
         self.collectionView.showsHorizontalScrollIndicator = NO;
         self.collectionView.showsVerticalScrollIndicator = NO;
 
@@ -43,21 +43,22 @@
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return self.PackagesProducts_models.count;
+    return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 1;
+    return self.guess_you_like_arr.count;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(ScreenW-40, 90);
+    return CGSizeMake(ScreenW-40, self.mj_h);
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     HHdiscountPackageCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HHdiscountPackageCollectionCell" forIndexPath:indexPath];
-    HHPackagesProductsModel *model = self.PackagesProducts_models[indexPath.section];
-    cell.packagesProducts_model = model;
+    HHGuess_you_likeModel *model = [HHGuess_you_likeModel mj_objectWithKeyValues:self.guess_you_like_arr[indexPath.row]];
+    cell.backgroundColor = kWhiteColor;
+    cell.guess_you_likeModel = model;
     return cell;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

@@ -10,7 +10,7 @@
 
 @interface HHdiscountPackageViewTabCell : UITableViewCell
 
-@property (nonatomic, strong)   HHPackagesModel *packages_model;
+@property (nonatomic, strong)   NSArray *guess_you_like_arr;
 
 @property (nonatomic, strong)   NSIndexPath *indexPath;
 @property (nonatomic, strong)   UINavigationController *nav;

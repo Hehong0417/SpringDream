@@ -14,10 +14,8 @@
 }
 #define NSString(type,obj)   [NSString stringWithFormat:(type),(obj)]//强转字符串
 
-/* 数据 */
-@property (strong , nonatomic)NSMutableArray <HHproduct_sku_valueModel*> *featureAttr;
-/* 选择属性 */
-@property (strong , nonatomic)NSMutableArray *seleArray;
+
+
 /* 选择属性Id */
 @property (strong , nonatomic)NSMutableArray *seleId_Array;
 
@@ -56,6 +54,82 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     }
     return self;
     
+}
+///接收通知处理数据
+- (void)reloadData{
+    
+    
+    NSArray * skuResult = self.SKUResult;
+    [self.skuResult removeAllObjects];
+    [self.seletedEnable removeAllObjects];
+    [self.seletedIdArray removeAllObjects];
+    [self.seletedIndexPaths removeAllObjects];
+    [self.skuResult addObjectsFromArray:skuResult];
+    
+    //取出SKUResult中所有可能的排列组合方式(keysArray)
+    NSMutableArray * keysArray = [[NSMutableArray alloc]init];
+    for (NSDictionary * dict in self.skuResult) {
+        NSString * key = [[dict allKeys] firstObject];
+        [keysArray addObject:key];
+    }
+    
+    int i = 0;
+    for (HHproduct_sku_valueModel * model in _featureAttr) {
+        
+        int x = -1;
+        NSString * sku_id = @"";
+        for (int j = 0; j < model.ItemList.count; j++) {
+            HHsku_name_valueModel * sku_model = model.ItemList[j];
+            
+            NSString * sku_value_id = NSString(@"%@", sku_model.ValueItemId);
+            
+            if (sku_model.isSelect == YES) {
+                x = j;
+                sku_id = sku_value_id;
+                break;
+            }
+        }
+        //如果没有选中的
+        if (x == -1) {
+            [self.seletedIndexPaths addObject:@"0"];
+            [self.seletedIdArray addObject:@""];
+        }else{
+            NSIndexPath * indexPath = [NSIndexPath indexPathForItem:x inSection:i];
+            [self.seletedIndexPaths addObject:indexPath];
+            [self.seletedIdArray addObject:sku_id];
+        }
+        
+        i++;
+    }
+    
+    [self.seletedEnable removeAllObjects];
+    
+    for (int i = 0; i < _featureAttr.count; i++) {
+        HHproduct_sku_valueModel * model = _featureAttr[i];
+        for (int j = 0; j < model.ItemList.count; j++) {
+            HHsku_name_valueModel * sku_model = model.ItemList[j];
+            NSIndexPath * currentIndexPath = [NSIndexPath indexPathForItem:j inSection:i];
+            NSString * currentId = NSString(@"%@", sku_model.ValueItemId);
+            NSMutableArray * tempArray = [[NSMutableArray alloc]initWithArray:self.seletedIdArray];
+            
+            [tempArray removeObjectAtIndex:i];
+            [tempArray insertObject:currentId atIndex:i];
+            NSMutableArray * resultArray = [[NSMutableArray alloc]init];
+            for (NSString * str in tempArray) {
+                if (![str isEqualToString:@""]) {
+                    [resultArray addObject:str];
+                }
+            }
+            
+            NSArray * changeArray = [self change:resultArray];
+            NSString * resultKey = [changeArray componentsJoinedByString:@"_"];
+            
+            if (![keysArray containsObject:resultKey]) {
+                [self.seletedEnable addObject:currentIndexPath];
+            }
+        }
+        
+    }
 }
 - (void)setGooodDetailModel:(HHgooodDetailModel *)gooodDetailModel{
     _gooodDetailModel = gooodDetailModel;
@@ -96,13 +170,13 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     
     UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
     UILabel *numLabel = [UILabel new];
-    numLabel.text = @"数量：";
-    numLabel.font = FONT(14);
+    numLabel.text = @"[数量]";
+    numLabel.font = FONT(13);
     numLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:numLabel];
     numLabel.frame = CGRectMake(10, 0, 80, 40);
     [numView addSubview:numLabel];
-    
+   
     self.numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(ScreenW-115-DCMargin, numLabel.mj_y, 115, numLabel.mj_h)];
     self.numberButton.shakeAnimation = YES;
     self.numberButton.minValue = 1;
@@ -114,10 +188,12 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     self.numberButton.delegate = self;
     
     NSInteger  stock =  self.product_stock.integerValue;
-    
-    self.numberButton.maxValue = stock;
+    WEAKSELF;
+    self.numberButton.maxValue = stock>0?stock:1;
+ 
     self.numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
         num_ = num;
+        weakSelf.Num_ = num;
     };
     [numView addSubview:self.numberButton];
     
@@ -136,6 +212,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     _product_sku_arr = product_sku_arr;
     
     [self createDataSource:product_sku_arr];
+    [self reloadData];
 
 }
 #pragma mark - LazyLoad
@@ -192,7 +269,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         //可选
         else
         {
-            //            cell.attLabel.textColor = [UIColor blackColor];
+            // cell.attLabel.textColor = [UIColor blackColor];
             cell.content = _featureAttr[indexPath.section].ItemList[indexPath.row];
             cell.userInteractionEnabled = YES;
         }
@@ -279,6 +356,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
             }
         }
     }
+    
     //如果已经被选中则取消选中
     if ([self.seletedIndexPaths containsObject:indexPath]) {
         [self.seletedIndexPaths removeObjectAtIndex:indexPath.section];
@@ -341,6 +419,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
             }
         }];
     }
+
     //刷新tableView和collectionView
     [self.collectionView reloadData];
 }

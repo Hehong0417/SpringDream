@@ -21,6 +21,7 @@
 #import "HHActivityModel.h"
 #import "MLMenuView.h"
 #import "HHFeatureSelectionViewCell.h"
+#import "HHGoodIntroduceCell.h"
 
 //#import "DCFeatureChoseTopCell.h"
 // Vendors
@@ -58,7 +59,11 @@
 
 static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商品信息
 static NSString *HHFeatureSelectionViewCellID = @"HHFeatureSelectionViewCell";//商品属性
-static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";
+static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";//推荐商品
+static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
+
+static NSString *HHGoodIntroduceCellID = @"HHGoodIntroduceCell";//详情html
+
 
 //cell
 static NSString *lastNum_;
@@ -70,7 +75,7 @@ static NSArray *lastSele_IdArray_;
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
-    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-49-20) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
+    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-49-20) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
     
     [self.view addSubview:self.tabView];
@@ -91,6 +96,7 @@ static NSArray *lastSele_IdArray_;
     //获取数据
     [self getDatas];
     
+    [self addCartOrBuyAction];
     
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
@@ -108,7 +114,127 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerNib:[UINib nibWithNibName:HHDetailGoodReferralCellID bundle:nil] forCellReuseIdentifier:HHDetailGoodReferralCellID];
     [self.tabView registerClass:[HHFeatureSelectionViewCell class] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
+    [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
+    [self.tabView registerClass:[HHGoodIntroduceCell class] forCellReuseIdentifier:HHGoodIntroduceCellID];
 
+
+}
+#pragma mark - 加入购物车、立即购买
+//加入购物车、立即购买
+- (void)addCartOrBuyAction{
+    
+    [self.view addSubview:self.addCartTool];
+    
+    WEAK_SELF();
+    //加入购物车
+    self.addCartTool.addCartBlock = ^{
+        HHFeatureSelectionViewCell *cell = [weakSelf.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        if (cell.seleArray.count != cell.featureAttr.count) {
+            [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+        }else{
+            NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+            NSString *sku_id;
+            if (select_Id.length>0) {
+                sku_id = select_Id;
+            }else{
+                sku_id = @"0";
+            }
+            NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
+            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+            //加入购物车
+            [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity] netWorkClient] postRequestInView:weakSelf.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+                
+                if (!error) {
+                    if (api.State == 1) {
+                        [SVProgressHUD showSuccessWithStatus:@"加入购物车成功～"];
+                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                        [SVProgressHUD dismissWithDelay:1.0];
+                        
+                    }else{
+                        
+                        [SVProgressHUD showInfoWithStatus:api.Msg];
+                    }
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }];
+            
+            //-------------------------//
+        }
+        
+    };
+    //立即购买
+    self.addCartTool.buyBlock = ^(UIButton *btn) {
+        
+//        MLMenuView *menuView = [[MLMenuView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3*2, SCREEN_HEIGHT-Status_HEIGHT-49-weakSelf.alert_Arr.count*50, SCREEN_WIDTH/3, weakSelf.alert_Arr.count*50) WithmodelsArr:weakSelf.alert_Arr WithMenuViewOffsetTop:Status_HEIGHT WithTriangleOffsetLeft:80 button:btn];
+//        menuView.isHasTriangle = NO;
+//        menuView.didSelectBlock = ^(NSInteger index, HHActivityModel *model) {
+//
+//
+//        };
+        HHFeatureSelectionViewCell *cell = [weakSelf.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        if (cell.seleArray.count != cell.featureAttr.count) {
+            [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+        }else{
+            NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+            NSString *sku_id;
+            if (select_Id.length>0) {
+                sku_id = select_Id;
+            }else{
+                sku_id = @"0";
+            }
+            NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
+            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+            
+            if (sku_id_Str.length>0) {
+                //立即购买
+                //      是否存在收货地址
+                [weakSelf isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+            }
+            //-------------------------//
+        }
+        
+    };
+    
+}
+#pragma mark - 是否存在收货地址
+- (void)isExitAddressWithsku_id_Str:(NSString *)sku_id_Str quantity:(NSString *)quantity{
+    
+    [[[HHCartAPI IsExistOrderAddress] netWorkClient] getRequestInView:nil finishedBlock:^(HHCartAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                if ([api.Data isEqual:@1]) {
+                    
+                    HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
+                    vc.enter_type = HHaddress_type_Spell_group;
+                    vc.ids_Str = sku_id_Str;
+                    vc.pids = self.Id;
+                    vc.count = quantity;
+                    vc.mode = self.Mode;
+                    [self.navigationController pushVC:vc];
+                }else{
+                    HHAddAdressVC *vc = [HHAddAdressVC new];
+                    vc.titleStr = @"新增收货地址";
+                    vc.addressType = HHAddress_settlementType_productDetail;
+                    vc.mode = self.Mode;
+                    vc.ids_Str = sku_id_Str;
+                    vc.pids = self.Id;
+                    [self.navigationController pushVC:vc];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
 }
 #pragma mark - Table view data source
 
@@ -129,7 +255,7 @@ static NSArray *lastSele_IdArray_;
         return 1;
     }
     if (section == 3) {
-        return 1;
+        return self.evaluations.count>0?2:0;
     }
     if (section == 4) {
         return 1;
@@ -144,6 +270,7 @@ static NSArray *lastSele_IdArray_;
 
     if (indexPath.section == 0) {
         HHDetailGoodReferralCell *cell = [tableView dequeueReusableCellWithIdentifier:HHDetailGoodReferralCellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         cell.gooodDetailModel = self.gooodDetailModel;
         gridcell = cell;
@@ -153,7 +280,7 @@ static NSArray *lastSele_IdArray_;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.gooodDetailModel = self.gooodDetailModel;
         cell.product_sku_value_arr = self.gooodDetailModel.SKUValues;
-        cell.lastNum = lastNum_;
+        cell.lastNum = @"1";
         cell.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
         cell.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
         cell.product_sku_arr = self.gooodDetailModel.SKUList;
@@ -162,45 +289,111 @@ static NSArray *lastSele_IdArray_;
         [cell.collectionView layoutIfNeeded];
         self.collectionHeight = cell.collectionView.contentSize.height;
         gridcell = cell;
-        
     }
     if (indexPath.section == 2) {
+        //为你推荐
         HHdiscountPackageViewTabCell *cell = [tableView dequeueReusableCellWithIdentifier:HHdiscountPackageViewTabCellID];
-        cell.packages_model = self.gooodDetailModel.Packages[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.guess_you_like_arr = self.guess_you_like_arr;
         cell.indexPath = indexPath;
         cell.nav = self.navigationController;
         gridcell = cell;
     }
     if (indexPath.section == 3) {
+        if (indexPath.row == 0) {
+            //商品评价
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell.textLabel.text = @"商品评价";
+            cell.textLabel.font = FONT(13);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            gridcell = cell;
+            
+        }else{
+            //商品评价
+            HHEvaluationListCell *cell = [tableView dequeueReusableCellWithIdentifier:HHEvaluationListCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.indexPath = indexPath;
+            ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
+            [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+            ///////////////////////////////////////////////////////////////////////
+            cell.model =  [HHEvaluationListModel mj_objectWithKeyValues:self.evaluations[0]];
+            gridcell = cell;
+        }
 
     }
     if (indexPath.section == 4) {
-
+        //商品详情
+        HHGoodIntroduceCell *cell = [tableView dequeueReusableCellWithIdentifier:HHGoodIntroduceCellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.model = self.gooodDetailModel;
+        
+        gridcell = cell;
+        
     }
     
     return gridcell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.section == 0) {
-//        return 150;
-//    }
+
     if (indexPath.section == 1) {
         
         return   self.collectionHeight;
-
     }
-    return 150;
-}
+    if (indexPath.section == 2) {
+       
+        return  self.guess_you_like_arr.count>0?165:0;
+    }
+    if (indexPath.section == 3) {
+            if (indexPath.row == 0) {
+                return 50;
+            }else{
+                id model = [HHEvaluationListModel mj_objectWithKeyValues:self.evaluations[0]];
+                
+                return [self.tabView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[HHEvaluationListCell class] contentViewWidth:[self cellContentViewWith]];
+            }
+        }
+    if (indexPath.section == 4) {
+        
+        HHgooodDetailModel *model =  self.gooodDetailModel;
+        
+        return [self.tabView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[HHGoodIntroduceCell class] contentViewWidth:[self cellContentViewWith]];
+    }
 
+    return 120;
+}
+- (CGFloat)cellContentViewWith
+{
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    
+    // 适配ios7横屏
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait && [[UIDevice currentDevice].systemVersion floatValue] < 8) {
+        width = [UIScreen mainScreen].bounds.size.height;
+    }
+    return width;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
+    if (section == 4) {
+        return 20;
+    }
     return 0.01;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 3) {
+        if (indexPath.row == 0) {
+            //评价列表
+            HHEvaluationListVC *vc = [HHEvaluationListVC new];
+            vc.pid = self.gooodDetailModel.Id;
+            [self.navigationController pushVC:vc];
+        }
+    }
+}
 #pragma mark -加载数据
 
 - (void)getDatas{
@@ -267,13 +460,13 @@ static NSArray *lastSele_IdArray_;
                     [self.alert_Arr addObject:CutPrice_m];
                 }
                 
-                if (self.alert_Arr.count >0) {
-                    self.addCartTool.buyBtn.hidden = NO;
-                    self.addCartTool.addCartBtn.mj_w = ScreenW/3;
-                }else{
-                    self.addCartTool.buyBtn.hidden = YES;
-                    self.addCartTool.addCartBtn.mj_w = ScreenW/3*2;
-                }
+//                if (self.alert_Arr.count >0) {
+//                    self.addCartTool.buyBtn.hidden = NO;
+//                    self.addCartTool.addCartBtn.mj_w = ScreenW/3;
+//                }else{
+//                    self.addCartTool.buyBtn.hidden = YES;
+//                    self.addCartTool.addCartBtn.mj_w = ScreenW/3*2;
+//                }
 //                // 秒杀
 //                HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
 //                if ([SecKill_m.IsSecKill isEqual:@1]) {
@@ -309,7 +502,50 @@ static NSArray *lastSele_IdArray_;
         }
     }];
     
+    //猜你喜欢
+    [self getGuess_you_likeData];
     
+    //评价
+    [self getEvaluateList];
+    
+}
+//猜你喜欢
+- (void)getGuess_you_likeData{
+    
+    [[[HHCategoryAPI GetAlliancesProductsWithpids:self.Id]  netWorkClient] getRequestInView:nil finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                NSArray *arr =  api.Data;
+                self.guess_you_like_arr = arr.mutableCopy;
+                [self.tableView reloadData];
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            
+        }
+    }];
+    
+}
+//评价
+- (void)getEvaluateList{
+    
+    [[[HHHomeAPI GetProductEvaluateWithId:self.Id page:@1 pageSize:@1 hasImage:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                NSArray *arr = api.Data;
+                self.evaluations = arr.mutableCopy;
+                [self.tabView reloadData];
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+        
+    }];
 }
 #pragma mark -网络监测
 
@@ -371,6 +607,13 @@ static NSArray *lastSele_IdArray_;
     }
     return _datas;
 }
+- (NSMutableArray *)evaluations{
+    
+    if (!_evaluations) {
+        _evaluations = [NSMutableArray array];
+    }
+    return _evaluations;
+}
 //头部
 - (SDCycleScrollView *)cycleScrollView {
     
@@ -386,6 +629,17 @@ static NSArray *lastSele_IdArray_;
     
     return _cycleScrollView;
 }
-
+- (HHAddCartTool *)addCartTool{
+    if (!_addCartTool) {
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        CGFloat y = statusRect.size.height+44;
+        _addCartTool = [[HHAddCartTool alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50-y, SCREEN_WIDTH, 50)];
+        _addCartTool.nav = self.navigationController;
+        UIView *line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 1) backColor:RGB(220, 220, 220)];
+        [_addCartTool addSubview:line];
+    }
+    return _addCartTool;
+    
+}
 
 @end

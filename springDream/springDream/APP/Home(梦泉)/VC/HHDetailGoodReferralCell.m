@@ -16,7 +16,7 @@
     
     self.product_nameLabel.text = gooodDetailModel.ProductName;
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %@",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice:@""];
-    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@",gooodDetailModel.MarketPrice]];
+    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%@",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice:@""]];
     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
     self.product_s_intergralLabel.attributedText = newPrice;
     self.package_lab.text = gooodDetailModel.StrFreightModey;

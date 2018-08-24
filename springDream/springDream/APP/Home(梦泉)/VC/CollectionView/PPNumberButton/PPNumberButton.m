@@ -134,7 +134,8 @@
     [_textField resignFirstResponder];
     
     if (sender == _increaseBtn){
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(increase) userInfo:nil repeats:YES];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(increase) userInfo:nil repeats:YES];
+       
     } else {
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(decrease) userInfo:nil repeats:YES];
     }
@@ -151,6 +152,7 @@
  */
 - (void)increase
 {
+
     [self checkTextFieldNumberWithUpdate];
     
     NSInteger number = _textField.text.integerValue + 1;
@@ -177,6 +179,7 @@
         if (_shakeAnimation) { [self shakeAnimationMethod]; } PPLog(@"已超过最大数量%ld",_maxValue);
         [SVProgressHUD showInfoWithStatus:@"数量超出范围～"];
     }
+       
 }
 /**
  减运算

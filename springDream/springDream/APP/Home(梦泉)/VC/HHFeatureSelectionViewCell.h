@@ -42,7 +42,8 @@
 
 /* 上一次选择的数量 */
 @property (assign , nonatomic)NSString *lastNum;
-
+/* 数量 */
+@property (assign , nonatomic)NSInteger Num_;
 /* 价格 */
 @property (assign , nonatomic)NSString *product_price;
 /* 库存 */
@@ -71,4 +72,8 @@
 @property (nonatomic ,strong)NSMutableArray * seletedEnable;//!<不可选indexPath
 
 
+/* 选择属性 */
+@property (strong , nonatomic)NSMutableArray *seleArray;
+/* 数据 */
+@property (strong , nonatomic)NSMutableArray <HHproduct_sku_valueModel*> *featureAttr;
 @end

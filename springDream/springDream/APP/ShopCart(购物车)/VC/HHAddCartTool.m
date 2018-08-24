@@ -15,24 +15,17 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        [self addSubview:self.cartIconBg];
-        [self.cartIconBg addSubview:self.homeIconImgV];
-        [self.cartIconBg addSubview:self.cartIconImgV];
+//        [self addSubview:self.cartIconBg];
+        [self addSubview:self.collectBtn];
+        [self addSubview:self.cartIconBtn];
 
-        UIView *line = [UIView lh_viewWithFrame:CGRectMake(self.cartIconImgV.mj_x, 0, 1, self.homeIconImgV.mj_h) backColor:RGB(220, 220, 220)];
-        [self.cartIconBg addSubview:line];
+//        UIView *line = [UIView lh_viewWithFrame:CGRectMake(self.cartIconImgV.mj_x, 0, 1, self.homeIconImgV.mj_h) backColor:RGB(220, 220, 220)];
+//        [self.cartIconBg addSubview:line];
         
-        //购物车
-        WEAK_SELF();
-        [self.cartIconImgV setTapActionWithBlock:^{
-            HHShoppingVC *shop_vc = [HHShoppingVC new];
-            shop_vc.cartType = HHcartType_goodDetail;
-            [weakSelf.nav pushVC:shop_vc];
-        }];
-        self.buyBtn.hidden=YES;
+        [self addSubview:self.addCartBtn];
+
         [self addSubview:self.buyBtn];
 
-        [self addSubview:self.addCartBtn];
 
     }
     
@@ -51,47 +44,55 @@
         self.buyBlock(btn);
     }
 }
+- (void)collectAction:(UIButton *)button{
+    button.selected = !button.selected;
+    
+}
+- (void)cartIconBtnAction{
+    HHShoppingVC *shop_vc = [HHShoppingVC new];
+    shop_vc.cartType = HHcartType_goodDetail;
+    [self.nav pushVC:shop_vc];
+}
 //购物车图标底图
 - (UIView *)cartIconBg{
     
     if (!_cartIconBg) {
         
-        _cartIconBg = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, 50) backColor:kWhiteColor];
+        _cartIconBg = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/4, 50) backColor:kWhiteColor];
         
     }
     return _cartIconBg;
 }
-//首页图标
-- (UIImageView *)homeIconImgV {
+//收藏图标
+- (UIButton *)collectBtn {
     
-    if (!_homeIconImgV) {
+    if (!_collectBtn) {
         
-        _homeIconImgV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3/2, 50) image:[UIImage imageNamed:@"tab_icon_home_default"]];
-        _homeIconImgV.contentMode = UIViewContentModeCenter;
-        _homeIconImgV.userInteractionEnabled = YES;
+        _collectBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3/2, 50) target:self action:@selector(collectAction:) image:[UIImage imageNamed:@"collect_01"] title:@"" titleColor:kWhiteColor font:FONT(15)];
+        [_collectBtn setImage:[UIImage imageNamed:@"collect_02"] forState:UIControlStateSelected];
+        [_collectBtn setBackgroundColor:kWhiteColor];
     }
-    return _homeIconImgV;
+    return _collectBtn;
     
 }
 //购物车图标
-- (UIImageView *)cartIconImgV {
+- (UIButton *)cartIconBtn {
   
-    if (!_cartIconImgV) {
+    if (!_cartIconBtn) {
         
-        _cartIconImgV = [UIImageView lh_imageViewWithFrame:CGRectMake(SCREEN_WIDTH/3/2, 0, SCREEN_WIDTH/3/2, 50) image:[UIImage imageNamed:@"tab_icon_shop_default"]];
-        _cartIconImgV.contentMode = UIViewContentModeCenter;
-        _cartIconImgV.userInteractionEnabled = YES;
+        _cartIconBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3/2, 0, SCREEN_WIDTH/3/2, 50) target:self action:@selector(cartIconBtnAction) image:[UIImage imageNamed:@"add_cart_pdetail"] title:@"" titleColor:kWhiteColor font:FONT(15)];
+        [_cartIconBtn setBackgroundColor:kWhiteColor];
 
     }
-    return _cartIconImgV;
+    return _cartIconBtn;
     
 }
 - (UIButton *)addCartBtn{
     
     if (!_addCartBtn) {
         
-        _addCartBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3, 0, SCREEN_WIDTH/3*2, 50) target:self action:@selector(addCartBtnAction) image:nil title:@"加入购物车" titleColor:kWhiteColor font:FONT(15)];
-        [_addCartBtn setBackgroundColor:kBlackColor];
+        _addCartBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3, 0, SCREEN_WIDTH/3, 50) target:self action:@selector(addCartBtnAction) image:nil title:@"加入购物车" titleColor:kWhiteColor font:FONT(15)];
+        [_addCartBtn setBackgroundColor:kGrayColor];
     }
     return _addCartBtn;
     
@@ -100,12 +101,12 @@
     
     if (!_buyBtn) {
         
-        _buyBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3*2, 0, SCREEN_WIDTH/3, 50) target:self action:@selector(buyCartBtnAction:) image:nil title:@"活动" titleColor:kWhiteColor font:FONT(15)];
-        [_buyBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 75, 5, 10)];
-        [_buyBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 40)];
-        [_buyBtn setImage:[UIImage imageNamed:@"triangle2"] forState:UIControlStateSelected];
-        [_buyBtn setImage:[UIImage imageNamed:@"triangle1"] forState:UIControlStateNormal];
-        [_buyBtn setBackgroundColor:kDarkGrayColor];
+        _buyBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3*2, 0, SCREEN_WIDTH/3, 50) target:self action:@selector(buyCartBtnAction:) image:nil title:@"立即付款" titleColor:kWhiteColor font:FONT(15)];
+//        [_buyBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 75, 5, 10)];
+//        [_buyBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 40)];
+//        [_buyBtn setImage:[UIImage imageNamed:@"triangle2"] forState:UIControlStateSelected];
+//        [_buyBtn setImage:[UIImage imageNamed:@"triangle1"] forState:UIControlStateNormal];
+        [_buyBtn setBackgroundColor:[UIColor redColor]];
 
     }
     return _buyBtn;

@@ -18,13 +18,14 @@
         //背景图
         self.bg_imageV = [UIImageView new];
         self.bg_imageV.backgroundColor = RGB(249, 233, 233);
+        self.bg_imageV.image = [UIImage imageNamed:@"person_bg"];
         [self addSubview:self.bg_imageV];
         //消息按钮
-        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@"t1_selected"]];
+        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@"msg"]];
         [self addSubview:self.message_button];
         //头像
         self.icon_view = [UIImageView new];
-        self.icon_view.backgroundColor = RGB(127, 130, 133);
+        self.icon_view.backgroundColor = KVCBackGroundColor;
         self.icon_view.image = [UIImage imageNamed:@"t4_selected"];
         [self addSubview:self.icon_view];
         //姓名

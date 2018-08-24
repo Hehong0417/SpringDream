@@ -49,7 +49,7 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
     
-    //搜索
+    
     [self setupSGSegmentedControl];
 
     [self setupSearchView];

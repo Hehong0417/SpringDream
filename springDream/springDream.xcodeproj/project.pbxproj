@@ -282,6 +282,7 @@
 		CE8A67DD212ACA2E00C7C57F /* HHCellCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BB212ACA2D00C7C57F /* HHCellCommentView.m */; };
 		CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */; };
 		CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */; };
+		CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */; };
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
 		CEDBA264212D70C200CB8002 /* HHdiscountPackageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */; };
 		CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */; };
@@ -838,6 +839,8 @@
 		CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHOrderTwoCell.m; sourceTree = "<group>"; };
 		CE8A67DF212ACA3F00C7C57F /* HHMyOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HHMyOrderItem.h; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.h; sourceTree = "<group>"; };
 		CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HHMyOrderItem.m; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.m; sourceTree = "<group>"; };
+		CEA31DE5212E8ACF0040502D /* HHGoodIntroduceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodIntroduceCell.h; sourceTree = "<group>"; };
+		CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodIntroduceCell.m; sourceTree = "<group>"; };
 		CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageViewTabCell.m; sourceTree = "<group>"; };
 		CEDBA25E212D70C200CB8002 /* HHdiscountPackageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageCollectionCell.h; sourceTree = "<group>"; };
 		CEDBA25F212D70C200CB8002 /* HHdiscountPackageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageView.h; sourceTree = "<group>"; };
@@ -923,16 +926,16 @@
 		CE472623212D1ECE002BD2A5 /* 属性选择 */ = {
 			isa = PBXGroup;
 			children = (
-				CE472624212D1ECE002BD2A5 /* DCFeatureItem.m */,
+				CE47262A212D1ECE002BD2A5 /* DCLIRLButton.h */,
 				CE472625212D1ECE002BD2A5 /* DCLIRLButton.m */,
-				CE472626212D1ECE002BD2A5 /* DCFeatureList.h */,
-				CE472627212D1ECE002BD2A5 /* DCFeatureTitleItem.m */,
+				CE47262D212D1ECE002BD2A5 /* DCFeatureItemCell.h */,
 				CE472628212D1ECE002BD2A5 /* DCFeatureItemCell.m */,
 				CE472629212D1ECE002BD2A5 /* DCFeatureItem.h */,
-				CE47262A212D1ECE002BD2A5 /* DCLIRLButton.h */,
+				CE472624212D1ECE002BD2A5 /* DCFeatureItem.m */,
 				CE47262B212D1ECE002BD2A5 /* DCFeatureTitleItem.h */,
+				CE472627212D1ECE002BD2A5 /* DCFeatureTitleItem.m */,
+				CE472626212D1ECE002BD2A5 /* DCFeatureList.h */,
 				CE47262C212D1ECE002BD2A5 /* DCFeatureList.m */,
-				CE47262D212D1ECE002BD2A5 /* DCFeatureItemCell.h */,
 			);
 			path = "属性选择";
 			sourceTree = "<group>";
@@ -1770,6 +1773,8 @@
 				CE5264F2212C1A1900F30D29 /* HHDetailGoodReferralCell.xib */,
 				CE472647212D37BB002BD2A5 /* HHFeatureSelectionViewCell.h */,
 				CE472648212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m */,
+				CEA31DE5212E8ACF0040502D /* HHGoodIntroduceCell.h */,
+				CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */,
 				CE5264E9212C143E00F30D29 /* HHNotWlanView.h */,
 				CE5264EA212C143F00F30D29 /* HHNotWlanView.m */,
 				CEDBA25C212D70C200CB8002 /* recommandCollecton */,
@@ -2558,6 +2563,7 @@
 				CE4D09ED212423F200796FEE /* UITableViewCell+LH.m in Sources */,
 				CE4D09F8212423F200796FEE /* NSObject+Swizzling.m in Sources */,
 				CE4D0A3D212423F200796FEE /* HXTabControlCell.m in Sources */,
+				CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */,
 				CE5264DB212BBFE600F30D29 /* XWCoolAnimator+XWLines.m in Sources */,
 				CE4D0A04212423F200796FEE /* UIViewController+Create.m in Sources */,
 				CE4D0A38212423F200796FEE /* HXCommonPickView.m in Sources */,
@@ -2785,6 +2791,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F972623DL2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2803,6 +2810,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F972623DL2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

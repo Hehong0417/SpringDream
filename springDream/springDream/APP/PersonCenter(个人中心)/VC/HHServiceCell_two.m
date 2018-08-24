@@ -16,7 +16,7 @@
     
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
         
-        NSArray *btn_image_arr = @[@"t1_selected",@"t2_selected",@"t3_selected",@"t4_selected"];
+        NSArray *btn_image_arr = @[@"service_11",@"service_12",@"service_13",@"service_14"];
         NSArray *btn_title_arr = @[@"地址管理",@"会员权益",@"会员互动",@"基础设置"];
         HHModelsView *models_view = [HHModelsView createModelViewWithFrame:self.frame btn_image_arr:btn_image_arr btn_title_arr:btn_title_arr title_color:kDarkGrayColor lineCount:5 message_arr:@[] title_image_padding:10 top_padding:8];
         models_view.delegate = self;

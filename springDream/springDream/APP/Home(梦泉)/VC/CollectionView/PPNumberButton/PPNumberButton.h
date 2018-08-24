@@ -88,6 +88,9 @@ IB_DESIGNABLE
 /** 最大值 */
 @property (nonatomic, assign ) NSInteger maxValue;
 
+/** 是否选择了属性 */
+@property (nonatomic, assign ) BOOL sku_isSelect;
+
 @end
 
 #pragma mark - NSString分类

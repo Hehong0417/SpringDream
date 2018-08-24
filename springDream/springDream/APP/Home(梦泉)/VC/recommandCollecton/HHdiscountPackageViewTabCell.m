@@ -23,8 +23,9 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = KVCBackGroundColor;
         _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 30)];
-        _discount_view = [[HHdiscountPackageView alloc] initWithFrame:CGRectMake(0, 30, ScreenW, 110)];
+        _discount_view = [[HHdiscountPackageView alloc] initWithFrame:CGRectMake(0, 30, ScreenW, 120)];
         [self.contentView addSubview:_titleView];
         [self.contentView addSubview:_discount_view];
         
@@ -40,13 +41,18 @@
     
     return self;
 }
-- (void)setPackages_model:(HHPackagesModel *)packages_model{
+- (void)setGuess_you_like_arr:(NSArray *)guess_you_like_arr{
     
-    _packages_model = packages_model;
-    _discount_view.PackagesProducts_models = packages_model.Products;
-    WEAK_SELF();
-
+     _guess_you_like_arr = guess_you_like_arr;
+    
+     BOOL  hidden = guess_you_like_arr.count>0?NO:YES;
+    _titleView.hidden = hidden;
+    _discount_view.hidden = hidden;
+    _discount_view.guess_you_like_arr = guess_you_like_arr;
+    
+    [_discount_view.collectionView reloadData];
 }
+
 - (void)setIndexPath:(NSIndexPath *)indexPath{
     
 //    _titleLabel.text = [NSString stringWithFormat:@"优惠套餐%ld",indexPath.row+1];

@@ -13,10 +13,10 @@
 //购物车图标底图
 @property (nonatomic, strong)   UIView *cartIconBg;
 //购物车图标
-@property (nonatomic, strong)   UIImageView *cartIconImgV;
+@property (nonatomic, strong)   UIButton *cartIconBtn;
 
-//首页tub
-@property (nonatomic, strong)   UIImageView *homeIconImgV;
+//收藏tub
+@property (nonatomic, strong)   UIButton *collectBtn;
 
 //加入购物车按钮
 @property (nonatomic, strong)   UIButton *addCartBtn;

@@ -12,6 +12,6 @@
 
 @property(nonatomic,strong)UICollectionView *collectionView;
 
-@property (nonatomic, strong)   NSArray <HHPackagesProductsModel *>*PackagesProducts_models;
+@property (nonatomic, strong)   NSArray *guess_you_like_arr;
 
 @end
