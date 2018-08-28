@@ -16,6 +16,8 @@
 		CE21846E21252FC8003F354F /* HHServiceCell_two.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846D21252FC8003F354F /* HHServiceCell_two.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
+		CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */; };
+		CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */; };
 		CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AE212D0140002BD2A5 /* HHActivityModel.m */; };
 		CE4725B1212D0141002BD2A5 /* HHselecetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AF212D0141002BD2A5 /* HHselecetModel.m */; };
 		CE4725B6212D017E002BD2A5 /* MLMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725B3212D017D002BD2A5 /* MLMenuCell.m */; };
@@ -283,6 +285,8 @@
 		CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */; };
 		CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */; };
 		CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */; };
+		CED55DCA2133F57F004C2E68 /* HHAddressFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */; };
+		CED55DCC2133F5A3004C2E68 /* HHAddressFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */; };
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
 		CEDBA264212D70C200CB8002 /* HHdiscountPackageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */; };
 		CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */; };
@@ -325,6 +329,10 @@
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
 		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE21847321254A6A003F354F /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
+		CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LH.h"; sourceTree = "<group>"; };
+		CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+LH.m"; sourceTree = "<group>"; };
+		CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHOrderDetailCell3.h; sourceTree = "<group>"; };
+		CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHOrderDetailCell3.m; sourceTree = "<group>"; };
 		CE4725AC212D013F002BD2A5 /* HHselecetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHselecetModel.h; sourceTree = "<group>"; };
 		CE4725AD212D0140002BD2A5 /* HHActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHActivityModel.h; sourceTree = "<group>"; };
 		CE4725AE212D0140002BD2A5 /* HHActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHActivityModel.m; sourceTree = "<group>"; };
@@ -841,6 +849,9 @@
 		CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HHMyOrderItem.m; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.m; sourceTree = "<group>"; };
 		CEA31DE5212E8ACF0040502D /* HHGoodIntroduceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodIntroduceCell.h; sourceTree = "<group>"; };
 		CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodIntroduceCell.m; sourceTree = "<group>"; };
+		CED55DC82133F57F004C2E68 /* HHAddressFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHAddressFooterView.h; sourceTree = "<group>"; };
+		CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHAddressFooterView.m; sourceTree = "<group>"; };
+		CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHAddressFooterView.xib; sourceTree = "<group>"; };
 		CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageViewTabCell.m; sourceTree = "<group>"; };
 		CEDBA25E212D70C200CB8002 /* HHdiscountPackageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageCollectionCell.h; sourceTree = "<group>"; };
 		CEDBA25F212D70C200CB8002 /* HHdiscountPackageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageView.h; sourceTree = "<group>"; };
@@ -1169,15 +1180,17 @@
 			isa = PBXGroup;
 			children = (
 				CE4D092D212423F100796FEE /* NSTimer+LH.m */,
-				CE4D092E212423F100796FEE /* NSString+LH.h */,
 				CE4D092F212423F100796FEE /* NSDate+LH.m */,
+				CE4D092E212423F100796FEE /* NSString+LH.h */,
 				CE4D0930212423F100796FEE /* NSNumber+LH.m */,
+				CE4D0936212423F100796FEE /* NSMutableArray+LH.h */,
 				CE4D0931212423F100796FEE /* NSMutableArray+LH.m */,
 				CE4D0932212423F100796FEE /* NSString+LH.m */,
 				CE4D0933212423F100796FEE /* NSTimer+LH.h */,
 				CE4D0934212423F100796FEE /* NSNumber+LH.h */,
 				CE4D0935212423F100796FEE /* NSDate+LH.h */,
-				CE4D0936212423F100796FEE /* NSMutableArray+LH.h */,
+				CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */,
+				CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1706,6 +1719,9 @@
 				CE8A6687212ABA9F00C7C57F /* HHShippingAddressCell.h */,
 				CE8A6691212ABAA500C7C57F /* HHShippingAddressCell.m */,
 				CE8A669E212ABAAD00C7C57F /* HHShippingAddressCell.xib */,
+				CED55DC82133F57F004C2E68 /* HHAddressFooterView.h */,
+				CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */,
+				CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */,
 				CE8A6684212ABA9D00C7C57F /* HHShippingAddressVC.h */,
 				CE8A6681212ABA9C00C7C57F /* HHShippingAddressVC.m */,
 				CE8A669F212ABAAD00C7C57F /* HHSubmitOrderCell.h */,
@@ -2040,6 +2056,8 @@
 				CE8A679C212ACA2800C7C57F /* HHOrderDetailTableHead.h */,
 				CE8A67B4212ACA2C00C7C57F /* HHOrderDetailTableHead.m */,
 				CE8A6795212ACA2700C7C57F /* HHOrderDetailTableHead.xib */,
+				CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */,
+				CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */,
 				CE8A678F212ACA2600C7C57F /* HHOrderDetailVC.h */,
 				CE8A6797212ACA2700C7C57F /* HHOrderDetailVC.m */,
 				CE8A6788212ACA2500C7C57F /* HHOrderItemModel.h */,
@@ -2243,6 +2261,7 @@
 				CE8A67CC212ACA2E00C7C57F /* HJOrderCell.xib in Resources */,
 				CE8A66B3212ABAB100C7C57F /* HHSubmitOrderTool.xib in Resources */,
 				CE8A64EF212AA29600C7C57F /* HHPhoneLoginVC.xib in Resources */,
+				CED55DCC2133F5A3004C2E68 /* HHAddressFooterView.xib in Resources */,
 				CE8A67C7212ACA2E00C7C57F /* HHOrderDetailTableHead.xib in Resources */,
 				CE4D08CA2124205800796FEE /* Assets.xcassets in Resources */,
 				CE8A67DB212ACA2E00C7C57F /* HHOrderTwoCell.xib in Resources */,
@@ -2285,12 +2304,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-springDream/Pods-springDream-resources.sh",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
+				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2428,6 +2447,7 @@
 				CE4D08C22124205600796FEE /* AppDelegate.m in Sources */,
 				CE8A66AE212ABAB100C7C57F /* HHShippingAddressCell.m in Sources */,
 				CE8A67D6212ACA2E00C7C57F /* HHOrderDetailCellOne.m in Sources */,
+				CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */,
 				CE8A66AD212ABAB100C7C57F /* HHSaleGroupWebVC.m in Sources */,
 				CE472649212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m in Sources */,
 				CE8A654E212AAC6800C7C57F /* HHtEditCarItem.m in Sources */,
@@ -2593,6 +2613,7 @@
 				CE5264E4212BBFE600F30D29 /* XWCircleSpreadAnimator.m in Sources */,
 				CE8A651E212AAB7A00C7C57F /* SKTagView.m in Sources */,
 				CE4D0A05212423F200796FEE /* UIView+Utils.m in Sources */,
+				CED55DCA2133F57F004C2E68 /* HHAddressFooterView.m in Sources */,
 				CE4D0A34212423F200796FEE /* HJUser.m in Sources */,
 				CE8A67C6212ACA2E00C7C57F /* HHApplyRefundVC.m in Sources */,
 				CE8A6549212AAC6800C7C57F /* HHCartAPI.m in Sources */,
@@ -2617,6 +2638,7 @@
 				CE8A6536212AAC0100C7C57F /* HHCategoryModel.m in Sources */,
 				CE4D0A2C212423F200796FEE /* HJLog.m in Sources */,
 				CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */,
+				CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */,
 				CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */,
 				CE8A67D7212ACA2E00C7C57F /* HHEvaluationHeadView.m in Sources */,
 				CE4D0A0E212423F200796FEE /* CDPStarEvaluation.m in Sources */,
@@ -2798,6 +2820,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = hehong.com.springDream;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2816,6 +2842,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = hehong.com.springDream;
 				PRODUCT_NAME = "$(TARGET_NAME)";

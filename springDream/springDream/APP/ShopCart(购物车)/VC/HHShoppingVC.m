@@ -307,8 +307,18 @@
     
     //提交订单
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{
-
-        [self isExitAddressWithSendGift:@0];
+        NSMutableArray *select_idx_arr = [NSMutableArray array];
+        [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqual:@1]) {
+                [select_idx_arr addObject:obj];
+            }
+        }];
+        if (select_idx_arr.count>0) {
+            [self isExitAddressWithSendGift:@0];
+        }else{
+            [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+            [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
+        }
         
     }];
     
@@ -349,7 +359,6 @@
                           vc.sendGift = self.model.sendGift;
                         }else{
                           vc.mode = nil;
-
                         }
                     }else{
                           vc.mode = nil;

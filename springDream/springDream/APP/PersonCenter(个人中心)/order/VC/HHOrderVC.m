@@ -44,7 +44,7 @@
     self.view.backgroundColor = KVCBackGroundColor;
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.page = 1;
-    self.title_arr = @[@"全部",@"待付款",@"待发货",@"待收货",@"待评价"];
+    self.title_arr = @[@"全部",@"待付款",@"待发货",@"待收货",@"待评价",@"售后"];
     //UI
     [self setUI];
 
@@ -65,6 +65,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.emptyDataSetSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     //registerCell
@@ -77,7 +78,7 @@
     //SG
     self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
     self.SG.title_fondOfSize = FONT(14);
-    self.SG.titleColorStateNormal = KTitleLabelColor;
+    self.SG.titleColorStateNormal = kBlackColor;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
     self.SG.indicatorColor = APP_COMMON_COLOR;
     [self.view addSubview:_SG];
@@ -334,6 +335,7 @@
         //商品
             HJOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HJOrderCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
             cell.productModel =  orders_m.items[indexPath.row];
             cell.nav = self.navigationController;
             [self setStandardLabWith:orders_m.items[indexPath.row] cell:cell];
@@ -357,6 +359,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 55) backColor:kWhiteColor];
+    
+    UIView *line = [UIView lh_viewWithFrame:CGRectMake(10, 0, ScreenW-20, 1) backColor:KVCBackGroundColor];
+    [footView addSubview:line];
     
     UIButton *oneBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH-160-20, 10, 80, 30) target:self action:@selector(oneAction:) title:@"取消" titleColor:APP_COMMON_COLOR font:FONT(14) backgroundColor:kWhiteColor];
     oneBtn.tag = section+100;
@@ -407,7 +412,7 @@
             BOOL twoBtnState =  [model.order_can_evaluate isEqual:@1]?NO:YES;
             [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:twoBtnState];
             //twoBtn
-            [self setBtnAttrWithBtn:twoBtn Title:@"评价" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
+            [self setBtnAttrWithBtn:twoBtn Title:@"去评价" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
         }else if([status isEqualToString:@"6"]){
             // 申请退款
             down_y = 0;
@@ -497,8 +502,8 @@
 //处理订单
 - (void)handleOrderWithorderid:(NSString *)orderid status:(HHhandle_type)handle_type btn:(UIButton *)btn  title:(NSString *)titleStr{
     
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:titleStr message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:titleStr preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         btn.enabled = NO;
         [btn lh_setBackgroundColor:KA0LabelColor forState:UIControlStateNormal];
         if (handle_type == HHhandle_type_cancel) {
@@ -547,7 +552,7 @@
 //        广州市番禺区大石镇周岸坊前街一巷6-1
 //        兴华街3巷3号401
     }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
         [alertC dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -598,7 +603,7 @@
         }
     }else if([status isEqualToString:@"3"]){
 //        //待收货--->确认收货
-        [self handleOrderWithorderid:model.order_id status:HHhandle_type_Confirm btn:btn title:@"确认收货？"];
+        [self handleOrderWithorderid:model.order_id status:HHhandle_type_Confirm btn:btn title:@"是否确认收货？"];
         
     }else if([status isEqualToString:@"5"]){
         //交易成功-->追加评价
@@ -615,21 +620,27 @@
     
     HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
     UIView *headView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) backColor:kWhiteColor];
-    UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 60, 40) text:model.status_name textColor:kRedColor font:[UIFont boldSystemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
-    [headView addSubview:textLabel];
-    UIView *downLine = [UIView lh_viewWithFrame:CGRectMake(CGRectGetMaxX(textLabel.frame)+5, 0,1, 40) backColor:KVCBackGroundColor];
-    [headView addSubview:downLine];
+  
+//    UIView *downLine = [UIView lh_viewWithFrame:CGRectMake(CGRectGetMaxX(textLabel.frame)+5, 0,1, 40) backColor:KVCBackGroundColor];
+//    [headView addSubview:downLine];
+   //店铺名称
+    UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(8, 0, 200, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
+    [headView addSubview:button];
 
-    CGSize order_date_size = [model.order_date lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-    UILabel *orderLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(textLabel.frame)+20, 0,order_date_size.width+1, 40) text:model.order_date textColor:kBlackColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-    orderLabel.centerY = headView.centerY;
-    [headView addSubview:orderLabel];
+    //时间
+//    CGSize order_date_size = [model.order_date lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+//    UILabel *orderLabel = [UILabel lh_labelWithFrame:CGRectMake(10, 0,order_date_size.width+1, 40) text:model.order_date textColor:kBlackColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+//    orderLabel.centerY = headView.centerY;
+//    [headView addSubview:orderLabel];
     if (![model.order_mode isEqual:@1]) {
       CGSize mode_size = [model.order_mode_name lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(orderLabel.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];
+        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(button.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];
         activityLabel.centerY = headView.centerY;
         [headView addSubview:activityLabel];
     }
+    UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-95, 0, 80, 40) text:model.status_name textColor:kRedColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+    [headView addSubview:textLabel];
+    
     return headView;
 }
 
@@ -648,7 +659,7 @@
     if (indexPath.row == orders_m.items.count) {
         return 44;
     }else{
-        return 85;
+        return 100;
     }
     return 0.01;
 }

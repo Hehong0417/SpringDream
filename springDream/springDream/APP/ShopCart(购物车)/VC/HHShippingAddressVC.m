@@ -9,6 +9,7 @@
 #import "HHShippingAddressVC.h"
 #import "HHShippingAddressCell.h"
 #import "HHAddAdressVC.h"
+#import "HHAddressFooterView.h"
 
 @interface HHShippingAddressVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
@@ -54,9 +55,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HHShippingAddressCell" bundle:nil] forCellReuseIdentifier:@"HHShippingAddressCell"];
     
     UIButton *addAddressBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50-Status_HEIGHT-44, SCREEN_WIDTH, 50) target:self action:@selector(addAddressAction) image:nil];
-    [addAddressBtn setBackgroundColor:kWhiteColor];
-    [addAddressBtn setTitle:@"+新增收货地址" forState:UIControlStateNormal];
-    [addAddressBtn setTitleColor:kRedColor forState:UIControlStateNormal];
+    [addAddressBtn setBackgroundColor:kRedColor];
+    [addAddressBtn setTitle:@"新增收货地址" forState:UIControlStateNormal];
+    [addAddressBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
     [self.view addSubview:addAddressBtn];
     
     [self addHeadRefresh];
@@ -195,8 +196,8 @@
     HHAddAdressVC *vc = [HHAddAdressVC new];
     vc.titleStr = @"编辑收货地址";
     vc.addressType = HHAddress_editType;
-    NSIndexPath *indexPath =  [self.tableView indexPathForCell:(HHShippingAddressCell *)btn.superview.superview];
-    HHMineModel *model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    NSInteger section = btn.tag - 1000;
+    HHMineModel *model = [HHMineModel mj_objectWithKeyValues:self.datas[section]];
     vc.Id = model.AddrId;
     vc.province = model.Province;
     vc.city = model.City;
@@ -240,17 +241,7 @@
     
     HHShippingAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHShippingAddressCell"];
     cell.shippingAddressModel =  [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
-    [cell.editAddressBtn addTarget:self action:@selector(editAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    cell.deleteAddressBtn.tag = indexPath.section+100;
-    [cell.deleteAddressBtn addTarget:self action:@selector(deleteAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    if (self.enter_type == HHenter_type_submitOrder) {
-        cell.editAddressBtn.hidden = YES;
-        cell.deleteAddressBtn.hidden = YES;
-    }else if (self.enter_type == HHenter_type_mine){
-        cell.editAddressBtn.hidden = NO;
-        cell.deleteAddressBtn.hidden = NO;
-    }
-    
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -267,7 +258,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 120;
+    return 90;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HHMineModel *shippingAddressModel = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
@@ -282,12 +273,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return 5;
+    return 50;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 0.01;
+    return 5;
     
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    HHAddressFooterView *footer = [[[NSBundle mainBundle] loadNibNamed:@"HHAddressFooterView" owner:self options:nil] firstObject];
+    footer.deleteAddressBtn.tag = section+100;
+    footer.editAddressBtn.tag = section+1000;
+    [footer.editAddressBtn addTarget:self action:@selector(editAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [footer.deleteAddressBtn addTarget:self action:@selector(deleteAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    return footer;
 }
 //- (id)copyWithZone:(NSZone *)zone
 //{

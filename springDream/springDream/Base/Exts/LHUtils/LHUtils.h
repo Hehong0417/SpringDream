@@ -46,6 +46,7 @@
 // Foundation
 #import "NSDate+LH.h"
 #import "NSString+LH.h"
+#import "NSAttributedString+LH.h"
 #import "NSTimer+LH.h"
 // UIKit
 #import "UIButton+LH.h"

@@ -51,9 +51,9 @@
                                
                                NSCharacterEncodingDocumentAttribute :@(NSUTF8StringEncoding)};
     
-    NSString *str = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}</style></head>%@",SCREEN_WIDTH-20,htmlString];
-    
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+//    NSString *str = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}</style></head>%@",SCREEN_WIDTH-20,htmlString];
+
+    NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
     
     return [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
     

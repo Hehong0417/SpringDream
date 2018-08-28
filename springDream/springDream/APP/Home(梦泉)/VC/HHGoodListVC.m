@@ -70,8 +70,9 @@
 
 - (void)setupSGSegmentedControl{
     
-    self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
-    
+//    self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
+    self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
+
     if (self.title_arr.count < 5) {
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
     }else{
@@ -279,20 +280,9 @@
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
     
     [self.task cancel];
-    
-    if (index == 0){
-        //价格
-        if (self.orderState==1) {
-            self.orderState = 2;
-        }else{
-            self.orderState = 1;
-        }
-        self.orderby = @(self.orderState);
-        
-        [self getDatas];
 
-    }else if (index == 1){
-        //上架
+    if (index == 0){
+        //上新
         if (self.orderState==3) {
             self.orderState = 4;
         }else{
@@ -301,23 +291,38 @@
         self.orderby = @(self.orderState);
         [self getDatas];
         
-    }else if (index == 2){
-        //浏览量
-        if (self.orderState==5) {
-            self.orderState = 6;
-        }else{
-            self.orderState = 5;
-        }
-        self.orderby = @(self.orderState);
-        [self getDatas];
-    }else if (index == 3){
-        //销量量
+
+    }else if (index == 1){
+  
+        //销量
         if (self.orderState==7) {
             self.orderState = 8;
         }else{
             self.orderState = 7;
         }
         self.orderby = @(self.orderState);
+        [self getDatas];
+    }
+//    else if (index == 2){
+        //浏览量
+//        if (self.orderState==5) {
+//            self.orderState = 6;
+//        }else{
+//            self.orderState = 5;
+//        }
+//        self.orderby = @(self.orderState);
+//        [self getDatas];
+//    }
+    else if (index == 2){
+ 
+        //价格
+        if (self.orderState==1) {
+            self.orderState = 2;
+        }else{
+            self.orderState = 1;
+        }
+        self.orderby = @(self.orderState);
+        
         [self getDatas];
     }
     

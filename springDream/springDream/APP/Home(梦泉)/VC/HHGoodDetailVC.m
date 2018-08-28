@@ -75,7 +75,7 @@ static NSArray *lastSele_IdArray_;
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
-    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-49-20) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
+    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-44-20-50) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
     
     [self.view addSubview:self.tabView];
@@ -188,7 +188,10 @@ static NSArray *lastSele_IdArray_;
                 sku_id = @"0";
             }
             NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
-            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+            NSString *quantity = @"1";
+            if (cell.Num_>0) {
+                quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+            }
             
             if (sku_id_Str.length>0) {
                 //立即购买
@@ -327,7 +330,11 @@ static NSArray *lastSele_IdArray_;
         HHGoodIntroduceCell *cell = [tableView dequeueReusableCellWithIdentifier:HHGoodIntroduceCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = self.gooodDetailModel;
-        
+        __weak HHGoodDetailVC *weakSelf = self;
+        cell.reloadBlock =^()
+        {
+            [weakSelf.tabView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
         gridcell = cell;
         
     }
@@ -355,10 +362,9 @@ static NSArray *lastSele_IdArray_;
             }
         }
     if (indexPath.section == 4) {
-        
-        HHgooodDetailModel *model =  self.gooodDetailModel;
-        
-        return [self.tabView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[HHGoodIntroduceCell class] contentViewWidth:[self cellContentViewWith]];
+
+        return [HHGoodIntroduceCell cellHeight];
+
     }
 
     return 120;
@@ -375,9 +381,6 @@ static NSArray *lastSele_IdArray_;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    if (section == 4) {
-        return 20;
-    }
     return 0.01;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

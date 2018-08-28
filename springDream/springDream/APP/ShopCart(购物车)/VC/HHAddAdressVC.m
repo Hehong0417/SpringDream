@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong)   UITableView *tableView;
 @property (nonatomic, strong)   NSArray *title_arr;
-@property (nonatomic, strong)   NSArray *placeHolder_arr;
+@property (nonatomic, strong)   NSMutableArray *placeHolder_arr;
 @property (nonatomic, strong)    GFAddressPicker *addressPick;
 @property (nonatomic, strong)    NSString *address_Str;
 @property (nonatomic, strong)    UISwitch *swi;
@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong)   NSString *address;
 
+@property (nonatomic, strong)   NSArray *addressValue_arr;
+
 @end
 
 @implementation HHAddAdressVC
@@ -37,18 +39,23 @@
     [super viewDidLoad];
     
     self.title = self.titleStr;
-        
+    
+    
+    self.title_arr = @[@[@"国家/地区",@"市、区",@"详细地址",@"邮政编码"],@[@"收件人姓名",@"电话号码"],@[@"设置为默认地址"]];
+    self.placeHolder_arr = [NSMutableArray arrayWithArray:@[@[@"中国大陆",@"请选择",@"",@"邮政编码"],@[@"请填写真实姓名，确保顺利收到货",@"中国大陆电话号码"],@[@""]]];
+    
     //获取数据
     if (self.addressType == HHAddress_editType) {
         [self getDatas];
     }
-    self.title_arr = @[@"*  收货人：",@"*  手机号码：",@"*  所在地区",@"*  详细地址："];
-    self.placeHolder_arr = @[@"请使用真实姓名",@"点击编辑手机号码",@"点击选择所在地区",@"点击编辑详细地址"];
+
+    self.addressValue_arr = @[@[@"中国大陆",@"",@"",@"邮政编码"],@[@"",@""],@[@""]];
+
     //tableView
     CGFloat tableHeight;
     tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44;
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -213,50 +220,69 @@
 #pragma mark --- tableView delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    HHTextfieldcell *cell = [tableView dequeueReusableCellWithIdentifier:@"tit leLabel"];
-    
-    if (!cell) {
-        cell = [[HHTextfieldcell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
-    }
-    cell.inputTextField.tag = indexPath.row+10000;
-    if (indexPath.row == 0) {
-        cell.titleLabel.attributedText =  [NSString lh_attriStrWithprotocolStr:@"*" content:self.title_arr[indexPath.row] protocolStrColor:kRedColor contentColor:kBlackColor];
-        cell.inputTextField.text = self.username;
-        cell.inputTextField.delegate = self;
-    }else{
-        cell.titleLabel.attributedText =  [NSString lh_attriStrWithprotocolStr:@"*" content:self.title_arr[indexPath.row] protocolStrColor:kRedColor contentColor:kBlackColor];
-        if (indexPath.row == 1){
+    UITableViewCell *gridCell = nil;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0 ||indexPath.row == 1) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell.textLabel.textColor = KTitleLabelColor;
+            cell.detailTextLabel.textColor = indexPath.row?KTitleLabelColor:kBlackColor;
+        cell.textLabel.font = FONT(14);
+        cell.detailTextLabel.font = FONT(14);
+            if (indexPath.row == 1) {
+                cell.detailTextLabel.text =  self.address_Str?self.address_Str:self.placeHolder_arr[indexPath.section][indexPath.row];
+            }else{
+                cell.detailTextLabel.text = self.placeHolder_arr[indexPath.section][indexPath.row];
+            }
+            cell.textLabel.text = self.title_arr[indexPath.section][indexPath.row];
+
+        gridCell = cell;
+        }
+        if (indexPath.row == 2 ||indexPath.row == 3) {
+          HHTextfieldcell *cell = [[HHTextfieldcell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
+            cell.titleLabel.textColor = KTitleLabelColor;
+            cell.inputTextField.textColor = kBlackColor;
+            cell.titleLabel.font = FONT(14);
+            cell.inputTextField.font = FONT(14);
             cell.inputTextField.delegate = self;
-            cell.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
-            cell.inputTextField.text = self.mobile;
+            cell.titleLabel.text = self.title_arr[indexPath.section][indexPath.row];
+            cell.inputTextField.placeholder = self.placeHolder_arr[indexPath.section][indexPath.row];
+            cell.inputTextField.text = self.addressValue_arr[indexPath.section][indexPath.row];
+            gridCell = cell;
+
         }
-     if (indexPath.row == 2){
-         cell.inputTextField.enabled = NO;
-         cell.inputTextField.text = self.address_Str;
-        }
-        if (indexPath.row == 3){
-            cell.inputTextField.text = self.address;
-        }
-//    if (indexPath.row == 4) {
-//        cell.titleLabel.frame = CGRectMake(15, 0, ScreenW - 60 - 22, 44);
-//        cell.titleLabel.attributedText =  [NSString lh_attriStrWithprotocolStr:@"(注：每次下单时都会使用该地址)" content:@"设为默认地址(注：每次下单时都会使用该地址)" protocolFont:FONT(12) contentFont:FONT(14) protocolStrColor:KACLabelColor contentColor:kBlackColor];
-//
-//        self.swi = [[UISwitch alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 70, 10, 60, 44)];
-//        [self.swi setOn:self.isOn];
-//        [cell.contentView addSubview:self.swi];
-//      }
+    }else if (indexPath.section == 1){
+        HHTextfieldcell *cell = [[HHTextfieldcell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
+        cell.titleLabel.textColor = KTitleLabelColor;
+        cell.inputTextField.textColor = kBlackColor;
+        cell.titleLabel.font = FONT(14);
+        cell.inputTextField.font = FONT(14);
+        cell.inputTextField.delegate = self;
+        cell.titleLabel.text = self.title_arr[indexPath.section][indexPath.row];
+        cell.inputTextField.placeholder = self.placeHolder_arr[indexPath.section][indexPath.row];
+        cell.inputTextField.text = self.addressValue_arr[indexPath.section][indexPath.row];
+        gridCell = cell;
+
+    }else if (indexPath.section == 2){
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.textLabel.textColor = KTitleLabelColor;
+        cell.detailTextLabel.textColor = kBlackColor;
+        cell.textLabel.font = FONT(14);
+        cell.detailTextLabel.font = FONT(14);
+        cell.textLabel.text = self.title_arr[indexPath.section][indexPath.row];
+        UISwitch *swi = [UISwitch new];
+        [swi addTarget:self action:@selector(swiAction:) forControlEvents:UIControlEventValueChanged];
+        [swi setOnTintColor:kRedColor];
+        cell.accessoryView  = swi;
+        gridCell = cell;
+        
     }
-    cell.inputTextField.placeholder = self.placeHolder_arr[indexPath.row];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
+
+    return gridCell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 2) {
-       
+    if (indexPath.section == 0&&indexPath.row == 1) {
+        //选择地址
         self.addressPick = [[GFAddressPicker alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         self.addressPick.font = [UIFont systemFontOfSize:WidthScaleSize_H(19)];
         [self.addressPick showPickViewAnimation:YES];
@@ -264,6 +290,7 @@
         self.addressPick.completeBlock = ^(NSString *result, NSString *district_id) {
             weakSelf.district_id = district_id;
             weakSelf.address_Str = result;
+            
             [weakSelf.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
         };
     }
@@ -272,28 +299,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return self.title_arr.count;
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 4;
+    NSArray *rows = self.title_arr[section];
+    return rows.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 44;
+    if (indexPath.section == 0&&indexPath.row == 2) {
+        return 60;
+    }
+    return WidthScaleSize_H(50);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return 0.01;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     return 0.01;
     
 }
-
+- (void)swiAction:(UISwitch *)swi{
+    
+    
+    
+    
+}
 
 @end

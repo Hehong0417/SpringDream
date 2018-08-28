@@ -22,6 +22,9 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     
+    UIView *bgView = [UIView lh_viewWithFrame:CGRectMake(15, 5, ScreenW-10, 95) backColor:KVCBackGroundColor];
+    [self.contentView insertSubview:bgView belowSubview:self.goodsIco];
+    
     [self.goodsIco lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
     [self.StandardLab lh_setCornerRadius:5 borderWidth:1 borderColor:KA0LabelColor];
 

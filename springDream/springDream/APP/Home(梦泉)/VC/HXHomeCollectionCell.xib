@@ -56,12 +56,18 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59r-IY-y64">
-                        <rect key="frame" x="122" y="0.0" width="48" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="收藏">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59r-IY-y64">
+                        <rect key="frame" x="121" y="0.0" width="49" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="VxS-M5-QSJ"/>
+                            <constraint firstAttribute="height" constant="31" id="xkh-Qv-yqz"/>
+                        </constraints>
+                        <state key="normal" image="tip_03">
                             <color key="titleColor" red="0.99215686270000003" green="0.2901960784" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="collectButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="0aH-EP-yUf"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -69,16 +75,19 @@
             <constraints>
                 <constraint firstItem="dkC-Ru-ecP" firstAttribute="centerX" secondItem="SEy-5g-ep8" secondAttribute="centerX" id="0rS-9Q-2Gp"/>
                 <constraint firstItem="dkC-Ru-ecP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="30" id="4zX-jh-HKy"/>
+                <constraint firstItem="59r-IY-y64" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8ul-uv-Nok"/>
                 <constraint firstItem="BFu-Al-SfU" firstAttribute="bottom" secondItem="IG9-GQ-VDY" secondAttribute="bottom" id="CAH-Sv-3Th"/>
                 <constraint firstItem="IG9-GQ-VDY" firstAttribute="leading" secondItem="04k-dS-PNf" secondAttribute="leading" id="Ib7-kF-hsF"/>
                 <constraint firstItem="04k-dS-PNf" firstAttribute="top" secondItem="dkC-Ru-ecP" secondAttribute="bottom" constant="21" id="Q7v-Rz-f6F"/>
                 <constraint firstItem="BFu-Al-SfU" firstAttribute="leading" secondItem="IG9-GQ-VDY" secondAttribute="trailing" constant="8" id="bFi-JP-IjK"/>
                 <constraint firstAttribute="trailing" secondItem="04k-dS-PNf" secondAttribute="trailing" id="cYp-D5-xbs"/>
                 <constraint firstItem="04k-dS-PNf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="qid-1K-13r"/>
+                <constraint firstAttribute="trailing" secondItem="59r-IY-y64" secondAttribute="trailing" id="vS9-f4-JVH"/>
                 <constraint firstAttribute="bottom" secondItem="IG9-GQ-VDY" secondAttribute="bottom" constant="9" id="yW0-We-3EP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
+                <outlet property="collectButton" destination="59r-IY-y64" id="Peg-KM-qUj"/>
                 <outlet property="goodImageV" destination="dkC-Ru-ecP" id="ThK-j0-X4z"/>
                 <outlet property="product_min_priceLabel" destination="IG9-GQ-VDY" id="9oP-Fh-OxB"/>
                 <outlet property="product_nameLabel" destination="04k-dS-PNf" id="9ur-Yb-PhB"/>
@@ -86,4 +95,7 @@
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="tip_03" width="19" height="16"/>
+    </resources>
 </document>

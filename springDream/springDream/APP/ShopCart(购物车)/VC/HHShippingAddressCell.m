@@ -22,13 +22,8 @@
     
     self.usernameLabel.text = shippingAddressModel.Recipient;
     self.mobileLabel.text = shippingAddressModel.Moble;
-    self.provinceLabel.text =  [NSString stringWithFormat:@"%@%@",shippingAddressModel.City,shippingAddressModel.District];
     self.full_addressLabel.text = shippingAddressModel.FullAddress;
-    if ([shippingAddressModel.IsDefault isEqualToString:@"0"]) {
-        self.defaultAddressLabel.hidden = YES;
-    }else{
-        self.defaultAddressLabel.hidden = NO;
-    }
+
     
 }
 @end

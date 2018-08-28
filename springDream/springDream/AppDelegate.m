@@ -8,12 +8,11 @@
 
 #import "AppDelegate.h"
 #import "HHWXLoginVC.h"
+#import "WXApi.h"
 
 #define USHARE_DEMO_APPKEY  @"5a5f10bfa40fa34719000128"
 #define Wechat_AppKey  @"wx33876b8653ae654a"
 #define Wechat_appSecret  @"e6e57e630f10b8b6529aece037c334c3"
-#import "WXApi.h"
-#import <UMSocialCore/UMSocialCore.h>
 
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -36,6 +35,9 @@
 //    }
     [self IQKeyboardManagerConfig];
     
+    [WXApi registerApp:Wechat_AppKey];
+    
+
     //配置友盟
     [self UMSocialConfig];
     [self.window makeKeyAndVisible];
@@ -63,10 +65,9 @@
 - (void)UMSocialConfig{
     
     /* 打开调试日志 */
-    [[UMSocialManager defaultManager] openLog:YES];
-    
+    [UMConfigure setLogEnabled:YES];
     /* 设置友盟appkey */
-    [[UMSocialManager defaultManager] setUmSocialAppkey:USHARE_DEMO_APPKEY];
+    [UMConfigure initWithAppkey:USHARE_DEMO_APPKEY channel:@"App Store"];
     
     [self configUSharePlatforms];
     
@@ -75,29 +76,48 @@
 - (void)configUSharePlatforms
 {
     /* 设置微信的appKey和appSecret */
+
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:Wechat_AppKey appSecret:Wechat_appSecret redirectURL:@"http://mobile.umeng.com/social"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:Wechat_AppKey appSecret:Wechat_appSecret redirectURL:@"http://mobile.umeng.com/social"];
 }
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    //    6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
         // 其他如支付等SDK的回调
-        
+        return [WXApi handleOpenURL:url delegate:self];
+
+    }
+    return result;
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+        return [WXApi handleOpenURL:url delegate:self];
+
+    }
+    return result;
+}
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
+    if (!result) {
+        // 其他如支付等SDK的回调
         return [WXApi handleOpenURL:url delegate:self];
     }
     return result;
 }
-
-
 //微信支付回调
 - (void)onResp:(BaseResp *)resp {
     
-    if ([resp isKindOfClass:[WXNontaxPayResp class]]){
+    if ([resp isKindOfClass:[PayResp class]]){
         
-        WXNontaxPayResp *response = (WXNontaxPayResp*)resp;
+        PayResp *response = (PayResp*)resp;
         
         switch(response.errCode){
             case WXSuccess:{

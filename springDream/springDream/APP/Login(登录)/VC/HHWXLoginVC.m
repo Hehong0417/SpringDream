@@ -9,7 +9,6 @@
 #import "HHWXLoginVC.h"
 #import "HHBandPhoneVc.h"
 #import "WXApi.h"
-#import <UMSocialCore/UMSocialCore.h>
 #import "HHPhoneLoginVC.h"
 
 @interface HHWXLoginVC ()

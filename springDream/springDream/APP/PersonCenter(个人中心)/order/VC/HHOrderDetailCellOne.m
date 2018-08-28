@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+
+    
 }
 - (void)setAddressModel:(HHCartModel *)addressModel{
     _addressModel = addressModel;

@@ -22,8 +22,8 @@
     
     HHModelsView *models_view = [[HHModelsView alloc] initWithFrame:frame];
     
-    CGFloat imagW = 60;
-    CGFloat imagH = 60;
+    CGFloat imagW = 70;
+    CGFloat imagH = 70;
     CGFloat margin = (ScreenW-btn_title_arr.count*imagW)/(btn_title_arr.count+1);
     
     for (NSInteger i = 0; i < btn_image_arr.count;i++) {

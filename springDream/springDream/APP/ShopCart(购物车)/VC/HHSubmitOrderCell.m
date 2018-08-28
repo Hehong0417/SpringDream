@@ -14,6 +14,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    UIView *bgView = [UIView lh_viewWithFrame:CGRectMake(10, 10, ScreenW-10, 90) backColor:KVCBackGroundColor];
+    [self.contentView insertSubview:bgView belowSubview:self.iconImageV];
 }
 - (void)setProductsModel:(HHproductsModel *)productsModel{
     _productsModel = productsModel;

@@ -10,16 +10,14 @@
 #import "HHSubmitOrderCell.h"
 #import "HHOrderDetailCellOne.h"
 #import "HHOrderDetailHead.h"
-#import "HHOrderDetailTableHead.h"
+#import "HHOrderDetailCell3.h"
 
 @interface HHOrderDetailVC ()<UITableViewDelegate,UITableViewDataSource>
-{
-    UILabel *orderIdLabel;
-    UILabel *createdateLabel;
-    HHOrderDetailTableHead *subhead;
-}
+
 @property (nonatomic, strong)   UITableView *tableView;
 @property (nonatomic, strong)   HHCartModel *model;
+@property (nonatomic, strong)   UILabel *title_label;
+@property (nonatomic, strong)   UILabel *state_label;
 @property (nonatomic, strong)   NSMutableArray *datas;
 
 @end
@@ -45,10 +43,14 @@
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHSubmitOrderCell" bundle:nil] forCellReuseIdentifier:@"HHSubmitOrderCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HHOrderDetailCellOne" bundle:nil] forCellReuseIdentifier:@"HHOrderDetailCellOne"];
+    [self.tableView registerClass:[HHOrderDetailCell3 class] forCellReuseIdentifier:@"HHOrderDetailCell3"];
+
+    
 //    20w   2 + 10 + 4
     //添加头部
     [self addTableHeader];
@@ -70,9 +72,9 @@
             if (api.State == 1) {
         
                     self.model = [HHCartModel mj_objectWithKeyValues:api.Data];
-                    orderIdLabel.text = [NSString stringWithFormat:@"订单编号：%@",self.model.orderid];
-                    createdateLabel.text = [NSString stringWithFormat:@"下单时间：%@",self.model.orderDate];
-                subhead.order_status_label.text = self.model.statusName;
+//                    orderIdLabel.text = [NSString stringWithFormat:@"订单编号：%@",self.model.orderid];
+//                    createdateLabel.text = [NSString stringWithFormat:@"下单时间：%@",self.model.orderDate];
+                    self.state_label.text = self.model.statusName;
                   [self.model.prodcuts enumerateObjectsUsingBlock:^(HHproductsModel *  product_model, NSUInteger idx, BOOL * _Nonnull stop) {
                     [product_model.skuid  enumerateObjectsUsingBlock:^(HHskuidModel *  sku_model, NSUInteger idx, BOOL * _Nonnull stop) {
                         
@@ -103,16 +105,15 @@
 }
 - (void)addTableHeader{
     
-    UIView *tableHead = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 100) backColor:KVCBackGroundColor];
-    tableHead.backgroundColor = KVCBackGroundColor;
+    UIView *tableHead = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 50) backColor:kWhiteColor];
+    //店铺名称
+    UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 220, 50 ) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
+    [tableHead addSubview:button];
 
-    subhead = [[[NSBundle mainBundle] loadNibNamed:@"HHOrderDetailTableHead" owner:self options:nil] lastObject];
-    orderIdLabel = [UILabel lh_labelWithFrame:CGRectMake(41,35 , ScreenW, 30) text:@"订单编号：" textColor:kBlackColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:KVCBackGroundColor];
-    createdateLabel = [UILabel lh_labelWithFrame:CGRectMake(41,65 , ScreenW, 30) text:@"下单时间：" textColor:kBlackColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:KVCBackGroundColor];
-    [tableHead addSubview:subhead];
-    [tableHead addSubview:orderIdLabel];
-    [tableHead addSubview:createdateLabel];
-
+    //订单状态
+    self.state_label = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-100, 0, 90, 50) text:@"" textColor:kRedColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+    [tableHead addSubview:self.state_label];
+    
     self.tableView.tableHeaderView = tableHead;
 }
 - (void)addPayBtn{
@@ -159,32 +160,40 @@
         cell.productsModel =  self.datas[indexPath.row];
         gridCell = cell;
         
-    }else{
+    }else if (indexPath.section == 2){
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         }
-        cell.textLabel.font = FONT(14);
-        cell.detailTextLabel.font = FONT(14);
+        cell.textLabel.textColor = KTitleLabelColor;
+        cell.textLabel.font = FONT(12);
+        cell.detailTextLabel.font = FONT(12);
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"快递运费";
-            NSString *detailText;
+            cell.textLabel.text = @"商品数量";
+            cell.detailTextLabel.text = @"1";
+            
+        }else  if (indexPath.row == 1){
+            cell.textLabel.text = @"原价";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
+
+        }else if (indexPath.row == 2){
+            cell.textLabel.text = @"优惠价";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
+        }else{
+            cell.textLabel.text = @"商品运费";
+          NSString *detailText;
             if ([self.model.freight isEqualToString:@"0"]) {
                 detailText  = @"包邮";
             }else{
                 detailText  = self.model.freight;
             }
             cell.detailTextLabel.text = detailText;
-            
-        }else  if (indexPath.row == 1){
-            cell.textLabel.text = @"订单总计";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
 
-        }else {
-            cell.textLabel.text = @"实付";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
         }
-
+        gridCell = cell;
+    }else if (indexPath.section == 3){
+        HHOrderDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"HHOrderDetailCell3"];
+        cell.model = self.model;
         gridCell = cell;
     }
     
@@ -194,7 +203,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 4;
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -203,53 +212,79 @@
         return 1;
     }else if (section == 1)
    {
-        return self.datas.count;
-    }else  {
-        return 3;
+     return self.datas.count;
+    } else if (section == 2){
+        return 4;
+    }else if (section == 3){
+        
+        return 1;
     }
+    return 1;
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         return 80;
     }else  if(indexPath.section == 1){
-        return 110;
+        return 100;
+    }else  if(indexPath.section == 2){
+        return 25;
     }else{
-        return 50;
+        return 120;
     }
     return 0.01;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//
+//    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
+//    headView.backgroundColor = kWhiteColor;
+//    HHOrderDetailHead *head = [[[NSBundle mainBundle] loadNibNamed:@"HHOrderDetailHead" owner:self options:nil] lastObject];
+//    if (section == 0) {
+//        head.iconImageV.image = [UIImage imageNamed:@"icon_address_default"];
+//        head.titleLabel.text = @"收货信息";
+//    }else if (section == 1){
+//        head.iconImageV.image = [UIImage imageNamed:@"icon_mark_default"];
+//        head.titleLabel.text = @"商品信息";
+//    }else{
+//        head.iconImageV.image = [UIImage imageNamed:@""];
+//        head.titleLabel.text = @"";
+//    }
+//    [headView addSubview:head];
+//    return headView;
+//}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
     headView.backgroundColor = kWhiteColor;
-    HHOrderDetailHead *head = [[[NSBundle mainBundle] loadNibNamed:@"HHOrderDetailHead" owner:self options:nil] lastObject];
-    if (section == 0) {
-        head.iconImageV.image = [UIImage imageNamed:@"icon_address_default"];
-        head.titleLabel.text = @"收货信息";
-    }else if (section == 1){
-        head.iconImageV.image = [UIImage imageNamed:@"icon_mark_default"];
-        head.titleLabel.text = @"商品信息";
-    }else{
-        head.iconImageV.image = [UIImage imageNamed:@""];
-        head.titleLabel.text = @"";
+    if (section == 1) {
+        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW-20, 50) text:@"共1件商品 合计:¥0.00" textColor:KTitleLabelColor font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        [headView addSubview:label];
+        return headView;
     }
-    [headView addSubview:head];
-    return headView;
+    if (section == 2) {
+        
+        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 80, 50) text:@"合计" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+        [headView addSubview:label];
+        UILabel *label2 = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-120, 0, 100, 50) text:@"¥0.00" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        [headView addSubview:label2];
+        return headView;
+
+    }
+    return [UIView new];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 1) {
-        return 0.01;
+        return 50;
+    }if (section == 2) {
+        return 50;
     }else{
-      return 5;
+      return 0.01;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 2) {
-        return 0.01;
-    }else{
-      return 40;
-    }
+   
+    return 5;
 }
 
 @end

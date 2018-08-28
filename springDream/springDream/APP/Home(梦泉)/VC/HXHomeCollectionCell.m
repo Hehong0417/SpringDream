@@ -17,7 +17,9 @@
     [self.goodImageV lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
     self.product_nameLabel.font = FONT(12);
     self.product_s_intergralLabel.font = FONT(10);
-    
+    [self.collectButton setImage:[UIImage imageNamed:@"tip_03"] forState:UIControlStateNormal];
+    [self.collectButton setImage:[UIImage imageNamed:@"tip_02"] forState:UIControlStateSelected];
+    [self.goodImageV lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
 }
 - (void)setProductsModel:(HHhomeProductsModel *)productsModel{
     _productsModel = productsModel;
@@ -52,6 +54,10 @@
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price];
 
     self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price] rangeStr:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price] color:KA0LabelColor];
+    
+}
+- (IBAction)collectButton:(UIButton *)sender {
+    sender.selected = !sender.selected;
     
 }
 

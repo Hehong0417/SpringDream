@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *product_nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *product_min_priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *product_s_intergralLabel;
+@property (weak, nonatomic) IBOutlet UIButton *collectButton;
 
 //首页商品列表
 @property(nonatomic,strong) HHhomeProductsModel *productsModel;

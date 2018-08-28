@@ -10,16 +10,23 @@
 
 @implementation HHSubmitOrdersHead
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    
+    UIImageView *bg_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 0, ScreenW, 100) image:[UIImage imageNamed:@"addr_bg"]];
+    [self insertSubview:bg_imagV atIndex:0];
+}
+
 - (void)setAddressModel:(HHCartModel *)addressModel{
     _addressModel = addressModel;
    
-    self.usernameLabel.text = [NSString stringWithFormat:@"收货人：%@    %@",addressModel.userName,addressModel.mobile];
-    self.full_addressLabel.text = [NSString stringWithFormat:@"收货地址：%@",addressModel.fullAddress];
+    self.usernameLabel.text = [NSString stringWithFormat:@"%@    %@",addressModel.userName,addressModel.mobile];
+    self.full_addressLabel.text = [NSString stringWithFormat:@"%@",addressModel.fullAddress];
 }
 - (void)setModel:(HHMineModel *)model{
     
     _model = model;
-    self.usernameLabel.text = [NSString stringWithFormat:@"收货人：%@    %@",model.Recipient,model.Moble];
-    self.full_addressLabel.text = [NSString stringWithFormat:@"收货地址：%@",model.FullAddress];
+    self.usernameLabel.text = [NSString stringWithFormat:@"%@    %@",model.Recipient,model.Moble];
+    self.full_addressLabel.text = [NSString stringWithFormat:@"%@",model.FullAddress];
 }
 @end

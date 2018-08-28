@@ -91,6 +91,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = KVCBackGroundColor;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHSubmitOrderCell" bundle:nil] forCellReuseIdentifier:@"HHSubmitOrderCell"];
@@ -172,6 +173,7 @@
         }
     }];
 }
+
 //获取数据
 - (void)getDatas{
     
@@ -190,7 +192,7 @@
                 }
                 self.datas = self.model.orders.mutableCopy;
                 NSArray *orders_copys = self.model.orders;
-                
+           
                 [orders_copys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [self.integralSelecItems addObject:@0];
                 }];
@@ -232,6 +234,8 @@
     SubmitOrdersHead = [[[NSBundle mainBundle] loadNibNamed:@"HHSubmitOrdersHead" owner:nil options:nil] lastObject];
     SubmitOrdersHead.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
     SubmitOrdersHead.userInteractionEnabled = YES;
+    UIImageView *imageV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100) image:[UIImage imageNamed:@"addr_bg"]];
+    [SubmitOrdersHead insertSubview:imageV atIndex:0];
     //收货地址
     WEAK_SELF();
     [SubmitOrdersHead setTapActionWithBlock:^{
@@ -435,7 +439,9 @@
             cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell1"];
         }
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell1.textLabel.font = FONT(14);
+        cell1.textLabel.textColor = KTitleLabelColor;
+        cell1.detailTextLabel.textColor = KTitleLabelColor;
+        cell1.textLabel.font = FONT(13);
         cell1.detailTextLabel.font = FONT(14);
         cell1.textLabel.text = self.datas[indexPath.section];
         cell1.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
@@ -452,7 +458,9 @@
         }else{
             UITableViewCell *cell1 =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
             cell1.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell1.textLabel.font = FONT(14);
+            cell1.textLabel.textColor = KTitleLabelColor;
+            cell1.detailTextLabel.textColor = kBlackColor;
+            cell1.textLabel.font = FONT(13);
             cell1.detailTextLabel.font = FONT(14);
             cell1.textLabel.text = order_model.addtion_arr[indexPath.row-order_model.products.count];
             cell1.detailTextLabel.text = order_model.addtion_value_arr[indexPath.row-order_model.products.count];
@@ -553,9 +561,9 @@
         return 44;
     }else{
       if (indexPath.row<order_model.products.count) {
-        return 95;
+        return 100;
       }else{
-        return 44;
+        return 30;
       }
     }
 }
@@ -584,13 +592,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
         UIView *sectionHead =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
-        sectionHead.backgroundColor = KVCBackGroundColor;
+        sectionHead.backgroundColor = kWhiteColor;
     if (self.datas.count>self.model.orders.count&&section == self.datas.count-1) {
       //优惠券
         
     }else{
-        UILabel *orderNo = [UILabel lh_labelWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-30, 35) text:[NSString stringWithFormat:@"订单%ld",section+1] textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:KVCBackGroundColor];
-        [sectionHead addSubview:orderNo];
+        UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 220, 35 ) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
+        [sectionHead addSubview:button];
     }
     return sectionHead;
 }

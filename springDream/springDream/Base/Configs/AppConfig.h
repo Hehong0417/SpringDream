@@ -26,7 +26,7 @@
 #define APP_Deep_purple_Color RGB(36, 27, 57)
 
 
-#define KVCBackGroundColor RGB(238, 238, 238)
+#define KVCBackGroundColor RGB(240, 240, 240)
 #define KTitleLabelColor [UIColor colorWithHexString:@"#9e9e9e"]
 #define K7ELabelColor [UIColor colorWithHexString:@"#7E7E7E"]
 #define KFCLabelColor [UIColor colorWithHexString:@"#FC5F00"]
