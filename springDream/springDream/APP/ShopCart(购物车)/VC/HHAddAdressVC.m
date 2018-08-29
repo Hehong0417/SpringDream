@@ -49,13 +49,13 @@
         [self getDatas];
     }
 
-    self.addressValue_arr = @[@[@"中国大陆",@"",@"",@"邮政编码"],@[@"",@""],@[@""]];
+    self.addressValue_arr = @[@[@"中国大陆",@"",@"",@""],@[@"",@""],@[@""]];
 
     //tableView
     CGFloat tableHeight;
     tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44;
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -63,7 +63,7 @@
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.backgroundColor = KVCBackGroundColor;
-
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:KVCBackGroundColor];
@@ -76,6 +76,7 @@
     self.tableView.tableFooterView = footView;
 
 }
+
 - (void)getDatas{
     
     [[[HHMineAPI GetAddressWithId:self.Id] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
@@ -109,13 +110,14 @@
     
 }
 - (void)saveBtnAction{
-    
-    HHTextfieldcell *usernameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    //姓名
+    HHTextfieldcell *usernameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     NSString *usernameStr = usernameCell.inputTextField.text;
-    HHTextfieldcell *mobileCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    //手机号
+    HHTextfieldcell *mobileCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     NSString *mobileStr = mobileCell.inputTextField.text;
-    
-    HHTextfieldcell *addressCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    //详细地址
+    HHTextfieldcell *addressCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     NSString *addressStr = addressCell.inputTextField.text;
     
     NSString *validStr = [self validWithusername:usernameStr mobile:mobileStr district_id:self.district_id address:addressStr];
@@ -244,9 +246,13 @@
             cell.titleLabel.font = FONT(14);
             cell.inputTextField.font = FONT(14);
             cell.inputTextField.delegate = self;
-            cell.titleLabel.text = self.title_arr[indexPath.section][indexPath.row];
             cell.inputTextField.placeholder = self.placeHolder_arr[indexPath.section][indexPath.row];
-            cell.inputTextField.text = self.addressValue_arr[indexPath.section][indexPath.row];
+            if (indexPath.row == 2) {
+                cell.inputTextField.text = self.address;
+            }else{
+                cell.inputTextField.text = self.addressValue_arr[indexPath.section][indexPath.row];
+            }
+            cell.titleLabel.text = self.title_arr[indexPath.section][indexPath.row];
             gridCell = cell;
 
         }
@@ -259,7 +265,11 @@
         cell.inputTextField.delegate = self;
         cell.titleLabel.text = self.title_arr[indexPath.section][indexPath.row];
         cell.inputTextField.placeholder = self.placeHolder_arr[indexPath.section][indexPath.row];
-        cell.inputTextField.text = self.addressValue_arr[indexPath.section][indexPath.row];
+        if(indexPath.row == 0){
+            cell.inputTextField.text = self.username;
+        }else if(indexPath.row == 1){
+            cell.inputTextField.text = self.mobile;
+        }
         gridCell = cell;
 
     }else if (indexPath.section == 2){
@@ -276,7 +286,9 @@
         gridCell = cell;
         
     }
-
+    gridCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIView *line = [UIView lh_viewWithFrame:CGRectMake(15, 0, ScreenW-15, 1) backColor:KVCBackGroundColor];
+    [gridCell.contentView addSubview:line];
     return gridCell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -316,7 +328,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    
+    if (section == 2) {
+        return 0.01;
+    }
     return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

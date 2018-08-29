@@ -35,10 +35,13 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
+        self.imageView.SG_centerX = self.SG_width * 0.5+25;
+
 //    // 调整图片
 //    self.imageView.SG_y = 5;
 //    self.imageView.SG_centerX = self.SG_width * 0.5;
-//    
+//
+
 //    // 调整文字
 //    self.titleLabel.SG_x = 0;
 //    self.titleLabel.SG_y = self.imageView.SG_bottom + 5;

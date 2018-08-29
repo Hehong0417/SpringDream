@@ -17,5 +17,6 @@ typedef enum : NSUInteger {
 @interface HHOrderVC : UIViewController
 
 @property (nonatomic, assign)   NSInteger sg_selectIndex;
+@property (nonatomic, assign)   NSInteger button_tag;
 
 @end

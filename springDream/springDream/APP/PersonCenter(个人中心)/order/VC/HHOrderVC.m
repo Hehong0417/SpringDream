@@ -15,13 +15,13 @@
 #import "HHMyOrderItem.h"
 #import "HHPostEvaluationVC.h"
 #import "HHEvaluationListVC.h"
-#import "HHApplyRefundVC.h"
+#import "HHNewApplyRefundVC.h"
 #import "HHOrderItemModel.h"
 #import "HHMyOrderItem.h"
 #import "HHFamiliarityPayVC.h"
 #import "HHPaySucessVC.h"
 
-@interface HHOrderVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,ApplyRefundDelegate>
+@interface HHOrderVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,NewApplyRefundDelegate>
 
 @property(nonatomic,strong)   SGSegmentedControl *SG;
 @property (nonatomic, strong)   NSArray *title_arr;
@@ -82,10 +82,10 @@
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
     self.SG.indicatorColor = APP_COMMON_COLOR;
     [self.view addSubview:_SG];
-    
-    [self SGSegmentedControl:self.SG didSelectBtnAtIndex:self.sg_selectIndex];
-
-    
+    if (self.button_tag != 0) {
+        UIButton *title_btn =  (UIButton *)[self.SG viewWithTag:self.button_tag];
+        [self.SG buttonAction:title_btn];
+    }
     //headdRefresh
     [self addHeadRefresh];
     [self addFootRefresh];
@@ -341,15 +341,14 @@
             [self setStandardLabWith:orders_m.items[indexPath.row] cell:cell];
             grideCell = cell;
           [cell.StandardLab setTapActionWithBlock:^{
-            UIStoryboard *board = [UIStoryboard storyboardWithName:@"PersonCenter" bundle:nil];
-            HHApplyRefundVC *vc = [board instantiateViewControllerWithIdentifier:@"HHApplyRefundVC"];
+
+              HHNewApplyRefundVC *vc = [[HHNewApplyRefundVC alloc] init];
               vc.delegate = self;
               HHproducts_item_Model *model1 = orders_m.items[indexPath.row];
-              vc.item_id = model1.product_item_id;
               vc.order_id = orders_m.order_id;
-              vc.count = model1.product_item_quantity;
-              vc.price = model1.product_item_price;
-            [self.navigationController pushVC:vc];
+              vc.item_model = model1;
+              vc.title_str = @"申请退款";
+              [self.navigationController pushVC:vc];
         }];
     }
     grideCell.separatorInset = UIEdgeInsetsMake(0, -15, 0, 0);

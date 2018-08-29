@@ -175,7 +175,8 @@
         if (indexPath.row == 0) {
             //我的订单
             HHOrderVC *vc = [HHOrderVC new];
-            vc.sg_selectIndex = 1;
+            vc.sg_selectIndex = 0;
+            vc.button_tag = 0;
             [self.navigationController pushVC:vc];
         }
     }

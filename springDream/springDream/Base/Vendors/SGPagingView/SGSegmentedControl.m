@@ -42,6 +42,9 @@
 /** 临时button用来转换button的点击状态 */
 @property (nonatomic, strong) UIButton *temp_btn;
 
+/** 临时flag */
+@property (nonatomic, assign) BOOL temp_flag;
+
 @end
 
 @implementation SGSegmentedControl
@@ -374,19 +377,35 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
 
 /** 标题选中颜色改变以及指示器位置变化 */
 - (void)titleBtnSelected:(UIButton *)button {
-    
+    self.temp_flag = !self.temp_flag;
+
+    WEAK_SELF();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(indicatorViewTimeOfAnimation * 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (_temp_btn == nil) {
+        if (weakSelf.temp_btn == nil) {
+            
             button.selected = YES;
-            _temp_btn = button;
-        }else if (_temp_btn != nil && _temp_btn == button){
+            weakSelf.temp_btn = button;
+            
+        }else if (weakSelf.temp_btn != nil && weakSelf.temp_btn == button){
+            
             button.selected = YES;
-        }else if (_temp_btn != button && _temp_btn != nil){
-            _temp_btn.selected = NO;
-            button.selected = YES; _temp_btn = button;
+            
+        }else if (weakSelf.temp_btn != button && weakSelf.temp_btn != nil){
+            
+            weakSelf.temp_btn.selected = NO;
+            button.selected = YES;
+            weakSelf.temp_btn = button;
         }
     });
 
+    if (button.tag == 2) {
+        
+        if (button.selected == YES) {
+            
+            [button setImage:[UIImage imageNamed:weakSelf.temp_flag?@"pArrow_down":@"pArrow_top"] forState:UIControlStateSelected];
+            
+        }
+    }
     if (self.segmentedControlType == SGSegmentedControlTypeScroll) {
         // 改变指示器位置
         if (self.segmentedControlIndicatorType == SGSegmentedControlIndicatorTypeCenter) {

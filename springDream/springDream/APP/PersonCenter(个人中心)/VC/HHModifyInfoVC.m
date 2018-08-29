@@ -38,6 +38,7 @@
     HJSettingItem *item = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     item.detailTitle = [NSString stringWithFormat:@"%.2fM",M];
 
+    [self.tableView setSeparatorColor:RGB(238, 238, 238)];
 }
 
 //退出登录
@@ -123,7 +124,7 @@
         return WidthScaleSize_H(75);
     }
     
-    return 44;
+    return 50;
     
 }
 @end

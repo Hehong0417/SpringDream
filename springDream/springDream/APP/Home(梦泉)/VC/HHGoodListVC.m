@@ -72,12 +72,16 @@
     
 //    self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
     self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
+    NSArray *nomalImageArr = @[@"",@"",@"pArrow"];
+    NSArray *selectedImageArr = @[@"",@"",@"pArrow_top"];
 
     if (self.title_arr.count < 5) {
-        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
+        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
+//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
     }else{
-        
-        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
+        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeScroll nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
+
+//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
     }
     self.SG.titleColorStateNormal = APP_COMMON_COLOR;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
@@ -96,7 +100,7 @@
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:nil finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         
         if (!error) {
             
@@ -278,7 +282,7 @@
 #pragma mark - SGSegmentedControlDelegate
 
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
-    
+    self.isFooterRefresh = NO;
     [self.task cancel];
 
     if (index == 0){

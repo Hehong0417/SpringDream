@@ -381,12 +381,12 @@
 //加
 - (void)plusBtnAction:(UIButton *)btn{
     
-    HHCartCell *cell = (HHCartCell *)btn.superview.superview;
+    HHCartCell *cell = (HHCartCell *)btn.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     HHproductsModel *model = self.model.products[indexPath.section];
-
     if (model.quantity.integerValue>1) {
-        cell.minusBtn.enabled = YES;
+        UIButton *minusBtn = (UIButton *)cell.quantityTextField.leftView;
+        minusBtn.enabled = YES;
     }
     NSInteger  quantity = model.quantity.integerValue;
     quantity++;
@@ -397,7 +397,7 @@
 //减
 - (void)minusBtnAction:(UIButton *)btn{
 
-     HHCartCell *cell = (HHCartCell *)btn.superview.superview;
+     HHCartCell *cell = (HHCartCell *)btn.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     HHproductsModel *model = self.model.products[indexPath.section];
     if (model.quantity.integerValue<=1) {
@@ -498,12 +498,14 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     HHproductsModel *model = self.model.products[indexPath.section];
     cell.productModel = model;
-    [cell.plusBtn addTarget:self action:@selector(plusBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.minusBtn addTarget:self action:@selector(minusBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *plusBtn = (UIButton *)cell.quantityTextField.rightView;
+    [plusBtn addTarget:self action:@selector(plusBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *minusBtn = (UIButton *)cell.quantityTextField.leftView;
+    [minusBtn addTarget:self action:@selector(minusBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     if (model.quantity.integerValue <= 1) {
-        cell.minusBtn.enabled = NO;
+        minusBtn.enabled = NO;
     }else{
-        cell.minusBtn.enabled = YES;
+        minusBtn.enabled = YES;
     }
     cell.indexPath = indexPath;
     cell.leftSelected = ((NSNumber *)self.selectItems[indexPath.section]).boolValue;

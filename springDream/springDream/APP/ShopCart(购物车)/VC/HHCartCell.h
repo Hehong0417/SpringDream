@@ -11,9 +11,9 @@
 
 typedef void(^ChooseBtnSelectAction)(NSIndexPath *indexPath,BOOL leftButtonSelected);
 
-@interface HHCartCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *minusBtn;
-@property (weak, nonatomic) IBOutlet UIButton *plusBtn;
+@interface HHCartCell : UITableViewCell<UITextFieldDelegate>
+@property (strong, nonatomic)  UIButton *minusBtn;
+@property (strong, nonatomic)  UIButton *plusBtn;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *product_iconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *product_nameLabel;

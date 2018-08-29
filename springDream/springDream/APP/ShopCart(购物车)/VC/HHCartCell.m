@@ -19,10 +19,25 @@
 //    [self.plusBtn setTitleColor:APP_model_Color forState:UIControlStateNormal];
 //    [self.minusBtn setTitleColor:APP_model_Color forState:UIControlStateNormal];
     
-    [self.chooseBtn setImage:[UIImage imageNamed:@"icon_sign_default"] forState:UIControlStateNormal];
+    self.plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.plusBtn.frame = CGRectMake(0, 0, 35, 35);
+    self.quantityTextField.rightViewMode = UITextFieldViewModeAlways;
+    self.quantityTextField.rightView = self.plusBtn;
+    
+    self.minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.minusBtn.frame = CGRectMake(0, 0, 35, 35);
+    self.quantityTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.quantityTextField.leftView = self.minusBtn;
+    self.quantityTextField.delegate = self;
+    
+     [self.chooseBtn setImage:[UIImage imageNamed:@"icon_sign_default"] forState:UIControlStateNormal];
      [self.chooseBtn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
     
     [self.store_tag_label lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    return NO;
 }
 - (IBAction)chooseBtnAction:(UIButton *)sender {
     

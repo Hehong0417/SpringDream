@@ -31,6 +31,7 @@
     
     HHOrderVC *vc = [HHOrderVC new];
     vc.sg_selectIndex = buttonIndex+1;
+    vc.button_tag = buttonIndex+1;
     [self.nav pushVC:vc];
 }
 @end

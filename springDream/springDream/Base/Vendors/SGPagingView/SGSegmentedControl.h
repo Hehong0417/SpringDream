@@ -65,6 +65,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, weak) id<SGSegmentedControlDelegate> delegate_SG;
 
+- (void)buttonAction:(UIButton *)sender;
+
 
 /** 标题选中颜色改变以及指示器位置变化 */
 - (void)titleBtnSelectedWithScrollView:(UIScrollView *)scrollView;

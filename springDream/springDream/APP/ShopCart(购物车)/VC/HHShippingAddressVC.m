@@ -47,9 +47,11 @@
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.estimatedRowHeight = 0;
-    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 5;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = KVCBackGroundColor;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHShippingAddressCell" bundle:nil] forCellReuseIdentifier:@"HHShippingAddressCell"];
@@ -288,6 +290,11 @@
     [footer.editAddressBtn addTarget:self action:@selector(editAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [footer.deleteAddressBtn addTarget:self action:@selector(deleteAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     return footer;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 6)];
+    view.backgroundColor = KVCBackGroundColor;
+    return view;
 }
 //- (id)copyWithZone:(NSZone *)zone
 //{
