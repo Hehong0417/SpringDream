@@ -26,7 +26,7 @@
     [self.contentView insertSubview:bgView belowSubview:self.goodsIco];
     
     [self.goodsIco lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
-    [self.StandardLab lh_setCornerRadius:5 borderWidth:1 borderColor:KA0LabelColor];
+    [self.StandardLab lh_setCornerRadius:0 borderWidth:1 borderColor:KA0LabelColor];
 
 }
 - (void)setProductModel:(HHproducts_item_Model *)productModel{
@@ -41,5 +41,4 @@
     
 
 }
-
 @end

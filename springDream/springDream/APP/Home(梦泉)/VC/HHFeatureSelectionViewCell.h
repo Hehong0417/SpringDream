@@ -16,12 +16,18 @@
 #import "DCFeatureHeaderView.h"
 #import "DCCollectionHeaderLayout.h"
 
+
+@class HHFeatureSelectionViewCell;
+
 @protocol HHFeatureSelectionViewCellDelegate <NSObject>
 
 @optional
 
 // 用协议传回 collectionView 的 size
 - (void)tableviewDynamictablviewHeightWithCollectionHeight:(CGFloat)collectionHeight;
+
+//传回库存 和价格
+- (void)choosedStock:(NSString *)product_stock product_price:(NSString *)product_price featureselectionCell:(HHFeatureSelectionViewCell *)featureselectionCell;
 
 @end
 

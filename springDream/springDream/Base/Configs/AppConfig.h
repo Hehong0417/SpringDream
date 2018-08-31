@@ -14,7 +14,9 @@
 #define JDCommonColor [UIColor colorWithRed:0.478 green:0.478 blue:0.478 alpha:1]
 
 
-#define APP_COMMON_COLOR  [UIColor redColor]
+#define APP_NAV_COLOR  RGB(253, 74, 76)
+
+#define APP_COMMON_COLOR  RGB(172, 1, 17)
 
 
 #define APP_green_COLOR RGB(190, 225, 255)
@@ -27,14 +29,14 @@
 
 
 #define KVCBackGroundColor RGB(240, 240, 240)
-#define KTitleLabelColor [UIColor colorWithHexString:@"#9e9e9e"]
-#define K7ELabelColor [UIColor colorWithHexString:@"#7E7E7E"]
+#define KTitleLabelColor [UIColor colorWithHexString:@"#9e9e9e"] //158
+#define K7ELabelColor [UIColor colorWithHexString:@"#7E7E7E"] //126
 #define KFCLabelColor [UIColor colorWithHexString:@"#FC5F00"]
-#define KA0LabelColor [UIColor colorWithHexString:@"#A0A0A0"]
-#define KACLabelColor [UIColor colorWithHexString:@"#ACACAC"]
-#define KLightTitleColor [UIColor colorWithHexString:@"#5f5f5f"]
-#define TitleGrayColor [UIColor colorWithHexString:@"#333333"]
-#define KDCLabelColor  [UIColor colorWithHexString:@"#DCDCDE"]
+#define KA0LabelColor [UIColor colorWithHexString:@"#A0A0A0"] //160
+#define KACLabelColor [UIColor colorWithHexString:@"#ACACAC"]  //172
+#define KLightTitleColor [UIColor colorWithHexString:@"#5f5f5f"] //95
+#define TitleGrayColor [UIColor colorWithHexString:@"#333333"] //51
+#define KDCLabelColor  [UIColor colorWithHexString:@"#DCDCDE"]  //220
 
 
 #define KPartingLineColor RGB(228, 227, 239)

@@ -19,8 +19,8 @@
         self.goodImageV.contentMode = UIViewContentModeScaleAspectFit;
         
         self.priceLabel = [UILabel new];
-        self.priceLabel.textColor = kRedColor;
-        self.priceLabel.font = FONT(13);
+        self.priceLabel.textColor = APP_COMMON_COLOR;
+        self.priceLabel.font = BoldFONT(14);
         self.priceLabel.textAlignment = NSTextAlignmentLeft;
 
 //        self.price_bottom_view = [UIView new];
@@ -33,19 +33,19 @@
         
         //商品名
         self.p_nameLabel = [UILabel new];
-        self.p_nameLabel.textColor = kBlackColor;
-        self.p_nameLabel.font = FONT(13);
+        self.p_nameLabel.textColor = RGB(51, 51, 51);
+        self.p_nameLabel.font = BoldFONT(14);
         self.p_nameLabel.textAlignment = NSTextAlignmentLeft;
         //属性名
         self.p_skuLabel = [UILabel new];
-        self.p_skuLabel.textColor = kGrayColor;
-        self.p_skuLabel.font = FONT(11);
+        self.p_skuLabel.textColor = RGB(153, 153, 153);
+        self.p_skuLabel.font = MediumFONT(11);
         self.p_skuLabel.textAlignment = NSTextAlignmentLeft;
 
         //原价
         self.prePriceLabel = [UILabel new];
-        self.prePriceLabel.textColor = kGrayColor;
-        self.prePriceLabel.font = FONT(11);
+        self.prePriceLabel.textColor = RGB(153, 153, 153);
+        self.prePriceLabel.font = MediumFONT(11);
         self.prePriceLabel.textAlignment = NSTextAlignmentLeft;
  
         // 购物车图标

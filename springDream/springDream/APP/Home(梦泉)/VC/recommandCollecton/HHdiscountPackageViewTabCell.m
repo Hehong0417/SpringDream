@@ -24,13 +24,16 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         self.backgroundColor = KVCBackGroundColor;
-        _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 30)];
-        _discount_view = [[HHdiscountPackageView alloc] initWithFrame:CGRectMake(0, 30, ScreenW, 120)];
+        _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
         [self.contentView addSubview:_titleView];
-        [self.contentView addSubview:_discount_view];
         
-        _titleLabel = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 200, 30) text:@"为你推荐" textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        _titleLabel = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 200, 40) text:@"为您推荐" textColor:RGB(51, 51, 51) font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        _titleLabel.textColor = RGB(51, 51, 51);
         [_titleView addSubview:_titleLabel];
+
+        _discount_view = [[HHdiscountPackageView alloc] initWithFrame:CGRectMake(0, 40, ScreenW, 120)];
+        [self.contentView addSubview:_discount_view];
+
         
 //        _arrpw_imageV = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-50, 0, 50, 30) image:[UIImage imageNamed:@"right_arrow"]];
 //        _arrpw_imageV.contentMode = UIViewContentModeCenter;

@@ -111,7 +111,7 @@
     [tableHead addSubview:button];
 
     //订单状态
-    self.state_label = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-100, 0, 90, 50) text:@"" textColor:kRedColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+    self.state_label = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-100, 0, 90, 50) text:@"" textColor:APP_COMMON_COLOR font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
     [tableHead addSubview:self.state_label];
     
     self.tableView.tableHeaderView = tableHead;

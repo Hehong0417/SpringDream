@@ -24,13 +24,14 @@
     
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:kClearColor];
     
-    UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 60, 45) target:self action:@selector(saveAction:) backgroundImage:nil title:@"退出登录"  titleColor:kWhiteColor font:FONT(14)];
-    finishBtn.backgroundColor = kRedColor;
+    UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 60, 45) target:self action:@selector(saveAction:) backgroundImage:nil title:@"退出当前登录"  titleColor:kWhiteColor font:FONT(14)];
+    finishBtn.backgroundColor = APP_COMMON_COLOR;
     [finishBtn lh_setRadii:5 borderWidth:0 borderColor:nil];
     
     [footView addSubview:finishBtn];
     
     self.tableV.tableFooterView = footView;
+    
     
     
     NSInteger size = [[SDImageCache sharedImageCache] getSize];
@@ -96,7 +97,7 @@
 }
 - (NSArray *)groupTitles{
     
-    return @[@[@"头像",@"手机号码",@"关于我们"],@[@"清除缓存"]];
+    return @[@[@"头像",@"登录账号",@"关于我们"],@[@"清除缓存"]];
     
 }
 - (NSArray *)groupIcons {

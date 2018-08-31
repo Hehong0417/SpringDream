@@ -17,26 +17,30 @@
     
     if(self = [super initWithFrame:frame]){
         //300
-        UIImageView *success_imageV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, WidthScaleSize_H(50), 150, 80) image:[UIImage imageNamed:@"icon_paysuccess_default"]];
+        self.backgroundColor = kWhiteColor;
+        UIImageView *success_imageV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 50, 150, 80) image:[UIImage imageNamed:@"pay_sucess"]];
         success_imageV.contentMode = UIViewContentModeCenter;
         success_imageV.centerX = self.centerX;
         [self addSubview:success_imageV];
-        self.success_lab = [UILabel lh_labelWithFrame:CGRectMake(0, CGRectGetMaxY(success_imageV.frame), 150, 30) text:@"评价成功" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+        self.success_lab = [UILabel lh_labelWithFrame:CGRectMake(0, CGRectGetMaxY(success_imageV.frame)+20, 150, 30) text:@"评价成功" textColor:kBlackColor font:FONT(16) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
         self.success_lab.centerX = self.centerX;
 
         [self addSubview:self.success_lab];
         
         
-        //按钮
-        for(NSInteger i =0;i<2;i++){
-            CGFloat btn_W = (ScreenW - 2*WidthScaleSize_W(40) - WidthScaleSize_W(35))/2;
-            UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(40)+(btn_W+WidthScaleSize_W(35))*i, WidthScaleSize_H(350)-2*WidthScaleSize_W(40)-WidthScaleSize_H(50), btn_W, WidthScaleSize_H(35)) target:self action:@selector(evaluateAction:) title:self.btn_titles[i] titleColor:kWhiteColor font:FONT(14) backgroundColor:kBlackColor];
-            [btn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
-            btn.tag = i+1000;
-            [self addSubview:btn];
-        }
+//        //按钮
+//        for(NSInteger i =0;i<2;i++){
+//            CGFloat btn_W = (ScreenW - 2*WidthScaleSize_W(40) - WidthScaleSize_W(35))/2;
+//            UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(40)+(btn_W+WidthScaleSize_W(35))*i, WidthScaleSize_H(350)-2*WidthScaleSize_W(40)-WidthScaleSize_H(50), btn_W, WidthScaleSize_H(35)) target:self action:@selector(evaluateAction:) title:self.btn_titles[i] titleColor:kWhiteColor font:FONT(14) backgroundColor:kBlackColor];
+//            [btn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+//            btn.tag = i+1000;
+//            [self addSubview:btn];
+//        }
         //猜你喜欢
-        self.title_lab = [UILabel lh_labelWithFrame:CGRectMake(0, WidthScaleSize_H(350)-WidthScaleSize_H(50), ScreenW, WidthScaleSize_H(50)) text:@"——  猜你喜欢  ——"  textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
+        self.imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(10, 250-50, 45, 50) image:[UIImage imageNamed:@"focus"]];
+        self.imagV.contentMode = UIViewContentModeCenter;
+        [self addSubview:self.imagV];
+        self.title_lab = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+5, 250-50, 150, 50) text:@"猜你喜欢"  textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
         [self addSubview:self.title_lab];
 
     }
@@ -44,19 +48,19 @@
 }
 - (void)setIsPay:(BOOL)isPay{
     _isPay = isPay;
-    
+
     if (isPay) {
-        self.success_lab.text = @"支付成功";
-        UIButton *btn0 = (UIButton *)[self viewWithTag:1000];
-        [btn0 setTitle:@"去逛逛" forState:UIControlStateNormal];
-        UIButton *btn1 = (UIButton *)[self viewWithTag:1001];
-        [btn1 setTitle:@"查看订单" forState:UIControlStateNormal];
+        self.success_lab.text = @"支付成功!";
+//        UIButton *btn0 = (UIButton *)[self viewWithTag:1000];
+//        [btn0 setTitle:@"去逛逛" forState:UIControlStateNormal];
+//        UIButton *btn1 = (UIButton *)[self viewWithTag:1001];
+//        [btn1 setTitle:@"查看订单" forState:UIControlStateNormal];
     }else{
-        self.success_lab.text = @"评价成功";
-        UIButton *btn0 = (UIButton *)[self viewWithTag:1000];
-        [btn0 setTitle:@"去逛逛" forState:UIControlStateNormal];
-        UIButton *btn1 = (UIButton *)[self viewWithTag:1001];
-        [btn1 setTitle:@"查看我的评价" forState:UIControlStateNormal];
+        self.success_lab.text = @"评价成功!";
+//        UIButton *btn0 = (UIButton *)[self viewWithTag:1000];
+//        [btn0 setTitle:@"去逛逛" forState:UIControlStateNormal];
+//        UIButton *btn1 = (UIButton *)[self viewWithTag:1001];
+//        [btn1 setTitle:@"查看我的评价" forState:UIControlStateNormal];
     }
 }
 - (NSArray *)btn_titles{

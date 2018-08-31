@@ -41,11 +41,11 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
 - (void)setup
 {
     _iconView = [UIImageView new];
-    [_iconView lh_setCornerRadius:20 borderWidth:0 borderColor:nil];
+    [_iconView lh_setCornerRadius:18 borderWidth:0 borderColor:nil];
 
     _nameLable = [UILabel new];
-    _nameLable.font = [UIFont systemFontOfSize:14];
-    _nameLable.textColor = [UIColor colorWithRed:(54 / 255.0) green:(71 / 255.0) blue:(121 / 255.0) alpha:0.9];
+    _nameLable.font = FONT(13);
+    _nameLable.textColor = RGB(51, 51, 51);
     
     UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
     _gradeEmptyImgV = [[UIImageView alloc] init];
@@ -81,13 +81,13 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
-    CGFloat margin = 10;
+    CGFloat margin = 16;
     
     _iconView.sd_layout
     .leftSpaceToView(contentView, margin)
     .topSpaceToView(contentView, margin + 5)
-    .widthIs(40)
-    .heightIs(40);
+    .widthIs(36)
+    .heightIs(36);
 
     _nameLable.sd_layout
     .leftSpaceToView(_iconView, margin)

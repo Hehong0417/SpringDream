@@ -13,6 +13,8 @@
 
 /** 常量数 */
 UIKIT_EXTERN CGFloat const DCMargin;
+/** 属性距离常量数 */
+UIKIT_EXTERN CGFloat const DCellMargin;
 /** 导航栏高度 */
 UIKIT_EXTERN CGFloat const DCNaviH;
 

@@ -8,7 +8,6 @@
 
 #import "HHPersonCenterHead.h"
 
-
 @implementation HHPersonCenterHead
 
 - (instancetype)initWithFrame:(CGRect)frame notice_title:(NSString *)notice_title{
@@ -28,6 +27,8 @@
         self.icon_view.backgroundColor = KVCBackGroundColor;
         self.icon_view.image = [UIImage imageNamed:@"t4_selected"];
         [self addSubview:self.icon_view];
+        self.icon_view.userInteractionEnabled = YES;
+   
         //姓名
         self.name_label = [UILabel new];
         self.name_label.font = FONT(14);

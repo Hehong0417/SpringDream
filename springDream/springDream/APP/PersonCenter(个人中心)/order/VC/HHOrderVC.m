@@ -362,14 +362,15 @@
     UIView *line = [UIView lh_viewWithFrame:CGRectMake(10, 0, ScreenW-20, 1) backColor:KVCBackGroundColor];
     [footView addSubview:line];
     
-    UIButton *oneBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH-160-20, 10, 80, 30) target:self action:@selector(oneAction:) title:@"取消" titleColor:APP_COMMON_COLOR font:FONT(14) backgroundColor:kWhiteColor];
+    UIButton *oneBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH-160-30, 10, 80, 30) target:self action:@selector(oneAction:) title:@"取消" titleColor:kBlackColor font:FONT(14) backgroundColor:KVCBackGroundColor];
     oneBtn.tag = section+100;
-    [oneBtn lh_setCornerRadius:5 borderWidth:1 borderColor:APP_COMMON_COLOR];
+    
+    [oneBtn lh_setCornerRadius:0 borderWidth:1 borderColor:KDCLabelColor];
     [footView addSubview:oneBtn];
-
-    UIButton *twoBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH-90, 10, 80, 30) target:self action:@selector(twoAction:) title:@"去评价" titleColor:kWhiteColor font:FONT(14) backgroundColor:APP_COMMON_COLOR];
+    
+    UIButton *twoBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH-95, 10, 80, 30) target:self action:@selector(twoAction:) title:@"去评价" titleColor:RGB(213, 128, 136) font:FONT(14) backgroundColor:RGB(255, 239, 239)];
     twoBtn.tag = section+1000;
-    [twoBtn lh_setCornerRadius:5 borderWidth:1 borderColor:APP_COMMON_COLOR];
+    [twoBtn lh_setCornerRadius:0 borderWidth:1 borderColor:APP_COMMON_COLOR];
     [footView addSubview:twoBtn];
     
     //分割线Y坐标
@@ -381,15 +382,15 @@
             //待付款
             down_y = 50;
             //oneBtn
-            [self setBtnAttrWithBtn:oneBtn Title:@"取消订单" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
+            [self setBtnAttrWithBtn:oneBtn Title:@"取消订单" CornerRadius:0 borderColor:KDCLabelColor titleColor:kBlackColor backgroundColor:KVCBackGroundColor];
             //twoBtn
-            NSString *twoBtn_title = @"去支付";
+            NSString *twoBtn_title = @"前往支付";
             if ([model.order_mode isEqual:@16]) {
                 twoBtn_title = @"亲密付";
             }else{
-                twoBtn_title = @"去支付";
+                twoBtn_title = @"前往支付";
             }
-            [self setBtnAttrWithBtn:twoBtn Title:twoBtn_title CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:kWhiteColor backgroundColor:APP_COMMON_COLOR];
+            [self setBtnAttrWithBtn:twoBtn Title:twoBtn_title CornerRadius:0 borderColor:APP_COMMON_COLOR titleColor:RGB(213, 128, 136) backgroundColor:RGB(255, 239, 239)];
         }else if([status isEqualToString:@"2"]){
             //待发货
              down_y = 0;
@@ -397,9 +398,9 @@
         }else if([status isEqualToString:@"3"]){
             //待收货
             down_y = 50;
-            [self setBtnAttrWithBtn:oneBtn Title:@"查看物流" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
+            [self setBtnAttrWithBtn:oneBtn Title:@"查看物流" CornerRadius:0 borderColor:KDCLabelColor titleColor:kBlackColor backgroundColor:KVCBackGroundColor];
             [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:NO];
-            [self setBtnAttrWithBtn:twoBtn Title:@"确认收货" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
+            [self setBtnAttrWithBtn:twoBtn Title:@"确认收货" CornerRadius:0 borderColor:APP_COMMON_COLOR titleColor:RGB(213, 128, 136) backgroundColor:RGB(255, 239, 239)];
         }else if([status isEqualToString:@"4"]){
             //订单关闭
             down_y = 0;
@@ -411,7 +412,7 @@
             BOOL twoBtnState =  [model.order_can_evaluate isEqual:@1]?NO:YES;
             [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:twoBtnState];
             //twoBtn
-            [self setBtnAttrWithBtn:twoBtn Title:@"去评价" CornerRadius:5 borderColor:APP_COMMON_COLOR titleColor:APP_COMMON_COLOR backgroundColor:kWhiteColor];
+            [self setBtnAttrWithBtn:twoBtn Title:@"去评价" CornerRadius:0 borderColor:APP_COMMON_COLOR titleColor:RGB(213, 128, 136) backgroundColor:RGB(255, 239, 239)];
         }else if([status isEqualToString:@"6"]){
             // 申请退款
             down_y = 0;
@@ -637,7 +638,7 @@
         activityLabel.centerY = headView.centerY;
         [headView addSubview:activityLabel];
     }
-    UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-95, 0, 80, 40) text:model.status_name textColor:kRedColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+    UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-95, 0, 80, 40) text:model.status_name textColor:APP_COMMON_COLOR font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
     [headView addSubview:textLabel];
     
     return headView;

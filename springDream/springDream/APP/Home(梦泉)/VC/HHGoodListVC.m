@@ -52,10 +52,9 @@
     
     [self setupSGSegmentedControl];
 
-    [self setupSearchView];
-
-    [self addFootRefresh];
-    //获取数据
+//    [self setupSearchView];
+    [self getDatas];
+     //获取数据
     [self addHeadRefresh];
     
     
@@ -106,6 +105,7 @@
             
             if (api.State == 1) {
 
+                [self addFootRefresh];
                 if (self.isFooterRefresh) {
                     [self loadDataFinish:api.Data];
                 }else{

@@ -9,6 +9,8 @@
 #import "HHServiceCell_two.h"
 #import "HHShippingAddressVC.h"
 #import "HHModifyInfoVC.h"
+#import "HHmyEarningsVC.h"
+#import "HHMyRightsVC.h"
 
 @implementation HHServiceCell_two
 
@@ -17,7 +19,7 @@
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
         
         NSArray *btn_image_arr = @[@"service_11",@"service_12",@"service_13",@"service_14"];
-        NSArray *btn_title_arr = @[@"地址管理",@"会员权益",@"会员互动",@"基础设置"];
+        NSArray *btn_title_arr = @[@"地址管理",@"会员权益",@"会员收益",@"基础设置"];
         HHModelsView *models_view = [HHModelsView createModelViewWithFrame:CGRectMake(0, 0, ScreenW, 95) btn_image_arr:btn_image_arr btn_title_arr:btn_title_arr title_color:kDarkGrayColor lineCount:5 message_arr:@[] title_image_padding:10 top_padding:0];
         models_view.delegate = self;
         [self.contentView addSubview:models_view];
@@ -36,9 +38,13 @@
         
     }else if (buttonIndex == 1){
         //会员权益
+        HHMyRightsVC *vc = [HHMyRightsVC new];
+        [self.nav pushVC:vc];
         
     }else if (buttonIndex == 2){
-       // 会员互动
+       // 会员收益
+        HHmyEarningsVC *vc = [HHmyEarningsVC new];
+        [self.nav pushVC:vc];
         
     }else if (buttonIndex == 3){
         

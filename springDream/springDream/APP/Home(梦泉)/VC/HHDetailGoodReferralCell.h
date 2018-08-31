@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *product_min_priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *product_s_intergralLabel;
 @property (weak, nonatomic) IBOutlet UILabel *package_lab;
+@property (weak, nonatomic) IBOutlet UILabel *stock_label;
+@property (weak, nonatomic) IBOutlet UILabel *sale_count_label;
 
 @property (nonatomic, strong)  HHgooodDetailModel *gooodDetailModel;
 

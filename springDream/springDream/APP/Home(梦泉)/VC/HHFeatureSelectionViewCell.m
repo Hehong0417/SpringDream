@@ -48,7 +48,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         
         self.collectionView.backgroundColor = kWhiteColor;
         self.collectionView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
-
+        self.collectionView.scrollEnabled = NO;
         [self.contentView addSubview:self.collectionView];
         
     }
@@ -168,21 +168,23 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
 }
 - (UIView *)setUpNumbView{
     
-    UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
+    UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 30)];
     UILabel *numLabel = [UILabel new];
     numLabel.text = @"[数量]";
-    numLabel.font = FONT(13);
+    numLabel.font = BoldFONT(13);
     numLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:numLabel];
-    numLabel.frame = CGRectMake(10, 0, 80, 40);
+    numLabel.frame = CGRectMake(25, 0, 80, 30);
     [numView addSubview:numLabel];
    
-    self.numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(ScreenW-115-DCMargin, numLabel.mj_y, 115, numLabel.mj_h)];
+    self.numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(ScreenW-115-DCMargin, numLabel.mj_y, 100, numLabel.mj_h)];
     self.numberButton.shakeAnimation = YES;
     self.numberButton.minValue = 1;
-    self.numberButton.inputFieldFont = 18;
-    self.numberButton.increaseTitle = @"";
-    self.numberButton.decreaseTitle = @"";
+    self.numberButton.inputFieldFont = 16;
+    self.numberButton.buttonTitleFont = 25;
+    self.numberButton.increaseTitle = @"+";
+    self.numberButton.decreaseTitle = @"-";
+    self.numberButton.borderColor = RGB(173, 173, 173);
     num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
     self.numberButton.currentNumber = num_;
     self.numberButton.delegate = self;
@@ -224,10 +226,10 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         //自定义layout初始化
         self.layout.delegate = self;
         self.layout.lineSpacing = 8.0;
-        self.layout.interitemSpacing = DCMargin;
+        self.layout.interitemSpacing = DCellMargin;
         self.layout.headerViewHeight = 35;
         self.layout.footerViewHeight = 40;
-        self.layout.itemInset = UIEdgeInsetsMake(0, DCMargin, 0, DCMargin);
+        self.layout.itemInset = UIEdgeInsetsMake(0, DCellMargin, 0, DCellMargin);
         
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -363,6 +365,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         [self.seletedIndexPaths insertObject:@"0" atIndex:indexPath.section];
         [self.seletedIdArray removeObjectAtIndex:indexPath.section];
         [self.seletedIdArray insertObject:@"" atIndex:indexPath.section];
+        
     }
     else
     {
@@ -403,7 +406,6 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     //*******************************//
     
     
-    
     //******//
     //选择完属性，更新库存和价格
     if (_seleArray.count == _featureAttr.count || _lastSeleArray.count == _featureAttr.count) {
@@ -415,7 +417,10 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
             if ([obj.Id isEqualToString:seleId_str]) {
                 self.product_price = obj.SalePrice;
                 self.product_stock = obj.Stock;
-                //                self.goodImageView = obj.imgUrl;
+                if (self.delegate &&[self.delegate respondsToSelector:@selector(choosedStock:product_price:featureselectionCell:)]) {
+                    [self.delegate choosedStock:self.product_stock product_price:self.product_price featureselectionCell:self];
+                }
+                // self.goodImageView = obj.imgUrl;
             }
         }];
     }

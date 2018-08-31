@@ -7,7 +7,14 @@
 
 #define FONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x)]
 #define BoldFONT(x) [UIFont boldSystemFontOfSize:WidthScaleSize_H(x)]
-
+#define ThinFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightThin]
+#define UltraLightFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightUltraLight]
+#define LightFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightLight]
+#define RegularFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightRegular]
+#define MediumFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightMedium]
+#define SemiboldFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightSemibold]
+#define HeavyFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightHeavy]
+#define BlackFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightBlack]
 
 //NSString
 #define STRING_OR_EMPTY(A)  ({ __typeof__(A) __a = (A); __a ? __a : @""; })
@@ -72,7 +79,7 @@
 //UI heights
 #define Status_HEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
 #define NAVBAR_HEIGHT 44.0
-#define STATUS_NAV_HEIGHT Status_HEIGHT+NAVBAR_HEIGHT
+#define STATUS_NAV_HEIGHT (Status_HEIGHT+NAVBAR_HEIGHT)
  
 
 // -------------------- Debug Function --------------------------

@@ -29,7 +29,7 @@
 #import "HHdiscountPackageViewTabCell.h"
 //#import "HHdiscountPackageVC.h"
 
-@interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate>
+@interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong)   SDCycleScrollView *cycleScrollView;
@@ -276,11 +276,13 @@ static NSArray *lastSele_IdArray_;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         cell.gooodDetailModel = self.gooodDetailModel;
+
         gridcell = cell;
     }
     if (indexPath.section == 1) {
         HHFeatureSelectionViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HHFeatureSelectionViewCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
         cell.gooodDetailModel = self.gooodDetailModel;
         cell.product_sku_value_arr = self.gooodDetailModel.SKUValues;
         cell.lastNum = @"1";
@@ -294,7 +296,7 @@ static NSArray *lastSele_IdArray_;
         gridcell = cell;
     }
     if (indexPath.section == 2) {
-        //为你推荐
+        //为您推荐
         HHdiscountPackageViewTabCell *cell = [tableView dequeueReusableCellWithIdentifier:HHdiscountPackageViewTabCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.guess_you_like_arr = self.guess_you_like_arr;
@@ -307,7 +309,7 @@ static NSArray *lastSele_IdArray_;
             //商品评价
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             cell.textLabel.text = @"商品评价";
-            cell.textLabel.font = FONT(13);
+            cell.textLabel.font = FONT(14);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             gridcell = cell;
@@ -343,14 +345,19 @@ static NSArray *lastSele_IdArray_;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
+    if (indexPath.section == 0) {
+        
+        return [self.tabView cellHeightForIndexPath:indexPath model:self.gooodDetailModel keyPath:@"gooodDetailModel" cellClass:[HHDetailGoodReferralCell class] contentViewWidth:[self cellContentViewWith]];
+    }
+    
     if (indexPath.section == 1) {
         
         return   self.collectionHeight;
     }
     if (indexPath.section == 2) {
        
-        return  self.guess_you_like_arr.count>0?165:0;
+        return  self.guess_you_like_arr.count>0?185:0;
     }
     if (indexPath.section == 3) {
             if (indexPath.row == 0) {
@@ -367,7 +374,7 @@ static NSArray *lastSele_IdArray_;
 
     }
 
-    return 120;
+    return 95;
 }
 - (CGFloat)cellContentViewWith
 {
@@ -396,6 +403,15 @@ static NSArray *lastSele_IdArray_;
             [self.navigationController pushVC:vc];
         }
     }
+}
+#pragma mark - HHFeatureSelectionViewCellDelegate
+
+- (void)choosedStock:(NSString *)product_stock product_price:(NSString *)product_price featureselectionCell:(id)featureselectionCell{
+    
+    HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[self.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",product_price];
+    cell.stock_label.text = [NSString stringWithFormat:@"库存：%@",product_stock];
+   
 }
 #pragma mark -加载数据
 
@@ -622,10 +638,9 @@ static NSArray *lastSele_IdArray_;
     
     if (!_cycleScrollView) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 300) imageNamesGroup:@[@""]];
-        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"loadImag_default"];
+        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"person_bg"];
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
-        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
-//        [_cycleScrollView setPlaceholderImage:[UIImage imageWithColor:kWhiteColor]];
+//        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
         
         _cycleScrollView.delegate = self;
     }

@@ -72,9 +72,9 @@
     
     //加,减按钮
     _increaseBtn = [self creatButton];
-    [_increaseBtn setImage:[UIImage imageNamed:@"icon_add_default"] forState:UIControlStateNormal];
+//    [_increaseBtn setImage:[UIImage imageNamed:@"icon_add_default"] forState:UIControlStateNormal];
     _decreaseBtn = [self creatButton];
-    [_decreaseBtn setImage:[UIImage imageNamed:@"icon_minus_selected"] forState:UIControlStateNormal];
+//    [_decreaseBtn setImage:[UIImage imageNamed:@"icon_minus_selected"] forState:UIControlStateNormal];
 
     [self addSubview:_decreaseBtn];
     [self addSubview:_increaseBtn];
@@ -86,7 +86,7 @@
     _textField.keyboardType = UIKeyboardTypeNumberPad;
     _textField.font = [UIFont systemFontOfSize:_inputFieldFont];
     _textField.text = [NSString stringWithFormat:@"%ld",(long)_minValue];
-    
+    _textField.textColor = RGB(52, 52, 52);
     [self addSubview:_textField];
 }
 
@@ -94,8 +94,9 @@
 - (UIButton *)creatButton
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:_buttonTitleFont];
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:_buttonTitleFont];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(-3, 0, 0, 0)];
+    [button setTitleColor:RGB(52, 52, 52) forState:UIControlStateNormal];
     [button addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside|UIControlEventTouchUpInside|UIControlEventTouchCancel];
     return button;
@@ -107,7 +108,7 @@
     [super layoutSubviews];
     
     _width =  self.frame.size.width;
-    _height = self.frame.size.height-5;
+    _height = self.frame.size.height;
     _textField.frame = CGRectMake(_height, 0, _width - 2*_height, _height);
     _increaseBtn.frame = CGRectMake(_width - _height, 0, _height, _height);
     
@@ -310,8 +311,8 @@
 - (void)setButtonTitleFont:(CGFloat)buttonTitleFont
 {
     _buttonTitleFont = buttonTitleFont;
-    _increaseBtn.titleLabel.font = [UIFont boldSystemFontOfSize:buttonTitleFont];
-    _decreaseBtn.titleLabel.font = [UIFont boldSystemFontOfSize:buttonTitleFont];
+    _increaseBtn.titleLabel.font = [UIFont systemFontOfSize:buttonTitleFont weight:UIFontWeightThin];
+    _decreaseBtn.titleLabel.font = [UIFont systemFontOfSize:buttonTitleFont weight:UIFontWeightThin];
 }
 
 - (void)setIncreaseTitle:(NSString *)increaseTitle

@@ -12,7 +12,10 @@
 @implementation DCConsts
 
 /** 常量数 */
-CGFloat const DCMargin = 10;
+CGFloat const DCMargin = 25;
+
+/** 属性距离常量数 */
+CGFloat const DCellMargin = 18;
 
 /** 导航栏高度 */
 CGFloat const DCNaviH = 44;

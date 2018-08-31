@@ -262,7 +262,8 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_image_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
             [_image_title_btn setImage:[UIImage imageNamed:_nomal_image_Arr[i]] forState:(UIControlStateNormal)];
             [_image_title_btn setImage:[UIImage imageNamed:_selected_image_Arr[i]] forState:(UIControlStateSelected)];
-            
+            [_image_title_btn setBackgroundColor:RGB(255, 239, 239)];
+
             // 计算每个label的X值
             button_X = button_X + button_W;
 
@@ -325,7 +326,8 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_image_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
             [_image_title_btn setImage:[UIImage imageNamed:_nomal_image_Arr[i]] forState:(UIControlStateNormal)];
             [_image_title_btn setImage:[UIImage imageNamed:_selected_image_Arr[i]] forState:(UIControlStateSelected)];
-            
+            [_image_title_btn setBackgroundColor:RGB(255, 239, 239)];
+
             // 点击事件
             [_image_title_btn addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
 
@@ -387,11 +389,10 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             weakSelf.temp_btn = button;
             
         }else if (weakSelf.temp_btn != nil && weakSelf.temp_btn == button){
-            
+
             button.selected = YES;
             
         }else if (weakSelf.temp_btn != button && weakSelf.temp_btn != nil){
-            
             weakSelf.temp_btn.selected = NO;
             button.selected = YES;
             weakSelf.temp_btn = button;

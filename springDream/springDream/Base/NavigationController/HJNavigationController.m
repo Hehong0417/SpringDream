@@ -84,7 +84,7 @@
 //    
 //   UIImage *navImage = [navView lh_toImage];
     
-    UIColor *navColor = APP_COMMON_COLOR;
+    UIColor *navColor = APP_NAV_COLOR;
     UIImage *navImage = [UIImage imageWithColor:navColor];
     //设置导航栏背景
     if (!iOS7){

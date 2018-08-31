@@ -90,6 +90,8 @@
             if (api.State == 1) {
                 NSArray *arr =  api.Data;
                 self.datas = arr.mutableCopy;
+                if (self.datas.count == 0) {
+                }
                 [self.collectionView reloadData];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -131,7 +133,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
 
-    return  CGSizeMake(ScreenW, WidthScaleSize_H(350));
+    return  CGSizeMake(ScreenW, 250);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
 
@@ -143,13 +145,14 @@
     UICollectionReusableView *reusableview = nil;
     if (kind == UICollectionElementKindSectionHeader){
         HHEvaluationHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HHEvaluationHeadView" forIndexPath:indexPath];
-        headerView.backgroundColor = KVCBackGroundColor;
         headerView.isPay = 1;
         headerView.nav = self.navigationController;
         if (self.datas.count == 0) {
             headerView.title_lab.hidden = YES;
+            headerView.imagV.hidden = YES;
         }else{
             headerView.title_lab.hidden = NO;
+            headerView.imagV.hidden = NO;
         }
         reusableview = headerView;
     }

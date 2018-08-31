@@ -29,6 +29,7 @@
     
     [super viewDidLoad];
     
+    self.title = @"我的收藏";
     //商品列表
     self.page = 1;
     self.pageSize = 10;
@@ -41,7 +42,8 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
     
-    [self addFootRefresh];
+    [self getDatas];
+    
     //获取数据
     [self addHeadRefresh];
     
@@ -54,23 +56,24 @@
     return _datas;
 }
 
-
 #pragma 加载数据
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:nil finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         
         if (!error) {
             
             if (api.State == 1) {
-                
+                [self addFootRefresh];
+
                 if (self.isFooterRefresh) {
                     [self loadDataFinish:api.Data];
                 }else{
                     [self.datas removeAllObjects];
                     [self loadDataFinish:api.Data];
                 }
+
             }else{
                 
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -234,7 +237,7 @@
     
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT - Status_HEIGHT-40-44) collectionViewLayout:flowout];
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - STATUS_NAV_HEIGHT) collectionViewLayout:flowout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsVerticalScrollIndicator = NO;

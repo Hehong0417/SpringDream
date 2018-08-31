@@ -9,6 +9,9 @@
 #import "HHServiceCell_one.h"
 #import "HHCouponSuperVC.h"
 #import "HHMyCollectionVC.h"
+#import "HHMyWalletVC.h"
+#import "HHMyIntegralVC.h"
+
 
 @implementation HHServiceCell_one
 
@@ -29,7 +32,9 @@
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
     if (buttonIndex == 0) {
-        
+        //我的钱包
+        HHMyWalletVC *vc = [HHMyWalletVC new];
+        [self.nav pushVC:vc];
         
     }else if (buttonIndex == 1){
         //优惠券
@@ -37,10 +42,11 @@
         [self.nav pushVC:vc];
         
     }else if (buttonIndex == 2){
-
+      //我的积分
+        HHMyIntegralVC *vc = [HHMyIntegralVC new];
+        [self.nav pushVC:vc];
         
     }else if (buttonIndex == 3){
-        
         // 我的收藏
         HHMyCollectionVC *vc = [HHMyCollectionVC new];
         [self.nav pushVC:vc];

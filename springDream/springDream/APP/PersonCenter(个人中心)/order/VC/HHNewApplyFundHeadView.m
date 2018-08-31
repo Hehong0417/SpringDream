@@ -19,7 +19,7 @@
         for (NSInteger i=0; i<3; i++) {
             XYQButton  *btn = [XYQButton ButtonWithFrame:CGRectMake((ScreenW-210)/6+i*(70+(ScreenW-210)/3),15, 70, 90) imgaeName:@"p_01" titleName:titles[i] contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:KTitleLabelColor fontsize:13] tapAction:nil];
             [btn setImage:[UIImage imageNamed:@"p_02"] forState:UIControlStateSelected];
-            [btn setTitleColor:kRedColor forState:UIControlStateSelected];
+            [btn setTitleColor:APP_COMMON_COLOR forState:UIControlStateSelected];
             btn.tag = 10000+i;
             [self addSubview:btn];
             if (i<2) {

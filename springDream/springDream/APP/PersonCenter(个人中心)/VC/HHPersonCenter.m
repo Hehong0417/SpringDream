@@ -12,6 +12,8 @@
 #import "HHServiceCell_two.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
+#import "HHvipInfoVC.h"
+
 
 @interface HHPersonCenter ()
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -29,6 +31,11 @@
     self.tabView.tableHeaderView = self.personHead;
     [self registerTableViewCell];
 
+    WEAK_SELF();
+    [self.personHead.icon_view setTapActionWithBlock:^{
+        HHvipInfoVC *vc = [HHvipInfoVC new];
+        [weakSelf.navigationController pushVC:vc];
+    }];
 }
 - (void)loadView{
     

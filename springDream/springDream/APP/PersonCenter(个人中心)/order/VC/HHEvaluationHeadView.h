@@ -22,4 +22,6 @@
 
 @property(nonatomic,strong)   NSString *pid;
 
+@property(nonatomic,strong)   UIImageView *imagV;
+
 @end

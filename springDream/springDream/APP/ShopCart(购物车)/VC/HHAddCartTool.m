@@ -106,7 +106,7 @@
 //        [_buyBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 40)];
 //        [_buyBtn setImage:[UIImage imageNamed:@"triangle2"] forState:UIControlStateSelected];
 //        [_buyBtn setImage:[UIImage imageNamed:@"triangle1"] forState:UIControlStateNormal];
-        [_buyBtn setBackgroundColor:[UIColor redColor]];
+        [_buyBtn setBackgroundColor:APP_COMMON_COLOR];
 
     }
     return _buyBtn;
