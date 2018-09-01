@@ -75,7 +75,7 @@ static NSArray *lastSele_IdArray_;
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
-    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-44-20-50) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
+    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT-50) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
     
     [self.view addSubview:self.tabView];
@@ -332,11 +332,6 @@ static NSArray *lastSele_IdArray_;
         HHGoodIntroduceCell *cell = [tableView dequeueReusableCellWithIdentifier:HHGoodIntroduceCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = self.gooodDetailModel;
-        __weak HHGoodDetailVC *weakSelf = self;
-        cell.reloadBlock =^()
-        {
-            [weakSelf.tabView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        };
         gridcell = cell;
         
     }
@@ -353,7 +348,7 @@ static NSArray *lastSele_IdArray_;
     
     if (indexPath.section == 1) {
         
-        return   self.collectionHeight;
+        return   self.collectionHeight+10;
     }
     if (indexPath.section == 2) {
        
@@ -370,7 +365,7 @@ static NSArray *lastSele_IdArray_;
         }
     if (indexPath.section == 4) {
 
-        return [HHGoodIntroduceCell cellHeight];
+        return ScreenH;
 
     }
 
@@ -524,8 +519,8 @@ static NSArray *lastSele_IdArray_;
     //猜你喜欢
     [self getGuess_you_likeData];
     
-    //评价
-    [self getEvaluateList];
+   //评价
+//    [self getEvaluateList];
     
 }
 //猜你喜欢
@@ -637,10 +632,10 @@ static NSArray *lastSele_IdArray_;
 - (SDCycleScrollView *)cycleScrollView {
     
     if (!_cycleScrollView) {
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 300) imageNamesGroup:@[@""]];
-        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"person_bg"];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH) imageNamesGroup:@[@""]];
+        _cycleScrollView.placeholderImage = [UIImage imageNamed:@""];
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
-//        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
+        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
         
         _cycleScrollView.delegate = self;
     }

@@ -25,7 +25,14 @@
 //商品详情
 + (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage;
 
+//获取个人商品收藏
++ (instancetype)GetProductCollectionWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+
 #pragma mark - post
 
+//增加商品收藏
++ (instancetype)postAddProductCollectionWith:(NSArray *)pids;
+//取消商品收藏
++ (instancetype)postDeleteProductCollectionWith:(NSArray *)pids;
 
 @end

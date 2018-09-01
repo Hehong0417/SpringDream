@@ -78,11 +78,11 @@
 
     CGFloat tableHeight;
     if (self.cartType == HHcartType_goodDetail) {
-        tableHeight = SCREEN_HEIGHT-Status_HEIGHT-44 - 50;
+        tableHeight = SCREEN_HEIGHT-Status_HEIGHT-44;
         backBtn.hidden = NO;
         
     }else{
-        tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44 - 50 - 49;
+        tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44 - 50;
         backBtn.hidden = YES;
 
     }
@@ -276,6 +276,7 @@
 - (void)addSettleAccountView{
     
     self.settleAccountView  = [[[NSBundle mainBundle] loadNibNamed:@"HHCartFootView" owner:self options:nil] lastObject];
+    self.settleAccountView.hidden = YES;
     self.settleAccountView.sendGift_label.hidden = YES;
     self.settleAccountView.sendGift_widthConstant.constant = 0;
     CGFloat settleView_y;

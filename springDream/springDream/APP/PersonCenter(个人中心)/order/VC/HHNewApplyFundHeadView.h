@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign)   NSInteger currentSelectBtn_index;
 
+@property (nonatomic, strong) HHproducts_item_Model *item_model;
 
 @end

@@ -11,5 +11,6 @@
 @interface HHAddressFooterView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *editAddressBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteAddressBtn;
+@property (weak, nonatomic) IBOutlet UIButton *IsDefaultBtn;
 
 @end

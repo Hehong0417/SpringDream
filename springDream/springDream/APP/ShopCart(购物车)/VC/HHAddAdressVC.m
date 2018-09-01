@@ -41,8 +41,8 @@
     self.title = self.titleStr;
     
     
-    self.title_arr = @[@[@"国家/地区",@"市、区",@"详细地址",@"邮政编码"],@[@"收件人姓名",@"电话号码"],@[@"设置为默认地址"]];
-    self.placeHolder_arr = [NSMutableArray arrayWithArray:@[@[@"中国大陆",@"请选择",@"",@"邮政编码"],@[@"请填写真实姓名，确保顺利收到货",@"中国大陆电话号码"],@[@""]]];
+    self.title_arr = @[@[@"国家/地区",@"市、区",@"详细地址"],@[@"收件人姓名",@"电话号码"],@[@"设置为默认地址"]];
+    self.placeHolder_arr = [NSMutableArray arrayWithArray:@[@[@"中国大陆",@"请选择",@""],@[@"请填写真实姓名，确保顺利收到货",@"中国大陆电话号码"],@[@""]]];
     
     //获取数据
     if (self.addressType == HHAddress_editType) {
@@ -97,7 +97,7 @@
                   self.address = model.Address;
                 //选择的地址
                 self.address_Str = [NSString stringWithFormat:@"%@ %@ %@",self.province,self.city,self.region];
-                if ([model.IsDefault isEqualToString:@"1"]) {
+                if ([model.IsDefault isEqual:@1]) {
                     self.isOn = YES;
                 }else{
                     self.isOn = NO;
@@ -121,68 +121,70 @@
     NSString *addressStr = addressCell.inputTextField.text;
     
     NSString *validStr = [self validWithusername:usernameStr mobile:mobileStr district_id:self.district_id address:addressStr];
-    if (!validStr) {
-        
-      if (self.addressType == HHAddress_editType){
-           
-            [[ [HHMineAPI  postEditAddressWithId:self.Id district_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-                if (!error) {
-                    if (api.State == 1) {
-                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                        [SVProgressHUD showSuccessWithStatus:@"编辑成功！"];
-                        [self.navigationController popVC];
-                    }else{
-                        
-                        [SVProgressHUD showInfoWithStatus:api.Msg];
-                    }
-                }
-            }];
-            
-      }else {
-          
-          [[[HHMineAPI postAddAddressWithdistrict_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-              if (!error) {
-                  if (api.State == 1) {
-                      if (self.addressType == HHAddress_addType) {
-                          [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                          [SVProgressHUD showSuccessWithStatus:@"添加成功!"];
-                          [self.navigationController popVC];
-                          
-                      }else if(self.addressType == HHAddress_settlementType_cart){
-                          //提交订单页面
-                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                          vc.pids = self.pids;
-                          if ([self.sendGift isEqual:@1]) {
-                              vc.enter_type = HHaddress_type_Spell_group;
-                              vc.mode = @8;
-                          }else{
-                              vc.enter_type = HHaddress_type_add_cart;
-                              vc.mode = nil;
-                          }
-                          vc.sendGift = self.sendGift;
-                          [self.navigationController pushVC:vc];
-                          
-                      }else if (self.addressType == HHAddress_settlementType_productDetail){
-                          
-                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                          vc.enter_type = HHaddress_type_add_productDetail;
-                          vc.mode = self.mode;
-                          vc.ids_Str = self.ids_Str;
-                          vc.pids = self.pids;
-                          [self.navigationController pushVC:vc];
-                      }
-                      
-                  }else{
-                      
-                      [SVProgressHUD showInfoWithStatus:api.Msg];
-                  }
-              }
-          }];
-      }
-        
-    }else{
-        [SVProgressHUD showInfoWithStatus:validStr];
-    }
+    
+    NSLog(@"%d",self.swi.isOn);
+//    if (!validStr) {
+//
+//      if (self.addressType == HHAddress_editType){
+//
+//            [[ [HHMineAPI  postEditAddressWithId:self.Id district_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+//                if (!error) {
+//                    if (api.State == 1) {
+//                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//                        [SVProgressHUD showSuccessWithStatus:@"编辑成功！"];
+//                        [self.navigationController popVC];
+//                    }else{
+//
+//                        [SVProgressHUD showInfoWithStatus:api.Msg];
+//                    }
+//                }
+//            }];
+//
+//      }else {
+//
+//          [[[HHMineAPI postAddAddressWithdistrict_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+//              if (!error) {
+//                  if (api.State == 1) {
+//                      if (self.addressType == HHAddress_addType) {
+//                          [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//                          [SVProgressHUD showSuccessWithStatus:@"添加成功!"];
+//                          [self.navigationController popVC];
+//
+//                      }else if(self.addressType == HHAddress_settlementType_cart){
+//                          //提交订单页面
+//                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
+//                          vc.pids = self.pids;
+//                          if ([self.sendGift isEqual:@1]) {
+//                              vc.enter_type = HHaddress_type_Spell_group;
+//                              vc.mode = @8;
+//                          }else{
+//                              vc.enter_type = HHaddress_type_add_cart;
+//                              vc.mode = nil;
+//                          }
+//                          vc.sendGift = self.sendGift;
+//                          [self.navigationController pushVC:vc];
+//
+//                      }else if (self.addressType == HHAddress_settlementType_productDetail){
+//
+//                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
+//                          vc.enter_type = HHaddress_type_add_productDetail;
+//                          vc.mode = self.mode;
+//                          vc.ids_Str = self.ids_Str;
+//                          vc.pids = self.pids;
+//                          [self.navigationController pushVC:vc];
+//                      }
+//
+//                  }else{
+//
+//                      [SVProgressHUD showInfoWithStatus:api.Msg];
+//                  }
+//              }
+//          }];
+//      }
+//
+//    }else{
+//        [SVProgressHUD showInfoWithStatus:validStr];
+//    }
     
 }
 - (NSString *)validWithusername:(NSString *)username mobile:(NSString *)mobile district_id:(NSString *)district_id address:(NSString *)address {
@@ -279,10 +281,10 @@
         cell.textLabel.font = FONT(14);
         cell.detailTextLabel.font = FONT(14);
         cell.textLabel.text = self.title_arr[indexPath.section][indexPath.row];
-        UISwitch *swi = [UISwitch new];
-        [swi addTarget:self action:@selector(swiAction:) forControlEvents:UIControlEventValueChanged];
-        [swi setOnTintColor:kRedColor];
-        cell.accessoryView  = swi;
+        self.swi = [UISwitch new];
+        [self.swi addTarget:self action:@selector(swiAction:) forControlEvents:UIControlEventValueChanged];
+        [self.swi setOnTintColor:kRedColor];
+        cell.accessoryView  = self.swi;
         gridCell = cell;
         
     }
@@ -339,8 +341,6 @@
     
 }
 - (void)swiAction:(UISwitch *)swi{
-    
-    
     
     
 }

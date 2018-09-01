@@ -335,19 +335,24 @@
         //商品
             HJOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HJOrderCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-            cell.productModel =  orders_m.items[indexPath.row];
+            HHproducts_item_Model *product_m = orders_m.items[indexPath.row];
+            cell.productModel =  product_m;
             cell.nav = self.navigationController;
-            [self setStandardLabWith:orders_m.items[indexPath.row] cell:cell];
+            [self setStandardLabWith:product_m cell:cell];
             grideCell = cell;
-          [cell.StandardLab setTapActionWithBlock:^{
-
+        
+        [cell.StandardLab setTapActionWithBlock:^{
+              
               HHNewApplyRefundVC *vc = [[HHNewApplyRefundVC alloc] init];
               vc.delegate = self;
               HHproducts_item_Model *model1 = orders_m.items[indexPath.row];
               vc.order_id = orders_m.order_id;
               vc.item_model = model1;
-              vc.title_str = @"申请退款";
+            if (product_m.product_item_status.integerValue == 2||product_m.product_item_status.integerValue == 6||product_m.product_item_status.integerValue == 9) {
+                vc.title_str = @"申请退款";
+            }else if (product_m.product_item_status.integerValue == 3||product_m.product_item_status.integerValue == 7||product_m.product_item_status.integerValue == 10){
+                vc.title_str = @"申请退货";
+            }
               [self.navigationController pushVC:vc];
         }];
     }
@@ -505,12 +510,10 @@
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:titleStr preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         btn.enabled = NO;
-        [btn lh_setBackgroundColor:KA0LabelColor forState:UIControlStateNormal];
         if (handle_type == HHhandle_type_cancel) {
             //取消订单
             [[[HHMineAPI postOrder_CloseWithorderid:orderid] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
                 btn.enabled = YES;
-                [btn lh_setBackgroundColor:kWhiteColor forState:UIControlStateNormal];
                 if (!error) {
                     if (api.State == 1) {
                         [self.datas removeAllObjects];
@@ -530,8 +533,6 @@
             //确认收货
             [[[HHMineAPI postConfirmOrderWithorderid:orderid]netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
                 btn.enabled = YES;
-                [btn lh_setBackgroundColor:kWhiteColor forState:UIControlStateNormal];
-
                 if (!error) {
                     if (api.State == 1) {
                         

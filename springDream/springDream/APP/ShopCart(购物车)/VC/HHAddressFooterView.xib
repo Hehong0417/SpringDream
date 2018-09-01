@@ -39,7 +39,7 @@
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-54-foI">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-54-foI">
                     <rect key="frame" x="10" y="10" width="96" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -76,6 +76,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="IsDefaultBtn" destination="7pa-54-foI" id="90e-In-HE8"/>
                 <outlet property="deleteAddressBtn" destination="aqb-Mi-9f1" id="6wZ-Zn-2xJ"/>
                 <outlet property="editAddressBtn" destination="H5C-eq-psc" id="jHQ-Jt-iqH"/>
             </connections>

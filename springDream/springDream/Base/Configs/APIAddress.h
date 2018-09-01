@@ -12,16 +12,26 @@
 //#ifdef DEBUG
 
 //阿里云
-#define API_HOST @"http://dm-base-api.elevo.cn/api"
+#define API_HOST @"http://mrs-base.elevo.cn/api"
 
-#define API_HOST1 @"http://dm-client.elevo.cn"
+#define API_HOST1 @"http://mrs.elevo.cn"
 
-#define API_HOST2 @"http://dm-order-api.elevo.cn/api"
+#define API_HOST2 @"http://mrs-order.elevo.cn/api"
 
 //分类、商品详情
-#define API_HOST3  @"http://dm-product-api.elevo.cn/api/Product"
-//正式
-#define API_HOST4  @"https://terorderapi.elevo.cn/api"
+#define API_HOST3  @"http://mrs-product.elevo.cn/api/Product"
+
+
+//#define API_HOST @"http://dm-base-api.elevo.cn/api"
+//
+//#define API_HOST1 @"http://dm-client.elevo.cn"
+//
+//#define API_HOST2 @"http://dm-order-api.elevo.cn/api"
+//
+////分类、商品详情
+//#define API_HOST3  @"http://dm-product-api.elevo.cn/api/Product"
+
+
 
 ////公共设置
 #define APP_key @"59334e721bcd31"
@@ -52,11 +62,9 @@ typedef enum : NSUInteger {
 
 #import "HJUser.h"
 
-
 //微信APPStore URL
 #define KWX_APPStore_URL @"https://itunes.apple.com/cn/app/微信/id414478124?mt=8"
 //#define KWX_APPStore_URL @"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"
-
 
 /**
  *  登录注册
@@ -132,6 +140,15 @@ typedef enum : NSUInteger {
 #define API_UploadManyImage API_SUB_URL(@"FileUpload/UploadManyImage")
 //3.6商品评价列表
 #define API_GetProductEvaluate API_SUB_URL2(@"Order/GetProductEvaluate")
+//3.7商品收藏
+#define API_AddProductCollection API_SUB_URL3(@"AddProductCollection")
+//3.8取消商品收藏
+#define API_DeleteProductCollection API_SUB_URL3(@"DeleteProductCollection")
+//3.9取消商品收藏
+#define API_DeleteProductCollection API_SUB_URL3(@"DeleteProductCollection")
+//3.10获取个人商品收藏
+#define API_GetProductCollection API_SUB_URL3(@"GetProductCollection")
+
 
 /**
  *  我的

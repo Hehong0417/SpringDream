@@ -28,11 +28,11 @@
     
     self.window.rootViewController = [[HJTabBarController alloc] init];
     
-//    HJUser *user = [HJUser sharedUser];
-//    if (user.token) {
-//    }else{
-//        self.window.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[[HHWXLoginVC alloc] init]];
-//    }
+    HJUser *user = [HJUser sharedUser];
+    if (user.token) {
+    }else{
+        self.window.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[[HHWXLoginVC alloc] init]];
+    }
     [self IQKeyboardManagerConfig];
     
     [WXApi registerApp:Wechat_AppKey];

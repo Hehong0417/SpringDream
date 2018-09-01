@@ -87,8 +87,8 @@
 }
 - (void)addBtns:(UIView *)grageView{
     
-    NSArray *images = @[@"good",@"bad",@"bad"];
-    NSArray *select_images = @[@"good_select",@"bad_select",@"bad_select"];
+    NSArray *images = @[@"good",@"medium",@"bad"];
+    NSArray *select_images = @[@"good_select",@"medium_select",@"bad_select"];
 
     NSArray *titles = @[@"好评",@"中评",@"差评"];
     CGFloat grageView_w = grageView.mj_w;

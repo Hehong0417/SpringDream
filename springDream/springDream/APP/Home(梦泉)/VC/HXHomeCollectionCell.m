@@ -29,7 +29,7 @@
     
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:productsModel.product_icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",productsModel.product_min_price];
-    self.product_s_intergralLabel.attributedText =  [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价：¥%@",productsModel.product_s_intergral] rangeStr:[NSString stringWithFormat:@"原价：¥%@",productsModel.product_s_intergral] color:KA0LabelColor];
+    self.product_s_intergralLabel.attributedText =  [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",productsModel.product_s_intergral] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",productsModel.product_s_intergral] color:KA0LabelColor];
 
 }
 - (void)setGoodsModel:(HHCategoryModel *)goodsModel{
@@ -40,7 +40,7 @@
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.ImageUrl1] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",goodsModel.MinShowPrice];
 
-    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价：¥%@",goodsModel.MarketPrice] rangeStr:[NSString stringWithFormat:@"原价：¥%@",goodsModel.MarketPrice] color:KA0LabelColor];
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] color:KA0LabelColor];
     
    
 }

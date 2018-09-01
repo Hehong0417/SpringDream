@@ -165,16 +165,19 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         }
     }];
     
+    NSInteger  stock =  self.product_stock.integerValue;
+    
+    self.numberButton.maxValue = stock>0?stock:1;
 }
 - (UIView *)setUpNumbView{
     
-    UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 30)];
+    UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
     UILabel *numLabel = [UILabel new];
     numLabel.text = @"[数量]";
     numLabel.font = BoldFONT(13);
     numLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:numLabel];
-    numLabel.frame = CGRectMake(25, 0, 80, 30);
+    numLabel.frame = CGRectMake(25, 10, 80, 30);
     [numView addSubview:numLabel];
    
     self.numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(ScreenW-115-DCMargin, numLabel.mj_y, 100, numLabel.mj_h)];
@@ -189,13 +192,11 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     self.numberButton.currentNumber = num_;
     self.numberButton.delegate = self;
     
-    NSInteger  stock =  self.product_stock.integerValue;
     WEAKSELF;
-    self.numberButton.maxValue = stock>0?stock:1;
  
     self.numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
         num_ = num;
-        weakSelf.Num_ = num;
+         weakSelf.Num_ = num;
     };
     [numView addSubview:self.numberButton];
     

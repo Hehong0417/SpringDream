@@ -25,14 +25,14 @@
     self.view.backgroundColor = RGB(120, 159, 243);
     
     
-    self.wxLoginView.userInteractionEnabled = YES;
+    self.login_label.userInteractionEnabled = YES;
         
          if ([WXApi isWXAppInstalled]&&[WXApi isWXAppSupportApi]){
           //已安装微信
              [self.loginBtn setImage:[UIImage imageNamed:@"login_icon_button_default"] forState:UIControlStateNormal];
              self.login_label.text = @"微信登录";
              
-             [self.wxLoginView setTapActionWithBlock:^{
+             [self.login_label setTapActionWithBlock:^{
                  [self getAuthWithUserInfoFromWechat];
 
                 }];
@@ -40,7 +40,7 @@
           //未安装微信
             [self.loginBtn setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
             self.login_label.text = @"登 录";
-            [self.wxLoginView setTapActionWithBlock:^{
+            [self.login_label setTapActionWithBlock:^{
                 
                 HHPhoneLoginVC *vc = [[HHPhoneLoginVC alloc] initWithNibName:@"HHPhoneLoginVC" bundle:nil];
                 [self.navigationController pushVC:vc];
@@ -48,6 +48,7 @@
         
         }
 
+    [self.login_label lh_setCornerRadius:2 borderWidth:0 borderColor:nil];
 
 }
 #pragma mark - 微信授权，获取微信信息
@@ -86,9 +87,10 @@
             NSLog(@"Wechat gender: %@", resp.gender);
 
             //账户是否存在 ？登录:注册
-
+                       NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
+//                       NSString *openid = resp.openid;
                             //***************//
-                            [[[HHUserLoginAPI postApiLoginWithopenId:resp.openid] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+                            [[[HHUserLoginAPI postApiLoginWithopenId:openid] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
 
                                 if (!error) {
                                     if (api.State == 1) {

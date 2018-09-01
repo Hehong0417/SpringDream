@@ -43,8 +43,42 @@
 
 + (NSAttributedString *)helpAttributedStringWithHTMLString:(NSString *)htmlString;
 
+
+
+/**
+ 字体大小相同字体颜色不同的属性字符串属性字符串
+
+ @param protocolStr 特殊颜色字符串
+ @param content 全部字符串
+ @param protocolStrColor 特殊颜色字符串字体颜色
+ @param contentColor 全部字符串字体颜色
+ @return 属性字符串
+ */
 + (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolStrColor:(UIColor *)protocolStrColor  contentColor:(UIColor *)contentColor;
 
+
+/**
+ 字体颜色相同字体大小不同的属性字符串属性字符串
+
+ @param protocolStr 特殊字体大小字符串
+ @param content 全部字符串
+ @param protocolFont 特殊字符串字体大小
+ @param contentFont 全部字符串字体大小
+ @return 属性字符串
+ */
++ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolFont:(UIFont *)protocolFont  contentFont:(UIFont *)contentFont;
+
+
+/**
+  字体颜色都不同的属性字符串
+ @param protocolStr 特殊颜色字符串
+ @param content 全部字符串
+ @param protocolFont 特殊颜色字符串字体大小
+ @param contentFont 全部字符串字体大小
+ @param protocolStrColor 特殊颜色字符串字体颜色
+ @param contentColor 全部字符串字体颜色
+ @return 属性字符串
+ */
 + (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolFont:(UIFont *)protocolFont  contentFont:(UIFont *)contentFont protocolStrColor:(UIColor *)protocolStrColor  contentColor:(UIColor *)contentColor;
 @end
 

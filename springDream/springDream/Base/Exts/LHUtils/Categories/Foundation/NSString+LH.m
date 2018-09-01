@@ -72,6 +72,7 @@
     return [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
     
 }
+
 + (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolStrColor:(UIColor *)protocolStrColor  contentColor:(UIColor *)contentColor{
     
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
@@ -82,6 +83,19 @@
     [attr addAttribute:NSFontAttributeName value:FONT(14) range:contentRange];
     [attr addAttribute:NSForegroundColorAttributeName value:contentColor range:contentRange];
     [attr addAttribute:NSForegroundColorAttributeName value:protocolStrColor range:resultRange];
+    
+    return attr;
+}
++ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolFont:(UIFont *)protocolFont  contentFont:(UIFont *)contentFont{
+    
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
+    
+    NSRange resultRange = [content rangeOfString:protocolStr];
+    NSRange contentRange = [content rangeOfString:content];
+    
+    [attr addAttribute:NSForegroundColorAttributeName value:kGrayColor range:resultRange];
+    [attr addAttribute:NSFontAttributeName value:contentFont range:contentRange];
+    [attr addAttribute:NSFontAttributeName value:protocolFont range:resultRange];
     
     return attr;
 }

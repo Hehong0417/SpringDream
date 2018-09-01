@@ -66,7 +66,7 @@
 //收货地址
 @property(nonatomic,strong) NSString *Recipient;
 @property(nonatomic,strong) NSString *Moble;
-@property(nonatomic,strong) NSString *IsDefault;
+@property(nonatomic,strong) NSNumber *IsDefault;
 @property(nonatomic,strong) NSString *Province;
 @property(nonatomic,strong) NSString *City;
 @property(nonatomic,strong) NSString *District;

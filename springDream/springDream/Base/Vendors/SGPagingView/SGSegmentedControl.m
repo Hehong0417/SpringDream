@@ -376,37 +376,50 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
     // 3、改变指示器位置
     [self titleBtnSelected:sender];
 }
-
+/** 价格切换图片 */
+- (void)setPriceTop:(NSString *)price_top price_down:(NSString *)price_down{
+    
+    self.price_top = price_top;
+    self.price_down = price_down;
+}
 /** 标题选中颜色改变以及指示器位置变化 */
 - (void)titleBtnSelected:(UIButton *)button {
     self.temp_flag = !self.temp_flag;
-
+    
     WEAK_SELF();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(indicatorViewTimeOfAnimation * 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (weakSelf.temp_btn == nil) {
             
             button.selected = YES;
             weakSelf.temp_btn = button;
+            NSLog(@"aaaaaaaa");
             
         }else if (weakSelf.temp_btn != nil && weakSelf.temp_btn == button){
 
             button.selected = YES;
-            
+            NSLog(@"bbbbbbbb");
+
         }else if (weakSelf.temp_btn != button && weakSelf.temp_btn != nil){
             weakSelf.temp_btn.selected = NO;
             button.selected = YES;
             weakSelf.temp_btn = button;
+            if (button.tag == 2) {
+                weakSelf.temp_flag = NO;
+                NSLog(@"cccccccc");
+                [button setImage:[UIImage imageNamed:self.price_top] forState:UIControlStateSelected];
+
+            }
         }
     });
 
     if (button.tag == 2) {
-        
         if (button.selected == YES) {
-            
-            [button setImage:[UIImage imageNamed:weakSelf.temp_flag?@"pArrow_down":@"pArrow_top"] forState:UIControlStateSelected];
+            NSLog(@"dddddddd");
+            [button setImage:[UIImage imageNamed:weakSelf.temp_flag?self.price_down:self.price_top] forState:UIControlStateSelected];
             
         }
     }
+    
     if (self.segmentedControlType == SGSegmentedControlTypeScroll) {
         // 改变指示器位置
         if (self.segmentedControlIndicatorType == SGSegmentedControlIndicatorTypeCenter) {

@@ -33,6 +33,8 @@
      [self.chooseBtn setImage:[UIImage imageNamed:@"icon_sign_default"] forState:UIControlStateNormal];
      [self.chooseBtn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
     
+    [self.product_iconLabel lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
+    
     [self.store_tag_label lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{

@@ -289,6 +289,12 @@
     footer.editAddressBtn.tag = section+1000;
     [footer.editAddressBtn addTarget:self action:@selector(editAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [footer.deleteAddressBtn addTarget:self action:@selector(deleteAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    HHMineModel  *shippingAddressModel =  [HHMineModel mj_objectWithKeyValues:self.datas[section]];
+    if ([shippingAddressModel.IsDefault isEqual:@1]) {
+        footer.IsDefaultBtn.hidden = NO;
+    }else{
+        footer.IsDefaultBtn.hidden = YES;
+    }
     return footer;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

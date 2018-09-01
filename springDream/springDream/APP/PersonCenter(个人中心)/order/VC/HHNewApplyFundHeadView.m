@@ -32,10 +32,76 @@
     
     return self;
 }
-- (void)setCurrentSelectBtn_index:(NSInteger)currentSelectBtn_index{
-    _currentSelectBtn_index = currentSelectBtn_index;
-    UIButton *btn = [self viewWithTag:currentSelectBtn_index+10000];
-    btn.selected = YES;
+-(void)setItem_model:(HHproducts_item_Model *)item_model{
     
+    _item_model = item_model;
+    if (item_model.product_item_status.integerValue == 2) {
+        //申请退款
+        _currentSelectBtn_index = 0;
+        UIButton *btn0 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn0 setTitle:@"申请退款" forState:UIControlStateNormal];
+        btn0.selected = YES;
+        UIButton *btn1 = [self viewWithTag:1+10000];
+        [btn1 setTitle:@"退款中" forState:UIControlStateNormal];
+        UIButton *btn2 = [self viewWithTag:2+10000];
+        [btn2 setTitle:@"退款完成" forState:UIControlStateNormal];
+        
+    }else if (item_model.product_item_status.integerValue == 3) {
+        //申请退货
+        _currentSelectBtn_index = 0;
+        UIButton *btn0 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn0 setTitle:@"申请退货" forState:UIControlStateNormal];
+        btn0.selected = YES;
+        UIButton *btn1 = [self viewWithTag:1+10000];
+        [btn1 setTitle:@"退货中" forState:UIControlStateNormal];
+        UIButton *btn2 = [self viewWithTag:2+10000];
+        [btn2 setTitle:@"退货完成" forState:UIControlStateNormal];
+        
+    }else if (item_model.product_item_status.integerValue == 6) {
+        //退款中
+        _currentSelectBtn_index = 1;
+        UIButton *btn0 = [self viewWithTag:10000];
+        [btn0 setTitle:@"申请退款" forState:UIControlStateNormal];
+        UIButton *btn1 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn1 setTitle:@"退款中" forState:UIControlStateNormal];
+        btn1.selected = YES;
+        UIButton *btn2 = [self viewWithTag:2+10000];
+        [btn2 setTitle:@"退款完成" forState:UIControlStateNormal];
+        
+    }else if (item_model.product_item_status.integerValue == 7) {
+        //退货中
+        _currentSelectBtn_index = 1;
+        UIButton *btn0 = [self viewWithTag:10000];
+        [btn0 setTitle:@"申请退货" forState:UIControlStateNormal];
+        UIButton *btn1 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn1 setTitle:@"退货中" forState:UIControlStateNormal];
+        btn1.selected = YES;
+        UIButton *btn2 = [self viewWithTag:2+10000];
+        [btn2 setTitle:@"退货完成" forState:UIControlStateNormal];
+        
+    }else if (item_model.product_item_status.integerValue == 9) {
+        //已退款
+        _currentSelectBtn_index = 2;
+        UIButton *btn0 = [self viewWithTag:10000];
+        [btn0 setTitle:@"申请退款" forState:UIControlStateNormal];
+        UIButton *btn1 = [self viewWithTag:1+10000];
+        [btn1 setTitle:@"退款中" forState:UIControlStateNormal];
+        UIButton *btn2 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn2 setTitle:@"退款完成" forState:UIControlStateNormal];
+        btn2.selected = YES;
+
+    }else if (item_model.product_item_status.integerValue == 10) {
+        //已退货
+        _currentSelectBtn_index = 2;
+        UIButton *btn0 = [self viewWithTag:10000];
+        [btn0 setTitle:@"申请退货" forState:UIControlStateNormal];
+        UIButton *btn1 = [self viewWithTag:1+10000];
+        [btn1 setTitle:@"退货中" forState:UIControlStateNormal];
+        UIButton *btn2 = [self viewWithTag:_currentSelectBtn_index+10000];
+        [btn2 setTitle:@"退货完成" forState:UIControlStateNormal];
+        btn2.selected = YES;
+    }
+
 }
+
 @end

@@ -82,6 +82,7 @@
 
 //        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
     }
+    [self.SG setPriceTop:@"pArrow_top" price_down:@"pArrow_down"];
     self.SG.titleColorStateNormal = APP_COMMON_COLOR;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
     self.SG.title_fondOfSize  = FONT(14);
@@ -105,10 +106,10 @@
             
             if (api.State == 1) {
 
-                [self addFootRefresh];
                 if (self.isFooterRefresh) {
                     [self loadDataFinish:api.Data];
                 }else{
+                   [self addFootRefresh];
                    [self.datas removeAllObjects];
                     [self loadDataFinish:api.Data];
                 }
@@ -284,6 +285,9 @@
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
     self.isFooterRefresh = NO;
     [self.task cancel];
+    
+    [self.datas removeAllObjects];
+    self.page = 1;
 
     if (index == 0){
         //上新

@@ -78,6 +78,12 @@ typedef enum : NSUInteger {
 /** 给外界scrollViewDidScroll方法提供文字渐显效果 */
 - (void)titleBtnColorGradualChangeScrollViewDidScroll:(UIScrollView *)scrollView;
 
+/** 价格切换图片 */
+- (void)setPriceTop:(NSString *)price_top price_down:(NSString *)price_down;
+/** 上箭头 */
+@property (nonatomic, strong) NSString *price_top;
+/** 下箭头 */
+@property (nonatomic, strong) NSString *price_down;
 
 @end
 

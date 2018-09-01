@@ -11,7 +11,9 @@
 #import "HHNewApplyFundCell.h"
 
 @interface HHNewApplyRefundVC ()
-
+{
+    UITextField *tField;
+}
 @property (strong, nonatomic)  NSArray *order_detail_arr;
 @property (strong, nonatomic)  NSArray *section_title_arr;
 @property (nonatomic, strong) UITableView *tabView;
@@ -55,12 +57,13 @@
     
     HHNewApplyFundHeadView *headView  = [[HHNewApplyFundHeadView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 110)];
     headView.backgroundColor = kWhiteColor;
-    headView.currentSelectBtn_index = 0;
+    headView.item_model = self.item_model;
     self.tabView.tableHeaderView = headView;
 
     [self.tabView registerNib:[UINib nibWithNibName:@"HHNewApplyFundCell" bundle:nil] forCellReuseIdentifier:@"HHNewApplyFundCell"];
     
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell  *grideCell=nil;
@@ -80,7 +83,17 @@
     if (indexPath.section == 2) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = @"退款申请处理中";
+        if (self.item_model.product_item_status.integerValue == 6||self.item_model.product_item_status.integerValue == 7) {
+            cell.textLabel.text = @"退货(款)申请处理中";
+        }else if (self.item_model.product_item_status.integerValue == 9||self.item_model.product_item_status.integerValue == 10){
+            cell.textLabel.text = @"退货(款)申请成功";
+        }else if (self.item_model.product_item_status.integerValue == 2||self.item_model.product_item_status.integerValue == 3){
+            cell.textLabel.text = @"退货(款)原因:";
+            tField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, ScreenW-200, 50)];
+            tField.font = FONT(13);
+            tField.placeholder = @"(至少说明一个原因)";
+            [cell.contentView addSubview:tField];
+        }
         cell.textLabel.font = FONT(14);
         grideCell = cell;
     }
@@ -138,7 +151,7 @@
 }
 - (void)commitAction:(UIButton *)btn{
     
-    [[[HHMineAPI postConfirmOrderWithorderid:self.order_id orderItemId:self.item_model.product_item_id quantity:@"1" comments:@""] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI postConfirmOrderWithorderid:self.order_id orderItemId:self.item_model.product_item_id quantity:@"1" comments:tField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (api.State == 1) {
             [SVProgressHUD showSuccessWithStatus:@"提交成功！"];
             if (self.delegate&&[self.delegate respondsToSelector:@selector(backActionWithBtn:)]) {
