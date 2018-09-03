@@ -16,6 +16,8 @@
 @property (nonatomic, strong)   UITableView *tableView;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   NSMutableArray *datas;
+@property(nonatomic,assign)   BOOL  isFooterRefresh;
+
 @end
 
 @implementation HHShippingAddressVC
@@ -40,7 +42,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     //tableView
     CGFloat tableHeight;
-    tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44 ;
+    tableHeight = SCREEN_HEIGHT - STATUS_NAV_HEIGHT-50;
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
@@ -63,7 +65,6 @@
     [self.view addSubview:addAddressBtn];
     
     [self addHeadRefresh];
-    [self addFootRefresh];
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.emptyDataSetSource = self;
     
@@ -109,6 +110,7 @@
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.datas removeAllObjects];
+        self.isFooterRefresh = NO;
         self.page = 1;
         [self getDatas];
     }];
@@ -121,7 +123,7 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        
+        self.isFooterRefresh = YES;
         [self getDatas];
     }];
     self.tableView.mj_footer = refreshfooter;
@@ -176,10 +178,10 @@
 }
 - (void)getDatas{
     
-    [[[HHMineAPI GetAddressListWithpage:@(self.page)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetAddressListWithpage:@(self.page)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
-                
+                [self addFootRefresh];
                 [self loadDataFinish:api.Data];
             }
         }

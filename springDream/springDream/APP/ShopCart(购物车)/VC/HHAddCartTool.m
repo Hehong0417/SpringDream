@@ -45,7 +45,44 @@
     }
 }
 - (void)collectAction:(UIButton *)button{
-    button.selected = !button.selected;
+    
+    if (button.selected == YES) {
+        //取消收藏
+        [[[HHHomeAPI postDeleteProductCollectionWithpids:self.product_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    button.selected = NO;
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showSuccessWithStatus:api.Msg];
+    
+                }else{
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+        }];
+    }else{
+        //添加收藏
+        [[[HHHomeAPI postAddProductCollectionWithpids:self.product_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    
+                    button.selected = YES;
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showSuccessWithStatus:api.Msg];
+                    
+                }else{
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+        }];
+    }
     
 }
 - (void)cartIconBtnAction{

@@ -22,7 +22,7 @@
         
         [view addSubview:_starEmptyImageView];
         //满星级imageView(之前等比例适配出现问题，因为赶时间，采用了以下解决方法适配...)
-        _starImageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"solid_start"]];
+        _starImageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"solid_star"]];
         _starImageView.frame=CGRectMake(frame.origin.x,frame.origin.y,0,frame.size.height);
         _starImageView.contentMode=UIViewContentModeLeft;
         _starImageView.clipsToBounds=YES;

@@ -22,7 +22,7 @@
     
     self.usernameLabel.text = shippingAddressModel.Recipient;
     self.mobileLabel.text = shippingAddressModel.Moble;
-    self.full_addressLabel.text = shippingAddressModel.FullAddress;
+    self.full_addressLabel.text = shippingAddressModel.FullAddressOnly;
 
     
 }

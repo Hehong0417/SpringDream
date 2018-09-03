@@ -19,6 +19,7 @@
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
+@property(nonatomic,strong) NSString  *userLevelName;
 
 @end
 
@@ -31,11 +32,20 @@
     self.tabView.tableHeaderView = self.personHead;
     [self registerTableViewCell];
 
+    
+    [self getDatas];
+    
     WEAK_SELF();
     [self.personHead.icon_view setTapActionWithBlock:^{
         HHvipInfoVC *vc = [HHvipInfoVC new];
+        vc.userId = weakSelf.mineModel.Id;
+        vc.mineModel = weakSelf.mineModel;
+        vc.userLevelName = self.userLevelName;
         [weakSelf.navigationController pushVC:vc];
     }];
+    
+    [self addHeadRefresh];
+
 }
 - (void)loadView{
     
@@ -56,16 +66,32 @@
 
     
 }
+#pragma mark - 刷新控件
+- (void)addHeadRefresh{
+    
+    MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self getDatas];
+    }];
+    refreshHeader.lastUpdatedTimeLabel.hidden = YES;
+    refreshHeader.stateLabel.hidden = YES;
+    self.tabView.mj_header = refreshHeader;
+}
+
 #pragma mark - 获取数据
 - (void)getDatas{
     
     [[[HHMineAPI GetUserDetail] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
-
+        if (self.tabView.mj_header.isRefreshing) {
+            [self.tabView.mj_header endRefreshing];
+        }
         if (!error) {
             if (api.State == 1) {
+                
                 self.mineModel = [HHMineModel mj_objectWithKeyValues:api.Data[@"user"]];
                 self.personHead.name_label.text = self.mineModel.UserName;
                 [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
+                self.userLevelName = api.Data[@"userLevelName"];
                  NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 NSString *content = [NSString stringWithFormat:@"消费金额:%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 self.personHead.consumption_amount_label.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_COMMON_COLOR contentColor:RGB(102, 102, 102)];
@@ -118,7 +144,8 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell" ];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UIImageView *ad_imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
-        ad_imgV.image = [UIImage imageNamed:@"dream"];
+        ad_imgV.contentMode = UIViewContentModeScaleToFill;
+        ad_imgV.image = [UIImage imageNamed:@"mrs_bg"];
         [cell.contentView addSubview:ad_imgV];
         grideCell = cell;
         

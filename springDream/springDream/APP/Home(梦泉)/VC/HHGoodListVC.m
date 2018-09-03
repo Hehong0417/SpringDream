@@ -33,6 +33,14 @@
 
 @implementation HHGoodListVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [self getDatas];
+
+}
+
 - (void)viewDidLoad{
     
     [super viewDidLoad];
@@ -53,7 +61,6 @@
     [self setupSGSegmentedControl];
 
 //    [self setupSearchView];
-    [self getDatas];
      //获取数据
     [self addHeadRefresh];
     
@@ -342,7 +349,8 @@
     
     HXHomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HXHomeCollectionCell" forIndexPath:indexPath];
     cell.goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-    
+    cell.view = self.view;
+    cell.indexPath = indexPath;
     return cell;
     
 }
@@ -402,15 +410,15 @@
     return _collectionView;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    searchView.hidden = NO;
-    
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//
+//    [super viewWillAppear:animated];
+//    searchView.hidden = NO;
+//
+//}
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    searchView.hidden = YES;
+//    searchView.hidden = YES;
 }
 @end

@@ -9,16 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-typedef void (^ReloadBlock)();
+
+typedef void (^ReloadBlock)(void);
 
 @interface HHGoodIntroduceCell : UITableViewCell<UIWebViewDelegate>
 
-@property (strong , nonatomic)UIWebView *wkWebView;
+@property (strong ,nonatomic)UIWebView *wkWebView;
 
 @property(nonatomic,copy)ReloadBlock reloadBlock;
 
-@property (nonatomic, strong)  HHgooodDetailModel *model;
+@property (nonatomic,copy)  HHgooodDetailModel *model;
 
 +(CGFloat)cellHeight;
 
 @end
+

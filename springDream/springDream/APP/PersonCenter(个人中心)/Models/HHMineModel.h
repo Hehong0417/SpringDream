@@ -71,6 +71,7 @@
 @property(nonatomic,strong) NSString *City;
 @property(nonatomic,strong) NSString *District;
 @property(nonatomic,strong) NSString *FullAddress;
+@property(nonatomic,strong) NSString *FullAddressOnly;
 @property(nonatomic,strong) NSString *Address;
 @property(nonatomic,strong) NSString *AddrId;
 @property(nonatomic,strong) NSString *CityId;

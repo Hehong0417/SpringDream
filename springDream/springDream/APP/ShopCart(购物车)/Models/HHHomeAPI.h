@@ -31,8 +31,8 @@
 #pragma mark - post
 
 //增加商品收藏
-+ (instancetype)postAddProductCollectionWith:(NSArray *)pids;
++ (instancetype)postAddProductCollectionWithpids:(NSString *)pids;
 //取消商品收藏
-+ (instancetype)postDeleteProductCollectionWith:(NSArray *)pids;
++ (instancetype)postDeleteProductCollectionWithpids:(NSString *)pids;
 
 @end

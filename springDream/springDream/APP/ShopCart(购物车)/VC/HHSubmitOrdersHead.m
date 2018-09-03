@@ -27,6 +27,6 @@
     
     _model = model;
     self.usernameLabel.text = [NSString stringWithFormat:@"%@    %@",model.Recipient,model.Moble];
-    self.full_addressLabel.text = [NSString stringWithFormat:@"%@",model.FullAddress];
+    self.full_addressLabel.text = [NSString stringWithFormat:@"%@",model.FullAddressOnly];
 }
 @end

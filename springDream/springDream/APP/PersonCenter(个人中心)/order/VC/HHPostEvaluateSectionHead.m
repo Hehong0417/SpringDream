@@ -19,12 +19,11 @@
         self.product_imageV.backgroundColor = KVCBackGroundColor;
         [self addSubview:self.product_imageV];
         
-        UILabel *title_lab = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.product_imageV.frame)+WidthScaleSize_W(10), WidthScaleSize_H(10), 60, WidthScaleSize_H(45)) text:@"描述相符" textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
-        title_lab.centerY = self.centerY;
+        UILabel *title_lab = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.product_imageV.frame)+WidthScaleSize_W(10), WidthScaleSize_H(10), 60, WidthScaleSize_H(20)) text:@"产品评价" textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
         [self addSubview:title_lab];
         
         //CDPStarEvaluation星形评价
-        self.starEvaluation=[[CDPStarEvaluation alloc] initWithFrame:CGRectMake(CGRectGetMaxX(title_lab.frame)+25,title_lab.mj_y,ScreenW-WidthScaleSize_W(80),WidthScaleSize_H(45)) onTheView:self];
+        self.starEvaluation=[[CDPStarEvaluation alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.product_imageV.frame)+WidthScaleSize_W(10),CGRectGetMaxY(title_lab.frame),ScreenW-WidthScaleSize_W(80),WidthScaleSize_H(30)) onTheView:self];
         self.starEvaluation.delegate=self;
         
     }

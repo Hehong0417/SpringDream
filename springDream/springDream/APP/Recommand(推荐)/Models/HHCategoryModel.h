@@ -27,6 +27,13 @@
 @property(nonatomic,strong) NSString *product_pageage_unit;
 @property(nonatomic,strong) NSString *product_s_intergral;
 @property(nonatomic,strong) NSString *product_type;
+@property(nonatomic,strong) NSNumber *IsCollection;
+
+@property(nonatomic,strong) NSString *product_id;
+@property(nonatomic,strong) NSString *product_image;
+@property(nonatomic,strong) NSString *product_name;
+@property(nonatomic,strong) NSString *product_market_price;
+@property(nonatomic,strong) NSString *product_cost_price;
 
 @end
 

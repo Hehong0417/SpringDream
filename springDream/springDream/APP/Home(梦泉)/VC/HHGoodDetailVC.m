@@ -122,7 +122,7 @@ static NSArray *lastSele_IdArray_;
 #pragma mark - 加入购物车、立即购买
 //加入购物车、立即购买
 - (void)addCartOrBuyAction{
-    
+    self.addCartTool.view = self.view;
     [self.view addSubview:self.addCartTool];
     
     WEAK_SELF();
@@ -332,6 +332,10 @@ static NSArray *lastSele_IdArray_;
         HHGoodIntroduceCell *cell = [tableView dequeueReusableCellWithIdentifier:HHGoodIntroduceCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = self.gooodDetailModel;
+        __weak HHGoodDetailVC *weak_Self = self;
+        cell.reloadBlock = ^{
+            [weak_Self.tabView reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
+        };
         gridcell = cell;
         
     }
@@ -365,7 +369,7 @@ static NSArray *lastSele_IdArray_;
         }
     if (indexPath.section == 4) {
 
-        return ScreenH;
+        return  [HHGoodIntroduceCell  cellHeight];
 
     }
 
@@ -439,6 +443,13 @@ static NSArray *lastSele_IdArray_;
                 self.cycleScrollView.imageURLStringsGroup = self.gooodDetailModel.ImageUrls;
                 self.discribeArr =  self.gooodDetailModel.AttributeValueList.mutableCopy;
                 
+                self.addCartTool.product_id = self.gooodDetailModel.Id;
+                if ([self.gooodDetailModel.IsCollection isEqual:@1]) {
+                    self.addCartTool.collectBtn.selected  = YES;
+                }else{
+                    self.addCartTool.collectBtn.selected = NO;
+                }
+               
                 [self.tabView reloadData];
                 
                 [self.activityIndicator stopAnimating];
@@ -520,7 +531,7 @@ static NSArray *lastSele_IdArray_;
     [self getGuess_you_likeData];
     
    //评价
-//    [self getEvaluateList];
+    [self getEvaluateList];
     
 }
 //猜你喜欢
@@ -556,7 +567,7 @@ static NSArray *lastSele_IdArray_;
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
         
     }];

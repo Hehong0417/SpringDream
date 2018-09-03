@@ -8,8 +8,9 @@
 
 #import "HHMyCollectionVC.h"
 #import "HXHomeCollectionCell.h"
+#import "HHGoodDetailVC.h"
 
-@interface HHMyCollectionVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface HHMyCollectionVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HXHomeCollectionCellDelegate>
 
 @property (nonatomic, strong)   UICollectionView *collectionView;
 @property (nonatomic, strong)   NSMutableArray *title_arr;
@@ -60,20 +61,19 @@
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
-        
+    [[[HHHomeAPI GetProductCollectionWithpage:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
         if (!error) {
             
             if (api.State == 1) {
                 [self addFootRefresh];
-
+                
                 if (self.isFooterRefresh) {
                     [self loadDataFinish:api.Data];
                 }else{
                     [self.datas removeAllObjects];
                     [self loadDataFinish:api.Data];
                 }
-
+                
             }else{
                 
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -88,6 +88,7 @@
             }
         }
     }];
+    
     
 }
 #pragma mark - DZNEmptyDataSetDelegate
@@ -185,8 +186,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     HXHomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HXHomeCollectionCell" forIndexPath:indexPath];
-    cell.goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-    
+    cell.collectModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    cell.delegate = self;
     return cell;
     
 }
@@ -218,7 +219,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
     return  CGSizeMake(0.001, 0.001);
-    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     
@@ -227,12 +227,18 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //    HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-    //    HHGoodBaseViewController *vc = [HHGoodBaseViewController new];
-    //    vc.Id = goodsModel.Id;
-    //    [self.navigationController pushVC:vc];
+    HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    HHGoodDetailVC *vc = [HHGoodDetailVC new];
+    vc.Id = goodsModel.product_id;
+    [self.navigationController pushVC:vc];
 }
+- (void)collectHandleComplete{
+    
+    [self.datas removeAllObjects];
+    self.page = 1;
+    [self getDatas];
 
+}
 - (UICollectionView *)collectionView{
     
     if (!_collectionView) {

@@ -26,12 +26,11 @@ static CGFloat staticheight = 0;
         bg_imgV.contentMode = UIViewContentModeCenter;
         [bg_view addSubview:bg_imgV];
 
+        
         self.wkWebView.scrollView.scrollEnabled = NO;
         self.wkWebView.delegate = self;
         self.wkWebView.backgroundColor = kClearColor;
         [self.contentView addSubview:self.wkWebView];
-        
- 
     }
     
     return self;
@@ -46,10 +45,10 @@ static CGFloat staticheight = 0;
     }
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)webViewDidFinishLoad:(UIWebView *)webView
 {
 //    document.body.offsetHeight
-    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue]+20;
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue]+20;
     self.wkWebView.frame = CGRectMake(0, 20, ScreenW, height);
     self.wkWebView.hidden = NO;
     if (staticheight != height+1) {

@@ -10,6 +10,12 @@
 #import "HHHomeModel.h"
 #import "HHgooodDetailModel.h"
 
+@protocol HXHomeCollectionCellDelegate<NSObject>
+
+- (void)collectHandleComplete;
+
+@end
+
 @interface HXHomeCollectionCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *goodImageV;
@@ -26,6 +32,16 @@
 
 //首页商品列表
 @property(nonatomic,strong) HHGuess_you_likeModel *guess_you_likeModel;
+
+
+//首页商品列表
+@property(nonatomic,strong) HHCategoryModel *collectModel;
+
+@property(nonatomic,strong) UIView *view;
+
+@property(nonatomic,strong) NSIndexPath *indexPath;
+
+@property(nonatomic,assign)  id<HXHomeCollectionCellDelegate> delegate;
 
 @end
 

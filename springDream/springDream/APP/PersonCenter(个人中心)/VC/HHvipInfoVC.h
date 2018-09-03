@@ -9,5 +9,10 @@
 #import "HJStaticGroupTableVC.h"
 
 @interface HHvipInfoVC : HJStaticGroupTableVC
+@property (nonatomic, strong)   NSString *userId;
+
+@property(nonatomic,strong) HHMineModel  *mineModel;
+
+@property(nonatomic,strong) NSString  *userLevelName;
 
 @end

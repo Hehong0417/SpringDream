@@ -103,12 +103,12 @@
 #pragma mark - post
 
 //增加商品收藏
-+ (instancetype)postAddProductCollectionWith:(NSArray *)pids {
++ (instancetype)postAddProductCollectionWithpids:(NSString *)pids {
     
     HHHomeAPI *api = [self new];
     api.subUrl = API_AddProductCollection;
     if (pids) {
-        [api.parameters setObject:pids forKey:@"pids"];
+        [api.parameters setObject:pids forKey:@""];
     }
     api.parametersAddToken = NO;
     
@@ -117,12 +117,12 @@
 }
 
 //取消商品收藏
-+ (instancetype)postDeleteProductCollectionWith:(NSArray *)pids{
++ (instancetype)postDeleteProductCollectionWithpids:(NSString *)pids{
     
     HHHomeAPI *api = [self new];
     api.subUrl = API_DeleteProductCollection;
     if (pids) {
-        [api.parameters setObject:pids forKey:@"pids"];
+        [api.parameters setObject:pids forKey:@""];
     }
     api.parametersAddToken = NO;
     

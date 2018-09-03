@@ -20,6 +20,7 @@
     self.product_min_priceLabel.font = SemiboldFONT(14);
     [self.collectButton setImage:[UIImage imageNamed:@"tip_03"] forState:UIControlStateNormal];
     [self.collectButton setImage:[UIImage imageNamed:@"tip_02"] forState:UIControlStateSelected];
+    
     [self.goodImageV lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
 }
 - (void)setProductsModel:(HHhomeProductsModel *)productsModel{
@@ -41,8 +42,27 @@
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",goodsModel.MinShowPrice];
 
     self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] color:KA0LabelColor];
-    
+    if ([goodsModel.IsCollection isEqual:@1]) {
+        self.collectButton.selected = YES;
+    }else{
+        self.collectButton.selected = NO;
+    }
    
+}
+- (void)setCollectModel:(HHCategoryModel *)collectModel{
+    
+    _collectModel = collectModel;
+    self.product_nameLabel.text = collectModel.product_name;
+    [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:collectModel.product_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",collectModel.product_cost_price?collectModel.product_cost_price:@"0"];
+    
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",collectModel.product_market_price?collectModel.product_market_price:@"0"] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",collectModel.product_market_price?collectModel.product_market_price:@"0"] color:KA0LabelColor];
+        self.collectButton.selected = YES;
+    
+}
+- (void)setIndexPath:(NSIndexPath *)indexPath{
+    
+    _indexPath = indexPath;
 }
 - (void)setGuess_you_likeModel:(HHGuess_you_likeModel *)guess_you_likeModel{
     
@@ -52,14 +72,58 @@
 
     self.product_nameLabel.text = guess_you_likeModel.name;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:guess_you_likeModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price?guess_you_likeModel.sale_price:@"0"];
 
-    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price] rangeStr:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price] color:KA0LabelColor];
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price?guess_you_likeModel.market_price:@"0"] rangeStr:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price?guess_you_likeModel.market_price:@"0"] color:KA0LabelColor];
     
 }
 - (IBAction)collectButton:(UIButton *)sender {
-    sender.selected = !sender.selected;
     
+    if (sender.selected == YES) {
+        //取消收藏
+        NSString *pids =nil;
+        if (self.goodsModel.Id) {
+            pids = self.goodsModel.Id;
+        }else{
+            pids = self.collectModel.product_id;
+        }
+        [[[HHHomeAPI postDeleteProductCollectionWithpids:pids] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    sender.selected = NO;
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showSuccessWithStatus:api.Msg];
+                    if (self.delegate&&[self.delegate respondsToSelector:@selector(collectHandleComplete)]&&self.collectModel.product_id) {
+                        [self.delegate collectHandleComplete];
+                    }
+                }else{
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+        }];
+    }else{
+        //添加收藏
+        [[[HHHomeAPI postAddProductCollectionWithpids:self.goodsModel.Id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    
+                    sender.selected = YES;
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showSuccessWithStatus:api.Msg];
+                    
+                }else{
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+        }];
+    }
 }
 
 @end

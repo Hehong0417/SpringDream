@@ -122,69 +122,68 @@
     
     NSString *validStr = [self validWithusername:usernameStr mobile:mobileStr district_id:self.district_id address:addressStr];
     
-    NSLog(@"%d",self.swi.isOn);
-//    if (!validStr) {
-//
-//      if (self.addressType == HHAddress_editType){
-//
-//            [[ [HHMineAPI  postEditAddressWithId:self.Id district_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-//                if (!error) {
-//                    if (api.State == 1) {
-//                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-//                        [SVProgressHUD showSuccessWithStatus:@"编辑成功！"];
-//                        [self.navigationController popVC];
-//                    }else{
-//
-//                        [SVProgressHUD showInfoWithStatus:api.Msg];
-//                    }
-//                }
-//            }];
-//
-//      }else {
-//
-//          [[[HHMineAPI postAddAddressWithdistrict_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:[NSString stringWithFormat:@"%d",self.swi.isOn]] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-//              if (!error) {
-//                  if (api.State == 1) {
-//                      if (self.addressType == HHAddress_addType) {
-//                          [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-//                          [SVProgressHUD showSuccessWithStatus:@"添加成功!"];
-//                          [self.navigationController popVC];
-//
-//                      }else if(self.addressType == HHAddress_settlementType_cart){
-//                          //提交订单页面
-//                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-//                          vc.pids = self.pids;
-//                          if ([self.sendGift isEqual:@1]) {
-//                              vc.enter_type = HHaddress_type_Spell_group;
-//                              vc.mode = @8;
-//                          }else{
-//                              vc.enter_type = HHaddress_type_add_cart;
-//                              vc.mode = nil;
-//                          }
-//                          vc.sendGift = self.sendGift;
-//                          [self.navigationController pushVC:vc];
-//
-//                      }else if (self.addressType == HHAddress_settlementType_productDetail){
-//
-//                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-//                          vc.enter_type = HHaddress_type_add_productDetail;
-//                          vc.mode = self.mode;
-//                          vc.ids_Str = self.ids_Str;
-//                          vc.pids = self.pids;
-//                          [self.navigationController pushVC:vc];
-//                      }
-//
-//                  }else{
-//
-//                      [SVProgressHUD showInfoWithStatus:api.Msg];
-//                  }
-//              }
-//          }];
-//      }
-//
-//    }else{
-//        [SVProgressHUD showInfoWithStatus:validStr];
-//    }
+    if (!validStr) {
+
+      if (self.addressType == HHAddress_editType){
+
+            [[ [HHMineAPI  postEditAddressWithId:self.Id district_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:self.swi.isOn?@"true":@"false"] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+                if (!error) {
+                    if (api.State == 1) {
+                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                        [SVProgressHUD showSuccessWithStatus:@"编辑成功！"];
+                        [self.navigationController popVC];
+                    }else{
+
+                        [SVProgressHUD showInfoWithStatus:api.Msg];
+                    }
+                }
+            }];
+
+      }else {
+
+          [[[HHMineAPI postAddAddressWithdistrict_id:self.district_id address:addressStr username:usernameStr mobile:mobileStr is_default:self.swi.isOn?@"true":@"false"] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+              if (!error) {
+                  if (api.State == 1) {
+                      if (self.addressType == HHAddress_addType) {
+                          [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                          [SVProgressHUD showSuccessWithStatus:@"添加成功!"];
+                          [self.navigationController popVC];
+
+                      }else if(self.addressType == HHAddress_settlementType_cart){
+                          //提交订单页面
+                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
+                          vc.pids = self.pids;
+                          if ([self.sendGift isEqual:@1]) {
+                              vc.enter_type = HHaddress_type_Spell_group;
+                              vc.mode = @8;
+                          }else{
+                              vc.enter_type = HHaddress_type_add_cart;
+                              vc.mode = nil;
+                          }
+                          vc.sendGift = self.sendGift;
+                          [self.navigationController pushVC:vc];
+
+                      }else if (self.addressType == HHAddress_settlementType_productDetail){
+
+                          HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
+                          vc.enter_type = HHaddress_type_add_productDetail;
+                          vc.mode = self.mode;
+                          vc.ids_Str = self.ids_Str;
+                          vc.pids = self.pids;
+                          [self.navigationController pushVC:vc];
+                      }
+
+                  }else{
+
+                      [SVProgressHUD showInfoWithStatus:api.Msg];
+                  }
+              }
+          }];
+      }
+
+    }else{
+        [SVProgressHUD showInfoWithStatus:validStr];
+    }
     
 }
 - (NSString *)validWithusername:(NSString *)username mobile:(NSString *)mobile district_id:(NSString *)district_id address:(NSString *)address {

@@ -186,10 +186,9 @@ typedef   void (^completeHandle)();
         [photo_datas addObject:imageData];
     }];
     [[[HHMineAPI postUploadManyImageWithimageDatas:photo_datas] netWorkClient] uploadFileInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
-       
+        [hud hideAnimated:YES];
         if (!error) {
             if (api.State == 1) {
-                
               HHPostOrderEvaluateItem *oEvaluateItem = [HHPostOrderEvaluateItem sharedPostOrderEvaluateItem];
                 if (oEvaluateItem.productEvaluate>0) {
                     HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];

@@ -19,8 +19,8 @@
         self.bg_imageV.backgroundColor = RGB(249, 233, 233);
         self.bg_imageV.image = [UIImage imageNamed:@"person_bg"];
         [self addSubview:self.bg_imageV];
-        //消息按钮
-        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@"msg"]];
+        //消息按钮  --msg
+        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@""]];
         [self addSubview:self.message_button];
         //头像
         self.icon_view = [UIImageView new];

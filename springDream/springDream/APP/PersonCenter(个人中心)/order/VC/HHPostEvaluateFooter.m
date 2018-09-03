@@ -15,12 +15,12 @@
     if (self = [super initWithFrame:frame]) {
         
         
-        UIImageView *order_evaluate_ico = [UIImageView lh_imageViewWithFrame:CGRectMake(15,10, 40, 40) image:[UIImage imageNamed:@"order_icon"]];
+        UIImageView *order_evaluate_ico = [UIImageView lh_imageViewWithFrame:CGRectMake(15,0, 40, WidthScaleSize_H(45)) image:[UIImage imageNamed:@"order_icon"]];
         order_evaluate_ico.contentMode = UIViewContentModeCenter;
         [self addSubview:order_evaluate_ico];
         
         //订单评价
-        UILabel *order_evaluate_lab = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(order_evaluate_ico.frame), 0, WidthScaleSize_W(80), WidthScaleSize_H(45)) text:@"订单评价" textColor:kBlackColor font:FONT(15) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
+        UILabel *order_evaluate_lab = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(order_evaluate_ico.frame)+15, 0, WidthScaleSize_W(80), WidthScaleSize_H(45)) text:@"综合评价" textColor:kBlackColor font:FONT(15) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
         [self addSubview:order_evaluate_lab];
         
         //好评 中评 差评 bg_view

@@ -29,4 +29,8 @@
 
 @property (nonatomic, strong)   UINavigationController *nav;
 
+@property (nonatomic, strong)   NSString *product_id;
+
+@property (nonatomic, strong)   UIView *view;
+
 @end

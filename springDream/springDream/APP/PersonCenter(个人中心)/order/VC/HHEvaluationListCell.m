@@ -55,7 +55,7 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _gradeImgV = [[UIImageView alloc] init];
     _gradeImgV.contentMode = UIViewContentModeLeft;
     _gradeImgV.clipsToBounds = YES;
-    _gradeImgV.image = [UIImage imageNamed:@"solid_start"];
+    _gradeImgV.image = [UIImage imageNamed:@"solid_star"];
     _gradeImgV.hidden = NO;
 
     _timeLabel = [UILabel new];

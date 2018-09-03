@@ -25,12 +25,12 @@
     self.product_nameLabel.text = @"梦泉时尚薰衣草梦泉梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草时尚薰衣草";
 
 //    self.product_nameLabel.text = gooodDetailModel.ProductName;
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %@",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice:@""];
-    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%@",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice:@""]];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %@",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice:@"0"];
+    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%@",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice:@"0"]];
     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
     self.product_s_intergralLabel.attributedText = newPrice;
-    self.package_lab.text = [NSString stringWithFormat:@"运费：%@",gooodDetailModel.StrFreightModey];
-    self.stock_label.text = [NSString stringWithFormat:@"库存：%@件",gooodDetailModel.Stock];
-    self.sale_count_label.text = [NSString stringWithFormat:@"销量：%@件",gooodDetailModel.SaleCounts];
+    self.package_lab.text = [NSString stringWithFormat:@"运费：%@",gooodDetailModel.StrFreightModey?gooodDetailModel.StrFreightModey:@"0"];
+    self.stock_label.text = [NSString stringWithFormat:@"库存：%@件",gooodDetailModel.Stock?gooodDetailModel.Stock:@"0"];
+    self.sale_count_label.text = [NSString stringWithFormat:@"销量：%@件",gooodDetailModel.SaleCounts?gooodDetailModel.SaleCounts:@"0"];
 }
 @end
