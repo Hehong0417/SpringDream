@@ -23,7 +23,7 @@
 
 
 //商品详情
-+ (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage;
++ (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage level:(NSNumber *)level;
 
 //获取个人商品收藏
 + (instancetype)GetProductCollectionWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;

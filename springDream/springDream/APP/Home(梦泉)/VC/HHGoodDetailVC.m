@@ -142,7 +142,8 @@ static NSArray *lastSele_IdArray_;
                 sku_id = @"0";
             }
             NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
-            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
+            
             //加入购物车
             [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity] netWorkClient] postRequestInView:weakSelf.view finishedBlock:^(HHCartAPI *api, NSError *error) {
                 
@@ -308,10 +309,14 @@ static NSArray *lastSele_IdArray_;
         if (indexPath.row == 0) {
             //商品评价
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            cell.textLabel.text = @"商品评价";
-            cell.textLabel.font = FONT(14);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
+            [cell.contentView addSubview:h_line];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"商品评价" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            [cell.contentView addSubview:text_lab];
+            UIImageView *right_arrow = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-52, 8, 42, 42) image:[UIImage imageNamed:@"more"]];
+            right_arrow.contentMode = UIViewContentModeCenter;
+            [cell.contentView addSubview:right_arrow];
             gridcell = cell;
             
         }else{
@@ -556,7 +561,7 @@ static NSArray *lastSele_IdArray_;
 //评价
 - (void)getEvaluateList{
     
-    [[[HHHomeAPI GetProductEvaluateWithId:self.Id page:@1 pageSize:@1 hasImage:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+    [[[HHHomeAPI GetProductEvaluateWithId:self.Id page:@1 pageSize:@1 hasImage:nil level:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
         
         if (!error) {
             if (api.State == 1) {

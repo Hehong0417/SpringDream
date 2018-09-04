@@ -29,8 +29,6 @@
 @property (strong , nonatomic)DCCollectionHeaderLayout *layout;
 
 
-@property (strong , nonatomic)PPNumberButton *numberButton;
-
 @property (weak) NSMutableArray *attrArray;//当前所有属性对象
 @property (weak) NSArray *skuArray;//当前商品活着类别下的所有sku对象
 - (NSMutableArray *) GetSelectsku;//获取未选中的属性值

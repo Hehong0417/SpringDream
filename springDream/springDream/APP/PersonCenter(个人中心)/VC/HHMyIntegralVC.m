@@ -29,6 +29,8 @@
     [self.view addSubview:self.tabView];
     self.tabView.tableFooterView = [UIView new];
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +40,37 @@
     [self.tabView registerClass:[HHMywalletCell class] forCellReuseIdentifier:@"HHMywalletCell"];
     HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
     self.tabView.tableHeaderView = wallet_head;
+}
+#pragma mark - DZNEmptyDataSetDelegate
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"record_icon_no"];
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+    
+    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    
+    CGFloat offset = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    offset += CGRectGetHeight(self.navigationController.navigationBar.frame);
+    return -offset;
+    
+}
+
+- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+    
+    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+    
+    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+}
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
+    return 20;
 }
 #pragma mark - Table view data source
 

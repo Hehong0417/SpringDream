@@ -93,8 +93,8 @@ typedef   void (^completeHandle)();
 - (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
     NSString * toBeString = [textView.text stringByReplacingCharactersInRange:range withString:text];
-    if (toBeString.length > 11 && range.length!=1){
-        textView.text = [toBeString substringToIndex:11];
+    if (toBeString.length > 200 && range.length!=1){
+        textView.text = [toBeString substringToIndex:200];
         return NO;
     }
     return YES;

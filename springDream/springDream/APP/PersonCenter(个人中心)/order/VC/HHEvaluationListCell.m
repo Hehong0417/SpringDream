@@ -47,15 +47,18 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _nameLable.font = FONT(13);
     _nameLable.textColor = RGB(51, 51, 51);
     
-    UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
+//    stoke_star
+    UIImage *gradeImage = [UIImage imageNamed:@""];
     _gradeEmptyImgV = [[UIImageView alloc] init];
-    _gradeEmptyImgV.image = [UIImage imageNamed:@"stoke_star"];
+    _gradeEmptyImgV.image = [UIImage imageNamed:@""];
     _gradeEmptyImgV.hidden = NO;
     
+    
+//    solid_star
     _gradeImgV = [[UIImageView alloc] init];
     _gradeImgV.contentMode = UIViewContentModeLeft;
     _gradeImgV.clipsToBounds = YES;
-    _gradeImgV.image = [UIImage imageNamed:@"solid_star"];
+    _gradeImgV.image = [UIImage imageNamed:@""];
     _gradeImgV.hidden = NO;
 
     _timeLabel = [UILabel new];
@@ -65,6 +68,7 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _propertyLabel = [UILabel new];
     _propertyLabel.textColor = KA0LabelColor;
     _propertyLabel.font = [UIFont systemFontOfSize:13];
+    _propertyLabel.textAlignment = NSTextAlignmentLeft;
     
     _contentLabel = [UILabel new];
     _contentLabel.font = [UIFont systemFontOfSize:contentLabelFontSize];
@@ -110,11 +114,11 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _timeLabel.sd_layout
     .leftEqualToView(_iconView)
     .topSpaceToView(_iconView, margin)
-    .widthIs(200)
+    .widthIs(150)
     .heightIs(20);
     
     _propertyLabel.sd_layout
-    .leftSpaceToView(_timeLabel, margin)
+    .leftSpaceToView(_timeLabel, 10)
     .centerYEqualToView(_timeLabel)
     .widthIs(100)
     .heightIs(20);
@@ -151,12 +155,13 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _picContainerView.picPathStringsArray = model.pictures;
     
     NSInteger grade = model.describeScore.integerValue;
-    CGFloat width = _gradeEmptyImgV.frame.size.width/5;
     UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
+    CGFloat width = gradeImage.size.width/5*grade;
+
     _gradeImgV.sd_resetLayout
-    .leftSpaceToView(_nameLable, 10)
+    .leftSpaceToView(_nameLable, 16)
     .centerYEqualToView(_nameLable)
-    .widthIs(grade*width)
+    .widthIs(width)
     .heightIs(gradeImage.size.height);
     
     [_commentView setupWithCommentItems:model.adminReply];

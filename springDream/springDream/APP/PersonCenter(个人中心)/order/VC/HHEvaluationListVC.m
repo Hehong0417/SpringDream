@@ -21,6 +21,7 @@
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, strong)   HHMineModel *evaluateStatictis_m;
 @property (nonatomic, strong)   NSNumber *hasImage;
+@property (nonatomic, strong)   NSNumber *level;
 
 @end
 
@@ -42,6 +43,7 @@
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.emptyDataSetSource = self;
     self.hasImage = nil;
+    self.level = nil;
     [self setUpTableHead];
 
     [self getDatas];
@@ -51,7 +53,7 @@
 #pragma mark - 加载数据
 - (void)getDatas{
     
-    [[[HHHomeAPI GetProductEvaluateWithId:self.pid page:@(self.page) pageSize:@(self.pageSize) hasImage:self.hasImage] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+    [[[HHHomeAPI GetProductEvaluateWithId:self.pid page:@(self.page) pageSize:@(self.pageSize) hasImage:self.hasImage level:self.level] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
        
         if (!error) {
             if (api.State == 1) {
@@ -134,11 +136,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"no_message_list"];
+    return [UIImage imageNamed:@"record_icon_no"];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"消息列表为空" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:@"还没有相关评价喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
@@ -275,8 +277,19 @@
     
     if (sortBtnType == 0) {
         self.hasImage = nil;
-    }else{
+        self.level = nil;
+    }else if (sortBtnType == 1){
         self.hasImage = @1;
+        self.level = nil;
+    }else if (sortBtnType == 2){
+        self.hasImage = nil;
+        self.level = @1;
+    }else if (sortBtnType == 3){
+        self.hasImage = nil;
+        self.level = @2;
+    }else if (sortBtnType == 4){
+        self.hasImage = nil;
+        self.level = @3;
     }
     [self.datas removeAllObjects];
     //获取数据

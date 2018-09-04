@@ -71,11 +71,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"no_coupon"];
+    return [UIImage imageNamed:@"chosecopon_icon_no"];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"优惠券列表为空" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:@"你没有相关的优惠券喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 //- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
 //
@@ -181,13 +181,22 @@
     HHCouponCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHCouponCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-    cell.bg_imagV.image = [UIImage imageNamed:@"11"];
+    NSArray *image_arr = @[@"falure1",@"falure2",@"falure3"];
+    cell.bg_imagV.image = [UIImage imageNamed:image_arr[indexPath.row%3]];
     cell.useBtn.hidden = YES;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return WidthScaleSize_H(100);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 0.01;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 0.01;
 }
 
 @end

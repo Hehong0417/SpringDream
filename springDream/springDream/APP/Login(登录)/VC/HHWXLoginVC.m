@@ -29,7 +29,7 @@
         
          if ([WXApi isWXAppInstalled]&&[WXApi isWXAppSupportApi]){
           //已安装微信
-             [self.loginBtn setImage:[UIImage imageNamed:@"login_icon_button_default"] forState:UIControlStateNormal];
+             [self.loginBtn setImage:[UIImage imageNamed:@"wx_login"] forState:UIControlStateNormal];
              self.login_label.text = @"微信登录";
              
              [self.login_label setTapActionWithBlock:^{

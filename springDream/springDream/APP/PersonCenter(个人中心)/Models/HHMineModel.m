@@ -10,5 +10,10 @@
 
 @implementation HHMineModel
 
++ (NSDictionary *)mj_objectClassInArray{
+    return @{@"data": [HHExpress_message_list class]};
+}
+@end
+@implementation HHExpress_message_list
 
 @end

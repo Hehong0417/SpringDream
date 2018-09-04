@@ -283,7 +283,6 @@
             //优惠套餐
             [self createOrder];
         }
-         
         }else{
             
             UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"你未安装微信，是否安装？" preferredStyle:UIAlertControllerStyleAlert];

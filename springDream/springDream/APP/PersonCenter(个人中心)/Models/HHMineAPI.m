@@ -170,6 +170,19 @@
     return api;
     
 }
+//获取订单的物流信息
++ (instancetype)GetOrderExpressWithorderid:(NSString *)orderid giftId:(NSNumber *)giftId{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetOrderExpress;
+    if (orderid) {
+        [api.parameters setObject:orderid forKey:@"orderId"];
+    }
+    if (giftId) {
+        [api.parameters setObject:giftId forKey:@"giftId"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 #pragma mark - post
 
 //修改登录密码

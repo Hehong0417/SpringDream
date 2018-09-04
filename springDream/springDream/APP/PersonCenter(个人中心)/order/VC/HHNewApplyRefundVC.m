@@ -155,6 +155,7 @@
         if (api.State == 1) {
             [SVProgressHUD showSuccessWithStatus:@"提交成功！"];
             if (self.delegate&&[self.delegate respondsToSelector:@selector(backActionWithBtn:)]) {
+                [self.delegate backActionWithBtn:btn];
                 [self.navigationController popVC];
             }
         }else{

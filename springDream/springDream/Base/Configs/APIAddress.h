@@ -222,15 +222,15 @@ typedef enum : NSUInteger {
 //4.46申请代理并支付
 #define API_AgentApplyPay API_SUB_URL2(@"Order/AgentApplyRealAppPay")
 //4.47 粉丝列表搜索
-#define API_GetAgentList API_SUB_URL(@"UserInfo/GetAgentList")
+#define API_GetAgentList API_SUB_URL(@"UserInfo/GetAgentList")     
 //4.48获取商品评价统计接口
 #define API_GetProductEvaluateStatictis API_SUB_URL2(@"Order/GetProductEvaluateStatictis")
 //省
 #define API_GetProvinces API_SUB_URL1(@"Admin/Region/GetRegionList")
 //获取城市或地区
 #define API_GetChilds API_SUB_URL1(@"Admin/Region/GetRegionList")
-
-
+//4.2获取订单的物流信息
+#define API_GetOrderExpress API_SUB_URL2(@"Order/GetCheckLogistics")
 
 /**
  *  支付

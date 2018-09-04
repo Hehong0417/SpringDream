@@ -107,4 +107,20 @@
 @property(nonatomic,strong) NSString *hasImageCount;
 @property(nonatomic,strong) NSString *goodEvaluateProportion;
 
+//物流信息
+@property(nonatomic,strong) NSArray *data;
+
+//快递公司
+@property(nonatomic,strong) NSString *comcontact;
+@property(nonatomic,strong) NSString *nu;
+@property(nonatomic,strong) NSNumber *ischeck;
+
 @end
+
+@interface HHExpress_message_list : BaseModel
+@property(nonatomic,strong) NSString *location;
+@property(nonatomic,strong) NSString *time;
+@property(nonatomic,strong) NSString *context;
+
+@end
+

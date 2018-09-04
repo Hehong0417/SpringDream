@@ -51,8 +51,8 @@
         [self addSubview:_goodEvaluateProportion_label];
 
         //全部 有图 追评
-        NSArray *titles = @[@"全部",@"有图"];
-        for (NSInteger i=0; i<2; i++) {
+        NSArray *titles = @[@"全部",@"有图",@"好评",@"中评",@"差评"];
+        for (NSInteger i=0; i<5; i++) {
             UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(15+i*70+i*10, CGRectGetMaxY(_score_label.frame)+12, 70, 25) target:self action:@selector(sortBtn:) title:titles[i] titleColor:kGrayColor font:FONT(13) backgroundColor:kClearColor];
             [btn setTitleColor:kRedColor forState:UIControlStateSelected];
             [btn lh_setCornerRadius:0 borderWidth:1 borderColor:kGrayColor];
@@ -62,7 +62,6 @@
             }
             [self addSubview:btn];
         }
-        
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.mj_h-1, ScreenW, 1)];
         line.backgroundColor = KVCBackGroundColor;
         [self addSubview:line];
@@ -76,9 +75,12 @@
     
     _goodEvaluateProportion_label.text = evaluateStatictis_m.goodEvaluateProportion.integerValue>0?[NSString stringWithFormat:@"%@%%好评",evaluateStatictis_m.goodEvaluateProportion]:@"";
     UIButton *btn1 = [self viewWithTag:10000];
-    [btn1 setTitle:[NSString stringWithFormat:@"全部(%@)",evaluateStatictis_m.totalCount] forState:UIControlStateNormal];
+//    evaluateStatictis_m.totalCount
+    [btn1 setTitle:[NSString stringWithFormat:@"全部"] forState:UIControlStateNormal];
     UIButton *btn2 = [self viewWithTag:10001];
-    [btn2 setTitle:[NSString stringWithFormat:@"有图(%@)",evaluateStatictis_m.hasImageCount] forState:UIControlStateNormal];
+    
+//    evaluateStatictis_m.hasImageCount
+    [btn2 setTitle:[NSString stringWithFormat:@"有图"] forState:UIControlStateNormal];
    
     UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
     CGFloat w = gradeImage.size.width/5;

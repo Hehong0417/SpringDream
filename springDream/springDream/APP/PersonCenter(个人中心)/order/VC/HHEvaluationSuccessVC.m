@@ -203,8 +203,10 @@
         headerView.nav = self.navigationController;
         if (self.datas.count == 0) {
             headerView.title_lab.hidden = YES;
+            headerView.imagV.hidden = YES;
         }else{
             headerView.title_lab.hidden = NO;
+            headerView.imagV.hidden = NO;
         }
         headerView.pid = self.pid;
         headerView.backgroundColor = KVCBackGroundColor;

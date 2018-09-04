@@ -43,7 +43,7 @@
     
 }
 //评论列表
-+ (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage{
++ (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage level:(NSNumber *)level{
     
     HHHomeAPI *api = [self new];
     api.subUrl = API_GetProductEvaluate;
@@ -52,6 +52,9 @@
     }
     if (hasImage) {
         [api.parameters setObject:@"true" forKey:@"hasImage"];
+    }
+    if (level) {
+        [api.parameters setObject:level forKey:@"level"];
     }
     if (page) {
         [api.parameters setObject:page forKey:@"page"];

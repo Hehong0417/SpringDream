@@ -18,6 +18,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *suitConditionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *limitLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bg_imagV;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *left_constant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_constant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *width_constant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_constant;
 
 @property(nonatomic,strong) HHMineModel *model;
 

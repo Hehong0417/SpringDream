@@ -68,6 +68,8 @@
 //获取商品评价统计接口
 + (instancetype)GetProductEvaluateStatictisWithpid:(NSString *)pid;
 
+//获取订单的物流信息
++ (instancetype)GetOrderExpressWithorderid:(NSString *)orderid giftId:(NSNumber *)giftId;
 
 #pragma mark - post
 

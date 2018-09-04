@@ -20,6 +20,7 @@
 #import "HHMyOrderItem.h"
 #import "HHFamiliarityPayVC.h"
 #import "HHPaySucessVC.h"
+#import "HHLogisticsVC.h"
 
 @interface HHOrderVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,NewApplyRefundDelegate>
 
@@ -117,8 +118,10 @@
         if (self.sg_selectIndex == 0) {
             [self getDatasWithIndex:@(self.sg_selectIndex)];
         }else if(self.sg_selectIndex == 4){
-            [self getDatasWithIndex:@(self.sg_selectIndex+1)];
-        }else{
+            [self getDatasWithIndex:@21];
+        }else if(self.sg_selectIndex == 5){
+            [self getDatasWithIndex:@20];
+        } else{
             [self getDatasWithIndex:@(self.sg_selectIndex)];
         }
     }];
@@ -135,10 +138,10 @@
         if (self.sg_selectIndex == 0) {
             [self getDatasWithIndex:@(self.sg_selectIndex)];
         }else if(self.sg_selectIndex == 4){
-            
-            [self getDatasWithIndex:@(self.sg_selectIndex+1)];
-            
-        }else{
+            [self getDatasWithIndex:@21];
+        }else if(self.sg_selectIndex == 5){
+            [self getDatasWithIndex:@20];
+        } else{
             [self getDatasWithIndex:@(self.sg_selectIndex)];
         }
     }];
@@ -151,7 +154,7 @@
 {
     if (self.isLoading) {
         if (self.isWlan) {
-            return [UIImage imageNamed:@"no_order"];
+            return [UIImage imageNamed:@"record_icon_no"];
         }else{
             return [UIImage imageNamed:@"img_network_disable"];
         }
@@ -165,7 +168,7 @@
     NSString *titleStr;
     if (self.isLoading) {
         if (self.isWlan) {
-        titleStr = @"订单列表为空";
+        titleStr = @"没有相应的订单记录喔";
         }else{
         titleStr = @"";
         }
@@ -311,10 +314,15 @@
     [self.items_arr removeAllObjects];
     [self.datas removeAllObjects];
     if (self.sg_selectIndex == 0) {
-        [self getDatasWithIndex:@0];
-    }else{
+        [self getDatasWithIndex:@(self.sg_selectIndex)];
+    }else if(self.sg_selectIndex == 4){
+        [self getDatasWithIndex:@21];
+    }else if(self.sg_selectIndex == 5){
+        [self getDatasWithIndex:@20];
+    } else{
         [self getDatasWithIndex:@(self.sg_selectIndex)];
     }
+ 
 }
 #pragma mark --- tableView delegate
 
@@ -391,6 +399,7 @@
             //twoBtn
             NSString *twoBtn_title = @"前往支付";
             if ([model.order_mode isEqual:@16]) {
+                
                 twoBtn_title = @"亲密付";
             }else{
                 twoBtn_title = @"前往支付";
@@ -404,7 +413,7 @@
             //待收货
             down_y = 50;
             [self setBtnAttrWithBtn:oneBtn Title:@"查看物流" CornerRadius:0 borderColor:KDCLabelColor titleColor:kBlackColor backgroundColor:KVCBackGroundColor];
-            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:NO];
+            [self setOneBtn:oneBtn WithOneBtnState:NO twoBtn:twoBtn twoBtnState:NO];
             [self setBtnAttrWithBtn:twoBtn Title:@"确认收货" CornerRadius:0 borderColor:APP_COMMON_COLOR titleColor:RGB(213, 128, 136) backgroundColor:RGB(255, 239, 239)];
         }else if([status isEqualToString:@"4"]){
             //订单关闭
@@ -412,10 +421,13 @@
             [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:YES];
 
         }else if([status isEqualToString:@"5"]){
-            // @"交易成功";
+            // @"待评价";
             down_y = [model.order_can_evaluate isEqual:@1]?50:0;
+            BOOL oneBtnState =  [model.order_can_evaluate isEqual:@1]?NO:YES;
             BOOL twoBtnState =  [model.order_can_evaluate isEqual:@1]?NO:YES;
-            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:twoBtnState];
+
+            [self setBtnAttrWithBtn:oneBtn Title:@"查看物流" CornerRadius:0 borderColor:KDCLabelColor titleColor:kBlackColor backgroundColor:KVCBackGroundColor];
+            [self setOneBtn:oneBtn WithOneBtnState:oneBtnState twoBtn:twoBtn twoBtnState:twoBtnState];
             //twoBtn
             [self setBtnAttrWithBtn:twoBtn Title:@"去评价" CornerRadius:0 borderColor:APP_COMMON_COLOR titleColor:RGB(213, 128, 136) backgroundColor:RGB(255, 239, 239)];
         }else if([status isEqualToString:@"6"]){
@@ -482,6 +494,7 @@
     NSInteger section = btn.tag - 100;
     HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
     NSString *status = model.status;
+    
     if ([status isEqualToString:@"1"]) {
         //待付款--->取消订单
         [self handleOrderWithorderid:model.order_id status:HHhandle_type_cancel btn:btn title:@"确定取消订单吗？"];
@@ -490,18 +503,21 @@
         //待发货
         
     }else if([status isEqualToString:@"3"]){
+        
         //待收货--->查看物流
-                //查看物流
-//                HHLogisticsVC *vc = [HHLogisticsVC new];
-//                vc.orderid = model.orderid;
-//                vc.express_order = model.return_goods_express_order;
-//                vc.express_name = model.return_goods_express_name;
-//                vc.type = @1;
-//                [self.navigationController pushVC:vc];
+                HHLogisticsVC *vc = [HHLogisticsVC new];
+                vc.orderid = model.order_id;
+//              vc.express_order = model.return_goods_express_order;
+//               vc.express_name = model.return_goods_express_name;
+                [self.navigationController pushVC:vc];
 
     }else if([status isEqualToString:@"5"]){
         //交易成功-->删除订单
-
+        HHLogisticsVC *vc = [HHLogisticsVC new];
+        vc.orderid = model.order_id;
+        // vc.express_order = model.return_goods_express_order;
+        // vc.express_name = model.return_goods_express_name;
+        [self.navigationController pushVC:vc];
     }
 }
 //处理订单

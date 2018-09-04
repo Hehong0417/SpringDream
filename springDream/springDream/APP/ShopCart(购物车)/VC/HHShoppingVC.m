@@ -124,11 +124,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"no_cart"];
+    return [UIImage imageNamed:@"cart_none"];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
 
-  return [[NSAttributedString alloc] initWithString:@"购物车列表为空" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+  return [[NSAttributedString alloc] initWithString:@"购物车为空～" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 //- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
 //
@@ -136,18 +136,18 @@
 //
 //}
 //
-//- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
-//
-//    return [[NSAttributedString alloc] initWithString:@"去逛逛" attributes:@{NSFontAttributeName:BoldFONT(18),NSForegroundColorAttributeName:kWhiteColor}];
-//
-//}
-//
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
+
+    return [[NSAttributedString alloc] initWithString:@"逛一逛" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:kWhiteColor}];
+
+}
+
 - (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
 {
     UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
-    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -130, 0.0, -130);
 
-    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:20 size:CGSizeMake(ScreenW-240, 35)];
 
     return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
 }
@@ -163,16 +163,16 @@
     return 20;
 
 }
-//- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
-//
-//    HHGoodListVC *vc = [HHGoodListVC new];
-//    vc.type = nil;
-//    vc.categoryId = nil;
-//    vc.name = nil;
-//    vc.orderby = nil;
-//    [self.navigationController pushVC:vc];
-//
-//}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
+
+    HHGoodListVC *vc = [HHGoodListVC new];
+    vc.type = nil;
+    vc.categoryId = nil;
+    vc.name = nil;
+    vc.orderby = nil;
+    [self.navigationController pushVC:vc];
+
+}
 
 - (void)isLoginOrNot{
     //

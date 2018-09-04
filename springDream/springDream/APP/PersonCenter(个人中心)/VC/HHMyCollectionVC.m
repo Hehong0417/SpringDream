@@ -48,7 +48,8 @@
     //获取数据
     [self addHeadRefresh];
     
-    
+    self.collectionView.emptyDataSetSource = self;
+    self.collectionView.emptyDataSetDelegate = self;
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -95,11 +96,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"img_list_disable"];
+    return [UIImage imageNamed:@"record_icon_no"];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"还没有相关的宝贝，先看看其他的吧～" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:@"你还没有收藏相关的宝贝喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
@@ -108,6 +109,19 @@
     offset += CGRectGetHeight(self.navigationController.navigationBar.frame);
     return -offset;
     
+}
+
+- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+    
+    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+    
+    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+}
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
+    return 20;
 }
 #pragma mark - 刷新控件
 

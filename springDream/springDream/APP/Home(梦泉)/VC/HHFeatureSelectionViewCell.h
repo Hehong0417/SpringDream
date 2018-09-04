@@ -82,4 +82,7 @@
 @property (strong , nonatomic)NSMutableArray *seleArray;
 /* 数据 */
 @property (strong , nonatomic)NSMutableArray <HHproduct_sku_valueModel*> *featureAttr;
+
+@property (strong , nonatomic)PPNumberButton *numberButton;
+
 @end
