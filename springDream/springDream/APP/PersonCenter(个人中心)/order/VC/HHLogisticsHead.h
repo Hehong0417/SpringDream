@@ -13,6 +13,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *status_label;
 @property (weak, nonatomic) IBOutlet UILabel *com_label;
 @property (weak, nonatomic) IBOutlet UILabel *orderNumber_label;
-@property (weak, nonatomic) IBOutlet UILabel *comcontact_label;
 
 @end

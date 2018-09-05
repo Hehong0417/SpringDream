@@ -61,7 +61,8 @@
                 self.model = [HHMineModel mj_objectWithKeyValues:api.Data[@"express"]];
                 self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",api.Data[@"company"]];
                 self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu];
-                self.logisticsHead.comcontact_label.text = [NSString stringWithFormat:@"运单电话  %@",self.model.comcontact];
+                NSString * image_url =  api.Data[@"productIcon"];
+                [self.logisticsHead.image_url sd_setImageWithURL:[NSURL URLWithString:image_url]];
                 if ([self.model.ischeck isEqual:@1]) {
                     self.logisticsHead.status_label.text = [NSString stringWithFormat:@"物流状态  已签收"];
                 }else{
@@ -88,11 +89,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *gridCell;
-    if(indexPath.section == 0){
-        HHLogisticsCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"HHLogisticsCell0"];
-        gridCell = cell;
-
-    }else{
     
     HHLogisticsCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"HHLogisticsCell1"];
     cell.model =  self.model.data[indexPath.row];
@@ -108,25 +104,20 @@
         cell.separatorInset = UIEdgeInsetsMake(0, 55, 0, 0);
         gridCell = cell;
         
-    }
     return gridCell;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 1;
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    }
+
     return self.model.data.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 70;
-    }
+    
     return 60;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
