@@ -70,6 +70,7 @@
 #import "HHOrderIdItem.h"
 #import "HHPostOrderEvaluateItem.h"
 #import "HHWXModel.h"
+#import "HHGoodDetailItem.h"
 
 //第三方
 #import <AFNetworking/AFNetworking.h>

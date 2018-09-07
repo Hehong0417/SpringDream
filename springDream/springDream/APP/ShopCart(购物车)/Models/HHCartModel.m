@@ -69,18 +69,18 @@
 - (void)mj_keyValuesDidFinishConvertingToObject{
     if (self.derateMoney.floatValue>0) {
         if (self.isCanUseIntegral.integerValue == 1) {
-            self.addtion_arr = @[@"快递运费",@"减免活动",@"订单总计",self.integralDisplayName];
+            self.addtion_arr = @[@"商家运费",@"减免活动",@"订单总计",self.integralDisplayName];
             self.addtion_value_arr = @[[NSString stringWithFormat:@"¥%@",self.freight],[NSString stringWithFormat:@"-¥%@",self.derateMoney],[NSString stringWithFormat:@"¥%.2f",self.showMoney.floatValue],@""];
         }else{
-            self.addtion_arr = @[@"快递运费",@"减免活动",@"订单总计"];
+            self.addtion_arr = @[@"商家运费",@"减免活动",@"订单总计"];
             self.addtion_value_arr = @[[NSString stringWithFormat:@"¥%@",self.freight],[NSString stringWithFormat:@"-¥%@",self.derateMoney],[NSString stringWithFormat:@"¥%.2f",self.showMoney.floatValue]];
         }
     }else{
         if (self.isCanUseIntegral.integerValue == 1) {
-            self.addtion_arr = @[@"快递运费",@"订单总计",self.integralDisplayName];
+            self.addtion_arr = @[@"商家运费",@"订单总计",self.integralDisplayName];
             self.addtion_value_arr = @[[NSString stringWithFormat:@"¥%@",self.freight],[NSString stringWithFormat:@"¥%.2f",self.showMoney.floatValue],@""];
         }else{
-        self.addtion_arr = @[@"快递运费",@"订单总计"];
+        self.addtion_arr = @[@"商家运费",@"订单总计"];
         self.addtion_value_arr = @[[NSString stringWithFormat:@"¥%@",self.freight],[NSString stringWithFormat:@"¥%.2f",self.showMoney.floatValue]];
         }
     }

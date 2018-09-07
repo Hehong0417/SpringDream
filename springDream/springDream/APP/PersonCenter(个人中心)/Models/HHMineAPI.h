@@ -71,6 +71,9 @@
 //获取订单的物流信息
 + (instancetype)GetOrderExpressWithorderid:(NSString *)orderid giftId:(NSNumber *)giftId;
 
+//获取未完成订单数
++ (instancetype)GetOrderStatusCount;
+
 #pragma mark - post
 
 //修改登录密码

@@ -28,6 +28,7 @@
 #import "UIViewController+XWTransition.h"
 #import "HHdiscountPackageViewTabCell.h"
 //#import "HHdiscountPackageVC.h"
+#import "HHGoodDetailFoot.h"
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 
@@ -54,6 +55,8 @@
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, assign) CGFloat collectionHeight;
 
+@property (nonatomic, strong) HHGoodDetailFoot *foot;
+
 
 @end
 
@@ -63,7 +66,6 @@ static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
 
 static NSString *HHGoodIntroduceCellID = @"HHGoodIntroduceCell";//详情html
-
 
 //cell
 static NSString *lastNum_;
@@ -87,6 +89,10 @@ static NSArray *lastSele_IdArray_;
     
     self.title = @"商品详情";
     
+    HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
+    detail_item.product_stock = @"1";
+    [detail_item write];
+    NSLog(@"--------1--------------");
     self.automaticallyAdjustsScrollViewInsets = NO;
     //初始化
     [self setUpInit];
@@ -98,10 +104,20 @@ static NSArray *lastSele_IdArray_;
     
     [self addCartOrBuyAction];
     
+    
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [backBtn bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
     [backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    WEAK_SELF();
+    self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 100)];
+    self.foot.reloadBlock = ^{
+        weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
+        weakSelf.tabView.tableFooterView = weakSelf.foot;
+    };
+    
 }
 - (void)backBtnAction{
     
@@ -116,7 +132,6 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
     [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
     [self.tabView registerClass:[HHGoodIntroduceCell class] forCellReuseIdentifier:HHGoodIntroduceCellID];
-
 
 }
 #pragma mark - 加入购物车、立即购买
@@ -244,7 +259,7 @@ static NSArray *lastSele_IdArray_;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -260,9 +275,6 @@ static NSArray *lastSele_IdArray_;
     }
     if (section == 3) {
         return self.evaluations.count>0?2:0;
-    }
-    if (section == 4) {
-        return 1;
     }
     return 1;
 }
@@ -332,18 +344,6 @@ static NSArray *lastSele_IdArray_;
         }
 
     }
-    if (indexPath.section == 4) {
-        //商品详情
-        HHGoodIntroduceCell *cell = [tableView dequeueReusableCellWithIdentifier:HHGoodIntroduceCellID];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.model = self.gooodDetailModel;
-        __weak HHGoodDetailVC *weak_Self = self;
-        cell.reloadBlock = ^{
-            [weak_Self.tabView reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
-        };
-        gridcell = cell;
-        
-    }
     
     return gridcell;
 }
@@ -372,11 +372,6 @@ static NSArray *lastSele_IdArray_;
                 return [self.tabView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[HHEvaluationListCell class] contentViewWidth:[self cellContentViewWith]];
             }
         }
-    if (indexPath.section == 4) {
-
-        return  [HHGoodIntroduceCell  cellHeight];
-
-    }
 
     return 95;
 }
@@ -415,7 +410,9 @@ static NSArray *lastSele_IdArray_;
     HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[self.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",product_price];
     cell.stock_label.text = [NSString stringWithFormat:@"库存：%@",product_stock];
-   
+    HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
+    detail_item.product_stock = product_stock;
+    [detail_item write];
 }
 #pragma mark -加载数据
 
@@ -455,6 +452,12 @@ static NSArray *lastSele_IdArray_;
                     self.addCartTool.collectBtn.selected = NO;
                 }
                
+                self.foot.model = self.gooodDetailModel;
+                
+                HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
+                detail_item.product_stock = self.gooodDetailModel.Stock;
+                [detail_item write];
+                
                 [self.tabView reloadData];
                 
                 [self.activityIndicator stopAnimating];

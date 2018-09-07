@@ -62,7 +62,7 @@
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
         
         if (error) {
-            NSLog(@"error--error--%@",error);
+            NSLog(@"error--%@",error);
             
         } else {
             
@@ -76,6 +76,7 @@
             
             UMSocialUserInfoResponse *resp = result;
             // 授权信息
+            NSLog(@"Wechat uid: %@", resp.uid);
             NSLog(@"Wechat unionId: %@", resp.unionId);
             NSLog(@"Wechat openid: %@", resp.openid);
             NSLog(@"Wechat accessToken: %@", resp.accessToken);
@@ -87,8 +88,8 @@
             NSLog(@"Wechat gender: %@", resp.gender);
 
             //账户是否存在 ？登录:注册
-                       NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
-//                       NSString *openid = resp.openid;
+                           //NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
+                             NSString *openid = resp.openid;
                             //***************//
                             [[[HHUserLoginAPI postApiLoginWithopenId:openid] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
 

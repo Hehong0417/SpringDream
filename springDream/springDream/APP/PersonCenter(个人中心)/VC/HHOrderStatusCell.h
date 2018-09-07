@@ -13,4 +13,7 @@
 
 @property(nonatomic,strong)  UINavigationController *nav;
 
+@property(nonatomic,strong)  NSArray *message_arr;
+
+
 @end

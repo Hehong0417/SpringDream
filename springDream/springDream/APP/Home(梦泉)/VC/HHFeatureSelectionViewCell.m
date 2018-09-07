@@ -118,7 +118,6 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
                     [resultArray addObject:str];
                 }
             }
-            
             NSArray * changeArray = [self change:resultArray];
             NSString * resultKey = [changeArray componentsJoinedByString:@"_"];
             
@@ -131,7 +130,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
 }
 - (void)setGooodDetailModel:(HHgooodDetailModel *)gooodDetailModel{
     _gooodDetailModel = gooodDetailModel;
-
+    
 }
 #pragma mark - initialize
 - (void)setUpBase
@@ -158,14 +157,11 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         if ([obj.Id isEqualToString:seleId_str]) {
             self.product_price = obj.SalePrice;
             self.product_stock = obj.Stock;
-            //                self.goodImageView = obj.imgUrl;
+            //self.goodImageView = obj.imgUrl;
             [self.collectionView reloadData];
         }
     }];
     
-    NSInteger  stock =  self.product_stock.integerValue;
-    
-    self.numberButton.maxValue = stock>0?stock:1;
 }
 - (UIView *)setUpNumbView{
     
@@ -186,10 +182,11 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     self.numberButton.increaseTitle = @"+";
     self.numberButton.decreaseTitle = @"-";
     self.numberButton.borderColor = RGB(173, 173, 173);
+    HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
+    self.numberButton.maxValue = detail_item.product_stock.integerValue;
     num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
     self.numberButton.currentNumber = num_;
     self.numberButton.delegate = self;
-    
     WEAKSELF;
  
     self.numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){

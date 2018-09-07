@@ -50,7 +50,7 @@
     [self.view addSubview:header];
     UIView *footer = [UIView lh_viewWithFrame:CGRectMake(0, ScreenH/2-60, ScreenW, 60) backColor:kWhiteColor];
     UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(30, 10, ScreenW-60, 35) target:self action:@selector(closeAction:) image:nil];
-    [commit_btn setBackgroundColor:kBlackColor];
+    [commit_btn setBackgroundColor:APP_COMMON_COLOR];
     commit_btn.titleLabel.font = FONT(14);
     [commit_btn setTitle:self.btn_title forState:UIControlStateNormal];
     [commit_btn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];

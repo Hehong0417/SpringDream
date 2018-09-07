@@ -16,6 +16,8 @@
 		CE21846E21252FC8003F354F /* HHServiceCell_two.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846D21252FC8003F354F /* HHServiceCell_two.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
+		CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */; };
+		CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */; };
 		CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */; };
 		CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */; };
 		CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AE212D0140002BD2A5 /* HHActivityModel.m */; };
@@ -349,6 +351,10 @@
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
 		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE21847321254A6A003F354F /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
+		CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailItem.h; sourceTree = "<group>"; };
+		CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailItem.m; sourceTree = "<group>"; };
+		CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailFoot.h; sourceTree = "<group>"; };
+		CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailFoot.m; sourceTree = "<group>"; };
 		CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LH.h"; sourceTree = "<group>"; };
 		CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+LH.m"; sourceTree = "<group>"; };
 		CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHOrderDetailCell3.h; sourceTree = "<group>"; };
@@ -1558,9 +1564,9 @@
 		CE4D09C2212423F100796FEE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE4D09C5212423F100796FEE /* HJUser.h */,
 				CE4D09C3212423F100796FEE /* HJUser.m */,
 				CE4D09C4212423F100796FEE /* BaseModel.m */,
-				CE4D09C5212423F100796FEE /* HJUser.h */,
 				CE4D09C6212423F100796FEE /* BaseModel.h */,
 			);
 			path = Model;
@@ -1860,6 +1866,8 @@
 				CE8A64FA212AAB6A00C7C57F /* SearchDetailViewController.xib */,
 				CE5264E6212C0F0A00F30D29 /* HHGoodDetailVC.h */,
 				CE5264E7212C0F0A00F30D29 /* HHGoodDetailVC.m */,
+				CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */,
+				CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */,
 				CE5264F0212C1A1800F30D29 /* HHDetailGoodReferralCell.h */,
 				CE5264F1212C1A1800F30D29 /* HHDetailGoodReferralCell.m */,
 				CE5264F2212C1A1900F30D29 /* HHDetailGoodReferralCell.xib */,
@@ -1869,6 +1877,8 @@
 				CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */,
 				CE5264E9212C143E00F30D29 /* HHNotWlanView.h */,
 				CE5264EA212C143F00F30D29 /* HHNotWlanView.m */,
+				CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */,
+				CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */,
 				CEDBA25C212D70C200CB8002 /* recommandCollecton */,
 				CE472640212D317F002BD2A5 /* Const(常量) */,
 				CE47261F212D1ECE002BD2A5 /* CollectionView */,
@@ -2541,6 +2551,7 @@
 				CE99C14D21352D89007FC7B9 /* HHNewApplyRefundVC.m in Sources */,
 				CE8A67CD212ACA2E00C7C57F /* HHOrderDetailHead.m in Sources */,
 				CE8A67D0212ACA2E00C7C57F /* HHEvaluationSuccessVC.m in Sources */,
+				CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */,
 				CE4D0A36212423F200796FEE /* HJStaticGroupTableVC.m in Sources */,
 				CE5264CB212BBFE600F30D29 /* SDPhotoBrowser.m in Sources */,
 				CE4D08C22124205600796FEE /* AppDelegate.m in Sources */,
@@ -2644,6 +2655,7 @@
 				CE4D0A15212423F200796FEE /* SGPageContentScrollView.m in Sources */,
 				CE8A66B0212ABAB100C7C57F /* HHPaySucessVC.m in Sources */,
 				CE8A66B9212ABAB100C7C57F /* HHSubmitOrderTool.m in Sources */,
+				CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */,
 				CE4D0A01212423F200796FEE /* CATransition+LH.m in Sources */,
 				CE8A64F9212AAA5400C7C57F /* HHGoodListVC.m in Sources */,
 				CE526416212BB90600F30D29 /* HHnormalSuccessVC.m in Sources */,
@@ -2928,7 +2940,7 @@
 				DEVELOPMENT_TEAM = F972623DL2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2937,7 +2949,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hehong.com.springDream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2952,7 +2964,7 @@
 				DEVELOPMENT_TEAM = F972623DL2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2961,7 +2973,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hehong.com.springDream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

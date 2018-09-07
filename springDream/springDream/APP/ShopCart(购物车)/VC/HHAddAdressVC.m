@@ -283,6 +283,7 @@
         self.swi = [UISwitch new];
         [self.swi addTarget:self action:@selector(swiAction:) forControlEvents:UIControlEventValueChanged];
         [self.swi setOnTintColor:kRedColor];
+        [self.swi setOn:self.isOn];
         cell.accessoryView  = self.swi;
         gridCell = cell;
         

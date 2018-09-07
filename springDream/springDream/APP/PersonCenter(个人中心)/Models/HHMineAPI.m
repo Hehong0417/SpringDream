@@ -183,6 +183,13 @@
     api.parametersAddToken = NO;
     return api;
 }
+//获取未完成订单数
++ (instancetype)GetOrderStatusCount{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetOrderStatusCount;
+    api.parametersAddToken = NO;
+    return api;
+}
 #pragma mark - post
 
 //修改登录密码

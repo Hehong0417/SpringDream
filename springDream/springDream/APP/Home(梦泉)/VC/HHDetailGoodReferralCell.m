@@ -22,9 +22,7 @@
 - (void)setGooodDetailModel:(HHgooodDetailModel *)gooodDetailModel{
 
     _gooodDetailModel = gooodDetailModel;
-    self.product_nameLabel.text = @"梦泉时尚薰衣草梦泉梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草梦泉时尚薰衣草时尚薰衣草";
-
-//    self.product_nameLabel.text = gooodDetailModel.ProductName;
+    self.product_nameLabel.text = gooodDetailModel.ProductName;
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %@",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice:@"0"];
     NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%@",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice:@"0"]];
     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];

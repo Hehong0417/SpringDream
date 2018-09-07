@@ -10,9 +10,9 @@
 #import "HHWXLoginVC.h"
 #import "WXApi.h"
 
-#define USHARE_DEMO_APPKEY  @"5a5f10bfa40fa34719000128"
-#define Wechat_AppKey  @"wx33876b8653ae654a"
-#define Wechat_appSecret  @"e6e57e630f10b8b6529aece037c334c3"
+#define USHARE_DEMO_APPKEY  @"5b90a1808f4a9d121b000037"
+#define Wechat_AppKey  @"wxfc0303b0a7dbf80e"
+#define Wechat_appSecret  @"e28f1b2ca698e7f1c8b7d6ebc0473f20"
 
 @interface AppDelegate ()<WXApiDelegate>
 

@@ -69,7 +69,7 @@ typedef enum : NSUInteger {
 /**
  *  登录注册
  */
-#define Cid @"12"
+#define Cid @"1"
 
 //1.3注册
 #define API_Register API_SUB_URL(@"WeiXin/AppRegister")
@@ -231,7 +231,8 @@ typedef enum : NSUInteger {
 #define API_GetChilds API_SUB_URL1(@"Admin/Region/GetRegionList")
 //4.2获取订单的物流信息
 #define API_GetOrderExpress API_SUB_URL2(@"Order/GetCheckLogistics")
-
+//4.2获取未完成订单数
+#define API_GetOrderStatusCount API_SUB_URL2(@"Order/GetOrderStatusCount")
 /**
  *  支付
  */

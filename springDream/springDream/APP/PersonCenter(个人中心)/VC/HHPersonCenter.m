@@ -20,6 +20,8 @@
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
+@property(nonatomic,strong) NSArray  *message_arr;
+@property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
 
 @end
 
@@ -31,7 +33,6 @@
     self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
     self.tabView.tableHeaderView = self.personHead;
     [self registerTableViewCell];
-
     
     [self getDatas];
     
@@ -40,7 +41,7 @@
         HHvipInfoVC *vc = [HHvipInfoVC new];
         vc.userId = weakSelf.mineModel.Id;
         vc.mineModel = weakSelf.mineModel;
-        vc.userLevelName = self.userLevelName;
+        vc.userLevelName = weakSelf.userLevelName;
         [weakSelf.navigationController pushVC:vc];
     }];
     
@@ -76,15 +77,14 @@
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
     self.tabView.mj_header = refreshHeader;
+    
+    
 }
 
 #pragma mark - 获取数据
 - (void)getDatas{
     
     [[[HHMineAPI GetUserDetail] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
-        if (self.tabView.mj_header.isRefreshing) {
-            [self.tabView.mj_header endRefreshing];
-        }
         if (!error) {
             if (api.State == 1) {
                 
@@ -92,6 +92,7 @@
                 self.personHead.name_label.text = self.mineModel.UserName;
                 [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
                 self.userLevelName = api.Data[@"userLevelName"];
+                self.personHead.vip_label.text = self.userLevelName;
                  NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 NSString *content = [NSString stringWithFormat:@"消费金额:%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 self.personHead.consumption_amount_label.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_COMMON_COLOR contentColor:RGB(102, 102, 102)];
@@ -102,6 +103,30 @@
             [SVProgressHUD showInfoWithStatus:api.Msg];
         }
     }];
+    
+    //未完成订单数
+    [self GetOrderStatusCount];
+    
+}
+- (void)GetOrderStatusCount{
+    
+    [[[HHMineAPI GetOrderStatusCount] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (self.tabView.mj_header.isRefreshing) {
+            [self.tabView.mj_header endRefreshing];
+        }
+        if (!error) {
+            if (api.State == 1) {
+                self.orderStatusCount_model = [HHMineModel mj_objectWithKeyValues:api.Data];
+                self.message_arr = @[self.orderStatusCount_model.wait_pay_count,self.orderStatusCount_model.wait_send_count,self.orderStatusCount_model.already_shipped_count,self.orderStatusCount_model.un_evaluate_count,self.orderStatusCount_model.afte_ervice_count];
+                [self.tabView reloadRow:1 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
     
 }
 #pragma mark - Table view data source
@@ -136,6 +161,7 @@
             HHOrderStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHOrderStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.nav = self.navigationController;
+            cell.message_arr = self.message_arr;
             grideCell = cell;
         }
         

@@ -197,7 +197,7 @@
                     [self.integralSelecItems addObject:@0];
                 }];
                 if (self.model.coupons.count>0) {
-                    [self.datas addObject:@"优惠券"];
+                    [self.datas addObject:@"可用优惠券"];
                 }
                 //设置地址
                 SubmitOrdersHead.addressModel = self.model;

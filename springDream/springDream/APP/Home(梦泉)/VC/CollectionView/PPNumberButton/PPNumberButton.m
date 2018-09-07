@@ -179,6 +179,7 @@
     {
         if (_shakeAnimation) { [self shakeAnimationMethod]; } PPLog(@"已超过最大数量%ld",_maxValue);
         [SVProgressHUD showInfoWithStatus:@"数量超出范围～"];
+        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
     }
        
 }
@@ -244,7 +245,10 @@
     }
     //*****
     if (_textField.text.integerValue > _maxValue) {
+        
         [SVProgressHUD showInfoWithStatus:@"数量超出范围～"];
+        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+
     }
     //****//
     _textField.text.integerValue > _maxValue ? _textField.text = maxValueString : nil;

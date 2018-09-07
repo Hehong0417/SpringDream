@@ -22,6 +22,12 @@
 @property(nonatomic,strong) NSString  *Points;
 @property(nonatomic,strong) NSNumber  *isExtraBonus;
 
+//订单消息数
+@property(nonatomic,strong) NSString  *wait_pay_count;//待付款
+@property(nonatomic,strong) NSString  *wait_send_count;//待发货
+@property(nonatomic,strong) NSString  *already_shipped_count;//已发货
+@property(nonatomic,strong) NSString  *un_evaluate_count;//待评价
+@property(nonatomic,strong) NSString  *afte_ervice_count;//退款/售后
 
 //优惠券信息
 @property(nonatomic,strong) NSString *CouponValue;
