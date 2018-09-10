@@ -15,5 +15,7 @@
 
 @property(nonatomic,strong)  NSArray *message_arr;
 
+@property(nonatomic,strong)  HHModelsView *models_view;
+
 
 @end

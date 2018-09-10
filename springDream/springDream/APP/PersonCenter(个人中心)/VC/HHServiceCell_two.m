@@ -12,6 +12,12 @@
 #import "HHmyEarningsVC.h"
 #import "HHMyRightsVC.h"
 
+@interface HHServiceCell_two()
+
+@property(nonatomic,strong)  NSString *userIcon;
+@property(nonatomic,strong)  NSString *account;
+@end
+
 @implementation HHServiceCell_two
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -26,6 +32,12 @@
     }
     
     return self;
+}
+- (void)setUserIcon:(NSString *)userIcon setAccount:(NSString *)account{
+    
+    self.userIcon = userIcon;
+    self.account = account;
+    
 }
 - (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
     
@@ -50,6 +62,9 @@
         
         //基础设置
         HHModifyInfoVC *vc = [HHModifyInfoVC new];
+        vc.userIcon = self.userIcon;
+        vc.phoneNum = self.account;
+        
         [self.nav pushVC:vc];
        
     }

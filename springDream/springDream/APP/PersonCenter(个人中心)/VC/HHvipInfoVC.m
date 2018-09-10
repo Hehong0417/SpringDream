@@ -33,9 +33,8 @@
     self.tableV.tableHeaderView = head_view;
     
     //
-    UILabel *footer_lab = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW, 50) text:[NSString stringWithFormat:@"推荐人：%@",self.mineModel.ReferralUserName] textColor:kDarkGrayColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
+    UILabel *footer_lab = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW, 50) text:self.mineModel.ReferralUserName?[NSString stringWithFormat:@"推荐人：%@",self.mineModel.ReferralUserName]:@"" textColor:kDarkGrayColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
     self.tableV.tableFooterView = footer_lab;
-
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -66,7 +65,7 @@
 }
 - (NSArray *)groupDetials{
     
-    return @[@[@" ",self.mineModel.UserName,@"34567890",self.userLevelName,self.mineModel.UserName]];
+    return @[@[@" ",self.mineModel.UserName?self.mineModel.UserName:@"",self.mineModel.CellPhone?self.mineModel.CellPhone:@"",self.userLevelName?self.userLevelName:@"",self.mineModel.UserName?self.mineModel.UserName:@""]];
 
 }
 

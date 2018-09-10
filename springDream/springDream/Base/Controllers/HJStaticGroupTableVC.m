@@ -281,25 +281,25 @@ static const CGFloat kNormalCellHeight = 44;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if ([indexPath isEqual:self.headImageCellIndexPath]) {
-        
-        [self showPhotoSheetActionWithFinishSelectedBlock:^(UIImage *image) {
-            
-            NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
-//   上传头像
-            MBProgressHUD  *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.color = KA0LabelColor;
-            hud.detailsLabelText = @"头像正在上传中...";
-            hud.detailsLabelColor = kWhiteColor;
-            hud.detailsLabelFont = FONT(14);
-            hud.activityIndicatorColor = kWhiteColor;
-            [hud show:YES];
-            
-            
 //
-            }];
-    }
+//    if ([indexPath isEqual:self.headImageCellIndexPath]) {
+//
+//        [self showPhotoSheetActionWithFinishSelectedBlock:^(UIImage *image) {
+//
+//            NSData *imgData = UIImageJPEGRepresentation(image, 0.5);
+////   上传头像
+//            MBProgressHUD  *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud.color = KA0LabelColor;
+//            hud.detailsLabelText = @"头像正在上传中...";
+//            hud.detailsLabelColor = kWhiteColor;
+//            hud.detailsLabelFont = FONT(14);
+//            hud.activityIndicatorColor = kWhiteColor;
+//            [hud show:YES];
+//
+//
+////
+//            }];
+//    }
 }
 
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

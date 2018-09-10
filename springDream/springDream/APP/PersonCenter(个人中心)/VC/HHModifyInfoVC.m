@@ -33,7 +33,6 @@
     self.tableV.tableFooterView = footView;
     
     
-    
     NSInteger size = [[SDImageCache sharedImageCache] getSize];
     CGFloat M = size/1024/1024;
     HJSettingItem *item = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
@@ -68,45 +67,50 @@
         }else if (indexPath.row == 1){
             //手机号码
             
-        }else if (indexPath.row == 2){
-            //关于我们
-            HHAboutUsVC *vc = [HHAboutUsVC new];
-            [self.navigationController pushVC:vc];
         }
-    }else if (indexPath.section == 1) {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"确定清除缓存吗？" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            HJSettingItem *item = [self settingItemInIndexPath:indexPath];
-            [[SDImageCache sharedImageCache] clearMemory];
-            [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-            item.detailTitle = [NSString stringWithFormat:@"0.00M"];
-            [self.tableV reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            [alertC dismissViewControllerAnimated:YES completion:nil];
-            
-        }];
-        [alertC addAction:action1];
-        [alertC addAction:action2];
-        [self presentViewController:alertC animated:YES completion:nil];
-        
+//        else if (indexPath.row == 2){
+//            //关于我们
+//            HHAboutUsVC *vc = [HHAboutUsVC new];
+//            [self.navigationController pushVC:vc];
+//        }
     }
+//    else if (indexPath.section == 1) {
+//        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"确定清除缓存吗？" preferredStyle:UIAlertControllerStyleAlert];
+//
+//        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            HJSettingItem *item = [self settingItemInIndexPath:indexPath];
+//            [[SDImageCache sharedImageCache] clearMemory];
+//            [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+//            item.detailTitle = [NSString stringWithFormat:@"0.00M"];
+//            [self.tableV reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+//        }];
+//        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            [alertC dismissViewControllerAnimated:YES completion:nil];
+//
+//        }];
+//        [alertC addAction:action1];
+//        [alertC addAction:action2];
+//        [self presentViewController:alertC animated:YES completion:nil];
+//
+//    }
 }
 - (NSArray *)groupTitles{
     
-    return @[@[@"头像",@"登录账号",@"关于我们"],@[@"清除缓存"]];
-    
+//    return @[@[@"头像",@"登录账号",@"关于我们"],@[@"清除缓存"]];
+     return @[@[@"头像",@"登录账号"]];
+
 }
 - (NSArray *)groupIcons {
     
-    return @[@[@"",@"",@""],@[@""]];
+//    return @[@[@"",@"",@""],@[@""]];
+    return @[@[@"",@""]];
+
 }
 - (NSArray *)groupDetials{
     
-    return @[@[@"",self.phoneNum?self.phoneNum:@"",@""],@[@""]];
+    return @[@[@" ",self.phoneNum?self.phoneNum:@" "]];
 
 }
 
@@ -114,11 +118,7 @@
     
     return [NSIndexPath indexPathForRow:0 inSection:0];
 }
-- (NSArray *)indicatorIndexPaths{
-    
-    NSArray *indexsPaths = @[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:2 inSection:0],[NSIndexPath indexPathForRow:0 inSection:1]];
-    return indexsPaths;
-}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0&&indexPath.row == 0) {

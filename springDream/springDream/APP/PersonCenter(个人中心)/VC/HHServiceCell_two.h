@@ -11,5 +11,5 @@
 
 @interface HHServiceCell_two : UITableViewCell<HHModelsViewDelegate>
 @property(nonatomic,strong)  UINavigationController *nav;
-
+- (void)setUserIcon:(NSString *)userIcon setAccount:(NSString *)account;
 @end

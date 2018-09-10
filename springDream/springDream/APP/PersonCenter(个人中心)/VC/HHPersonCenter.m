@@ -96,6 +96,7 @@
                  NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 NSString *content = [NSString stringWithFormat:@"消费金额:%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
                 self.personHead.consumption_amount_label.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_COMMON_COLOR contentColor:RGB(102, 102, 102)];
+                [self.tabView reloadData];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -192,6 +193,7 @@
         }else if(indexPath.row == 2){
             HHServiceCell_two *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_two" ];
             cell.nav = self.navigationController;
+            [cell setUserIcon:self.mineModel.UserImage setAccount:self.mineModel.CellPhone];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }

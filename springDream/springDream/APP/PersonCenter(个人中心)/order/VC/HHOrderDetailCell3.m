@@ -65,10 +65,10 @@
 - (void)setModel:(HHCartModel *)model{
     
     _model = model;
-    self.order_code_label.text = [NSString stringWithFormat:@"订单编号：%@",model.payDate];
-    self.pay_code_label.text = [NSString stringWithFormat:@"支付宝交易号：%@",model.payDate];
-    self.create_time_label.text = [NSString stringWithFormat:@"创建时间：%@",model.payDate];
-    self.deal_time_label.text = [NSString stringWithFormat:@"成交时间：%@",model.payDate];
+    self.order_code_label.text = [NSString stringWithFormat:@"订单编号：%@",model.orderid?model.orderid:@""];
+    self.pay_code_label.text = [NSString stringWithFormat:@"支付宝交易号：%@",model.payDate?model.payDate:@""];
+    self.create_time_label.text = [NSString stringWithFormat:@"创建时间：%@",model.orderDate?model.orderDate:@""];
+    self.deal_time_label.text = [NSString stringWithFormat:@"成交时间：%@",model.payDate?model.payDate:@""];
 
     
 }

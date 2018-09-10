@@ -92,7 +92,6 @@ static NSArray *lastSele_IdArray_;
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = @"1";
     [detail_item write];
-    NSLog(@"--------1--------------");
     self.automaticallyAdjustsScrollViewInsets = NO;
     //初始化
     [self setUpInit];
@@ -112,7 +111,9 @@ static NSArray *lastSele_IdArray_;
     
     
     WEAK_SELF();
-    self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 100)];
+    self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 300)];
+    weakSelf.tabView.tableFooterView = weakSelf.foot;
+
     self.foot.reloadBlock = ^{
         weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
         weakSelf.tabView.tableFooterView = weakSelf.foot;

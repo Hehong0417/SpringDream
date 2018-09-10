@@ -30,9 +30,9 @@
 @property (nonatomic, strong)   NSString *money_total;
 @property (nonatomic, strong)   NSString *s_integral_total;
 @property (nonatomic, strong)   NSMutableArray *selectItems;
+@property (nonatomic, strong)   UIButton *manage_btn;
 
 @end
-
 @implementation HHShoppingVC
 
 - (NSMutableArray *)datas{
@@ -108,7 +108,31 @@
     //底部结算条
     [self addSettleAccountView];
     
+    
+    self.manage_btn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 60, 60) target:self action:@selector(manageAction:) title:@"管理" titleColor:kWhiteColor font:FONT(14) backgroundColor:kClearColor];
+    [self.manage_btn setTitle:@"完成" forState:UIControlStateSelected];
+    [self.manage_btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc] initWithCustomView:self.manage_btn];
 
+}
+- (void)manageAction:(UIButton *)manage_btn{
+    
+   manage_btn.selected  = !manage_btn.selected;
+    
+    if (manage_btn.selected == YES) {
+        //完成---移入收藏夹、删除已选
+        self.settleAccountView.sendGift_label.hidden = NO;
+        self.settleAccountView.money_totalLabel.hidden = YES;
+        self.settleAccountView.settleBtn.text = @"删除已选";
+    }else{
+      //管理---去结算
+        
+        self.settleAccountView.sendGift_label.hidden = YES;
+        self.settleAccountView.money_totalLabel.hidden = NO;
+        self.settleAccountView.settleBtn.text = @"去结算";
+
+    }
+    
 }
 - (void)backBtnAction{
     
@@ -277,8 +301,8 @@
     
     self.settleAccountView  = [[[NSBundle mainBundle] loadNibNamed:@"HHCartFootView" owner:self options:nil] lastObject];
     self.settleAccountView.hidden = YES;
-    self.settleAccountView.sendGift_label.hidden = YES;
-    self.settleAccountView.sendGift_widthConstant.constant = 0;
+//    self.settleAccountView.sendGift_label.hidden = YES;
+//    self.settleAccountView.sendGift_widthConstant.constant = 0;
     CGFloat settleView_y;
     if (self.cartType == HHcartType_goodDetail) {
         settleView_y = SCREEN_HEIGHT- 49-Status_HEIGHT -44;
@@ -296,30 +320,39 @@
     WEAK_SELF();
     self.settleAccountView.allChooseBlock = ^(NSNumber *allSelected) {
         [weakSelf caculateSettleGoodsListBaseLeftSelectArrIsAllSelected:allSelected.boolValue];
+        
     };
-
-    //送礼
-    self.settleAccountView.sendGift_label.userInteractionEnabled = YES;
-    [self.settleAccountView.sendGift_label setTapActionWithBlock:^{
-       
-        [self isExitAddressWithSendGift:@1];
-
-    }];
+    
+    //获取已选数组
+    NSMutableArray *select_idx_arr = [self getNewSelect_arr];
     
     //提交订单
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{
-        NSMutableArray *select_idx_arr = [NSMutableArray array];
-        [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isEqual:@1]) {
-                [select_idx_arr addObject:obj];
-            }
-        }];
+//        NSMutableArray *select_idx_arr = [NSMutableArray array];
+//        [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if ([obj isEqual:@1]) {
+//                [select_idx_arr addObject:obj];
+//            }
+//        }];
         if (select_idx_arr.count>0) {
             [self isExitAddressWithSendGift:@0];
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:1.0];
             [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
         }
+        
+    }];
+    
+    //送礼/移入收藏夹
+    self.settleAccountView.sendGift_label.userInteractionEnabled = YES;
+    [self.settleAccountView.sendGift_label setTapActionWithBlock:^{
+        
+        //        [self isExitAddressWithSendGift:@1];
+        if (self.manage_btn.selected == YES) {
+            //移入收藏夹
+           
+        }
+        
         
     }];
     
@@ -487,6 +520,11 @@
     HHtEditCarItem *editCarItem = [HHtEditCarItem shopCartGoodsList:self.datas selectionArr:self.selectItems];
     self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
     
+    if (self.manage_btn.selected == YES) {
+        self.settleAccountView.sendGift_label.text = self.selectItems.count>0?[NSString stringWithFormat:@"移入收藏夹(%ld)",self.selectItems.count]:@"移入收藏夹";
+        self.settleAccountView.settleBtn.text = self.selectItems.count>0?[NSString stringWithFormat:@"删除已选(%ld)",self.selectItems.count]:@"删除已选";
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -513,10 +551,18 @@
     WEAK_SELF();
     cell.ChooseBtnSelectAction = ^(NSIndexPath *indexPath, BOOL chooseBtnSelected) {
         [weakSelf.selectItems replaceObjectAtIndex:indexPath.section withObject:@(chooseBtnSelected)];
-
+        
         HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:weakSelf.datas selectionArr:weakSelf.selectItems];
         self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
         self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
+        
+        //
+        if (self.manage_btn.selected == YES) {
+            //获取已选数组
+            NSMutableArray *select_idx_arr = [self getNewSelect_arr];
+            self.settleAccountView.sendGift_label.text = select_idx_arr.count>0?[NSString stringWithFormat:@"移入收藏夹(%ld)",select_idx_arr.count]:@"移入收藏夹";
+            self.settleAccountView.settleBtn.text = select_idx_arr.count>0?[NSString stringWithFormat:@"删除已选(%ld)",select_idx_arr.count]:@"删除已选";
+        }
     };
     return cell;
 }
@@ -584,6 +630,18 @@
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"删除";
+}
+
+- (NSMutableArray *)getNewSelect_arr{
+    
+    NSMutableArray *select_idx_arr = [NSMutableArray array];
+    [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:@1]) {
+            [select_idx_arr addObject:obj];
+        }
+    }];
+    
+    return select_idx_arr;
 }
 #pragma mark - 删除购物车
 

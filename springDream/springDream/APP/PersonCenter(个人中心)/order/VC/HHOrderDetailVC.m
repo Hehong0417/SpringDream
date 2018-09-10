@@ -178,7 +178,7 @@
 
         }else if (indexPath.row == 2){
             cell.textLabel.text = @"优惠价";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%@",self.model.payTotal?self.model.payTotal:@""];
         }else{
             cell.textLabel.text = @"商品运费";
           NSString *detailText;
@@ -258,7 +258,7 @@
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
     headView.backgroundColor = kWhiteColor;
     if (section == 1) {
-        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW-20, 50) text:@"共1件商品 合计:¥0.00" textColor:KTitleLabelColor font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW-20, 50) text:[NSString stringWithFormat:@"共%ld件商品 合计:¥%@",self.datas.count,self.model.payTotal] textColor:KTitleLabelColor font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
         [headView addSubview:label];
         return headView;
     }
@@ -266,7 +266,7 @@
         
         UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 80, 50) text:@"合计" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
         [headView addSubview:label];
-        UILabel *label2 = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-120, 0, 100, 50) text:@"¥0.00" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        UILabel *label2 = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-120, 0, 100, 50) text:[NSString stringWithFormat:@"¥%@",self.model.payTotal] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
         [headView addSubview:label2];
         return headView;
 

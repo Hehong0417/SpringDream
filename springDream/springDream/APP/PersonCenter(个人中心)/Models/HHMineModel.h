@@ -21,6 +21,8 @@
 @property(nonatomic,strong) NSString *ReferralUserName;
 @property(nonatomic,strong) NSString  *Points;
 @property(nonatomic,strong) NSNumber  *isExtraBonus;
+@property(nonatomic,strong) NSString  *CellPhone;
+
 
 //订单消息数
 @property(nonatomic,strong) NSString  *wait_pay_count;//待付款
