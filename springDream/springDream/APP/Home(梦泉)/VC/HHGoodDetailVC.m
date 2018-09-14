@@ -102,8 +102,7 @@ static NSArray *lastSele_IdArray_;
     [self getDatas];
     
     [self addCartOrBuyAction];
-    
-    
+   
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [backBtn bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -111,18 +110,21 @@ static NSArray *lastSele_IdArray_;
     
     
     WEAK_SELF();
-    self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 300)];
+    self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 500)];
     weakSelf.tabView.tableFooterView = weakSelf.foot;
 
     self.foot.reloadBlock = ^{
-        weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
-        weakSelf.tabView.tableFooterView = weakSelf.foot;
+             weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
+             weakSelf.tabView.tableFooterView = weakSelf.foot;
     };
-    
 }
 - (void)backBtnAction{
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.goodDetail_backBlock) {
+        self.goodDetail_backBlock();
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 #pragma mark - regsterTableCell
 
@@ -146,7 +148,23 @@ static NSArray *lastSele_IdArray_;
     self.addCartTool.addCartBlock = ^{
         HHFeatureSelectionViewCell *cell = [weakSelf.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         if (cell.seleArray.count != cell.featureAttr.count) {
-            [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+            NSLog(@"featureAttr****%@",cell.featureAttr);
+            NSMutableArray *no_select_arr = [NSMutableArray array];
+            [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[NSIndexPath class]]) {
+                    NSLog(@"NSIndexPath====%ld",idx);
+                }else{
+                    NSLog(@"00=====%ld",idx);
+                    [no_select_arr addObject:cell.featureAttr[idx]];
+                }
+            }];
+            NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+            [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [no_select_ValueName_arr addObject:model.ValueName];
+            }];
+            
+            NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+            [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD dismissWithDelay:1.0];
         }else{
@@ -571,7 +589,7 @@ static NSArray *lastSele_IdArray_;
             if (api.State == 1) {
                 NSArray *arr = api.Data;
                 self.evaluations = arr.mutableCopy;
-                [self.tabView reloadData];
+                [self.tabView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -654,9 +672,10 @@ static NSArray *lastSele_IdArray_;
     if (!_cycleScrollView) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH) imageNamesGroup:@[@""]];
         _cycleScrollView.placeholderImage = [UIImage imageNamed:@""];
-        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
+        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
         _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
-        
+        _cycleScrollView.currentPageDotColor = APP_COMMON_COLOR;
+        _cycleScrollView.pageDotColor = RGB(228, 159, 165);
         _cycleScrollView.delegate = self;
     }
     

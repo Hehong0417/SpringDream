@@ -141,7 +141,7 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_title_btn setTitle:_title_Arr[i] forState:(UIControlStateNormal)];
             [_title_btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
             [_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
-            [_title_btn setBackgroundColor:RGB(255, 239, 239)];
+            [_title_btn setBackgroundColor:[UIColor whiteColor]];
             // 计算每个label的X值
             button_X = button_X + button_W;
             
@@ -201,7 +201,7 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_title_btn setTitle:_title_Arr[i] forState:(UIControlStateNormal)];
             [_title_btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
             [_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
-            [_title_btn setBackgroundColor:RGB(255, 239, 239)];
+            [_title_btn setBackgroundColor:[UIColor whiteColor]];
 
             // 点击事件
             [_title_btn addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -555,7 +555,6 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
         UIButton *button = (UIButton *)subViews;
         button.titleLabel.font = title_fondOfSize;
     }
-    
 }
 
 - (void)setTitleColorStateNormal:(UIColor *)titleColorStateNormal {
@@ -571,6 +570,28 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
     for (UIView *subViews in self.titleBtn_mArr) {
         UIButton *button = (UIButton *)subViews;
         [button setTitleColor:titleColorStateSelected forState:(UIControlStateSelected)];
+    }
+}
+- (void)setBackgroundColorNormal:(UIColor *)backgroundColorNormal{
+    _backgroundColorNormal = backgroundColorNormal;
+    for (UIView *subViews in self.titleBtn_mArr) {
+        UIButton *button = (UIButton *)subViews;
+        [button lh_setBackgroundColor:backgroundColorNormal forState:UIControlStateNormal];
+    }
+}
+- (void)setBackgroundColorSelected:(UIColor *)backgroundColorSelected{
+    _backgroundColorSelected = backgroundColorSelected;
+    for (UIView *subViews in self.titleBtn_mArr) {
+        UIButton *button = (UIButton *)subViews;
+        [button lh_setBackgroundColor:backgroundColorSelected forState:UIControlStateSelected];
+    }
+}
+- (void)setLine_color:(UIColor *)line_color{
+    _line_color = line_color;
+    for (UIView *subViews in self.titleBtn_mArr) {
+        UIButton *button = (UIButton *)subViews;
+        UIView *line = [UIView lh_viewWithFrame:CGRectMake(button.width-1, 5, 1, button.height-10) backColor:line_color];
+        [button addSubview:line];
     }
 }
 

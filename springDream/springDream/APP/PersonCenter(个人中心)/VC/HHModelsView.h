@@ -22,6 +22,11 @@
 
 @property(nonatomic,assign) NSArray *message_count;
 
+@property(nonatomic,assign) NSArray *btn_image_arr;
+
+@property(nonatomic,strong)  NSArray *btn_title_arr;
+
+
 /**
  创建上面是图片下面是文字的view
  @param frame  view 的 frame

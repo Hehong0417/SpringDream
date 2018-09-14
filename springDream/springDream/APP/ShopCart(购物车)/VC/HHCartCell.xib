@@ -4,9 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +33,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pca-D6-j28">
                         <rect key="frame" x="46" y="21" width="83" height="83"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="Pca-D6-j28" secondAttribute="height" multiplier="1:1" id="ckf-YX-gk6"/>
+                            <constraint firstAttribute="height" constant="83" id="3eU-jT-mDu"/>
                             <constraint firstAttribute="width" constant="83" id="eHY-u9-hwR"/>
                         </constraints>
                     </imageView>
@@ -69,7 +67,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥49.00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vat-21-qb5">
-                        <rect key="frame" x="260" y="84" width="98" height="28"/>
+                        <rect key="frame" x="260" y="84.5" width="98" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="2Pf-U1-dpU"/>
                             <constraint firstAttribute="width" constant="98" id="Xag-Qj-rj6"/>
@@ -79,10 +77,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" background="num_" translatesAutoresizingMaskIntoConstraints="NO" id="Xhf-VW-G2L">
-                        <rect key="frame" x="141" y="83" width="112" height="30"/>
+                        <rect key="frame" x="141" y="83" width="80" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="axa-to-x41"/>
-                            <constraint firstAttribute="width" constant="112" id="q2E-vg-qhD"/>
+                            <constraint firstAttribute="height" constant="25" id="axa-to-x41"/>
+                            <constraint firstAttribute="width" constant="80" id="q2E-vg-qhD"/>
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -98,10 +96,11 @@
                     <constraint firstAttribute="trailing" secondItem="hf1-Yj-Gzi" secondAttribute="trailing" constant="16" id="Adg-TX-Umy"/>
                     <constraint firstItem="eop-Fv-8NW" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="1" id="MmO-cd-5Kn"/>
                     <constraint firstItem="eop-Fv-8NW" firstAttribute="leading" secondItem="Pca-D6-j28" secondAttribute="trailing" constant="12" id="VRK-zr-cje"/>
-                    <constraint firstItem="Vat-21-qb5" firstAttribute="centerY" secondItem="Xhf-VW-G2L" secondAttribute="centerY" id="a80-tJ-li8"/>
+                    <constraint firstItem="Vat-21-qb5" firstAttribute="centerY" secondItem="Xhf-VW-G2L" secondAttribute="centerY" constant="2.5" id="a80-tJ-li8"/>
                     <constraint firstItem="1n8-SG-hex" firstAttribute="top" secondItem="eop-Fv-8NW" secondAttribute="bottom" constant="3" id="c9M-c9-vw1"/>
                     <constraint firstItem="1n8-SG-hex" firstAttribute="leading" secondItem="eop-Fv-8NW" secondAttribute="leading" id="hV6-4j-Cpa"/>
                     <constraint firstItem="nAZ-G2-ILx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hvG-Wb-jFq"/>
+                    <constraint firstItem="nAZ-G2-ILx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jXs-J0-DrP"/>
                     <constraint firstAttribute="bottom" secondItem="hf1-Yj-Gzi" secondAttribute="bottom" constant="9.5" id="kZF-oO-vmq"/>
                     <constraint firstItem="1n8-SG-hex" firstAttribute="trailing" secondItem="eop-Fv-8NW" secondAttribute="trailing" id="ryP-DA-Ct3"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Vat-21-qb5" secondAttribute="trailing" constant="1" id="tPw-T9-ykQ"/>

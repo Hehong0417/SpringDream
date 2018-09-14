@@ -81,6 +81,8 @@
     self.SG.title_fondOfSize = FONT(14);
     self.SG.titleColorStateNormal = kBlackColor;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
+    self.SG.backgroundColorNormal = RGB(255, 239, 239);
+    self.SG.backgroundColorSelected = RGB(255, 239, 239);
     self.SG.indicatorColor = APP_COMMON_COLOR;
     [self.view addSubview:_SG];
     if (self.button_tag != 0) {
@@ -356,6 +358,7 @@
               HHproducts_item_Model *model1 = orders_m.items[indexPath.row];
               vc.order_id = orders_m.order_id;
               vc.item_model = model1;
+            
             if (product_m.product_item_status.integerValue == 2||product_m.product_item_status.integerValue == 6||product_m.product_item_status.integerValue == 9) {
                 vc.title_str = @"申请退款";
             }else if (product_m.product_item_status.integerValue == 3||product_m.product_item_status.integerValue == 7||product_m.product_item_status.integerValue == 10){
@@ -623,7 +626,7 @@
         [self handleOrderWithorderid:model.order_id status:HHhandle_type_Confirm btn:btn title:@"是否确认收货？"];
         
     }else if([status isEqualToString:@"5"]){
-        //交易成功-->追加评价
+        //交易成功-->评价
         HHPostEvaluationVC *vc = [HHPostEvaluationVC new];
         HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
         HHOrderItemModel *itemModel = self.items_arr[section];

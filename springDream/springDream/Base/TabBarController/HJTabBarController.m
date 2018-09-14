@@ -11,11 +11,12 @@
 #import "HXTabBar.h"
 #import "HHHomeVC.h"
 #import "HHShoppingVC.h"
-#import "HHRecommandVC.h"
-#import "HHPersonCenter.h"
+#import "HHPersonCenterSuperVC.h"
+#import "SDTimeLineTableViewController.h"
 #import "HHGoodListVC.h"
 
 @interface HJTabBarController () <UITabBarControllerDelegate,HXTabBarDelegate>
+
 
 @property (nonatomic,strong) NSArray *tabBarItemTitles;
 @property (nonatomic,strong) NSArray *tabBarItemNormalImages;
@@ -179,11 +180,12 @@
     
     if (!_tabBarStoryBoardItems) {
         
-        //
+        //SDTimeLineTableViewController
+        
         HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHHomeVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item2 = [HJStoryBoardItem itemWithStroyBoardName:@"Recommand" identifier:@"HHGoodListVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item3 = [HJStoryBoardItem itemWithStroyBoardName:@"ShopCart" identifier:@"HHShoppingVC" viewControllerNonExist:YES];
-        HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"PersonCenter" identifier:@"HHPersonCenter" viewControllerNonExist:YES];
+        HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"PersonCenter" identifier:@"HHPersonCenterSuperVC" viewControllerNonExist:YES];
 
         _tabBarStoryBoardItems = @[ item1,
                                     item2,

@@ -35,7 +35,7 @@
     
     //商品列表
     self.page = 1;
-    self.pageSize = 10;
+    self.pageSize = 20;
     
     //头部
     

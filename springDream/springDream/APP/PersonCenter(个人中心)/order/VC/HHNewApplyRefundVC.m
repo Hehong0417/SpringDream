@@ -43,7 +43,7 @@
     
     self.section_title_arr =  @[@"商品详情",@"订单详情",@""];
     
-    self.order_detail_arr = @[[NSString stringWithFormat:@"订单号：%@",self.order_id],[NSString stringWithFormat:@"下单时间：00:00:00"],[NSString stringWithFormat:@"支付方式；在线支付"]];
+    self.order_detail_arr = @[[NSString stringWithFormat:@"订单号：%@",self.order_id],[NSString stringWithFormat:@"下单时间：00:00:00"],[NSString stringWithFormat:@"支付方式：在线支付"]];
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:kClearColor];
     
     UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 30, SCREEN_WIDTH - 60, 45) target:self action:@selector(commitAction:) backgroundImage:nil title:@"提  交"  titleColor:kWhiteColor font:FONT(14)];

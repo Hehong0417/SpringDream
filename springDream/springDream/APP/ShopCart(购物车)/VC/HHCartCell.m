@@ -76,17 +76,5 @@
     _leftSelected = leftSelected;
     self.chooseBtn.selected = leftSelected;
 }
-- (void)layoutSubviews{
-    
-    for (UIView *subView in self.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
-            subView.backgroundColor=RGB(221, 221, 221);
-            for (UIButton *btn in subView.subviews) {
-                if ([btn isKindOfClass:[UIButton class]]) {
-                    [btn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateNormal];
-                 }
-            }
-        }
-    }
-}
+
 @end

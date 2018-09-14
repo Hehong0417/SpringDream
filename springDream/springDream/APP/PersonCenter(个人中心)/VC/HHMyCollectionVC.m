@@ -33,7 +33,7 @@
     self.title = @"我的收藏";
     //商品列表
     self.page = 1;
-    self.pageSize = 10;
+    self.pageSize = 20;
     
     self.isCategory = YES;
     

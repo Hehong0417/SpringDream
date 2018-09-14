@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HHPersonCenter : UITableViewController
+@interface HHPersonCenterSub : UITableViewController
 
 @end

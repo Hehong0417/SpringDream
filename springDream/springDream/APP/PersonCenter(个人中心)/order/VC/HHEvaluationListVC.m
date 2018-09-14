@@ -37,7 +37,7 @@
     self.tableView.backgroundColor = KVCBackGroundColor;
 
     self.page =1;
-    self.pageSize = 10;
+    self.pageSize = 20;
     [self addHeadRefresh];
     [self addFootRefresh];
     self.tableView.emptyDataSetDelegate = self;
@@ -239,7 +239,7 @@
     
     ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
     
-    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+//    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
     
     ///////////////////////////////////////////////////////////////////////
     

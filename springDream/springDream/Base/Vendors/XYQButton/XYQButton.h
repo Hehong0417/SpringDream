@@ -15,9 +15,6 @@
 @property (nonatomic, unsafe_unretained) CGFloat fontsize;
 @property (nonatomic, strong) UIFont *font;
 
-
-
-
 + (instancetype)fontAttributesWithFontColor:(UIColor *)fontColor fontsize:(CGFloat)fontsize;
 
 @end
@@ -32,7 +29,6 @@ typedef NS_ENUM(NSInteger, ContentType){
    TopTitleBottomImage
     
 };
-
 
 @property (nonatomic, assign) ContentType contentType;
 

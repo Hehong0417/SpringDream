@@ -12,4 +12,6 @@
 
 @property(nonatomic,strong) NSString *Id;
 
+@property(nonatomic,copy)  voidBlock goodDetail_backBlock;
+
 @end

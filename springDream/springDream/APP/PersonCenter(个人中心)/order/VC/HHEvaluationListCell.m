@@ -11,8 +11,8 @@
 #import "HHCellCommentView.h"
 #import "HHAdditionalCommentView.h"
 
-const CGFloat contentLabelFontSize = 15;
-CGFloat maxContentLabelHeight = 0; // 根据具体font而定
+const CGFloat contentLabelFontSize1 = 15;
+//CGFloat maxContentLabelHeight1 = 0; // 根据具体font而定
 
 @implementation HHEvaluationListCell
 {
@@ -71,7 +71,7 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _propertyLabel.textAlignment = NSTextAlignmentLeft;
     
     _contentLabel = [UILabel new];
-    _contentLabel.font = [UIFont systemFontOfSize:contentLabelFontSize];
+    _contentLabel.font = [UIFont systemFontOfSize:contentLabelFontSize1];
     _contentLabel.numberOfLines = 0;
     
     _picContainerView = [SDWeiXinPhotoContainerView new];
@@ -151,7 +151,7 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
     _nameLable.text = model.userName;
     _timeLabel.text = model.createDate;
     _propertyLabel.text = model.skuName;
-    _contentLabel.text = model.content?model.content:@"此用户没有填写评价";
+    _contentLabel.text = model.content.length>0?model.content:@"此用户没有填写评价";
     _picContainerView.picPathStringsArray = model.pictures;
     
     NSInteger grade = model.describeScore.integerValue;
@@ -197,4 +197,5 @@ CGFloat maxContentLabelHeight = 0; // 根据具体font而定
         self.moreButtonClickedBlock(self.indexPath);
     }
 }
+
 @end

@@ -1,5 +1,5 @@
 //
-//  HHRecommandVC.h
+//  HHPersonCenter.h
 //  springDream
 //
 //  Created by User on 2018/8/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HHRecommandVC : UIViewController
+@interface HHPersonCenterSub1 : UITableViewController
 
 @end

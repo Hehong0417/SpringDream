@@ -43,6 +43,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>方便使用拍照功能上传头像</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>保存图片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>设置头像</string>
 	<key>UILaunchStoryboardName</key>

@@ -31,10 +31,10 @@
 
 #import "UIView+SDAutoLayout.h"
 
-//#import "SDPhotoBrowser.h"
+#import "SDPhotoBrowser.h"
 
-@interface SDWeiXinPhotoContainerView ()
-//<SDPhotoBrowserDelegate>
+@interface SDWeiXinPhotoContainerView () <SDPhotoBrowserDelegate>
+
 @property (nonatomic, strong) NSArray *imageViewsArray;
 
 @end
@@ -58,8 +58,8 @@
         [self addSubview:imageView];
         imageView.userInteractionEnabled = YES;
         imageView.tag = i;
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];
-//        [imageView addGestureRecognizer:tap];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];
+        [imageView addGestureRecognizer:tap];
         [temp addObject:imageView];
     }
     
@@ -81,16 +81,17 @@
         self.fixedHeight = @(0);
         return;
     }
-    
+    WEAK_SELF();
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0;
     if (_picPathStringsArray.count == 1) {
+//      UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
 //        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_picPathStringsArray.firstObject]]];
-//        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
 //        if (image.size.width) {
 //            itemH = image.size.height / image.size.width * itemW;
 //        }
-        itemH = itemW;
+        itemH = 160;
+
     } else {
         itemH = itemW;
     }
@@ -100,13 +101,12 @@
     [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         long columnIndex = idx % perRowItemCount;
         long rowIndex = idx / perRowItemCount;
-        UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
-        
+        UIImageView *imageView = [weakSelf.imageViewsArray objectAtIndex:idx];
+        [imageView lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.hidden = NO;
-//       imageView.image = [UIImage imageNamed:obj];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:obj]placeholderImage:[UIImage imageNamed:@"5"]];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:[UIImage imageWithColor:KVCBackGroundColor]];
-
     }];
     
     CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
@@ -123,13 +123,13 @@
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap
 {
-//    UIView *imageView = tap.view;
-//    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
-//    browser.currentImageIndex = imageView.tag;
-//    browser.sourceImagesContainerView = self;
-//    browser.imageCount = self.picPathStringsArray.count;
-//    browser.delegate = self;
-//    [browser show];
+    UIView *imageView = tap.view;
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.currentImageIndex = imageView.tag;
+    browser.sourceImagesContainerView = self;
+    browser.imageCount = self.picPathStringsArray.count;
+    browser.delegate = self;
+    [browser show];
 }
 
 - (CGFloat)itemWidthForPicPathArray:(NSArray *)array
@@ -137,37 +137,37 @@
     if (array.count == 1) {
         return 120;
     } else {
-        CGFloat w = [UIScreen mainScreen].bounds.size.width > 320 ? 80 : 70;
-        return w;
+//        CGFloat w = [UIScreen mainScreen].bounds.size.width > 320 ? 80 : 70;
+//        return w;
+        return ([UIScreen mainScreen].bounds.size.width - 40)/3;
     }
 }
 
 - (NSInteger)perRowItemCountForPicPathArray:(NSArray *)array
 {
-    return 4;
 //    if (array.count < 3) {
 //        return array.count;
 //    } else if (array.count <= 4) {
 //        return 2;
 //    } else {
-//        return 3;
+        return 3;
 //    }
 }
 
 
-//#pragma mark - SDPhotoBrowserDelegate
-//
-//- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
-//{
-//    NSString *imageName = self.picPathStringsArray[index];
-//    NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
-//    return url;
-//}
-//
-//- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
-//{
-//    UIImageView *imageView = self.subviews[index];
-//    return imageView.image;
-//}
+#pragma mark - SDPhotoBrowserDelegate
+
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imageName = self.picPathStringsArray[index];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
+    return url;
+}
+
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    UIImageView *imageView = self.subviews[index];
+    return imageView.image;
+}
 
 @end

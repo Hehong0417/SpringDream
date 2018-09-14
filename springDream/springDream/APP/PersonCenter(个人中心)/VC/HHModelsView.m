@@ -61,6 +61,23 @@
     }
     
 }
+- (void)setBtn_image_arr:(NSArray *)btn_image_arr{
+    
+    _btn_image_arr = btn_image_arr;
+    for (NSInteger i =0; i<btn_image_arr.count; i++) {
+        XYQButton *model_btn = [self viewWithTag:i+10000];
+        [model_btn setImage:[UIImage imageNamed:btn_image_arr[i]] forState:UIControlStateNormal];
+    }
+}
+- (void)setBtn_title_arr:(NSArray *)btn_title_arr{
+    
+    _btn_title_arr = btn_title_arr;
+    for (NSInteger i =0; i<btn_title_arr.count; i++) {
+        XYQButton *model_btn = [self viewWithTag:i+10000];
+        [model_btn setTitle:btn_title_arr[i] forState:UIControlStateNormal];
+    }
+}
+
 - (void)modelButtonSelectWithIndex:(NSInteger)index{
     
     if (self.delegate&&[self.delegate respondsToSelector:@selector(modelButtonDidSelectWithButtonIndex:)]) {

@@ -43,11 +43,13 @@
         self.vip_label.backgroundColor = kRedColor;
         [self addSubview:self.vip_label];
         //签到
-        self.sign_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(sign_buttonAction:) image:[UIImage imageNamed:@""]];
+        self.sign_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(sign_buttonAction:) image:[UIImage imageNamed:@"red_right_arrow"]];
         [self.sign_button lh_setBackgroundColor:RGB(255, 223, 224) forState:UIControlStateNormal];
         [self.sign_button setTitle:@"每日签到" forState:UIControlStateNormal];
         self.sign_button.titleLabel.font = FONT(13);
         [self.sign_button setTitleColor:kRedColor forState:UIControlStateNormal];
+        [self.sign_button setImageEdgeInsets:UIEdgeInsetsMake(0, 67, 0, 0)];
+        [self.sign_button setTitleEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
         [self addSubview:self.sign_button];
         //消费金额
         self.consumption_amount_label = [UILabel new];

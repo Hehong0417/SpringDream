@@ -60,7 +60,7 @@
                 
                 self.model = [HHMineModel mj_objectWithKeyValues:api.Data[@"express"]];
                 self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",api.Data[@"company"]];
-                self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu];
+                self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu.length>0?self.model.nu:@""];
                 NSString * image_url =  api.Data[@"productIcon"];
                 [self.logisticsHead.image_url sd_setImageWithURL:[NSURL URLWithString:image_url]];
                 if ([self.model.ischeck isEqual:@1]) {

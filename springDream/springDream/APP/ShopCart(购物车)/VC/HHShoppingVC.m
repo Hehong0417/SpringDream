@@ -49,7 +49,9 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+
+    self.manage_btn.selected = YES;
+    [self manageAction:self.manage_btn];
     //是否登录
     [self isLoginOrNot];
     
@@ -67,7 +69,6 @@
     self.title = @"购物车";
     
      self.automaticallyAdjustsScrollViewInsets = NO;
-    
     
     //返回按钮
     UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 30, 45) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:@"icon_return_default"]];
@@ -94,13 +95,11 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = KVCBackGroundColor;
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHCartCell" bundle:nil] forCellReuseIdentifier:@"HHCartCell"];
     
-    
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.emptyDataSetSource = self;
     
 //    //顶部提示条
 //    [self addTipHeadView];
@@ -108,6 +107,7 @@
     //底部结算条
     [self addSettleAccountView];
     
+    [self addHeadRefresh];
     
     self.manage_btn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 60, 60) target:self action:@selector(manageAction:) title:@"管理" titleColor:kWhiteColor font:FONT(14) backgroundColor:kClearColor];
     [self.manage_btn setTitle:@"完成" forState:UIControlStateSelected];
@@ -123,7 +123,9 @@
         //完成---移入收藏夹、删除已选
         self.settleAccountView.sendGift_label.hidden = NO;
         self.settleAccountView.money_totalLabel.hidden = YES;
-        self.settleAccountView.settleBtn.text = @"删除已选";
+        NSMutableArray *select_idx_arr = [self getNewSelect_arr];
+        self.settleAccountView.sendGift_label.text = select_idx_arr.count>0?[NSString stringWithFormat:@"移入收藏夹(%ld)",select_idx_arr.count]:@"移入收藏夹";
+        self.settleAccountView.settleBtn.text = select_idx_arr.count>0?[NSString stringWithFormat:@"删除已选(%ld)",select_idx_arr.count]:@"删除已选";
     }else{
       //管理---去结算
         
@@ -197,6 +199,19 @@
     [self.navigationController pushVC:vc];
 
 }
+#pragma mark - 刷新控件
+
+- (void)addHeadRefresh{
+    
+    MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+
+        [self getDatas];
+    }];
+    refreshHeader.lastUpdatedTimeLabel.hidden = YES;
+    refreshHeader.stateLabel.hidden = YES;
+    self.tableView.mj_header = refreshHeader;
+    
+}
 
 - (void)isLoginOrNot{
     //
@@ -219,10 +234,18 @@
     
     [[[HHCartAPI GetCartProducts] netWorkClient] getRequestInView:nil finishedBlock:^(HHCartAPI *api, NSError *error) {
 
+        self.tableView.emptyDataSetDelegate = self;
+        self.tableView.emptyDataSetSource = self;
+        
+        if ([self.tableView.mj_header isRefreshing]) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        
         if (!error) {
             if (api.State == 1) {
-
+                
                 self.model  =  [HHCartModel mj_objectWithKeyValues:api.Data];
+                
 //                if ([self.model.sendGift isEqual:@1]) {
 //                    self.settleAccountView.sendGift_label.hidden = NO;
 //                    self.settleAccountView.sendGift_widthConstant.constant = 80;
@@ -230,12 +253,12 @@
 //                    self.settleAccountView.sendGift_label.hidden = YES;
 //                    self.settleAccountView.sendGift_widthConstant.constant = 0;
 //                }
-                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥0.00"];
+                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥0.00"];
 
 //                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",self.model.total?self.model.total.floatValue:0.00];
 
                 [self getShopCartListFinsih:self.model];
-
+                
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -316,6 +339,9 @@
     [settleView addSubview:self.settleAccountView];
     [self.view addSubview:settleView];
     
+    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥0.00"];
+
+    
     //全选
     WEAK_SELF();
     self.settleAccountView.allChooseBlock = ^(NSNumber *allSelected) {
@@ -323,20 +349,17 @@
         
     };
     
-    //获取已选数组
-    NSMutableArray *select_idx_arr = [self getNewSelect_arr];
-    
+  
     //提交订单
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{
-//        NSMutableArray *select_idx_arr = [NSMutableArray array];
-//        [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            if ([obj isEqual:@1]) {
-//                [select_idx_arr addObject:obj];
-//            }
-//        }];
+        //获取已选数组
+        NSMutableArray *select_idx_arr = [self getNewSelect_arr];
+        
         if (select_idx_arr.count>0) {
+            
             [self isExitAddressWithSendGift:@0];
         }else{
+            
             [SVProgressHUD setMinimumDismissTimeInterval:1.0];
             [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
         }
@@ -346,11 +369,38 @@
     //送礼/移入收藏夹
     self.settleAccountView.sendGift_label.userInteractionEnabled = YES;
     [self.settleAccountView.sendGift_label setTapActionWithBlock:^{
+        //获取已选数组id
+        NSMutableArray *select_ids = [self getNewSelect_ids];
         
-        //        [self isExitAddressWithSendGift:@1];
+        // [self isExitAddressWithSendGift:@1];
         if (self.manage_btn.selected == YES) {
             //移入收藏夹
-           
+            NSString *pid_str = [select_ids componentsJoinedByString:@","];
+            NSLog(@"pid_str:%@",pid_str);
+        if (pid_str.length>0) {
+
+            [[[HHHomeAPI postAddProductCollectionWithpids:pid_str] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+                if (!error) {
+                    if (api.State == 1) {
+
+                        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                        [SVProgressHUD showSuccessWithStatus:api.Msg];
+
+                    }else{
+                        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+
+                        [SVProgressHUD showInfoWithStatus:api.Msg];
+                    }
+                }else{
+                    [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+                }
+            }];
+            
+        }else{
+            [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+            
+            [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
+           }
         }
         
         
@@ -367,8 +417,9 @@
                 if ([api.Data isEqual:@1]) {
 
                     HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                    vc.pids = [self.pids_arr componentsJoinedByString:@","];
-                    
+                    NSMutableArray *select_ids = [self getNewSelect_ids];
+                    vc.pids = [select_ids componentsJoinedByString:@","];
+
                     if ([self.model.sendGift isEqual:@1]) {
                         if ([sendGiftBtnSelected isEqual:@1]) {
                             vc.enter_type = HHaddress_type_Spell_group;
@@ -518,7 +569,7 @@
 - (void)caculateSettleGoodsListBaseLeftSelectArr {
     
     HHtEditCarItem *editCarItem = [HHtEditCarItem shopCartGoodsList:self.datas selectionArr:self.selectItems];
-    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
     
     if (self.manage_btn.selected == YES) {
         self.settleAccountView.sendGift_label.text = self.selectItems.count>0?[NSString stringWithFormat:@"移入收藏夹(%ld)",self.selectItems.count]:@"移入收藏夹";
@@ -553,7 +604,7 @@
         [weakSelf.selectItems replaceObjectAtIndex:indexPath.section withObject:@(chooseBtnSelected)];
         
         HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:weakSelf.datas selectionArr:weakSelf.selectItems];
-        self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+        self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
         self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
         
         //
@@ -630,6 +681,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"删除";
+
 }
 
 - (NSMutableArray *)getNewSelect_arr{
@@ -642,6 +694,18 @@
     }];
     
     return select_idx_arr;
+}
+- (NSMutableArray *)getNewSelect_ids{
+    
+    NSMutableArray *select_ids_arr = [NSMutableArray array];
+
+    [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:@1]) {
+            [select_ids_arr addObject:self.pids_arr[idx]];
+        }
+    }];
+    
+    return select_ids_arr;
 }
 #pragma mark - 删除购物车
 

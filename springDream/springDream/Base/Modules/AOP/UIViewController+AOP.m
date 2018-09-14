@@ -39,7 +39,7 @@
 
         //导航栏返回按钮设置
         if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] &&
-            ![controller isKindOfClass:NSClassFromString(@"HHPersonCenter")]&&
+            ![controller isKindOfClass:NSClassFromString(@"HHPersonCenterSuperVC")]&&
             ![controller isKindOfClass:NSClassFromString(@"HHShoppingVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HHHomeVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HHRecommandVC")] &&
@@ -79,7 +79,7 @@
         
         UIViewController *controller = [info instance];
         
-        if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] && ([controller isKindOfClass:NSClassFromString(@"HHWXLoginVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenter")]||[controller isKindOfClass:NSClassFromString(@"")]||[controller isKindOfClass:NSClassFromString(@"")]||[controller isKindOfClass:NSClassFromString(@"")]||[controller isKindOfClass:NSClassFromString(@"")])) {
+        if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] && ([controller isKindOfClass:NSClassFromString(@"HHWXLoginVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSuperVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub1")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub2")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub3")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub4")])) {
             
             [controller.navigationController setNavigationBarHidden:YES animated:YES];
             

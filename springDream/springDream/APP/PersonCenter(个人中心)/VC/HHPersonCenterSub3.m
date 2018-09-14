@@ -6,8 +6,8 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHPersonCenter.h"
-#import "HHOrderStatusCell.h"
+#import "HHPersonCenterSub3.h"
+#import "HHDistributeStatusCell.h"
 #import "HHServiceCell_one.h"
 #import "HHServiceCell_two.h"
 #import "HHPersonCenterHead.h"
@@ -15,7 +15,7 @@
 #import "HHvipInfoVC.h"
 
 
-@interface HHPersonCenter ()
+@interface HHPersonCenterSub3 ()
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -25,85 +25,38 @@
 
 @end
 
-@implementation HHPersonCenter
+@implementation HHPersonCenterSub3
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-    self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
-    self.tabView.tableHeaderView = self.personHead;
+    
     [self registerTableViewCell];
     
     [self getDatas];
     
-    WEAK_SELF();
-    [self.personHead.icon_view setTapActionWithBlock:^{
-        HHvipInfoVC *vc = [HHvipInfoVC new];
-        vc.userId = weakSelf.mineModel.Id;
-        vc.mineModel = weakSelf.mineModel;
-        vc.userLevelName = weakSelf.userLevelName;
-        [weakSelf.navigationController pushVC:vc];
-    }];
-    
-    [self addHeadRefresh];
-
 }
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) backColor:kClearColor];
-    self.tabView = [UITableView lh_tableViewWithFrame:CGRectMake(0, -20, ScreenW, ScreenH-29) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
+    self.tabView = [UITableView lh_tableViewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = KVCBackGroundColor;
     self.tabView.estimatedRowHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
     self.tabView.estimatedSectionHeaderHeight = 0;
+    self.tabView.scrollEnabled = NO;
     [self.view addSubview:self.tabView];
 }
 - (void)registerTableViewCell{
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
-    [self.tabView registerClass:[HHOrderStatusCell class] forCellReuseIdentifier:@"HHOrderStatusCell"];
+    [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
     [self.tabView registerClass:[HHServiceCell_one class] forCellReuseIdentifier:@"HHServiceCell_one"];
     [self.tabView registerClass:[HHServiceCell_two class] forCellReuseIdentifier:@"HHServiceCell_two"];
-
-    
-}
-#pragma mark - 刷新控件
-- (void)addHeadRefresh{
-    
-    MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        [self getDatas];
-    }];
-    refreshHeader.lastUpdatedTimeLabel.hidden = YES;
-    refreshHeader.stateLabel.hidden = YES;
-    self.tabView.mj_header = refreshHeader;
     
     
 }
-
 #pragma mark - 获取数据
 - (void)getDatas{
-    
-    [[[HHMineAPI GetUserDetail] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
-        if (!error) {
-            if (api.State == 1) {
-                
-                self.mineModel = [HHMineModel mj_objectWithKeyValues:api.Data[@"user"]];
-                self.personHead.name_label.text = self.mineModel.UserName;
-                [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
-                self.userLevelName = api.Data[@"userLevelName"];
-                self.personHead.vip_label.text = self.userLevelName;
-                 NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
-                NSString *content = [NSString stringWithFormat:@"消费金额:%.2f",self.mineModel.BuyTotal?self.mineModel.BuyTotal.floatValue:0.00];
-                self.personHead.consumption_amount_label.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_COMMON_COLOR contentColor:RGB(102, 102, 102)];
-                [self.tabView reloadData];
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-            }
-        }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
-        }
-    }];
     
     //未完成订单数
     [self GetOrderStatusCount];
@@ -133,12 +86,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 3;
+    
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     if (section == 0) {
         return 2;
     }else if (section == 1){
@@ -153,16 +106,18 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
-            cell.textLabel.text = @"我的订单";
+            cell.textLabel.text = @"佣金金额：0.00元";
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else{
-            HHOrderStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHOrderStatusCell"];
+            HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.nav = self.navigationController;
             cell.message_arr = self.message_arr;
+            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
+            cell.btn_title_arr = @[@"门店产品",@"门店会员",@"VIP会员",@"团队订单"];
             grideCell = cell;
         }
         
@@ -199,6 +154,7 @@
         }
     }
     return grideCell;
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
@@ -225,7 +181,7 @@
     }else if (indexPath.section == 1){
         return 75;
     }else{
-
+        
         if (indexPath.row == 0) {
             return 50;
         }else{
@@ -246,7 +202,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //我的服务
-       
+            
         }
     }
     

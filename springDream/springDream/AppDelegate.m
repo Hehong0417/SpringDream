@@ -56,7 +56,7 @@
     
     keyboardManager.toolbarManageBehaviour = IQAutoToolbarBySubviews; // 有多个输入框时，可以通过点击Toolbar 上的“前一个”“后一个”按钮来实现移动到不同的输入框
     
-    keyboardManager.enableAutoToolbar = YES; // 控制是否显示键盘上的工具条
+    keyboardManager.enableAutoToolbar = NO; // 控制是否显示键盘上的工具条
     
     keyboardManager.toolbarDoneBarButtonItemText = @"确定";
 }

@@ -60,7 +60,7 @@
 
 -(CGRect)imageRectForContentRect:(CGRect)contentRect{
     
-    return self.imageRect ;
+    return self.imageRect;
 }
 
 + (XYQButton *)ButtonWithFrame:(CGRect)frame imgaeName:(NSString *)imageName titleName:(NSString *)titleName contentType:(ContentType)contentType buttonFontAttributes:(FontAttributes *)fontAttributes tapAction:(void (^)(XYQButton *))tapAction{

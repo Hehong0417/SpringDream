@@ -48,6 +48,7 @@
     
     // 创建底部滚动视图
     self.mainScrollView = [[UIScrollView alloc] init];
+    self.mainScrollView.scrollEnabled = NO;
     _mainScrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     _mainScrollView.contentSize = CGSizeMake(self.view.frame.size.width * self.title_arr.count, 0);
     _mainScrollView.backgroundColor = [UIColor whiteColor];
@@ -70,7 +71,8 @@
     self.SG.titleColorStateNormal = kDarkGrayColor;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
     self.SG.title_fondOfSize  = FONT(14);
-    self.SG.backgroundColor = kWhiteColor;
+    self.SG.backgroundColorNormal = RGB(255, 239, 239);
+    self.SG.backgroundColorSelected = RGB(255, 239, 239);
     self.SG.indicatorColor = APP_COMMON_COLOR;
     [self.view addSubview:self.SG];
     

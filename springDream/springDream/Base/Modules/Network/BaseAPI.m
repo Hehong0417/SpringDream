@@ -135,7 +135,7 @@
     self.HUD.bezelView.frame = CGRectMake(0, 0, 25, 25);
     self.HUD.detailsLabelText = @"加载中...";
     self.HUD.detailsLabelColor = kWhiteColor;
-    self.HUD.detailsLabelFont = FONT(14);
+    self.HUD.detailsLabelFont = FONT(12);
     self.HUD.activityIndicatorColor = kWhiteColor;
     [self.HUD show:YES];
     
@@ -149,7 +149,7 @@
     self.HUD.mode = MBProgressHUDModeText;
     self.HUD.detailsLabelText = text;
     self.HUD.color = KA0LabelColor;
-    self.HUD.detailsLabelFont = FONT(14);
+    self.HUD.detailsLabelFont = FONT(12);
     self.HUD.detailsLabelColor = kWhiteColor;
     [self.HUD show:YES];
     

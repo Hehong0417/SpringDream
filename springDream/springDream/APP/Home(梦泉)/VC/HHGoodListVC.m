@@ -28,18 +28,11 @@
 @property(nonatomic,assign)   BOOL  isFooterRefresh;
 @property(nonatomic,strong)   NSURLSessionDataTask *task;
 @property(nonatomic,assign)   BOOL  isCategory;
+@property(nonatomic,assign)   BOOL  isGoodDetailBack;
 
 @end
 
 @implementation HHGoodListVC
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    
-    [self getDatas];
-
-}
 
 - (void)viewDidLoad{
     
@@ -47,7 +40,7 @@
     
     //商品列表
     self.page = 1;
-    self.pageSize = 10;
+    self.pageSize = 20;
     
     self.isCategory = YES;
     
@@ -57,14 +50,14 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
     
-    
     [self setupSGSegmentedControl];
 
 //    [self setupSearchView];
      //获取数据
     [self addHeadRefresh];
     
-    
+     [self getDatas];
+
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -92,22 +85,23 @@
     [self.SG setPriceTop:@"pArrow_top" price_down:@"pArrow_down"];
     self.SG.titleColorStateNormal = APP_COMMON_COLOR;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
+    self.SG.backgroundColorNormal = RGB(255, 239, 239);
+    self.SG.backgroundColorSelected = RGB(255, 239, 239);
     self.SG.title_fondOfSize  = FONT(14);
     //  self.SG.showsBottomScrollIndicator = YES;
     self.SG.backgroundColor = kWhiteColor;
     self.SG.indicatorColor = APP_COMMON_COLOR;
     [self.view addSubview:_SG];
     
-    
-    self.collectionView.emptyDataSetDelegate = self;
-    self.collectionView.emptyDataSetSource = self;
-    
 }
 #pragma 加载数据
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+        
+        self.collectionView.emptyDataSetDelegate = self;
+        self.collectionView.emptyDataSetSource = self;
         
         if (!error) {
             
@@ -394,6 +388,12 @@
     HHGoodDetailVC *vc = [HHGoodDetailVC new];
     vc.Id = goodsModel.Id;
     [self.navigationController pushVC:vc];
+    
+    vc.goodDetail_backBlock = ^{
+        self.isGoodDetailBack = YES;
+        self.isFooterRefresh = NO;
+        [self getDatas];
+    };
 }
 
 - (UICollectionView *)collectionView{

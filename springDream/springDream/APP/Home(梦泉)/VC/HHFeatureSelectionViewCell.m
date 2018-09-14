@@ -249,8 +249,6 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
    
-    NSLog(@"_featureAttr:%@",_featureAttr[section].ItemList);
-
     return _featureAttr.count?_featureAttr[section].ItemList.count:1;
 }
 

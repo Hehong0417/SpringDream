@@ -16,15 +16,17 @@ static CGFloat staticheight = 0;
     
     if (self = [super initWithFrame:frame]) {
         
-        UIView *bg_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 20) backColor:KVCBackGroundColor];
+        self.backgroundColor = kWhiteColor;
+        
+        UIView *bg_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 25) backColor:KVCBackGroundColor];
         [self addSubview:bg_view];
-        UIImageView *bg_imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 0, ScreenW, 20)image:[UIImage imageNamed:@"segmentation"]];
+        UIImageView *bg_imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(0, 0, ScreenW, 25)image:[UIImage imageNamed:@"segmentation"]];
         bg_imgV.contentMode = UIViewContentModeCenter;
         [bg_view addSubview:bg_imgV];
         
         self.wkWebView.scrollView.scrollEnabled = NO;
         self.wkWebView.delegate = self;
-        self.wkWebView.backgroundColor = kClearColor;
+        self.wkWebView.backgroundColor = kWhiteColor;
         [self addSubview:self.wkWebView];
     }
     
@@ -48,8 +50,8 @@ static CGFloat staticheight = 0;
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //    document.body.offsetHeight
-    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue]+20;
-    self.wkWebView.frame = CGRectMake(0, 20, ScreenW, height);
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue]+45;
+    self.wkWebView.frame = CGRectMake(0, 45, ScreenW, height);
     self.wkWebView.hidden = NO;
 //    if (staticheight != height+1) {
         staticheight = height+1;
@@ -64,7 +66,7 @@ static CGFloat staticheight = 0;
 - (UIWebView *)wkWebView{
     
     if (!_wkWebView) {
-        _wkWebView =[[UIWebView alloc]initWithFrame:CGRectMake(0, 20, ScreenW, 0)];
+        _wkWebView =[[UIWebView alloc]initWithFrame:CGRectMake(0, 45, ScreenW, 0)];
         _wkWebView.userInteractionEnabled = NO;
         _wkWebView.hidden = YES;
     }

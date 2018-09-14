@@ -24,7 +24,6 @@
         [self.contentView addSubview:self.models_view];
 
     }
-    
     return self;
 }
 - (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{

@@ -58,6 +58,13 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIColor *titleColorStateSelected;
 /** 指示器的颜色(默认为红色) */
 @property (nonatomic, strong) UIColor *indicatorColor;
+/** 背景颜色(默认为红色) */
+@property (nonatomic, strong) UIColor *backgroundColorNormal;
+/** 选中背景颜色(默认为红色) */
+@property (nonatomic, strong) UIColor *backgroundColorSelected;
+/** 添加竖线(默认为红色) */
+@property (nonatomic, strong) UIColor *line_color;
+
 /** 是否显示底部滚动指示器(默认为YES, 显示) */
 @property (nonatomic, assign) BOOL showsBottomScrollIndicator;
 /** 指示器样式(默认为底部样式) */
