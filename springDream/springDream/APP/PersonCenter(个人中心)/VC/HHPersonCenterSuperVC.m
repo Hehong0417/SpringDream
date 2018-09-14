@@ -21,10 +21,9 @@
 @property(nonatomic,strong)   SGSegmentedControl *SG;
 @property (nonatomic, strong)   UIScrollView *mainScrollView;
 @property (nonatomic, strong)   NSMutableArray *title_arr;
-
+@property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
-@property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
@@ -74,6 +73,9 @@
             if (api.State == 1) {
                 
                 self.mineModel = [HHMineModel mj_objectWithKeyValues:api.Data[@"user"]];
+                HJUser *user = [HJUser sharedUser];
+                user.mineModel = self.mineModel;
+                [user write];
                 self.personHead.name_label.text = self.mineModel.UserName;
                 [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
                 self.userLevelName = api.Data[@"userLevelName"];

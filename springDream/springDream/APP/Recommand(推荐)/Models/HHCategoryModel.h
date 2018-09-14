@@ -15,7 +15,8 @@
 @property(nonatomic,strong) NSString *category_name;
 @property(nonatomic,strong) NSString *category_type;
 @property(nonatomic,strong) NSString *category_image;
-@property(nonatomic,strong) NSArray *sub_category;
+@property(nonatomic,strong) NSArray  *sub_category;
+@property(nonatomic,strong) NSString *name;
 
 //商品列表
 @property(nonatomic,strong) NSString *Id;

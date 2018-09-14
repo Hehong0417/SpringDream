@@ -15,6 +15,8 @@
     if (self) {
         [self addSubview:self.imagev];
         [self addSubview:self.deleteButton];
+        self.imagev.sd_layout.spaceToSuperView(UIEdgeInsetsMake(15, 15, 15, 15));
+
     }
     return self;
 }
@@ -22,15 +24,14 @@
 - (UIImageView *)imagev{
     if (!_imagev) {
         self.imagev = [[UIImageView alloc] initWithFrame:self.bounds];
-//        _imagev.backgroundColor = [UIColor blueColor];
     }
     return _imagev;
 }
 - (UIButton *)deleteButton{
     if (!_deleteButton) {
         self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _deleteButton.frame = CGRectMake(CGRectGetWidth(self.bounds)-20, 0, 20, 20);
-        [_deleteButton setBackgroundImage:[UIImage imageNamed:@"photo_delete@2x"] forState:UIControlStateNormal];
+        _deleteButton.frame = CGRectMake(CGRectGetWidth(self.bounds)-26, 0, 25, 25);
+        [_deleteButton setBackgroundImage:[UIImage imageNamed:@"post_delete"] forState:UIControlStateNormal];
     }
     return _deleteButton;
 }

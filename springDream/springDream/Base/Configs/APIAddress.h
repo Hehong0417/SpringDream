@@ -32,7 +32,6 @@
 //#define API_HOST3  @"http://dm-product-api.elevo.cn/api/Product"
 
 
-
 ////公共设置
 #define APP_key @"59334e721bcd31"
 #define APP_scode @"15ca7554e8cb486f3b8cbe1fa166c75b"
@@ -102,12 +101,11 @@ typedef enum : NSUInteger {
  *  商品分类
  */
 //3.1获取商品分类列表
-#define API_GetCategoryList API_SUB_URL3(@"GetCategoryList")
+#define API_GetProductGroup API_SUB_URL3(@"GetProductGroup")
 //3.4获取商品分类列表(搜索)
 #define API_Product_search API_SUB_URL3(@"SearchProduct")
 //3.5获取单个商品
 #define API_GetProductDetail API_SUB_URL3(@"GetProduct")
-
 
 /**
  *  购物车

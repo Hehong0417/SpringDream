@@ -35,7 +35,7 @@
 #import "SDTimeLineRefreshFooter.h"
 #import "SDTimeLineCell.h"
 #import "SDTimeLineCellModel.h"
-
+#import "HHPostTimeLineVC.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 
 #import "UIView+SDAutoLayout.h"
@@ -69,8 +69,18 @@ static CGFloat textFieldH = 40;
 {
     [super viewDidLoad];
     
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.title = @"发现";
+
+    UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发布" titleColor:kWhiteColor font:FONT(14)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
+    
+    UIButton *left_nav_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(backAction) image:[UIImage imageNamed:@"icon_return_default"]];
+    [left_nav_button setContentEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_nav_button];
+
     
     self.edgesForExtendedLayout = UIRectEdgeTop;
     
@@ -178,7 +188,10 @@ static CGFloat textFieldH = 40;
     [_textField removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
+- (void)backAction{
+    
+    [self.navigationController popVC];
+}
 - (void)setupTextField
 {
     _textField = [UITextField new];
@@ -302,11 +315,16 @@ static CGFloat textFieldH = 40;
         
         model.likeItemsArray = [tempLikes copy];
         
-        
-        
         [resArr addObject:model];
     }
     return [resArr copy];
+}
+#pragma mark - 发布
+
+- (void)post_buttonAction{
+    
+    HHPostTimeLineVC *vc = [HHPostTimeLineVC new];
+    [self.navigationController pushVC:vc];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

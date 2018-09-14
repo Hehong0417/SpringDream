@@ -45,6 +45,7 @@
 {
     for (int i=0; i < self.tabBarStoryBoardItems.count; i++) {
         
+        
         UIViewController *childVC = [self viewControllerWithStoryBoardItem:self.tabBarStoryBoardItems[i]];
         
         [self addOneChildVc:childVC title:self.tabBarItemTitles[i] imageName:self.tabBarItemNormalImages[i] selectedImageName:self.tabBarItemSelectedImages[i]];
@@ -182,7 +183,7 @@
         
         //SDTimeLineTableViewController
         
-        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHHomeVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHGoodCategoryVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item2 = [HJStoryBoardItem itemWithStroyBoardName:@"Recommand" identifier:@"HHGoodListVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item3 = [HJStoryBoardItem itemWithStroyBoardName:@"ShopCart" identifier:@"HHShoppingVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"PersonCenter" identifier:@"HHPersonCenterSuperVC" viewControllerNonExist:YES];

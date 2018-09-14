@@ -8,8 +8,6 @@
 
 #import "HHPersonCenterSub4.h"
 #import "HHDistributeStatusCell.h"
-#import "HHServiceCell_one.h"
-#import "HHServiceCell_two.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
@@ -51,9 +49,6 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
-    [self.tabView registerClass:[HHServiceCell_one class] forCellReuseIdentifier:@"HHServiceCell_one"];
-    [self.tabView registerClass:[HHServiceCell_two class] forCellReuseIdentifier:@"HHServiceCell_two"];
-    
     
 }
 #pragma mark - 获取数据
@@ -107,7 +102,7 @@
         if (indexPath.row == 0){
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
+            cell.delegate = self;
             cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
             cell.btn_title_arr = @[@"代理产品",@"分销商",@"会员",@"团队订单"];
@@ -115,7 +110,7 @@
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
+            cell.delegate = self;
             cell.message_arr = @[@"0",@"0",@"0",@"0"];
             cell.btn_image_arr = @[@"order_01",@"",@"",@""];
             cell.btn_title_arr = @[@"我的佣金",@"",@"",@""];
@@ -139,17 +134,6 @@
             cell.textLabel.text = @"我的服务";
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            grideCell = cell;
-        }else if (indexPath.row == 1) {
-            HHServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_one" ];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
-            grideCell = cell;
-        }else if(indexPath.row == 2){
-            HHServiceCell_two *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_two" ];
-            cell.nav = self.navigationController;
-            [cell setUserIcon:self.mineModel.UserImage setAccount:self.mineModel.CellPhone];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }
@@ -190,12 +174,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
   
-    }
-    if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            //我的服务
-            
-        }
     }
     
 }

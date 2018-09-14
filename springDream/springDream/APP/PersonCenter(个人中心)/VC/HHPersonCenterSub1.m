@@ -8,17 +8,22 @@
 
 #import "HHPersonCenterSub1.h"
 #import "HHOrderStatusCell.h"
-#import "HHServiceCell_one.h"
-#import "HHServiceCell_two.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
+#import "HHDistributeServiceCell_one.h"
+#import "HHCouponSuperVC.h"
+#import "HHMyCollectionVC.h"
+#import "HHMyWalletVC.h"
+#import "HHMyIntegralVC.h"
+#import "HHShippingAddressVC.h"
+#import "HHModifyInfoVC.h"
+#import "HHmyEarningsVC.h"
+#import "HHMyRightsVC.h"
 
-
-@interface HHPersonCenterSub1 ()
+@interface HHPersonCenterSub1 ()<HHDistributeServiceCell_one_delagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
-@property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
@@ -51,10 +56,8 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHOrderStatusCell class] forCellReuseIdentifier:@"HHOrderStatusCell"];
-    [self.tabView registerClass:[HHServiceCell_one class] forCellReuseIdentifier:@"HHServiceCell_one"];
-    [self.tabView registerClass:[HHServiceCell_two class] forCellReuseIdentifier:@"HHServiceCell_two"];
+    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
 
-    
 }
 #pragma mark - 获取数据
 - (void)getDatas{
@@ -140,15 +143,18 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else if (indexPath.row == 1) {
-            HHServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_one" ];
+            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
+            cell.delegate= self;
+            cell.btn_image_arr = @[@"service_01",@"service_02",@"service_03",@"service_04"];
+            cell.btn_title_arr = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏"];
             grideCell = cell;
         }else if(indexPath.row == 2){
-            HHServiceCell_two *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_two" ];
-            cell.nav = self.navigationController;
-            [cell setUserIcon:self.mineModel.UserImage setAccount:self.mineModel.CellPhone];
+            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate= self;
+            cell.btn_image_arr = @[@"service_11",@"service_12",@"service_13",@"service_14"];
+            cell.btn_title_arr = @[@"地址管理",@"会员权益",@"会员收益",@"基础设置"];
             grideCell = cell;
         }
     }
@@ -198,10 +204,62 @@
             [self.navigationController pushVC:vc];
         }
     }
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            //我的服务
-       
+    
+}
+#pragma mark - HHDistributeServiceCell_one_delagete
+
+- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
+    
+    NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
+    
+    if (indexPath.row == 1) {
+        if (buttonIndex == 0) {
+            //我的钱包
+            
+            HHMyWalletVC *vc = [HHMyWalletVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 1){
+            //优惠券
+            HHCouponSuperVC *vc = [HHCouponSuperVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 2){
+            //我的积分
+            HHMyIntegralVC *vc = [HHMyIntegralVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 3){
+            // 我的收藏
+            HHMyCollectionVC *vc = [HHMyCollectionVC new];
+            [self.navigationController pushVC:vc];
+        }
+    }
+    if (indexPath.row == 2) {
+        if (buttonIndex == 0) {
+            //地址管理
+            HHShippingAddressVC *vc = [HHShippingAddressVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 1){
+            //会员权益
+            HHMyRightsVC *vc = [HHMyRightsVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 2){
+            // 会员收益
+            HHmyEarningsVC *vc = [HHmyEarningsVC new];
+            [self.navigationController pushVC:vc];
+            
+        }else if (buttonIndex == 3){
+            
+            //基础设置
+            HHModifyInfoVC *vc = [HHModifyInfoVC new];
+            HJUser *user = [HJUser sharedUser];
+            vc.userIcon = user.mineModel.UserImage;
+            vc.phoneNum = user.mineModel.CellPhone;
+            [self.navigationController pushVC:vc];
+            
         }
     }
     

@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "HHModelsView.h"
 
-@interface HHDistributeStatusCell : UITableViewCell<HHModelsViewDelegate>
+@protocol HHDistributeStatusCellDelagete<NSObject>
 
-@property(nonatomic,strong)  UINavigationController *nav;
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex;
+
+@end
+
+@interface HHDistributeStatusCell : UITableViewCell<HHModelsViewDelegate>
 
 @property(nonatomic,strong)  NSArray *message_arr;
 
@@ -21,5 +25,6 @@
 
 @property(nonatomic,strong)  NSArray *btn_title_arr;
 
+@property(nonatomic,assign) id<HHDistributeStatusCellDelagete>delegate;
 
 @end

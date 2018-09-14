@@ -8,6 +8,7 @@
 
 #import "BaseModel.h"
 #import "LHMacro.h"
+#import "HHMineModel.h"
 
 @interface HJLoginModel : BaseModel
 
@@ -37,5 +38,7 @@ singleton_h(User)
 @property(nonatomic,strong) NSString *shop_userid;
 
 @property(nonatomic,strong) NSString *pids;
+
+@property(nonatomic,strong) HHMineModel *mineModel;
 
 @end

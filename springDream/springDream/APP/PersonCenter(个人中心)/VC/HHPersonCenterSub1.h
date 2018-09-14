@@ -10,4 +10,6 @@
 
 @interface HHPersonCenterSub1 : UITableViewController
 
+@property(nonatomic,strong) HHMineModel  *mineModel;
+
 @end

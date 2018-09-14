@@ -39,11 +39,14 @@
                   forKeyPath:@"_placeholderLabel.textColor"];
     self.textField.tintColor = [UIColor colorWithRed:98 / 255.0f green:97 / 255.0f blue: 101 / 255.0f alpha:1.0f];
 //    [self setupTextFieldLeftView];
+    
+    [self.textField lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
+    [self.searchButton lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
 }
 
 - (void)setupTextFieldLeftView {
     UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    searchImageView.image = [UIImage imageNamed:@"icon_searchs_default"];
+    searchImageView.image = [UIImage imageNamed:@"search_home_default"];
     searchImageView.contentMode = UIViewContentModeCenter;
     self.textField.userInteractionEnabled = NO;
     self.textField.leftView = searchImageView;

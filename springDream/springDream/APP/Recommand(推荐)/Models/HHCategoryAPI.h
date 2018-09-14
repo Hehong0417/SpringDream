@@ -13,7 +13,7 @@
 #pragma mark - get
 
 //获取商品分类列表
-+ (instancetype)GetCategoryListWithType:(NSNumber *)type;
++ (instancetype)GetProductGroup;
 
 //获取商品列表
 + (instancetype)GetProductListWithType:(NSNumber *)type categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize;

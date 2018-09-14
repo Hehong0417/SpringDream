@@ -12,13 +12,10 @@
 
 #pragma mark - get
 //获取商品分类列表
-+ (instancetype)GetCategoryListWithType:(NSNumber *)type{
++ (instancetype)GetProductGroup{
     
     HHCategoryAPI *api = [self new];
-    api.subUrl = API_GetCategoryList;
-    if (type) {
-        [api.parameters setObject:type forKey:@"type"];
-    }
+    api.subUrl = API_GetProductGroup;
     api.parametersAddToken = NO;
     return api;
 }

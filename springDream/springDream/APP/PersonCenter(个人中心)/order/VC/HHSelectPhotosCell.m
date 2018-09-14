@@ -66,9 +66,9 @@ typedef   void (^completeHandle)();
         _margin = 4;
         _itemWH = (self.contentView.bounds.size.width - 2 * _margin - 4) / 3 - _margin;
         UICollectionViewFlowLayout *flowLayOut = [[UICollectionViewFlowLayout alloc] init];
-        flowLayOut.itemSize = CGSizeMake((Kwidth - 50)/ 4, (Kwidth - 50)/ 4);
+        flowLayOut.itemSize = CGSizeMake((Kwidth - 50)/ 3, (Kwidth - 50)/ 3);
         flowLayOut.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, WidthScaleSize_H(150), Kwidth, WidthScaleSize_H(100)) collectionViewLayout:flowLayOut];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, WidthScaleSize_H(150), Kwidth, WidthScaleSize_H(120)) collectionViewLayout:flowLayOut];
         
         _collectionView.backgroundColor = [UIColor whiteColor];
         
@@ -101,7 +101,7 @@ typedef   void (^completeHandle)();
 }
 - (void)checkLocalPhoto{
     
-    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:4 delegate:self];
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:3 delegate:self];
     [imagePicker setSortAscendingByModificationDate:NO];
     imagePicker.isSelectOriginalPhoto = _isSelectOriginalPhoto;
     imagePicker.selectedAssets = _assestArray;

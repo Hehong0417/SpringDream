@@ -30,11 +30,11 @@
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
     
-    HHOrderVC *vc = [HHOrderVC new];
-    vc.sg_selectIndex = buttonIndex+1;
-    vc.button_tag = buttonIndex+1;
-    [self.nav pushVC:vc];
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(modelButtonDidSelectWithButtonIndex:)]) {
+        [self.delegate modelButtonDidSelectWithButtonIndex:buttonIndex];
+    }
 }
+
 - (void)setMessage_arr:(NSArray *)message_arr{
     
     _message_arr = message_arr;

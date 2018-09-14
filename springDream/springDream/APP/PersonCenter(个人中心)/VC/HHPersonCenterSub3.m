@@ -8,14 +8,12 @@
 
 #import "HHPersonCenterSub3.h"
 #import "HHDistributeStatusCell.h"
-#import "HHServiceCell_one.h"
-#import "HHServiceCell_two.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
 
+@interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete>
 
-@interface HHPersonCenterSub3 ()
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -50,8 +48,6 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
-    [self.tabView registerClass:[HHServiceCell_one class] forCellReuseIdentifier:@"HHServiceCell_one"];
-    [self.tabView registerClass:[HHServiceCell_two class] forCellReuseIdentifier:@"HHServiceCell_two"];
     
     
 }
@@ -114,10 +110,10 @@
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
             cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
             cell.btn_title_arr = @[@"门店产品",@"门店会员",@"VIP会员",@"团队订单"];
+            cell.delegate = self;
             grideCell = cell;
         }
         
@@ -138,17 +134,6 @@
             cell.textLabel.text = @"我的服务";
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            grideCell = cell;
-        }else if (indexPath.row == 1) {
-            HHServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_one" ];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
-            grideCell = cell;
-        }else if(indexPath.row == 2){
-            HHServiceCell_two *cell = [tableView dequeueReusableCellWithIdentifier:@"HHServiceCell_two" ];
-            cell.nav = self.navigationController;
-            [cell setUserIcon:self.mineModel.UserImage setAccount:self.mineModel.CellPhone];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }
@@ -205,6 +190,12 @@
             
         }
     }
+}
+#pragma mark - HHDistributeStatusCellDelagete
+
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
+    
+    NSLog(@"buttonIndex:%ld",buttonIndex);
     
 }
 @end

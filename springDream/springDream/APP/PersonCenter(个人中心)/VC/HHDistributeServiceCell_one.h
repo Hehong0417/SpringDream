@@ -9,7 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "HHModelsView.h"
 
+@protocol HHDistributeServiceCell_one_delagete<NSObject>
+
+- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell;
+
+@end
+
 @interface HHDistributeServiceCell_one : UITableViewCell<HHModelsViewDelegate>
 
-@property(nonatomic,strong)  UINavigationController *nav;
+@property(nonatomic,assign) id<HHDistributeServiceCell_one_delagete>delegate;
+
+@property(nonatomic,strong)  NSArray *btn_image_arr;
+
+@property(nonatomic,strong)  NSArray *btn_title_arr;
+
+@property(nonatomic,strong)  HHModelsView *models_view;
+
 @end

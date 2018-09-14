@@ -79,7 +79,7 @@
         
         UIViewController *controller = [info instance];
         
-        if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] && ([controller isKindOfClass:NSClassFromString(@"HHWXLoginVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSuperVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub1")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub2")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub3")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub4")])) {
+        if ([NSStringFromClass([controller class]) hasPrefix:@"HH"] && ([controller isKindOfClass:NSClassFromString(@"HHWXLoginVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSuperVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub1")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub2")]||[controller isKindOfClass:NSClassFromString(@"HHInviteCodeVC")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub3")]||[controller isKindOfClass:NSClassFromString(@"HHPersonCenterSub4")])) {
             
             [controller.navigationController setNavigationBarHidden:YES animated:YES];
             

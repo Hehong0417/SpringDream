@@ -67,7 +67,7 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
 
 - (instancetype)initWithFrame:(CGRect)frame delegate:(id<SGSegmentedControlDelegate>)delegate segmentedControlType:(SGSegmentedControlType)segmentedControlType titleArr:(NSArray *)titleArr {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
+        self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:1];
         self.showsHorizontalScrollIndicator = NO;
         self.bounces = NO;
         self.delegate_SG = delegate;
@@ -85,7 +85,7 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
 
 - (instancetype)initWithFrame:(CGRect)frame delegate:(id<SGSegmentedControlDelegate>)delegate segmentedControlType:(SGSegmentedControlType)segmentedControlType nomalImageArr:(NSArray *)nomalImageArr selectedImageArr:(NSArray *)selectedImageArr titleArr:(NSArray *)titleArr {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
+        self.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:1];
         self.showsHorizontalScrollIndicator = NO;
         self.bounces = NO;
         self.delegate_SG = delegate;
@@ -262,7 +262,6 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_image_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
             [_image_title_btn setImage:[UIImage imageNamed:_nomal_image_Arr[i]] forState:(UIControlStateNormal)];
             [_image_title_btn setImage:[UIImage imageNamed:_selected_image_Arr[i]] forState:(UIControlStateSelected)];
-            [_image_title_btn setBackgroundColor:RGB(255, 239, 239)];
 
             // 计算每个label的X值
             button_X = button_X + button_W;
@@ -326,7 +325,6 @@ static CGFloat const indicatorViewTimeOfAnimation = 0.4;
             [_image_title_btn setTitleColor:[UIColor redColor] forState:(UIControlStateSelected)];
             [_image_title_btn setImage:[UIImage imageNamed:_nomal_image_Arr[i]] forState:(UIControlStateNormal)];
             [_image_title_btn setImage:[UIImage imageNamed:_selected_image_Arr[i]] forState:(UIControlStateSelected)];
-            [_image_title_btn setBackgroundColor:RGB(255, 239, 239)];
 
             // 点击事件
             [_image_title_btn addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];

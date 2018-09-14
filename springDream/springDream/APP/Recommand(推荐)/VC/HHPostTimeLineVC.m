@@ -12,7 +12,7 @@
 
 typedef   void (^completeHandle)();
 
-@interface HHPostTimeLineVC ()<TZImagePickerControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,YYTextViewDelegate>{
+@interface HHPostTimeLineVC ()<TZImagePickerControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,YYTextViewDelegate,UITextFieldDelegate>{
     CGFloat _itemWH;
     CGFloat _margin;
     MBProgressHUD  *hud;
@@ -29,12 +29,25 @@ typedef   void (^completeHandle)();
     [super viewDidLoad];
 
     self.title = @"发布";
+    self.view.backgroundColor = kWhiteColor;
+    
+    UIButton *commit_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(commit_buttonAction) image:nil title:@"提交" titleColor:kWhiteColor font:FONT(14)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:commit_button];
+    
     
     self.text_filed = [UITextField lh_textFieldWithFrame:CGRectMake(25, 20, ScreenW-50, 45) placeholder:@"输入30字以内副标题" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    self.text_filed.leftViewMode = UITextFieldViewModeAlways;
+    self.text_filed.leftView = [UIView lh_viewWithFrame:CGRectMake(0, 0, 20, 45) backColor:nil];
+    [self.text_filed lh_setCornerRadius:4 borderWidth:1 borderColor:KVCBackGroundColor];
+    self.text_filed.delegate = self;
     [self.view addSubview:self.text_filed];
 
-    self.text_view = [[YYTextView alloc] initWithFrame:CGRectMake(25, CGRectGetMaxY(self.text_filed.frame), ScreenW-50, 90)];
+    self.text_view = [[YYTextView alloc] initWithFrame:CGRectMake(25, CGRectGetMaxY(self.text_filed.frame)+15, ScreenW-50, 100)];
     self.text_view.placeholderText = @"你想表达什么？";
+    self.text_view.font = FONT(14);
+    self.text_view.delegate = self;
+    self.text_view.placeholderFont = FONT(14);
     [self.view addSubview:self.text_view];
   
     
@@ -56,15 +69,20 @@ typedef   void (^completeHandle)();
     }
     return _assestArray;
 }
+- (void)commit_buttonAction{
+    
+    
+    
+}
 
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         _margin = 4;
         _itemWH = (ScreenW - 2 * _margin - 4) / 3 - _margin;
         UICollectionViewFlowLayout *flowLayOut = [[UICollectionViewFlowLayout alloc] init];
-        flowLayOut.itemSize = CGSizeMake((ScreenW - 50)/ 4, (ScreenW - 50)/ 4);
+        flowLayOut.itemSize = CGSizeMake((ScreenW - 50)/ 3, (ScreenW - 50)/ 3);
         flowLayOut.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, WidthScaleSize_H(150), ScreenW, WidthScaleSize_H(100)) collectionViewLayout:flowLayOut];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 190, ScreenW, ScreenH-190) collectionViewLayout:flowLayOut];
         
         _collectionView.backgroundColor = [UIColor whiteColor];
         
@@ -95,9 +113,18 @@ typedef   void (^completeHandle)();
     }
     return YES;
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (toBeString.length > 30 && range.length!=1){
+        textField.text = [toBeString substringToIndex:30];
+        return NO;
+    }
+    return YES;
+}
 - (void)checkLocalPhoto{
     
-    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:4 delegate:self];
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
     [imagePicker setSortAscendingByModificationDate:NO];
     imagePicker.isSelectOriginalPhoto = _isSelectOriginalPhoto;
     imagePicker.selectedAssets = _assestArray;
@@ -151,7 +178,7 @@ typedef   void (^completeHandle)();
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     if (indexPath.row == _photosArray.count) {
-        cell.imagev.image = [UIImage imageNamed:@"add_pic"];
+        cell.imagev.image = [UIImage imageNamed:@"post1"];
         //cell.imagev.backgroundColor = [UIColor redColor];
         cell.deleteButton.hidden = YES;
         
@@ -182,6 +209,7 @@ typedef   void (^completeHandle)();
         [photo_datas addObject:imageData];
     }];
     [[[HHMineAPI postUploadManyImageWithimageDatas:photo_datas] netWorkClient] uploadFileInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
         [hud hideAnimated:YES];
         if (!error) {
             if (api.State == 1) {
@@ -197,7 +225,7 @@ typedef   void (^completeHandle)();
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
     

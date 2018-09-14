@@ -6,15 +6,14 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHGoodListVC.h"
+#import "HHGoodCategoryVC.h"
 #import "HXHomeCollectionCell.h"
 #import "SGSegmentedControl.h"
 #import "SearchView.h"
 #import "SearchDetailViewController.h"
 #import "HHGoodDetailVC.h"
-#import "SDTimeLineTableViewController.h"
 
-@interface HHGoodListVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface HHGoodCategoryVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 {
     SearchView *searchView;
     
@@ -30,19 +29,16 @@
 @property(nonatomic,strong)   NSURLSessionDataTask *task;
 @property(nonatomic,assign)   BOOL  isCategory;
 @property(nonatomic,assign)   BOOL  isGoodDetailBack;
+@property(nonatomic,strong)     SGSegmentedControl *category_SG;
+@property(nonatomic,strong)   NSMutableArray *category_arr;
 
 @end
 
-@implementation HHGoodListVC
+@implementation HHGoodCategoryVC
 
 - (void)viewDidLoad{
     
     [super viewDidLoad];
-    
-    
-    UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
     
     //商品列表
     self.page = 1;
@@ -57,13 +53,13 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
     
     [self setupSGSegmentedControl];
-
-//    [self setupSearchView];
-     //获取数据
+    
+    [self setupSearchView];
+    //获取数据
     [self addHeadRefresh];
     
-     [self getDatas];
-
+    [self getDatas];
+    
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -71,35 +67,30 @@
     }
     return _datas;
 }
-- (void)post_buttonAction{
-    SDTimeLineTableViewController *vc = [SDTimeLineTableViewController new];
-    [self.navigationController pushVC:vc];
+- (NSMutableArray *)category_arr{
+    if (!_category_arr) {
+        _category_arr = [NSMutableArray array];
+    }
+    return _category_arr;
 }
-
 #pragma mark - SGSegmentedControl init
 
 - (void)setupSGSegmentedControl{
-    
-//    self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
+
     self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
     NSArray *nomalImageArr = @[@"",@"",@"pArrow"];
     NSArray *selectedImageArr = @[@"",@"",@"pArrow_top"];
-
+    
     if (self.title_arr.count < 5) {
-        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
-//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
+        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 45, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
     }else{
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeScroll nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
-
-//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
     }
     [self.SG setPriceTop:@"pArrow_top" price_down:@"pArrow_down"];
-    self.SG.titleColorStateNormal = APP_COMMON_COLOR;
+    self.SG.titleColorStateNormal = kBlackColor;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
-    self.SG.backgroundColorNormal = RGB(255, 239, 239);
-    self.SG.backgroundColorSelected = RGB(255, 239, 239);
-    self.SG.title_fondOfSize  = FONT(14);
-    self.SG.indicatorColor = APP_COMMON_COLOR;
+    self.SG.title_fondOfSize  = BoldFONT(14);
+    self.SG.showsBottomScrollIndicator = NO;
     [self.view addSubview:_SG];
     
 }
@@ -115,12 +106,12 @@
         if (!error) {
             
             if (api.State == 1) {
-
+                
                 if (self.isFooterRefresh) {
                     [self loadDataFinish:api.Data];
                 }else{
-                   [self addFootRefresh];
-                   [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self.datas removeAllObjects];
                     [self loadDataFinish:api.Data];
                 }
             }else{
@@ -132,10 +123,56 @@
             if ([error.localizedDescription isEqualToString:@"已取消"]) {
                 
             }else{
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
             }
         }
     }];
+    
+}
+- (void)getSectionData{
+    
+    [[[HHCategoryAPI GetProductGroup] netWorkClient] getRequestInView:nil finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+       
+        if (!error) {
+            
+            if (api.State == 1) {
+                NSArray *arr = api.Data;
+//                NSMutableArray *category_titles = [NSMutableArray array];
+//                [arr enumerateObjectsUsingBlock:^(NSDictionary  *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    [category_titles addObject:dic[@"name"]];
+//                }];
+                self.category_arr = arr.mutableCopy;
+                
+                NSArray *category_titles = @[@"全部商品",@"59.8会员",@"美妆工具",@"吃货专区",@"轻奢护肤",@"海外旗舰店"];
+                if (category_titles.count < 5) {
+                    self.category_SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic titleArr:category_titles];
+                }else{
+                    self.category_SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeScroll titleArr:category_titles];
+                }
+                self.category_SG.titleColorStateNormal = TitleGrayColor;
+                self.category_SG.titleColorStateSelected = APP_COMMON_COLOR;
+                self.category_SG.title_fondOfSize  = FONT(13);
+                self.category_SG.indicatorColor = APP_COMMON_COLOR;
+                [self.view addSubview:self.category_SG];
+                UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(45, 0, ScreenW, 1) backColor:KVCBackGroundColor];
+                [self.view addSubview:v_line];
+                
+            }else{
+                
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+            
+        }else{
+            if ([error.localizedDescription isEqualToString:@"已取消"]) {
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+        }
+        
+        
+    }];
+    
     
 }
 #pragma mark - DZNEmptyDataSetDelegate
@@ -186,7 +223,7 @@
 - (void)loadDataFinish:(NSArray *)arr {
     
     [self.datas addObjectsFromArray:arr];
-
+    
     if (arr.count < self.pageSize) {
         
         [self endRefreshing:YES];
@@ -203,7 +240,7 @@
 - (void)endRefreshing:(BOOL)noMoreData {
     // 取消刷新
     self.collectionView.mj_footer.hidden = NO;
-
+    
     if (noMoreData) {
         if (self.datas.count == 0) {
             self.collectionView.mj_footer.hidden = YES;
@@ -219,7 +256,7 @@
     if (self.collectionView.mj_header.isRefreshing) {
         [self.collectionView.mj_header endRefreshing];
     }
-   
+    
     if (self.collectionView.mj_footer.isRefreshing) {
         [self.collectionView.mj_footer endRefreshing];
     }
@@ -235,21 +272,21 @@
     searchView.textField.text = @"";
     searchView.delegate = self;
     searchView.userInteractionEnabled = YES;
-   
-//    if (self.enter_Type == HHenter_category_Type ||self.enter_Type == HHenter_home_Type ) {
+    
+//     if (self.enter_Type == HHenter_category_Type ||self.enter_Type == HHenter_home_Type ) {
 //
-//        [self searchButtonWasPressedForSearchView:searchView];
+//            [self searchButtonWasPressedForSearchView:searchView];
 //
-//    }else{
+//        }else{
 //
-//    }
+//        }
     UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
     backBtn.highlighted = NO;
     [searchView addSubview:backBtn];
     [self.navigationController.navigationBar addSubview:searchView];
 }
 - (void)backAction{
-
+    
     [self.navigationController popVC];
 }
 #pragma mark - SearchViewDelegate
@@ -261,7 +298,7 @@
     searchViewController.placeHolderText = searchView.textField.text;
     searchViewController.delegate = self;
     searchViewController.enter_Type = self.enter_Type;
-
+    
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:navigationController
@@ -292,13 +329,27 @@
 #pragma mark - SGSegmentedControlDelegate
 
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
-    self.isFooterRefresh = NO;
-    [self.task cancel];
     
     [self.datas removeAllObjects];
     self.page = 1;
+    
+    if (segmentedControl == self.SG) {
+        self.isFooterRefresh = NO;
+        [self.task cancel];
+        [self refreshSortData:index];
+        
+    }else  if (segmentedControl == self.category_SG){
+        self.isFooterRefresh = NO;
+        [self.task cancel];
+//        HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
+//        self.categoryId = category_m.Id;
+        [self refreshCategoryData];
+    }
 
-    if (index == 0){
+}
+- (void)refreshSortData:(NSInteger)selectIndex{
+    
+    if (selectIndex == 0){
         //上新
         if (self.orderState==3) {
             self.orderState = 4;
@@ -307,10 +358,8 @@
         }
         self.orderby = @(self.orderState);
         [self getDatas];
+    }else if (selectIndex == 1){
         
-
-    }else if (index == 1){
-  
         //销量
         if (self.orderState==7) {
             self.orderState = 8;
@@ -320,18 +369,7 @@
         self.orderby = @(self.orderState);
         [self getDatas];
     }
-//    else if (index == 2){
-        //浏览量
-//        if (self.orderState==5) {
-//            self.orderState = 6;
-//        }else{
-//            self.orderState = 5;
-//        }
-//        self.orderby = @(self.orderState);
-//        [self getDatas];
-//    }
-    else if (index == 2){
- 
+    else if (selectIndex == 2){
         //价格
         if (self.orderState==1) {
             self.orderState = 2;
@@ -344,7 +382,10 @@
     }
     
 }
-
+- (void)refreshCategoryData{
+    
+    [self getDatas];
+}
 #pragma  mark - collectionView Delegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -384,7 +425,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
     return  CGSizeMake(0.001, 0.001);
-
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     
@@ -409,7 +450,7 @@
     
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT - Status_HEIGHT-40-44) collectionViewLayout:flowout];
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 90, SCREEN_WIDTH, SCREEN_HEIGHT - Status_HEIGHT-40-64) collectionViewLayout:flowout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsVerticalScrollIndicator = NO;
@@ -418,15 +459,17 @@
     return _collectionView;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//
-//    [super viewWillAppear:animated];
-//    searchView.hidden = NO;
-//
-//}
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+    searchView.hidden = NO;
+
+    [self getSectionData];
+
+}
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-//    searchView.hidden = YES;
+        searchView.hidden = YES;
 }
 @end

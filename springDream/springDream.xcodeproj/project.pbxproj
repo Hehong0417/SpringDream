@@ -16,8 +16,6 @@
 		CE21845821252371003F354F /* HHOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21845721252371003F354F /* HHOrderStatusCell.m */; };
 		CE2184642125269C003F354F /* HXRecordVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2184632125269C003F354F /* HXRecordVideoVC.m */; };
 		CE21846821252D0B003F354F /* UIView+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846621252D0B003F354F /* UIView+Badge.m */; };
-		CE21846B21252FB8003F354F /* HHServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846A21252FB8003F354F /* HHServiceCell_one.m */; };
-		CE21846E21252FC8003F354F /* HHServiceCell_two.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846D21252FC8003F354F /* HHServiceCell_two.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
 		CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */; };
@@ -277,6 +275,8 @@
 		CE5DBEAD213E55EA00F17FCB /* HHLogisticsCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5DBEA7213E55E900F17FCB /* HHLogisticsCell1.xib */; };
 		CE734F25214A730B005748B7 /* HHDistributeStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */; };
 		CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */; };
+		CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */; };
+		CE75CE70214B969C00AD126D /* HHInviteCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */; };
 		CE8A64E5212AA05900C7C57F /* HHWXLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E2212AA05800C7C57F /* HHWXLoginVC.m */; };
 		CE8A64E6212AA05900C7C57F /* HHWXLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64E4212AA05900C7C57F /* HHWXLoginVC.xib */; };
 		CE8A64EE212AA29600C7C57F /* HHRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */; };
@@ -430,10 +430,6 @@
 		CE2184632125269C003F354F /* HXRecordVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXRecordVideoVC.m; sourceTree = "<group>"; };
 		CE21846621252D0B003F354F /* UIView+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Badge.m"; sourceTree = "<group>"; };
 		CE21846721252D0B003F354F /* UIView+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Badge.h"; sourceTree = "<group>"; };
-		CE21846921252FB8003F354F /* HHServiceCell_one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHServiceCell_one.h; sourceTree = "<group>"; };
-		CE21846A21252FB8003F354F /* HHServiceCell_one.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHServiceCell_one.m; sourceTree = "<group>"; };
-		CE21846C21252FC8003F354F /* HHServiceCell_two.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHServiceCell_two.h; sourceTree = "<group>"; };
-		CE21846D21252FC8003F354F /* HHServiceCell_two.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHServiceCell_two.m; sourceTree = "<group>"; };
 		CE21846F212535F0003F354F /* HHPersonCenterHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPersonCenterHead.h; sourceTree = "<group>"; };
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
 		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
@@ -907,6 +903,10 @@
 		CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributeStatusCell.m; sourceTree = "<group>"; };
 		CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributeServiceCell_one.h; sourceTree = "<group>"; };
 		CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributeServiceCell_one.m; sourceTree = "<group>"; };
+		CE75CE6B214B566300AD126D /* HHGoodCategoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodCategoryVC.h; sourceTree = "<group>"; };
+		CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodCategoryVC.m; sourceTree = "<group>"; };
+		CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHInviteCodeVC.h; sourceTree = "<group>"; };
+		CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHInviteCodeVC.m; sourceTree = "<group>"; };
 		CE8A64E2212AA05800C7C57F /* HHWXLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHWXLoginVC.m; sourceTree = "<group>"; };
 		CE8A64E3212AA05800C7C57F /* HHWXLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHWXLoginVC.h; sourceTree = "<group>"; };
 		CE8A64E4212AA05900C7C57F /* HHWXLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HHWXLoginVC.xib; sourceTree = "<group>"; };
@@ -1871,10 +1871,6 @@
 				CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */,
 				CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */,
 				CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */,
-				CE21846921252FB8003F354F /* HHServiceCell_one.h */,
-				CE21846A21252FB8003F354F /* HHServiceCell_one.m */,
-				CE21846C21252FC8003F354F /* HHServiceCell_two.h */,
-				CE21846D21252FC8003F354F /* HHServiceCell_two.m */,
 				CE21846F212535F0003F354F /* HHPersonCenterHead.h */,
 				CE218470212535F0003F354F /* HHPersonCenterHead.m */,
 				CE21847321254A6A003F354F /* LSPaoMaView.h */,
@@ -1916,6 +1912,8 @@
 				CE99386B213693BE002B256D /* HHvipInfoVC.m */,
 				CE99386D21369B25002B256D /* HHSignListVC.h */,
 				CE99386E21369B25002B256D /* HHSignListVC.m */,
+				CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */,
+				CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2075,6 +2073,8 @@
 				CE8A64FC212AAB6B00C7C57F /* HXHomeCollectionCell.h */,
 				CE8A64FD212AAB6C00C7C57F /* HXHomeCollectionCell.m */,
 				CE8A64FE212AAB6C00C7C57F /* HXHomeCollectionCell.xib */,
+				CE75CE6B214B566300AD126D /* HHGoodCategoryVC.h */,
+				CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */,
 				CE8A64FB212AAB6B00C7C57F /* SearchDetailViewController.h */,
 				CE8A64FF212AAB6C00C7C57F /* SearchDetailViewController.m */,
 				CE8A64FA212AAB6A00C7C57F /* SearchDetailViewController.xib */,
@@ -3095,7 +3095,6 @@
 				CE4D09F6212423F200796FEE /* NSDictionary+NSRangeException.m in Sources */,
 				CE8A67DC212ACA2E00C7C57F /* HHAdditionalCommentView.m in Sources */,
 				CE4D09F9212423F200796FEE /* NSTimer+LH.m in Sources */,
-				CE21846E21252FC8003F354F /* HHServiceCell_two.m in Sources */,
 				CE4D0A40212423F200796FEE /* HXTabBar.m in Sources */,
 				CE4D0A16212423F200796FEE /* SGPageContentView.m in Sources */,
 				CE4FFDC02148EEAF00767DF1 /* MLTextAttachment.m in Sources */,
@@ -3157,6 +3156,7 @@
 				CE52641C212BBD5B00F30D29 /* HHPayTypeVC.m in Sources */,
 				CE4D0A3C212423F200796FEE /* HJHomePageHeaderView.m in Sources */,
 				CE4D0A33212423F200796FEE /* AppDelegate+AOP.m in Sources */,
+				CE75CE70214B969C00AD126D /* HHInviteCodeVC.m in Sources */,
 				CE4D0A41212423F200796FEE /* HJTabBarController.m in Sources */,
 				CE8A66B8212ABAB100C7C57F /* HHCartFootView.m in Sources */,
 				CE4D0A10212423F200796FEE /* HXTableViewHead.m in Sources */,
@@ -3221,7 +3221,6 @@
 				CE8A6535212AAC0100C7C57F /* HHgooodDetailModel.m in Sources */,
 				CE472637212D1ECE002BD2A5 /* DCDetailOverFooterView.m in Sources */,
 				CE4D0A30212423F200796FEE /* NSObject+NC.m in Sources */,
-				CE21846B21252FB8003F354F /* HHServiceCell_one.m in Sources */,
 				CE8A67C3212ACA2E00C7C57F /* HHEvaluationListModel.m in Sources */,
 				CE4D09F5212423F200796FEE /* NSArray+NSRangeException.m in Sources */,
 				CE5264E1212BBFE600F30D29 /* XWMagicMoveAnimator.m in Sources */,
@@ -3246,6 +3245,7 @@
 				CE5264CC212BBFE600F30D29 /* SDWaitingView.m in Sources */,
 				CE4D09ED212423F200796FEE /* UITableViewCell+LH.m in Sources */,
 				CE4D09F8212423F200796FEE /* NSObject+Swizzling.m in Sources */,
+				CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */,
 				CE4D0A3D212423F200796FEE /* HXTabControlCell.m in Sources */,
 				CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */,
 				CE5264DB212BBFE600F30D29 /* XWCoolAnimator+XWLines.m in Sources */,

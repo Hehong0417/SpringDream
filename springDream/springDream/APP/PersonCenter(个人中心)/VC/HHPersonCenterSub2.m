@@ -10,8 +10,10 @@
 #import "HHDistributeStatusCell.h"
 #import "HHDistributeServiceCell_one.h"
 #import "HHvipInfoVC.h"
+#import "HHInviteCodeVC.h"
 
-@interface HHPersonCenterSub2 ()
+@interface HHPersonCenterSub2 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
+
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
@@ -108,10 +110,10 @@
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
             cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
             cell.btn_title_arr = @[@"分销产品",@"分销商",@"会员",@"分销订单"];
+            cell.delegate = self;
             grideCell = cell;
         }
         
@@ -137,7 +139,7 @@
         }else if (indexPath.row == 1) {
             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.nav = self.navigationController;
+            cell.delegate = self;
             grideCell = cell;
         }
     }
@@ -195,4 +197,23 @@
     }
     
 }
+#pragma mark - HHDistributeStatusCellDelagete
+
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
+    
+    NSLog(@"buttonIndex:%ld",buttonIndex);
+    
+}
+#pragma mark - HHDistributeServiceCell_one_delagete
+
+- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
+    
+    if (buttonIndex == 0) {
+        
+        HHInviteCodeVC *vc = [HHInviteCodeVC new];
+        [self.navigationController pushVC:vc];
+    }
+    
+}
+
 @end
