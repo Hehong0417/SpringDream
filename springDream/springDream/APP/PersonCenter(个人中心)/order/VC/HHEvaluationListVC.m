@@ -12,9 +12,7 @@
 #import "HHEvaluateListHead.h"
 
 @interface HHEvaluationListVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHEvaluateListHeadDelegate>
-{
-    HHEvaluateListHead *table_head;
-}
+
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, assign)   NSInteger pageSize;
 
@@ -22,6 +20,7 @@
 @property (nonatomic, strong)   HHMineModel *evaluateStatictis_m;
 @property (nonatomic, strong)   NSNumber *hasImage;
 @property (nonatomic, strong)   NSNumber *level;
+@property (nonatomic, strong)   HHEvaluateListHead *table_head;
 
 @end
 
@@ -30,6 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        
+    }];
     
     self.title = @"评价";
     
@@ -57,8 +60,8 @@
        
         if (!error) {
             if (api.State == 1) {
-                
-                [self loadDataFinish:api.Data];
+
+             [self loadDataFinish:api.Data];
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -69,14 +72,14 @@
         
     }];
     
-    
+    WEAK_SELF();
     [[[HHMineAPI GetProductEvaluateStatictisWithpid:self.pid] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
                 
                 self.evaluateStatictis_m = [HHMineModel mj_objectWithKeyValues:api.Data];
                 
-                table_head.evaluateStatictis_m = self.evaluateStatictis_m;
+               weakSelf.table_head.evaluateStatictis_m = weakSelf.evaluateStatictis_m;
 
             }else{
             }
@@ -89,10 +92,10 @@
 
 - (void)setUpTableHead{
     
-    table_head = [[HHEvaluateListHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
-    table_head.delegate = self;
-    table_head.backgroundColor = kWhiteColor;
-    self.tableView.tableHeaderView = table_head;
+    self.table_head = [[HHEvaluateListHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 70)];
+    self.table_head.delegate = self;
+    self.table_head.backgroundColor = kWhiteColor;
+    self.tableView.tableHeaderView = self.table_head;
 }
 - (void)setupDatas{
     
@@ -182,7 +185,7 @@
  *  加载数据完成
  */
 - (void)loadDataFinish:(NSArray *)arr {
-    
+   
     [self.datas addObjectsFromArray:arr];
     
     if (self.datas.count == 0) {
@@ -223,9 +226,9 @@
         [self.tableView.mj_footer endRefreshing];
         
     }
-    //刷新界面
-    [self.tableView reloadData];
-    
+        //刷新界面
+        [self.tableView reloadData];
+
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -236,15 +239,13 @@
 {
     HHEvaluationListCell *cell = [tableView dequeueReusableCellWithIdentifier:[HHEvaluationListCell className]];
     cell.indexPath = indexPath;
-    
     ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
     
 //    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
     
     ///////////////////////////////////////////////////////////////////////
     
-    cell.model =  [HHEvaluationListModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-//    cell.model =  self.dataArray[indexPath.row];
+   cell.model =  [HHEvaluationListModel mj_objectWithKeyValues:self.datas[indexPath.row]];
 
     return cell;
 }
@@ -253,11 +254,15 @@
 {
     
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 10;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // >>>>>>>>>>>>>>>>>>>>> * cell自适应 * >>>>>>>>>>>>>>>>>>>>>>>>
     id model = [HHEvaluationListModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+
     return [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[HHEvaluationListCell class] contentViewWidth:[self cellContentViewWith]];
 }
 - (CGFloat)cellContentViewWith
@@ -294,5 +299,13 @@
     [self.datas removeAllObjects];
     //获取数据
     [self getDatas];
+}
+#pragma mark - HHEvaluationListCellDelegate
+
+- (void)reloadTableviewactionWithEvaluationListCell:(HHEvaluationListCell *)cell{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
 }
 @end

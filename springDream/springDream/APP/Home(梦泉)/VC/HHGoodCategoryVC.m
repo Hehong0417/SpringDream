@@ -102,9 +102,7 @@
         
         self.collectionView.emptyDataSetDelegate = self;
         self.collectionView.emptyDataSetSource = self;
-        
         if (!error) {
-            
             if (api.State == 1) {
                 
                 if (self.isFooterRefresh) {
@@ -115,7 +113,9 @@
                     [self loadDataFinish:api.Data];
                 }
             }else{
-                
+                if ([api.Msg isEqualToString:@"cancelled"]) {
+                    return ;
+                }
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
             
@@ -330,16 +330,16 @@
 
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
     
-    [self.datas removeAllObjects];
     self.page = 1;
-    
     if (segmentedControl == self.SG) {
         self.isFooterRefresh = NO;
+        [self.datas removeAllObjects];
         [self.task cancel];
         [self refreshSortData:index];
         
     }else  if (segmentedControl == self.category_SG){
         self.isFooterRefresh = NO;
+        [self.datas removeAllObjects];
         [self.task cancel];
 //        HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
 //        self.categoryId = category_m.Id;

@@ -58,34 +58,34 @@
     
     [SVProgressHUD setMinimumDismissTimeInterval:1.0];
 
-    
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
-        
-        if (error) {
-            NSLog(@"error--%@",error);
-            
-        } else {
-            
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.color = KA0LabelColor;
-            hud.detailsLabelText = @"授权中，请稍后...";
-            hud.detailsLabelColor = kWhiteColor;
-            hud.detailsLabelFont = FONT(14);
-            hud.activityIndicatorColor = kWhiteColor;
-            [hud showAnimated:YES];
-            
-            UMSocialUserInfoResponse *resp = result;
-            // 授权信息
-            NSLog(@"Wechat uid: %@", resp.uid);
-            NSLog(@"Wechat unionId: %@", resp.unionId);
-            NSLog(@"Wechat openid: %@", resp.openid);
-            NSLog(@"Wechat accessToken: %@", resp.accessToken);
-            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
-            NSLog(@"Wechat expiration: %@", resp.expiration);
-            // 用户信息
-            NSLog(@"Wechat name: %@", resp.name);
-            NSLog(@"Wechat iconurl: %@", resp.iconurl);
-            NSLog(@"Wechat gender: %@", resp.gender);
+//
+//    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+//
+//        if (error) {
+//            NSLog(@"error--%@",error);
+//
+//        } else {
+//
+//            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud.color = KA0LabelColor;
+//            hud.detailsLabelText = @"授权中，请稍后...";
+//            hud.detailsLabelColor = kWhiteColor;
+//            hud.detailsLabelFont = FONT(14);
+//            hud.activityIndicatorColor = kWhiteColor;
+//            [hud showAnimated:YES];
+//
+//            UMSocialUserInfoResponse *resp = result;
+//            // 授权信息
+//            NSLog(@"Wechat uid: %@", resp.uid);
+//            NSLog(@"Wechat unionId: %@", resp.unionId);
+//            NSLog(@"Wechat openid: %@", resp.openid);
+//            NSLog(@"Wechat accessToken: %@", resp.accessToken);
+//            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
+//            NSLog(@"Wechat expiration: %@", resp.expiration);
+//            // 用户信息
+//            NSLog(@"Wechat name: %@", resp.name);
+//            NSLog(@"Wechat iconurl: %@", resp.iconurl);
+//            NSLog(@"Wechat gender: %@", resp.gender);
 
             //账户是否存在 ？登录:注册
                            NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
@@ -103,7 +103,7 @@
 
                                     }else if (api.State == -99) {
                                         
-                                        [self registerWithName:resp.name image:resp.iconurl openid:resp.openid unionId:resp.unionId];
+//                                        [self registerWithName:resp.name image:resp.iconurl openid:resp.openid unionId:resp.unionId];
                                     }else{
                                         [hud hideAnimated:YES];
                                         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
@@ -119,9 +119,9 @@
                             }];
                             //*********************//
             
-        }
-        
-    }];
+//        }
+//
+//    }];
     
 
     

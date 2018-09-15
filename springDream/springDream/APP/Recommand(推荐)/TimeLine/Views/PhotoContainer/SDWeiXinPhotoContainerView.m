@@ -85,15 +85,18 @@
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0;
     if (_picPathStringsArray.count == 1) {
-//      UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_picPathStringsArray.firstObject]]];
-//        if (image.size.width) {
+//        NSString *pic_str = _picPathStringsArray.firstObject;
+//        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:pic_str];
+//        if (!cachedImage) {
+//            UIImage *image = [UIImage imagewithImage:[UIImage imageNamed:@"add_pic"]];
 //            itemH = image.size.height / image.size.width * itemW;
+//        }else{
+//            itemH = cachedImage.size.height / cachedImage.size.width * itemW;
 //        }
-        itemH = 160;
+        itemH = itemW;
 
     } else {
-        itemH = itemW;
+       itemH = itemW;
     }
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin = 5;
@@ -105,13 +108,14 @@
         [imageView lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.hidden = NO;
-        [imageView sd_setImageWithURL:[NSURL URLWithString:obj]placeholderImage:[UIImage imageNamed:@"5"]];
+       [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
     
     CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
     int columnCount = ceilf(_picPathStringsArray.count * 1.0 / perRowItemCount);
     CGFloat h = columnCount * itemH + (columnCount - 1) * margin;
+    
     self.width = w;
     self.height = h;
     

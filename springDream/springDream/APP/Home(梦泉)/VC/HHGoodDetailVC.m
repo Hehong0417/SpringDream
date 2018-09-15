@@ -21,7 +21,6 @@
 #import "HHActivityModel.h"
 #import "MLMenuView.h"
 #import "HHFeatureSelectionViewCell.h"
-#import "HHGoodIntroduceCell.h"
 
 //#import "DCFeatureChoseTopCell.h"
 // Vendors
@@ -57,15 +56,12 @@
 
 @property (nonatomic, strong) HHGoodDetailFoot *foot;
 
-
 @end
 
 static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商品信息
 static NSString *HHFeatureSelectionViewCellID = @"HHFeatureSelectionViewCell";//商品属性
 static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";//推荐商品
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
-
-static NSString *HHGoodIntroduceCellID = @"HHGoodIntroduceCell";//详情html
 
 //cell
 static NSString *lastNum_;
@@ -88,6 +84,10 @@ static NSArray *lastSele_IdArray_;
     [super viewDidLoad];
     
     self.title = @"商品详情";
+    
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        
+    }];
     
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = @"1";
@@ -134,7 +134,6 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHFeatureSelectionViewCell class] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
     [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
-    [self.tabView registerClass:[HHGoodIntroduceCell class] forCellReuseIdentifier:HHGoodIntroduceCellID];
 
 }
 #pragma mark - 加入购物车、立即购买
@@ -427,12 +426,13 @@ static NSArray *lastSele_IdArray_;
 - (void)choosedStock:(NSString *)product_stock product_price:(NSString *)product_price featureselectionCell:(id)featureselectionCell{
     
     HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[self.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",product_price];
+    cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.floatValue];
     cell.stock_label.text = [NSString stringWithFormat:@"库存：%@",product_stock];
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = product_stock;
     [detail_item write];
 }
+
 #pragma mark -加载数据
 
 - (void)getDatas{

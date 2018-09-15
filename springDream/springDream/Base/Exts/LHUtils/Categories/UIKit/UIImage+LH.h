@@ -47,5 +47,9 @@
  */
 + (UIImage *)lh_getContentImageWithName:(NSString *)name;
 
+/**
+ *  根据图片url获取网络图片尺寸
+ */
++ (CGSize)getImageSizeWithURL:(id)URL;
 
 @end

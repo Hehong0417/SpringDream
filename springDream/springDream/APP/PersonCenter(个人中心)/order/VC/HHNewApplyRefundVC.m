@@ -135,7 +135,7 @@
         return [UIView new];
     }
     UIView *head = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 50) backColor:kWhiteColor];
-    UILabel *section_label = [UILabel lh_labelWithFrame:CGRectMake(15, 0, ScreenW-30, 50) text:self.section_title_arr[section] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+    UILabel *section_label = [UILabel lh_labelWithFrame:CGRectMake(20, 0, ScreenW-30, 50) text:self.section_title_arr[section] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
     [head addSubview:section_label];
       return head;
 }

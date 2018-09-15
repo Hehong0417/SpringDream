@@ -22,47 +22,47 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     
     if (self = [super initWithFrame:frame]) {
-        _score_label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 40, 25)];
-        _score_label.text = @"评分";
-        _score_label.font = FONT(14);
-        _score_label.textColor = kGrayColor;
-        [self addSubview:_score_label];
-        
-        //星形评价
-        UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
-
-        _gradeEmptyImgV = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_score_label.frame)+10, 10, gradeImage.size.width, 20)];
-        _gradeEmptyImgV.image = [UIImage imageNamed:@"stoke_star"];
-        _gradeEmptyImgV.hidden = NO;
-        [self addSubview:_gradeEmptyImgV];
-
-        _gradeImgV = [[UIImageView alloc] init];
-        _gradeImgV.contentMode = UIViewContentModeLeft;
-        _gradeImgV.clipsToBounds = YES;
-        _gradeImgV.image = [UIImage imageNamed:@"solid_star"];
-        _gradeImgV.hidden = NO;
-        [self addSubview:_gradeImgV];
-
-        
-        //好评率
-        _goodEvaluateProportion_label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_gradeEmptyImgV.frame)+10, 10, 100, 25)];
-        _goodEvaluateProportion_label.font = FONT(12);
-        _goodEvaluateProportion_label.textColor = kGrayColor;
-        [self addSubview:_goodEvaluateProportion_label];
+//        _score_label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 40, 25)];
+//        _score_label.text = @"评分";
+//        _score_label.font = FONT(14);
+//        _score_label.textColor = kGrayColor;
+//        [self addSubview:_score_label];
+//
+//        //星形评价
+//        UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
+//
+//        _gradeEmptyImgV = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_score_label.frame)+10, 10, gradeImage.size.width, 20)];
+//        _gradeEmptyImgV.image = [UIImage imageNamed:@"stoke_star"];
+//        _gradeEmptyImgV.hidden = NO;
+//        [self addSubview:_gradeEmptyImgV];
+//
+//        _gradeImgV = [[UIImageView alloc] init];
+//        _gradeImgV.contentMode = UIViewContentModeLeft;
+//        _gradeImgV.clipsToBounds = YES;
+//        _gradeImgV.image = [UIImage imageNamed:@"solid_star"];
+//        _gradeImgV.hidden = NO;
+//        [self addSubview:_gradeImgV];
+//
+//
+//        //好评率
+//        _goodEvaluateProportion_label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_gradeEmptyImgV.frame)+10, 10, 100, 25)];
+//        _goodEvaluateProportion_label.font = FONT(12);
+//        _goodEvaluateProportion_label.textColor = kGrayColor;
+//        [self addSubview:_goodEvaluateProportion_label];
 
         //全部 有图 追评
         NSArray *titles = @[@"全部",@"有图",@"好评",@"中评",@"差评"];
         for (NSInteger i=0; i<5; i++) {
-            UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(15+i*70+i*10, CGRectGetMaxY(_score_label.frame)+12, 70, 25) target:self action:@selector(sortBtn:) title:titles[i] titleColor:kGrayColor font:FONT(13) backgroundColor:kClearColor];
+            UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(15+i*50+i*10, 15, 50, 30) target:self action:@selector(sortBtn:) title:titles[i] titleColor:kGrayColor font:FONT(13) backgroundColor:RGB(239, 239, 239)];
             [btn setTitleColor:kRedColor forState:UIControlStateSelected];
-            [btn lh_setCornerRadius:0 borderWidth:1 borderColor:kGrayColor];
+            [btn lh_setBackgroundColor:RGB(251, 214, 216) forState:UIControlStateSelected];
             btn.tag = 10000+i;
             if (i == 0) {
                 [self sortBtn:btn];
             }
             [self addSubview:btn];
         }
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.mj_h-1, ScreenW, 1)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.mj_h-10, ScreenW, 10)];
         line.backgroundColor = KVCBackGroundColor;
         [self addSubview:line];
 
@@ -88,8 +88,7 @@
 
 }
 - (void)sortBtn:(UIButton *)button{
-    [button lh_setCornerRadius:0 borderWidth:1 borderColor:kRedColor];
-    [self.currentSelectBtn lh_setCornerRadius:0 borderWidth:1 borderColor:kGrayColor];
+
     self.currentSelectBtn.selected = NO;
     button.selected = YES;
     self.currentSelectBtn = button;

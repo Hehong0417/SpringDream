@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "HHEvaluationListModel.h"
 
-@interface HHEvaluationListCell : UITableViewCell
+@class HHEvaluationListCell;
+
+@interface HHEvaluationListCell: UITableViewCell
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 

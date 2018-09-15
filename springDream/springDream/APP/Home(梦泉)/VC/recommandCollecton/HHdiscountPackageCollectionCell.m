@@ -116,9 +116,9 @@
     _guess_you_likeModel = guess_you_likeModel;
     self.p_nameLabel.text = guess_you_likeModel.name;
 //    [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:guess_you_likeModel.icon] placeholderImage:[UIImage imageNamed:@"loadImag_default100"]];
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price];
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price];
-    self.prePriceLabel.attributedText = [self.prePriceLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价：¥%@",guess_you_likeModel.market_price] rangeStr:[NSString stringWithFormat:@"原价：¥%@",guess_you_likeModel.market_price] color:KA0LabelColor];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",guess_you_likeModel.sale_price.floatValue];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",guess_you_likeModel.sale_price.floatValue];
+    self.prePriceLabel.attributedText = [self.prePriceLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价：¥%.2f",guess_you_likeModel.market_price.floatValue] rangeStr:[NSString stringWithFormat:@"原价：¥%.2f",guess_you_likeModel.market_price.floatValue] color:KA0LabelColor];
 
 }
 

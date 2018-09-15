@@ -11,12 +11,14 @@
 #import "HHLogisticsCell0.h"
 #import "HHLogisticsHead.h"
 
-@interface HHLogisticsVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface HHLogisticsVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong)   UITableView *tableView;
 @property (nonatomic, strong)   HHMineModel *model;
 @property (nonatomic, strong)  HHLogisticsHead *logisticsHead;
 
+@property(nonatomic,assign)   BOOL  isLoading;
+@property(nonatomic,assign)   BOOL  isWlan;
 
 @end
 
@@ -40,6 +42,8 @@
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.emptyDataSetDelegate = self;
+    self.tableView.emptyDataSetSource = self;
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHLogisticsCell0" bundle:nil] forCellReuseIdentifier:@"HHLogisticsCell0"];
@@ -55,9 +59,11 @@
 - (void)getDatas{
     
     [[[HHMineAPI GetOrderExpressWithorderid:self.orderid giftId:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoading = YES;
+
         if (!error) {
             if (api.State == 1) {
-                
+                self.isWlan = YES;
                 self.model = [HHMineModel mj_objectWithKeyValues:api.Data[@"express"]];
                 self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",api.Data[@"company"]];
                 self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu.length>0?self.model.nu:@""];
@@ -71,14 +77,65 @@
                 [self.tableView reloadData];
                 
             }else{
+                self.isWlan = YES;
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
+            self.isWlan = NO;
             [SVProgressHUD showInfoWithStatus:api.Msg];
         }
 
     }];
     
+}
+#pragma mark - DZNEmptyDataSetDelegate
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    if (self.isLoading) {
+        if (self.isWlan) {
+            return [UIImage imageNamed:@"record_icon_no"];
+        }else{
+            return [UIImage imageNamed:@"img_network_disable"];
+        }
+    }else{
+        //没加载过
+        return [UIImage imageNamed:@""];
+    }
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+    
+    NSString *titleStr;
+    if (self.isLoading) {
+        if (self.isWlan) {
+            titleStr = @"没有相关的记录喔";
+        }else{
+            titleStr = @"";
+        }
+    }else{
+        //没加载过
+        titleStr = @"";
+    }
+    return [[NSAttributedString alloc] initWithString:titleStr attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+}
+
+- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+    
+    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+    
+    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+}
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    
+    CGFloat offset = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    offset += CGRectGetHeight(self.navigationController.navigationBar.frame);
+    return -offset;
+}
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
+    return 20;
 }
 - (void)addAddressAction{
     

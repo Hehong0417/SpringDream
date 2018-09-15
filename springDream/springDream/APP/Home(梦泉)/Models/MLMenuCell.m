@@ -60,7 +60,7 @@
 {
     _menuItem = menuItem;
    
-    self.labelPrice.text = [NSString stringWithFormat:@"¥%@",menuItem.Price];
+    self.labelPrice.text = [NSString stringWithFormat:@"¥%.2f",menuItem.Price.floatValue];
 
     if ([menuItem.Mode isEqual:@2]) {
         //拼团

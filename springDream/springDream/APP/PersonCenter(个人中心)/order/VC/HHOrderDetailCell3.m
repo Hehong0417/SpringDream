@@ -74,8 +74,10 @@
 }
 - (void)copyBtnAction{
     
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     
+    pasteBoard.string = self.model.orderid;
     
-    
+    [SVProgressHUD showSuccessWithStatus:@"复制成功"];
 }
 @end

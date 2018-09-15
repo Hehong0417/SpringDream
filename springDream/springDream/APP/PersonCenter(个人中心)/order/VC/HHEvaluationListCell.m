@@ -11,6 +11,11 @@
 #import "HHCellCommentView.h"
 #import "HHAdditionalCommentView.h"
 
+
+@interface HHEvaluationListCell()
+
+@end
+
 const CGFloat contentLabelFontSize1 = 15;
 //CGFloat maxContentLabelHeight1 = 0; // 根据具体font而定
 
@@ -113,7 +118,7 @@ const CGFloat contentLabelFontSize1 = 15;
     
     _timeLabel.sd_layout
     .leftEqualToView(_iconView)
-    .topSpaceToView(_iconView, margin)
+    .topSpaceToView(_iconView, 8)
     .widthIs(150)
     .heightIs(20);
     
@@ -125,7 +130,7 @@ const CGFloat contentLabelFontSize1 = 15;
     
     _contentLabel.sd_layout
     .leftEqualToView(_iconView)
-    .topSpaceToView(_timeLabel, margin)
+    .topSpaceToView(_timeLabel, 8)
     .rightSpaceToView(contentView, margin)
     .autoHeightRatio(0);
     
@@ -153,7 +158,6 @@ const CGFloat contentLabelFontSize1 = 15;
     _propertyLabel.text = model.skuName;
     _contentLabel.text = model.content.length>0?model.content:@"此用户没有填写评价";
     _picContainerView.picPathStringsArray = model.pictures;
-    
     NSInteger grade = model.describeScore.integerValue;
     UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
     CGFloat width = gradeImage.size.width/5*grade;

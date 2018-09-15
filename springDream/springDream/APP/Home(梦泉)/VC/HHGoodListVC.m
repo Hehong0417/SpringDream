@@ -62,7 +62,7 @@
      //获取数据
     [self addHeadRefresh];
     
-     [self getDatas];
+    [self getDatas];
 
 }
 - (NSMutableArray *)datas{
@@ -124,7 +124,9 @@
                     [self loadDataFinish:api.Data];
                 }
             }else{
-                
+                if ([api.Msg isEqualToString:@"cancelled"]) {
+                    return ;
+                }
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
             
@@ -392,6 +394,7 @@
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     HHGoodDetailVC *vc = [HHGoodDetailVC new];

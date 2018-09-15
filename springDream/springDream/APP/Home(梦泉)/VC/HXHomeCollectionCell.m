@@ -29,8 +29,8 @@
     self.product_nameLabel.text = productsModel.product_name;
     
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:productsModel.product_icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",productsModel.product_min_price];
-    self.product_s_intergralLabel.attributedText =  [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",productsModel.product_s_intergral] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",productsModel.product_s_intergral] color:KA0LabelColor];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",productsModel.product_min_price.floatValue];
+    self.product_s_intergralLabel.attributedText =  [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%.2f",productsModel.product_s_intergral.floatValue] rangeStr:[NSString stringWithFormat:@"原价: ¥%.2f",productsModel.product_s_intergral.floatValue] color:KA0LabelColor];
 
 }
 - (void)setGoodsModel:(HHCategoryModel *)goodsModel{
@@ -39,9 +39,9 @@
     
     self.product_nameLabel.text = goodsModel.ProductName;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.ImageUrl1] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",goodsModel.MinShowPrice];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.MinShowPrice.floatValue];
 
-    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",goodsModel.MarketPrice] color:KA0LabelColor];
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.MarketPrice.floatValue] rangeStr:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.MarketPrice.floatValue] color:KA0LabelColor];
     if ([goodsModel.IsCollection isEqual:@1]) {
         self.collectButton.selected = YES;
     }else{
@@ -54,7 +54,7 @@
     _collectModel = collectModel;
     self.product_nameLabel.text = collectModel.product_name;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:collectModel.product_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",collectModel.product_cost_price?collectModel.product_cost_price:@"0"];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",collectModel.product_cost_price?collectModel.product_cost_price.floatValue:0.00];
     
     self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%@",collectModel.product_market_price?collectModel.product_market_price:@"0"] rangeStr:[NSString stringWithFormat:@"原价: ¥%@",collectModel.product_market_price?collectModel.product_market_price:@"0"] color:KA0LabelColor];
         self.collectButton.selected = YES;
@@ -72,9 +72,9 @@
 
     self.product_nameLabel.text = guess_you_likeModel.name;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:guess_you_likeModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%@",guess_you_likeModel.sale_price?guess_you_likeModel.sale_price:@"0"];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",guess_you_likeModel.sale_price?guess_you_likeModel.sale_price.floatValue:0.00];
 
-    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price?guess_you_likeModel.market_price:@"0"] rangeStr:[NSString stringWithFormat:@"¥%@",guess_you_likeModel.market_price?guess_you_likeModel.market_price:@"0"] color:KA0LabelColor];
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"¥%.2f",guess_you_likeModel.market_price?guess_you_likeModel.market_price.floatValue:0.00] rangeStr:[NSString stringWithFormat:@"¥%.2f",guess_you_likeModel.market_price?guess_you_likeModel.market_price.floatValue:0.00] color:KA0LabelColor];
     
 }
 - (IBAction)collectButton:(UIButton *)sender {

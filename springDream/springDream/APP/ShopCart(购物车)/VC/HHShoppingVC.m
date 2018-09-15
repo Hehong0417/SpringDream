@@ -359,9 +359,8 @@
             
             [self isExitAddressWithSendGift:@0];
         }else{
-            
-            [SVProgressHUD setMinimumDismissTimeInterval:1.0];
-            [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
+  
+            [self lh_showHudInView:self.view labText:@"您还没有选择宝贝哦"];
         }
         
     }];

@@ -384,7 +384,6 @@
 		CE99C15421353441007FC7B9 /* HHNewApplyFundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99C15221353441007FC7B9 /* HHNewApplyFundCell.m */; };
 		CE99C15521353441007FC7B9 /* HHNewApplyFundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE99C15321353441007FC7B9 /* HHNewApplyFundCell.xib */; };
 		CE99C15821355C7D007FC7B9 /* HHMywalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99C15721355C7D007FC7B9 /* HHMywalletCell.m */; };
-		CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */; };
 		CED55DCA2133F57F004C2E68 /* HHAddressFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */; };
 		CED55DCC2133F5A3004C2E68 /* HHAddressFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */; };
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
@@ -1099,8 +1098,6 @@
 		CE99C15321353441007FC7B9 /* HHNewApplyFundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHNewApplyFundCell.xib; sourceTree = "<group>"; };
 		CE99C15621355C7D007FC7B9 /* HHMywalletCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMywalletCell.h; sourceTree = "<group>"; };
 		CE99C15721355C7D007FC7B9 /* HHMywalletCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMywalletCell.m; sourceTree = "<group>"; };
-		CEA31DE5212E8ACF0040502D /* HHGoodIntroduceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodIntroduceCell.h; sourceTree = "<group>"; };
-		CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodIntroduceCell.m; sourceTree = "<group>"; };
 		CED55DC82133F57F004C2E68 /* HHAddressFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHAddressFooterView.h; sourceTree = "<group>"; };
 		CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHAddressFooterView.m; sourceTree = "<group>"; };
 		CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHAddressFooterView.xib; sourceTree = "<group>"; };
@@ -1380,6 +1377,7 @@
 		CE4D08FE212423F100796FEE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				CE4D0911212423F100796FEE /* UIImage+LH.h */,
 				CE4D08FF212423F100796FEE /* UIImage+LH.m */,
 				CE4D0900212423F100796FEE /* UITableView+LH.m */,
 				CE4D0901212423F100796FEE /* UIImageView+LH.m */,
@@ -1394,11 +1392,9 @@
 				CE4D090A212423F100796FEE /* UIAlertView+LH.m */,
 				CE4D090B212423F100796FEE /* UIWebView+LH.h */,
 				CE4D090C212423F100796FEE /* UIColor+LH.h */,
-				CE4D090D212423F100796FEE /* UIViewController+LH.m */,
 				CE4D090E212423F100796FEE /* UIScrollView+LH.h */,
 				CE4D090F212423F100796FEE /* UITextView+LH.m */,
 				CE4D0910212423F100796FEE /* UIImageView+LH.h */,
-				CE4D0911212423F100796FEE /* UIImage+LH.h */,
 				CE4D0912212423F100796FEE /* UITableView+LH.h */,
 				CE4D0913212423F100796FEE /* UITableViewCell+LH.m */,
 				CE4D0914212423F100796FEE /* UITextField+LH.h */,
@@ -1410,6 +1406,7 @@
 				CE4D091A212423F100796FEE /* UIImage+cutImage.m */,
 				CE4D091B212423F100796FEE /* UIColor+LH.m */,
 				CE4D091C212423F100796FEE /* UIViewController+LH.h */,
+				CE4D090D212423F100796FEE /* UIViewController+LH.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1472,10 +1469,10 @@
 		CE4D0940212423F100796FEE /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				CE4D0941212423F100796FEE /* MBProgressHUD+LH.m */,
-				CE4D0942212423F100796FEE /* NSObject+AutoProperty.m */,
 				CE4D0943212423F100796FEE /* MBProgressHUD+LH.h */,
+				CE4D0941212423F100796FEE /* MBProgressHUD+LH.m */,
 				CE4D0944212423F100796FEE /* NSObject+AutoProperty.h */,
+				CE4D0942212423F100796FEE /* NSObject+AutoProperty.m */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -2087,8 +2084,6 @@
 				CE5264F2212C1A1900F30D29 /* HHDetailGoodReferralCell.xib */,
 				CE472647212D37BB002BD2A5 /* HHFeatureSelectionViewCell.h */,
 				CE472648212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m */,
-				CEA31DE5212E8ACF0040502D /* HHGoodIntroduceCell.h */,
-				CEA31DE6212E8ACF0040502D /* HHGoodIntroduceCell.m */,
 				CE5264E9212C143E00F30D29 /* HHNotWlanView.h */,
 				CE5264EA212C143F00F30D29 /* HHNotWlanView.m */,
 				CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */,
@@ -3247,7 +3242,6 @@
 				CE4D09F8212423F200796FEE /* NSObject+Swizzling.m in Sources */,
 				CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */,
 				CE4D0A3D212423F200796FEE /* HXTabControlCell.m in Sources */,
-				CEA31DE7212E8ACF0040502D /* HHGoodIntroduceCell.m in Sources */,
 				CE5264DB212BBFE600F30D29 /* XWCoolAnimator+XWLines.m in Sources */,
 				CE4D0A04212423F200796FEE /* UIViewController+Create.m in Sources */,
 				CE4D0A38212423F200796FEE /* HXCommonPickView.m in Sources */,

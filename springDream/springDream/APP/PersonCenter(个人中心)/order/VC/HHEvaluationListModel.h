@@ -18,7 +18,6 @@
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSArray *pictures;
 @property (nonatomic, strong) NSString *adminReply;
-
 @property (nonatomic, strong) NSString *addition_time;
 @property (nonatomic, strong) NSString *addition_comment;
 

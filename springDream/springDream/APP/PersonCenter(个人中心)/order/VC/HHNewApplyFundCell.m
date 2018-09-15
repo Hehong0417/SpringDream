@@ -30,7 +30,7 @@
     [self.icn_url_imgV sd_setImageWithURL:[NSURL URLWithString:item_model.icon]];
     self.product_name_label.text = item_model.prodcut_name;
     self.sku_label.text = item_model.product_item_sku_name;
-    self.price_label.text = [NSString stringWithFormat:@"¥%@",item_model.product_item_price];
+    self.price_label.text = [NSString stringWithFormat:@"¥%.2f",item_model.product_item_price.floatValue];
     self.num_text.text = item_model.product_item_quantity;
     
     if (self.num_text.text.integerValue==1) {

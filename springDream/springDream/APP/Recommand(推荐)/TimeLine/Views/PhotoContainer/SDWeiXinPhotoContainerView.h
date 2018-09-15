@@ -29,8 +29,11 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface SDWeiXinPhotoContainerView : UIView
 
 @property (nonatomic, strong) NSArray *picPathStringsArray;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) UITableView *tableview;
 
 @end
