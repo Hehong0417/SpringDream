@@ -10,7 +10,7 @@
 #import "HHDistributeStatusCell.h"
 #import "HHDistributeServiceCell_one.h"
 #import "HHvipInfoVC.h"
-#import "HHInviteCodeVC.h"
+#import "HHMyServiceVC.h"
 
 @interface HHPersonCenterSub2 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
@@ -189,10 +189,12 @@
 //            [self.navigationController pushVC:vc];
         }
     }
-    if (indexPath.section == 0) {
+    if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             //我的服务
-            
+//            HHMyServiceVC *vc = [HHMyServiceVC new];
+//            vc.service_type = MyService_type_distributionCenter;
+//            [self.navigationController pushVC:vc];
         }
     }
     
@@ -210,8 +212,7 @@
     
     if (buttonIndex == 0) {
         
-        HHInviteCodeVC *vc = [HHInviteCodeVC new];
-        [self.navigationController pushVC:vc];
+
     }
     
 }

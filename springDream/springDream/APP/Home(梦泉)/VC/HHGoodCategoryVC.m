@@ -12,6 +12,7 @@
 #import "SearchView.h"
 #import "SearchDetailViewController.h"
 #import "HHGoodDetailVC.h"
+#import "HHGoodListVC.h"
 
 @interface HHGoodCategoryVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 {
@@ -57,8 +58,6 @@
     [self setupSearchView];
     //获取数据
     [self addHeadRefresh];
-    
-    [self getDatas];
     
 }
 - (NSMutableArray *)datas{
@@ -137,13 +136,14 @@
             
             if (api.State == 1) {
                 NSArray *arr = api.Data;
-//                NSMutableArray *category_titles = [NSMutableArray array];
-//                [arr enumerateObjectsUsingBlock:^(NSDictionary  *dic, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    [category_titles addObject:dic[@"name"]];
-//                }];
-                self.category_arr = arr.mutableCopy;
                 
-                NSArray *category_titles = @[@"全部商品",@"59.8会员",@"美妆工具",@"吃货专区",@"轻奢护肤",@"海外旗舰店"];
+                NSMutableArray *category_titles = [NSMutableArray array];
+                [arr enumerateObjectsUsingBlock:^(NSDictionary  *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [category_titles addObject:dic[@"name"]];
+                }];
+                self.category_arr = arr.mutableCopy;
+
+//                NSArray *category_titles = @[@"全部商品",@"59.8会员",@"美妆工具",@"吃货专区",@"轻奢护肤",@"海外旗舰店"];
                 if (category_titles.count < 5) {
                     self.category_SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic titleArr:category_titles];
                 }else{
@@ -173,7 +173,8 @@
         
     }];
     
-    
+    [self getDatas];
+
 }
 #pragma mark - DZNEmptyDataSetDelegate
 
@@ -310,16 +311,20 @@
 
 - (void)tagViewButtonDidSelectedForTagTitle:(NSString *)title{
     //热门搜索/历史搜索标题
-    self.page = 1;
-    self.name = title;
-    if (title.length>0) {
-        self.isCategory = NO;
-    }else{
-        self.isCategory = YES;
-    }
-    [self.datas removeAllObjects];
-    [self getDatas];
-    
+//    self.page = 1;
+//    self.name = title;
+//    if (title.length>0) {
+//        self.isCategory = NO;
+//    }else{
+//        self.isCategory = YES;
+//    }
+//    [self.datas removeAllObjects];
+//    [self getDatas];
+    //
+    HHGoodListVC *vc = [HHGoodListVC new];
+    vc.name = title;
+    vc.enter_Type = HHenter_itself_Type;
+    [self.navigationController pushVC:vc];
 }
 - (void)dismissButtonWasPressedForSearchDetailView:(id)searchView{
     
@@ -333,16 +338,14 @@
     self.page = 1;
     if (segmentedControl == self.SG) {
         self.isFooterRefresh = NO;
-        [self.datas removeAllObjects];
         [self.task cancel];
         [self refreshSortData:index];
         
     }else  if (segmentedControl == self.category_SG){
         self.isFooterRefresh = NO;
-        [self.datas removeAllObjects];
         [self.task cancel];
-//        HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
-//        self.categoryId = category_m.Id;
+        HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
+        self.categoryId = category_m.Id;
         [self refreshCategoryData];
     }
 

@@ -58,7 +58,7 @@
     
     [self setupSGSegmentedControl];
 
-//    [self setupSearchView];
+    [self setupSearchView];
      //获取数据
     [self addHeadRefresh];
     
@@ -236,15 +236,16 @@
     searchView = [[SearchView alloc] initWithFrame:CGRectMake(15, 3, self.view.frame.size.width-30, 30)];
     searchView.textField.text = @"";
     searchView.delegate = self;
+    searchView.searchTitle_label.text = self.name;
     searchView.userInteractionEnabled = YES;
    
-//    if (self.enter_Type == HHenter_category_Type ||self.enter_Type == HHenter_home_Type ) {
-//
-//        [self searchButtonWasPressedForSearchView:searchView];
-//
-//    }else{
-//
-//    }
+    if (self.enter_Type == HHenter_category_Type ||self.enter_Type == HHenter_home_Type ) {
+
+        [self searchButtonWasPressedForSearchView:searchView];
+
+    }else{
+
+    }
     UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
     backBtn.highlighted = NO;
     [searchView addSubview:backBtn];
@@ -282,6 +283,7 @@
     }else{
         self.isCategory = YES;
     }
+    searchView.searchTitle_label.text = self.name;
     [self.datas removeAllObjects];
     [self getDatas];
     
@@ -421,15 +423,15 @@
     return _collectionView;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//
-//    [super viewWillAppear:animated];
-//    searchView.hidden = NO;
-//
-//}
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+    searchView.hidden = NO;
+
+}
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-//    searchView.hidden = YES;
+    searchView.hidden = YES;
 }
 @end

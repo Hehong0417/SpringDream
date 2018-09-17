@@ -44,7 +44,7 @@
             ![controller isKindOfClass:NSClassFromString(@"HHHomeVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HHRecommandVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HJNavigationController")] &&
-            ![controller isKindOfClass:NSClassFromString(@"HHGoodListVC")] &&
+            ![controller isKindOfClass:NSClassFromString(@"")] &&
             ![controller isKindOfClass:NSClassFromString(@"HJTabBarController")]) {
          
             //Log 视图加载

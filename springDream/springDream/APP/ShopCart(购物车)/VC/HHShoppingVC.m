@@ -307,7 +307,6 @@
         [self.selectItems addObject:@0];
     }];
     //新增
-    //
     [self.tableView reloadData];
 }
 - (void)addTipHeadView{

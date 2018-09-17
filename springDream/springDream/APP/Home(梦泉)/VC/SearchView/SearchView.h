@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) id<SearchViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UILabel *searchTitle_label;
 
 @end

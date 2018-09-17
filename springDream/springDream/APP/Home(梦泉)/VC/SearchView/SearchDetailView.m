@@ -50,7 +50,7 @@
 
 - (void)setupTextFieldLeftView {
     UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//    searchImageView.image = [UIImage imageNamed:@"search_home_default"];
+    searchImageView.image = [UIImage imageNamed:@"search_home_default"];
     searchImageView.contentMode = UIViewContentModeCenter;
     self.textField.leftView = searchImageView;
     self.textField.leftViewMode = UITextFieldViewModeAlways;
@@ -59,6 +59,7 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [self.textField resignFirstResponder];
     if ([self.delegate respondsToSelector:@selector(searchButtonWasPressedForSearchDetailView:)]) {
         [self.delegate searchButtonWasPressedForSearchDetailView:self];

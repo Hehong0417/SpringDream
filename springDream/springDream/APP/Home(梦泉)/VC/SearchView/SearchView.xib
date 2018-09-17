@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchView">
             <connections>
                 <outlet property="searchButton" destination="dSJ-Vl-8xr" id="IrG-hc-cIh"/>
+                <outlet property="searchTitle_label" destination="jzS-5n-Aw3" id="h9t-9R-b44"/>
                 <outlet property="textField" destination="TxP-Q2-qQR" id="QE6-2h-Ce3"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pUN-Ik-bkC"/>
             </connections>

@@ -20,6 +20,7 @@
 #import "HHModifyInfoVC.h"
 #import "HHmyEarningsVC.h"
 #import "HHMyRightsVC.h"
+#import "HHMyServiceVC.h"
 
 @interface HHPersonCenterSub1 ()<HHDistributeServiceCell_one_delagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -204,7 +205,15 @@
             [self.navigationController pushVC:vc];
         }
     }
-    
+    if (indexPath.section == 2){
+        
+        if (indexPath.row == 0) {
+            //我的服务
+            HHMyServiceVC *vc = [HHMyServiceVC new];
+            vc.service_type = MyService_type_vipCenter;
+            [self.navigationController pushVC:vc];
+        }
+    }
 }
 #pragma mark - HHDistributeServiceCell_one_delagete
 

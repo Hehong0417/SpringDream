@@ -1,52 +1,29 @@
 //
-//  HHMyWalletVC.m
+//  HHIntegralRankVC.m
 //  springDream
 //
-//  Created by User on 2018/8/29.
+//  Created by User on 2018/9/17.
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHMyIntegralVC.h"
-#import "HHMywalletCell.h"
-#import "HHMyIntegralHead.h"
 #import "HHIntegralRankVC.h"
+#import "HHIntegralRankCell.h"
 
-@interface HHMyIntegralVC ()<DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
-
-@property (nonatomic, strong) UITableView *tabView;
+@interface HHIntegralRankVC ()<DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
 
 @end
 
-@implementation HHMyIntegralVC
+@implementation HHIntegralRankVC
 
-- (void)loadView{
-    
-    self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
-    self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
-    self.tabView.backgroundColor = kClearColor;
-    self.tabView.estimatedRowHeight = 0;
-    self.tabView.estimatedSectionFooterHeight = 0;
-    self.tabView.estimatedSectionHeaderHeight = 0;
-    [self.view addSubview:self.tabView];
-    self.tabView.tableFooterView = [UIView new];
-    self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
-    
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我的积分";
-    
-    [self.tabView registerClass:[HHMywalletCell class] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
-    self.tabView.tableHeaderView = wallet_head;
-    self.tabView.emptyDataSetSource = self;
-    self.tabView.emptyDataSetDelegate = self;
+    self.title = @"积分排行榜";
+    [self.tableView registerNib:[UINib nibWithNibName:@"HHIntegralRankCell" bundle:nil] forCellReuseIdentifier:@"HHIntegralRankCell"];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
 }
+
 #pragma mark - DZNEmptyDataSetDelegate
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
@@ -76,13 +53,14 @@
     return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
 }
 - (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
+    
     return 20;
 }
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -93,13 +71,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
+    HHIntegralRankCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHIntegralRankCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row<3) {
+        cell.rank_label.hidden = YES;
+        cell.rank_button.hidden = NO;
+        [cell.rank_button setTitle:[NSString stringWithFormat:@"%ld",indexPath.row+1] forState:UIControlStateNormal];
+    }else{
+        cell.rank_label.hidden = NO;
+        cell.rank_button.hidden = YES;
+        cell.rank_label.text = [NSString stringWithFormat:@"%ld",indexPath.row+1];
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 60;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
@@ -107,12 +94,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 5;
+    return 0.01;
 }
-- (void)rank_buttonAction{
-    
-    HHIntegralRankVC *vc = [HHIntegralRankVC new];
-    [self.navigationController pushVC:vc];
-    
-}
+
 @end

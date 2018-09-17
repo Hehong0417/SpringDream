@@ -21,7 +21,8 @@
     hud.detailsLabelText = text;
     hud.detailsLabelFont = FONT(14);
     hud.detailsLabelColor = kWhiteColor;
-    hud.color = KA0LabelColor;
+    hud.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    hud.backgroundView.alpha = 0.5;
     [hud show:true];
     [hud hide:true afterDelay:1.5];
 }

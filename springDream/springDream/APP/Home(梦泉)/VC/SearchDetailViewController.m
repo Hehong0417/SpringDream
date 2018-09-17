@@ -236,9 +236,9 @@ SKTagViewDelegate,SearchTagHeadViewDelegate>
 - (void)textFieldEditingChangedForSearchDetailView:(SearchDetailView *)searchView {
     NSLog(@"搜索内容：：：：：：：%@",searchView.textField.text);
     self.searchTagTableView.hidden  = YES;
+    searchView.textField.placeholder = self.historyTags.count>0?self.historyTags[0]:@"";
+
 }
-
-
 #pragma mark - UITableViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

@@ -53,9 +53,9 @@
 #define API_SUB_URL4(_url) [NSString stringWithFormat:@"%@/%@", API_HOST4, _url]
 
 typedef enum : NSUInteger {
-    HHenter_home_Type,
-    HHenter_category_Type,
     HHenter_itself_Type,
+    HHenter_home_Type,
+    HHenter_category_Type
 } HHenter_Type;
 
 

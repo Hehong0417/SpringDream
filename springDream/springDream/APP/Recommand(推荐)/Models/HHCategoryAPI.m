@@ -28,7 +28,7 @@
 //        [api.parameters setObject:type forKey:@"type"];
 //    }
     if (categoryId) {
-        [api.parameters setObject:categoryId forKey:@"categoryId"];
+        [api.parameters setObject:categoryId forKey:@"groupId"];
     }
     if (name) {
         [api.parameters setObject:name forKey:@"name"];

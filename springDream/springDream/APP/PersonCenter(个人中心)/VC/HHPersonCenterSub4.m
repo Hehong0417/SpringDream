@@ -11,7 +11,7 @@
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
-
+#import "HHMyServiceVC.h"
 
 @interface HHPersonCenterSub4 ()
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -175,6 +175,13 @@
     if (indexPath.section == 0) {
   
     }
-    
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+//            HHMyServiceVC *vc = [HHMyServiceVC new];
+//            vc.service_type = MyService_type_delegateCenter;
+//            [self.navigationController pushVC:vc];
+        }
+    }
+
 }
 @end

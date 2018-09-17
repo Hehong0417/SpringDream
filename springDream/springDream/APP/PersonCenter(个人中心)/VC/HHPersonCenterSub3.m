@@ -11,6 +11,7 @@
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
+#import "HHMyServiceVC.h"
 
 @interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete>
 
@@ -184,10 +185,12 @@
             [self.navigationController pushVC:vc];
         }
     }
-    if (indexPath.section == 0) {
+    if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             //我的服务
-            
+//            HHMyServiceVC *vc = [HHMyServiceVC new];
+//            vc.service_type = MyService_type_storesManager;
+//            [self.navigationController pushVC:vc];
         }
     }
 }

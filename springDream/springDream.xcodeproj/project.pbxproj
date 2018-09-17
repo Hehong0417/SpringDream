@@ -20,6 +20,12 @@
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
 		CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */; };
 		CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */; };
+		CE3B0461214F964000FC0AE2 /* HHIntegralRankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */; };
+		CE3B046B214FA58B00FC0AE2 /* HHIntegralRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */; };
+		CE3B046C214FA58B00FC0AE2 /* HHIntegralRankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */; };
+		CE3B046F214FAEA900FC0AE2 /* HHMyServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */; };
+		CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */; };
+		CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */; };
 		CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */; };
 		CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */; };
 		CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AE212D0140002BD2A5 /* HHActivityModel.m */; };
@@ -437,6 +443,17 @@
 		CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailItem.m; sourceTree = "<group>"; };
 		CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailFoot.h; sourceTree = "<group>"; };
 		CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailFoot.m; sourceTree = "<group>"; };
+		CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHIntegralRankVC.h; sourceTree = "<group>"; };
+		CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHIntegralRankVC.m; sourceTree = "<group>"; };
+		CE3B0468214FA58B00FC0AE2 /* HHIntegralRankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHIntegralRankCell.h; sourceTree = "<group>"; };
+		CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHIntegralRankCell.m; sourceTree = "<group>"; };
+		CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHIntegralRankCell.xib; sourceTree = "<group>"; };
+		CE3B046D214FAEA900FC0AE2 /* HHMyServiceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyServiceVC.h; sourceTree = "<group>"; };
+		CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyServiceVC.m; sourceTree = "<group>"; };
+		CE3B0470214FC3F000FC0AE2 /* HHMyServiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyServiceCell.h; sourceTree = "<group>"; };
+		CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyServiceCell.m; sourceTree = "<group>"; };
+		CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSendIntegralVC.h; sourceTree = "<group>"; };
+		CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSendIntegralVC.m; sourceTree = "<group>"; };
 		CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LH.h"; sourceTree = "<group>"; };
 		CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+LH.m"; sourceTree = "<group>"; };
 		CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHOrderDetailCell3.h; sourceTree = "<group>"; };
@@ -1899,6 +1916,13 @@
 				CE99385C213649FC002B256D /* HHMyIntegralVC.m */,
 				CE99385E21364E1B002B256D /* HHMyIntegralHead.h */,
 				CE99385F21364E1B002B256D /* HHMyIntegralHead.m */,
+				CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */,
+				CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */,
+				CE3B0468214FA58B00FC0AE2 /* HHIntegralRankCell.h */,
+				CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */,
+				CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */,
+				CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */,
+				CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */,
 				CE99386121364FB8002B256D /* HHmyEarningsVC.h */,
 				CE99386221364FB8002B256D /* HHmyEarningsVC.m */,
 				CE99386421364FFD002B256D /* HHmyEarningsHead.h */,
@@ -1911,6 +1935,10 @@
 				CE99386E21369B25002B256D /* HHSignListVC.m */,
 				CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */,
 				CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */,
+				CE3B046D214FAEA900FC0AE2 /* HHMyServiceVC.h */,
+				CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */,
+				CE3B0470214FC3F000FC0AE2 /* HHMyServiceCell.h */,
+				CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2883,6 +2911,7 @@
 				CE4FFDC52148EEAF00767DF1 /* README.md in Resources */,
 				CE4FFDBA2148EEAF00767DF1 /* LICENSE in Resources */,
 				CE4FFE302148F4E800767DF1 /* 5.jpg in Resources */,
+				CE3B046C214FA58B00FC0AE2 /* HHIntegralRankCell.xib in Resources */,
 				CE4FFE352148F4E800767DF1 /* 1.jpg in Resources */,
 				CE4D0A3A212423F200796FEE /* Address.plist in Resources */,
 				CE4FFE362148F4E800767DF1 /* 0.jpg in Resources */,
@@ -3084,6 +3113,7 @@
 				CE5DBEAA213E55EA00F17FCB /* HHLogisticsCell1.m in Sources */,
 				CE8A66AD212ABAB100C7C57F /* HHSaleGroupWebVC.m in Sources */,
 				CE472649212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m in Sources */,
+				CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */,
 				CE8A654E212AAC6800C7C57F /* HHtEditCarItem.m in Sources */,
 				CE8A654D212AAC6800C7C57F /* HHCouponItem.m in Sources */,
 				CE4D0A06212423F200796FEE /* UIView+Create.m in Sources */,
@@ -3146,6 +3176,7 @@
 				CE8A66A8212ABAB100C7C57F /* HHSendGiftWebVC.m in Sources */,
 				CE47263A212D1ECE002BD2A5 /* DCFeatureTitleItem.m in Sources */,
 				CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */,
+				CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */,
 				CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */,
 				CE4D0A1D212423F200796FEE /* UncaughtExceptionHandler.m in Sources */,
 				CE52641C212BBD5B00F30D29 /* HHPayTypeVC.m in Sources */,
@@ -3176,6 +3207,7 @@
 				CE4FFDC22148EEAF00767DF1 /* MLExpressionManager.m in Sources */,
 				CE4D0A2D212423F200796FEE /* HJLogFormatter.m in Sources */,
 				CE4D09F0212423F200796FEE /* UIImage+cutImage.m in Sources */,
+				CE3B046F214FAEA900FC0AE2 /* HHMyServiceVC.m in Sources */,
 				CE5264CF212BBFE600F30D29 /* XWFilterAnimator+XWPageCurl.m in Sources */,
 				CE4D09F4212423F200796FEE /* NSNull+Exception.m in Sources */,
 				CE4FFDBC2148EEAF00767DF1 /* NSString+MLLabel.m in Sources */,
@@ -3226,6 +3258,7 @@
 				CE4FFD942148EC7200767DF1 /* SDTimeLineRefreshFooter.m in Sources */,
 				CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */,
 				CE47263E212D1ECE002BD2A5 /* PPNumberButton.m in Sources */,
+				CE3B0461214F964000FC0AE2 /* HHIntegralRankVC.m in Sources */,
 				CE4D0A11212423F200796FEE /* UIView+LongPressDelete.m in Sources */,
 				CE045011214A59EF00093AE7 /* HHPersonCenterSub2.m in Sources */,
 				CE8A67D3212ACA2E00C7C57F /* HHEvaluateListHead.m in Sources */,
@@ -3290,6 +3323,7 @@
 				CE8A66A9212ABAB100C7C57F /* HHFamiliarityPayVC.m in Sources */,
 				CE8A654A212AAC6800C7C57F /* HHHomeModel.m in Sources */,
 				CE4D0A3B212423F200796FEE /* HXTabControl.m in Sources */,
+				CE3B046B214FA58B00FC0AE2 /* HHIntegralRankCell.m in Sources */,
 				CE8A67DA212ACA2E00C7C57F /* HHOrderDetailTableHead.m in Sources */,
 				CE5264EB212C143F00F30D29 /* HHNotWlanView.m in Sources */,
 				CE4725CB212D0BD2002BD2A5 /* HHMyCollectionVC.m in Sources */,
