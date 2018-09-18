@@ -81,10 +81,12 @@
     NSArray *selectedImageArr = @[@"",@"",@"pArrow_top"];
     
     if (self.title_arr.count < 5) {
-        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 45, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
+        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 46, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
     }else{
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeScroll nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
     }
+    UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(0, 90, ScreenW, 1) backColor:KVCBackGroundColor];
+    [self.view addSubview:v_line];
     [self.SG setPriceTop:@"pArrow_top" price_down:@"pArrow_down"];
     self.SG.titleColorStateNormal = kBlackColor;
     self.SG.titleColorStateSelected = APP_COMMON_COLOR;
@@ -104,7 +106,7 @@
         if (!error) {
             if (api.State == 1) {
                 
-                if (self.isFooterRefresh) {
+                if (self.isFooterRefresh==YES) {
                     [self loadDataFinish:api.Data];
                 }else{
                     [self addFootRefresh];
@@ -154,7 +156,7 @@
                 self.category_SG.title_fondOfSize  = FONT(13);
                 self.category_SG.indicatorColor = APP_COMMON_COLOR;
                 [self.view addSubview:self.category_SG];
-                UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(45, 0, ScreenW, 1) backColor:KVCBackGroundColor];
+                UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(0, 45, ScreenW, 1) backColor:KVCBackGroundColor];
                 [self.view addSubview:v_line];
                 
             }else{
@@ -281,9 +283,9 @@
 //        }else{
 //
 //        }
-    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
-    backBtn.highlighted = NO;
-    [searchView addSubview:backBtn];
+//    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
+//    backBtn.highlighted = NO;
+//    [searchView addSubview:backBtn];
     [self.navigationController.navigationBar addSubview:searchView];
 }
 - (void)backAction{
@@ -323,7 +325,7 @@
     //
     HHGoodListVC *vc = [HHGoodListVC new];
     vc.name = title;
-    vc.enter_Type = HHenter_itself_Type;
+    vc.enter_Type = HHenter_category_Type;
     [self.navigationController pushVC:vc];
 }
 - (void)dismissButtonWasPressedForSearchDetailView:(id)searchView{

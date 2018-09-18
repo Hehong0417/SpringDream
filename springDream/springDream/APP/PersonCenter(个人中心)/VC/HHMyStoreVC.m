@@ -6,18 +6,17 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHMyIntegralVC.h"
-#import "HHMywalletCell.h"
-#import "HHMyIntegralHead.h"
-#import "HHIntegralRankVC.h"
+#import "HHMyStoreVC.h"
+#import "HHMystoreCell.h"
+#import "HHMyWalletHead.h"
 
-@interface HHMyIntegralVC ()<DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
+@interface HHMyStoreVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UITableView *tabView;
 
 @end
 
-@implementation HHMyIntegralVC
+@implementation HHMyStoreVC
 
 - (void)loadView{
     
@@ -31,21 +30,19 @@
     self.tabView.tableFooterView = [UIView new];
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
-    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
-    
+    self.tabView.emptyDataSetDelegate = self;
+    self.tabView.emptyDataSetSource = self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我的积分";
+    self.title = @"我的门店";
     
-    [self.tabView registerClass:[HHMywalletCell class] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
-    self.tabView.tableHeaderView = wallet_head;
-    self.tabView.emptyDataSetSource = self;
-    self.tabView.emptyDataSetDelegate = self;
+    [self.tabView registerClass:[HHMystoreCell class] forCellReuseIdentifier:@"HHMystoreCell"];
+    
+    UILabel *head_label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW, 60) text:@"门店收益明细" textColor:kDarkGrayColor font:BoldFONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:RGB(255, 239, 239)];
+    self.tabView.tableHeaderView = head_label;
+    
 }
 #pragma mark - DZNEmptyDataSetDelegate
 
@@ -93,8 +90,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
+    HHMystoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMystoreCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -108,11 +106,5 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 5;
-}
-- (void)rank_buttonAction{
-    
-    HHIntegralRankVC *vc = [HHIntegralRankVC new];
-    [self.navigationController pushVC:vc];
-    
 }
 @end

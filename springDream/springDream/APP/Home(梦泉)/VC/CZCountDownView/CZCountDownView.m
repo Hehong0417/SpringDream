@@ -9,7 +9,7 @@
 #import "CZCountDownView.h"
 // label数量
 #define labelCount 4
-#define separateLabelCount 3
+#define separateLabelCount 4
 #define padding 5
 @interface CZCountDownView (){
     // 定时器
@@ -48,12 +48,13 @@
         [self addSubview:self.hourLabel];
         [self addSubview:self.minuesLabel];
         [self addSubview:self.secondsLabel];
-        
+        NSArray *titles_name = @[@"天",@"时",@"分",@"秒"];
         for (NSInteger index = 0; index < separateLabelCount; index ++) {
             UILabel *separateLabel = [[UILabel alloc] init];
-            separateLabel.text = @":";
+            separateLabel.text = titles_name[index];
             separateLabel.textAlignment = NSTextAlignmentCenter;
-            separateLabel.textColor = [UIColor whiteColor];
+            separateLabel.font = FONT(10);
+            separateLabel.textColor = RGB(250, 152, 27);
             [self addSubview:separateLabel];
             [self.separateLabelArrM addObject:separateLabel];
         }
@@ -102,28 +103,34 @@
     NSInteger second = (ms - day * dd - hour * hh - minute * mi) / ss;// 秒
 //    NSLog(@"%zd日:%zd时:%zd分:%zd秒",day,hour,minute,second);
     
-    self.dayLabel.text = [NSString stringWithFormat:@"%zd天",day];
-    self.hourLabel.text = [NSString stringWithFormat:@"%zd时",hour];
-    self.minuesLabel.text = [NSString stringWithFormat:@"%zd分",minute];
-    self.secondsLabel.text = [NSString stringWithFormat:@"%zd秒",second];
+    self.dayLabel.text = [NSString stringWithFormat:@"%zd",day];
+    self.hourLabel.text = [NSString stringWithFormat:@"%zd",hour];
+    self.minuesLabel.text = [NSString stringWithFormat:@"%zd",minute];
+    self.secondsLabel.text = [NSString stringWithFormat:@"%zd",second];
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
     // 获得view的宽、高
-    CGFloat viewW = self.frame.size.width;
-    CGFloat viewH = self.frame.size.height;
+//    CGFloat viewW = self.frame.size.width;
+//    CGFloat viewH = self.frame.size.height;
     // 单个label的宽高
-    CGFloat labelW = viewW / labelCount;
-    CGFloat labelH = viewH;
+//    CGFloat labelW = viewW / labelCount;
+    CGFloat labelW = WidthScaleSize_H(17);
+    CGFloat labelH = WidthScaleSize_H(17);
     self.dayLabel.frame = CGRectMake(0, 0, labelW, labelH);
-    self.hourLabel.frame = CGRectMake(labelW, 0, labelW, labelH);
-    self.minuesLabel.frame = CGRectMake(2 * labelW , 0, labelW, labelH);
-    self.secondsLabel.frame = CGRectMake(3 * labelW, 0, labelW, labelH);
+    self.hourLabel.frame = CGRectMake(labelW+20, 0, labelW, labelH);
+    self.minuesLabel.frame = CGRectMake(2 *(labelW+20) , 0, labelW, labelH);
+    self.secondsLabel.frame = CGRectMake(3 * (labelW+20), 0, labelW, labelH);
     
+    [self.dayLabel lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
+    [self.hourLabel lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
+    [self.minuesLabel lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
+    [self.secondsLabel lh_setCornerRadius:4 borderWidth:0 borderColor:nil];
+
     for (NSInteger index = 0; index < self.separateLabelArrM.count ; index ++) {
         UILabel *separateLabel = self.separateLabelArrM[index];
-        separateLabel.frame = CGRectMake((labelW - 1) * (index + 1), 0, 5, labelH);
+        separateLabel.frame = CGRectMake(labelW * (index + 1)+index*20, 0, 20, labelH);
     }
 }
 
@@ -148,7 +155,9 @@
     if (_dayLabel == nil) {
         _dayLabel = [[UILabel alloc] init];
         _dayLabel.textAlignment = NSTextAlignmentCenter;
-        _dayLabel.textColor = [UIColor whiteColor];
+        _dayLabel.textColor = RGB(250, 152, 27);
+        _dayLabel.backgroundColor = [UIColor whiteColor];
+        _dayLabel.font = FONT(13);
     }
     return _dayLabel;
 }
@@ -157,7 +166,10 @@
     if (_hourLabel == nil) {
         _hourLabel = [[UILabel alloc] init];
         _hourLabel.textAlignment = NSTextAlignmentCenter;
-        _hourLabel.textColor = [UIColor whiteColor];
+        _hourLabel.textColor = RGB(250, 152, 27);
+        _hourLabel.backgroundColor = [UIColor whiteColor];
+        _hourLabel.font = FONT(13);
+
     }
     return _hourLabel;
 }
@@ -166,7 +178,10 @@
     if (_minuesLabel == nil) {
         _minuesLabel = [[UILabel alloc] init];
         _minuesLabel.textAlignment = NSTextAlignmentCenter;
-        _minuesLabel.textColor = [UIColor whiteColor];
+        _minuesLabel.textColor = RGB(250, 152, 27);
+        _minuesLabel.backgroundColor = [UIColor whiteColor];
+        _minuesLabel.font = FONT(13);
+
     }
     return _minuesLabel;
 }
@@ -175,7 +190,10 @@
     if (_secondsLabel == nil) {
         _secondsLabel = [[UILabel alloc] init];
         _secondsLabel.textAlignment = NSTextAlignmentCenter;
-        _secondsLabel.textColor = [UIColor whiteColor];
+        _secondsLabel.textColor = RGB(250, 152, 27);
+        _secondsLabel.backgroundColor = [UIColor whiteColor];
+        _secondsLabel.font = FONT(13);
+
     }
     return _secondsLabel;
 }

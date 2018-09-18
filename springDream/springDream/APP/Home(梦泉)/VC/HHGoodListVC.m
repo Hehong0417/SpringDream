@@ -42,7 +42,7 @@
     
     UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
     
     //商品列表
     self.page = 1;
@@ -116,7 +116,7 @@
             
             if (api.State == 1) {
 
-                if (self.isFooterRefresh) {
+                if (self.isFooterRefresh==YES) {
                     [self loadDataFinish:api.Data];
                 }else{
                    [self addFootRefresh];
@@ -239,17 +239,27 @@
     searchView.searchTitle_label.text = self.name;
     searchView.userInteractionEnabled = YES;
    
-    if (self.enter_Type == HHenter_category_Type ||self.enter_Type == HHenter_home_Type ) {
-
-        [self searchButtonWasPressedForSearchView:searchView];
-
-    }else{
-
-    }
     UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
     backBtn.highlighted = NO;
     [searchView addSubview:backBtn];
-    [self.navigationController.navigationBar addSubview:searchView];
+    
+    if (self.enter_Type == HHenter_category_Type){
+        
+        [self.navigationController.navigationBar addSubview:searchView];
+
+    }else if(self.enter_Type == HHenter_home_Type){
+        
+        [self searchButtonWasPressedForSearchView:searchView];
+        
+        [self.navigationController.navigationBar addSubview:searchView];
+
+
+    }else{
+        UIView *left_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, 20, 20) backColor:kClearColor];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_view];
+        searchView.hidden = YES;
+    }
+
 }
 - (void)backAction{
 
@@ -299,7 +309,6 @@
     self.isFooterRefresh = NO;
     [self.task cancel];
     
-    [self.datas removeAllObjects];
     self.page = 1;
 
     if (index == 0){

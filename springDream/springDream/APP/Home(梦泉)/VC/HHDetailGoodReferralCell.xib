@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,17 +29,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 0.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-4y-EUE">
-                        <rect key="frame" x="25" y="45" width="79" height="21"/>
+                        <rect key="frame" x="25" y="45" width="79" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="S8l-Nc-GDH"/>
-                            <constraint firstAttribute="height" constant="21" id="xbT-rI-22T"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="xbT-rI-22T"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                         <color key="textColor" red="0.67450980392156867" green="0.0039215686274509803" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="销量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18l-sC-jOx">
-                        <rect key="frame" x="140" y="73" width="110" height="23"/>
+                        <rect key="frame" x="140" y="76" width="110" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="ZAP-gV-gfB"/>
                             <constraint firstAttribute="width" constant="110" id="tdd-F8-1oz"/>
@@ -50,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运费：(包邮)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXp-SM-Dnm">
-                        <rect key="frame" x="258" y="73" width="92" height="23"/>
+                        <rect key="frame" x="258" y="76" width="92" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="92" id="dUF-Jx-9fa"/>
                             <constraint firstAttribute="height" constant="23" id="ycH-YD-QUO"/>
@@ -60,17 +59,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ir-bN-FD1">
-                        <rect key="frame" x="105" y="46.5" width="92" height="18"/>
+                        <rect key="frame" x="105" y="48" width="92" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="92" id="OuH-cP-Iqe"/>
-                            <constraint firstAttribute="height" constant="18" id="RBR-xO-Uu4"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="RBR-xO-Uu4"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="库存" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhk-re-aNd">
-                        <rect key="frame" x="25" y="73" width="110" height="23"/>
+                        <rect key="frame" x="25" y="76" width="110" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="Yef-E1-TGi"/>
                             <constraint firstAttribute="width" constant="110" id="p4H-x5-OW7"/>

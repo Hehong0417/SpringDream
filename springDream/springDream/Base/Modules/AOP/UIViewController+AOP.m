@@ -9,9 +9,7 @@
 #import "UIViewController+AOP.h"
 #import <Aspects/Aspects.h>
 
-
 @implementation UIViewController (AOP)
-
 /**
  *  AOP返回按钮
  *
@@ -42,9 +40,9 @@
             ![controller isKindOfClass:NSClassFromString(@"HHPersonCenterSuperVC")]&&
             ![controller isKindOfClass:NSClassFromString(@"HHShoppingVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HHHomeVC")] &&
-            ![controller isKindOfClass:NSClassFromString(@"HHRecommandVC")] &&
-            ![controller isKindOfClass:NSClassFromString(@"HJNavigationController")] &&
             ![controller isKindOfClass:NSClassFromString(@"")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HJNavigationController")] &&
+            ![controller isKindOfClass:NSClassFromString(@"HHGoodCategoryVC")] &&
             ![controller isKindOfClass:NSClassFromString(@"HJTabBarController")]) {
          
             //Log 视图加载

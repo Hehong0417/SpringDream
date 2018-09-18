@@ -45,6 +45,8 @@
     [commit_button setBackgroundColor:APP_COMMON_COLOR];
     [self.view addSubview:commit_button];
     
+    [commit_button lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+    
 }
 - (void)commitSendAction:(UIButton *)button{
     

@@ -20,6 +20,9 @@
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
 		CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */; };
 		CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */; };
+		CE390E2D2150F7F40016BD12 /* HHMyStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */; };
+		CE390E302150FD900016BD12 /* HHMystoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE390E2F2150FD900016BD12 /* HHMystoreCell.m */; };
+		CE390E33215103960016BD12 /* HHSeckillCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE390E32215103960016BD12 /* HHSeckillCustomView.m */; };
 		CE3B0461214F964000FC0AE2 /* HHIntegralRankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */; };
 		CE3B046B214FA58B00FC0AE2 /* HHIntegralRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */; };
 		CE3B046C214FA58B00FC0AE2 /* HHIntegralRankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */; };
@@ -443,6 +446,12 @@
 		CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailItem.m; sourceTree = "<group>"; };
 		CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailFoot.h; sourceTree = "<group>"; };
 		CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailFoot.m; sourceTree = "<group>"; };
+		CE390E2B2150F7F40016BD12 /* HHMyStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyStoreVC.h; sourceTree = "<group>"; };
+		CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyStoreVC.m; sourceTree = "<group>"; };
+		CE390E2E2150FD900016BD12 /* HHMystoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMystoreCell.h; sourceTree = "<group>"; };
+		CE390E2F2150FD900016BD12 /* HHMystoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMystoreCell.m; sourceTree = "<group>"; };
+		CE390E31215103960016BD12 /* HHSeckillCustomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSeckillCustomView.h; sourceTree = "<group>"; };
+		CE390E32215103960016BD12 /* HHSeckillCustomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSeckillCustomView.m; sourceTree = "<group>"; };
 		CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHIntegralRankVC.h; sourceTree = "<group>"; };
 		CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHIntegralRankVC.m; sourceTree = "<group>"; };
 		CE3B0468214FA58B00FC0AE2 /* HHIntegralRankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHIntegralRankCell.h; sourceTree = "<group>"; };
@@ -1939,6 +1948,10 @@
 				CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */,
 				CE3B0470214FC3F000FC0AE2 /* HHMyServiceCell.h */,
 				CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */,
+				CE390E2B2150F7F40016BD12 /* HHMyStoreVC.h */,
+				CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */,
+				CE390E2E2150FD900016BD12 /* HHMystoreCell.h */,
+				CE390E2F2150FD900016BD12 /* HHMystoreCell.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2107,6 +2120,8 @@
 				CE5264E7212C0F0A00F30D29 /* HHGoodDetailVC.m */,
 				CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */,
 				CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */,
+				CE390E31215103960016BD12 /* HHSeckillCustomView.h */,
+				CE390E32215103960016BD12 /* HHSeckillCustomView.m */,
 				CE5264F0212C1A1800F30D29 /* HHDetailGoodReferralCell.h */,
 				CE5264F1212C1A1800F30D29 /* HHDetailGoodReferralCell.m */,
 				CE5264F2212C1A1900F30D29 /* HHDetailGoodReferralCell.xib */,
@@ -3127,6 +3142,7 @@
 				CE99386021364E1B002B256D /* HHMyIntegralHead.m in Sources */,
 				CE4D0A07212423F200796FEE /* UIImage+Extension.m in Sources */,
 				CE8A67D2212ACA2E00C7C57F /* HHPostEvaluateFooter.m in Sources */,
+				CE390E2D2150F7F40016BD12 /* HHMyStoreVC.m in Sources */,
 				CE8A67CF212ACA2E00C7C57F /* CollectionViewCell.m in Sources */,
 				CE472638212D1ECE002BD2A5 /* DCFeatureItem.m in Sources */,
 				CE8A66AB212ABAB100C7C57F /* HHBargainingWebVC.m in Sources */,
@@ -3146,6 +3162,7 @@
 				CE8A6554212AAC9100C7C57F /* HHMineModel.m in Sources */,
 				CE4D09E7212423F200796FEE /* UIView+LH.m in Sources */,
 				CE4D0A25212423F200796FEE /* DES3Util.m in Sources */,
+				CE390E33215103960016BD12 /* HHSeckillCustomView.m in Sources */,
 				CE4D09EA212423F200796FEE /* UIAlertView+LH.m in Sources */,
 				CE5264CE212BBFE600F30D29 /* XWFilterAnimator+XWBarSwipe.m in Sources */,
 				CE4D09FB212423F200796FEE /* NSNumber+LH.m in Sources */,
@@ -3161,6 +3178,7 @@
 				CE5264D1212BBFE600F30D29 /* XWFilterAnimator+XWRipple.m in Sources */,
 				CE4FFDC42148EEAF00767DF1 /* MLLabelLayoutManager.m in Sources */,
 				CE99385A2136439A002B256D /* HHMyWalletHead.m in Sources */,
+				CE390E302150FD900016BD12 /* HHMystoreCell.m in Sources */,
 				CE5264D2212BBFE600F30D29 /* XWFilterAnimator+XWFlash.m in Sources */,
 				CE4D0A2B212423F200796FEE /* HJGroupItem.m in Sources */,
 				CE4D0A24212423F200796FEE /* GTMBase64.m in Sources */,
@@ -3516,8 +3534,9 @@
 			baseConfigurationReference = 673EA96008E519DB35883BC1 /* Pods-springDream.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F972623DL2;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3529,8 +3548,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b030539a-9c2a-4c81-a330-e74d7a76c15d";
+				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDevPP;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3540,8 +3561,9 @@
 			baseConfigurationReference = 696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F972623DL2;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3553,8 +3575,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/springDream/WechatSDK1.8.2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b030539a-9c2a-4c81-a330-e74d7a76c15d";
+				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDevPP;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

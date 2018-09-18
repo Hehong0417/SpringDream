@@ -28,6 +28,7 @@
 #import "HHdiscountPackageViewTabCell.h"
 //#import "HHdiscountPackageVC.h"
 #import "HHGoodDetailFoot.h"
+#import "HHSeckillCustomView.h"
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 
@@ -649,7 +650,15 @@ static NSArray *lastSele_IdArray_;
 //    [_tableHeader addSubview:self.countTimeView];
 //    bg_view.centerX = self.countTimeView.centerX;
 //    [_tableHeader addSubview:self.cycleScrollView];
-    self.tabView.tableHeaderView = self.cycleScrollView;
+    
+    UIView *head_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
+    [head_view addSubview:self.cycleScrollView];
+    
+    HHSeckillCustomView *seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
+    [head_view addSubview:seckill_view];
+
+    self.tabView.tableHeaderView = head_view;
+    
 }
 #pragma mark - 懒加载
 

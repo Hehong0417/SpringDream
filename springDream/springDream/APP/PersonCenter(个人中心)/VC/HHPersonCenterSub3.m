@@ -12,8 +12,10 @@
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
 #import "HHMyServiceVC.h"
+#import "HHDistributeServiceCell_one.h"
+#import "HHMyStoreVC.h"
 
-@interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete>
+@interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
@@ -137,6 +139,13 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
+        }else if (indexPath.row == 1) {
+            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate= self;
+            cell.btn_image_arr = @[@"service_01",@"",@"",@""];
+            cell.btn_title_arr = @[@"门店地址",@"",@"",@""];
+            grideCell = cell;
         }
     }
     return grideCell;
@@ -201,4 +210,13 @@
     NSLog(@"buttonIndex:%ld",buttonIndex);
     
 }
+#pragma mark - HHDistributeServiceCell_one_delagete
+
+- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
+    
+    HHMyStoreVC *vc = [HHMyStoreVC new];
+    [self.navigationController pushVC:vc];
+}
+
+
 @end
