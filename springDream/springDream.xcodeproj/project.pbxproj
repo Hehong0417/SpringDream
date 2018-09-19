@@ -29,6 +29,7 @@
 		CE3B046F214FAEA900FC0AE2 /* HHMyServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */; };
 		CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */; };
 		CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */; };
+		CE4081232151F4A300436B42 /* HHSpellGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4081222151F4A300436B42 /* HHSpellGroupCell.m */; };
 		CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */; };
 		CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */; };
 		CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AE212D0140002BD2A5 /* HHActivityModel.m */; };
@@ -463,6 +464,8 @@
 		CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyServiceCell.m; sourceTree = "<group>"; };
 		CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSendIntegralVC.h; sourceTree = "<group>"; };
 		CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSendIntegralVC.m; sourceTree = "<group>"; };
+		CE4081212151F4A300436B42 /* HHSpellGroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSpellGroupCell.h; sourceTree = "<group>"; };
+		CE4081222151F4A300436B42 /* HHSpellGroupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSpellGroupCell.m; sourceTree = "<group>"; };
 		CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LH.h"; sourceTree = "<group>"; };
 		CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+LH.m"; sourceTree = "<group>"; };
 		CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHOrderDetailCell3.h; sourceTree = "<group>"; };
@@ -2131,6 +2134,8 @@
 				CE5264EA212C143F00F30D29 /* HHNotWlanView.m */,
 				CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */,
 				CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */,
+				CE4081212151F4A300436B42 /* HHSpellGroupCell.h */,
+				CE4081222151F4A300436B42 /* HHSpellGroupCell.m */,
 				CEDBA25C212D70C200CB8002 /* recommandCollecton */,
 				CE472640212D317F002BD2A5 /* Const(常量) */,
 				CE47261F212D1ECE002BD2A5 /* CollectionView */,
@@ -3248,6 +3253,7 @@
 				CE4FFDBF2148EEAF00767DF1 /* NSAttributedString+MLExpression.m in Sources */,
 				CE8A6527212AAB7A00C7C57F /* SearchTagHeadView.m in Sources */,
 				CE8A651D212AAB7A00C7C57F /* SKTag.m in Sources */,
+				CE4081232151F4A300436B42 /* HHSpellGroupCell.m in Sources */,
 				CE8A67D9212ACA2E00C7C57F /* HJOrderCell.m in Sources */,
 				CE4725C5212D0B18002BD2A5 /* HHCouponSuperVC.m in Sources */,
 				CE5264D9212BBFE600F30D29 /* XWCoolAnimator+XWScanning.m in Sources */,

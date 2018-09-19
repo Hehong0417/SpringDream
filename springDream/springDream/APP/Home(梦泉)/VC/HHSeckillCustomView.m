@@ -19,8 +19,7 @@
         self.price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"¥200.00" textColor:kWhiteColor font:SemiboldFONT(20) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         [self addSubview:self.price_label];
         
-        
-        self.pre_price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"¥400.00" textColor:kWhiteColor font:FONT(11) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        self.pre_price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"原价:¥400.00" textColor:kWhiteColor font:FONT(11) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         [self addSubview:self.pre_price_label];
         
         self.activity_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:nil backgroundColor:kClearColor];

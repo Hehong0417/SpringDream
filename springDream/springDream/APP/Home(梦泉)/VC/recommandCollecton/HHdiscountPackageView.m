@@ -47,7 +47,7 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return self.guess_you_like_arr.count;
+    return self.Packages.count;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -56,9 +56,11 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     HHdiscountPackageCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HHdiscountPackageCollectionCell" forIndexPath:indexPath];
-    HHGuess_you_likeModel *model = [HHGuess_you_likeModel mj_objectWithKeyValues:self.guess_you_like_arr[indexPath.row]];
+    HHPackagesModel *model = self.Packages[indexPath.row];
     cell.backgroundColor = kWhiteColor;
-    cell.guess_you_likeModel = model;
+    cell.PackagesProducts_models = model.Products;
+    cell.priceLabel.text =  model.FinalPrice;
+//  cell.p_nameLabel.text = ;
     return cell;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

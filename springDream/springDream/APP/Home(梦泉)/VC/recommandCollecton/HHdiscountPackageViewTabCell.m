@@ -27,7 +27,7 @@
         _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
         [self.contentView addSubview:_titleView];
         
-        _titleLabel = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 200, 40) text:@"为您推荐" textColor:RGB(51, 51, 51) font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        _titleLabel = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 200, 40) text:@"优惠套餐" textColor:RGB(51, 51, 51) font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         _titleLabel.textColor = RGB(51, 51, 51);
         [_titleView addSubview:_titleLabel];
 
@@ -44,17 +44,16 @@
     
     return self;
 }
-- (void)setGuess_you_like_arr:(NSArray *)guess_you_like_arr{
+- (void)setPackages:(NSArray<HHPackagesModel *> *)Packages{
+    _Packages = Packages;
     
-     _guess_you_like_arr = guess_you_like_arr;
-    
-     BOOL  hidden = guess_you_like_arr.count>0?NO:YES;
+    BOOL  hidden = Packages.count>0?NO:YES;
     _titleView.hidden = hidden;
     _discount_view.hidden = hidden;
-    _discount_view.guess_you_like_arr = guess_you_like_arr;
-    
+    _discount_view.Packages = Packages;
     [_discount_view.collectionView reloadData];
 }
+
 
 - (void)setIndexPath:(NSIndexPath *)indexPath{
     

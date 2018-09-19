@@ -22,6 +22,9 @@
 // 购物车图标
 @property(strong,nonatomic) UIImageView *cartImageV;
 
-@property(nonatomic,strong) HHGuess_you_likeModel *guess_you_likeModel;
+@property(strong,nonatomic) UIView *imag_bgView;
+
+@property (nonatomic, strong)   NSArray <HHPackagesProductsModel *>*PackagesProducts_models;
+
 
 @end

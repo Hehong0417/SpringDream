@@ -29,6 +29,7 @@
 //#import "HHdiscountPackageVC.h"
 #import "HHGoodDetailFoot.h"
 #import "HHSeckillCustomView.h"
+#import "HHSpellGroupCell.h"
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 
@@ -55,6 +56,7 @@
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, assign) CGFloat collectionHeight;
 
+@property (nonatomic, strong) HHSeckillCustomView *seckill_view;
 @property (nonatomic, strong) HHGoodDetailFoot *foot;
 
 @end
@@ -63,6 +65,7 @@ static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商�
 static NSString *HHFeatureSelectionViewCellID = @"HHFeatureSelectionViewCell";//商品属性
 static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";//推荐商品
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
+static NSString *HHSpellGroupCellID = @"HHSpellGroupCell";//评价
 
 //cell
 static NSString *lastNum_;
@@ -135,6 +138,8 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHFeatureSelectionViewCell class] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
     [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
+    [self.tabView registerClass:[HHSpellGroupCell class] forCellReuseIdentifier:HHSpellGroupCellID];
+
 
 }
 #pragma mark - 加入购物车、立即购买
@@ -278,7 +283,7 @@ static NSArray *lastSele_IdArray_;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -293,6 +298,12 @@ static NSArray *lastSele_IdArray_;
         return 1;
     }
     if (section == 3) {
+        return  3;
+    }
+    if (section == 4) {
+        return  1;
+    }
+    if (section == 5) {
         return self.evaluations.count>0?2:0;
     }
     return 1;
@@ -328,15 +339,46 @@ static NSArray *lastSele_IdArray_;
         gridcell = cell;
     }
     if (indexPath.section == 2) {
-        //为您推荐
+        //优惠券
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
+        [cell.contentView addSubview:h_line];
+        UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"优惠" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+        [cell.contentView addSubview:text_lab];
+        UIImageView *right_arrow = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-52, 8, 42, 42) image:[UIImage imageNamed:@"more"]];
+        right_arrow.contentMode = UIViewContentModeCenter;
+        [cell.contentView addSubview:right_arrow];
+        gridcell = cell;
+    }
+    if (indexPath.section == 3) {
+        //拼团
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
+            [cell.contentView addSubview:h_line];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"19人在拼团，可直接参与" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            [cell.contentView addSubview:text_lab];
+            gridcell = cell;
+
+        }else{
+          HHSpellGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:HHSpellGroupCellID];
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          gridcell = cell;
+        }
+    }
+    if (indexPath.section == 4) {
+        //搭配套餐
         HHdiscountPackageViewTabCell *cell = [tableView dequeueReusableCellWithIdentifier:HHdiscountPackageViewTabCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.guess_you_like_arr = self.guess_you_like_arr;
+        cell.Packages = self.gooodDetailModel.Packages;
         cell.indexPath = indexPath;
         cell.nav = self.navigationController;
         gridcell = cell;
     }
-    if (indexPath.section == 3) {
+    
+    if (indexPath.section == 5) {
         if (indexPath.row == 0) {
             //商品评价
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -379,10 +421,22 @@ static NSArray *lastSele_IdArray_;
         return   self.collectionHeight+10;
     }
     if (indexPath.section == 2) {
-       
-        return  self.guess_you_like_arr.count>0?185:0;
+        //优惠
+        return 50;
     }
     if (indexPath.section == 3) {
+        //拼团
+        if (indexPath.row == 0) {
+            return 50;
+        }
+        return 60;
+    }
+    
+    if (indexPath.section == 4) {
+       
+        return  self.gooodDetailModel.Packages.count>0?185:0;
+    }
+    if (indexPath.section == 5) {
             if (indexPath.row == 0) {
                 return 50;
             }else{
@@ -453,7 +507,7 @@ static NSArray *lastSele_IdArray_;
     [hudView addSubview:self.activityIndicator];
     [self.activityIndicator startAnimating];
     self.addCartTool.userInteractionEnabled = NO;
-    
+    WEAK_SELF();
     //商品详情
     [[[HHHomeAPI GetProductDetailWithId:self.Id] netWorkClient] getRequestInView:nil finishedBlock:^(HHHomeAPI *api, NSError *error) {
         if (!error) {
@@ -487,57 +541,36 @@ static NSArray *lastSele_IdArray_;
                 [self.activityIndicator removeFromSuperview];
                 [self tableView:self.tabView viewForHeaderInSection:1];
                 
-//                [self setUpGoodsWKWebView];
-                
-                
                 //拼团
-                HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
-                //降价团
-                HHActivityModel *CutGroupBuy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.CutGroupBuy];
-                //送礼
-                HHActivityModel *SendGift_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SendGift];
-                //砍价
-                HHActivityModel *CutPrice_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.CutPrice];
+//              HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
+
                 
-                if ([GroupBy_m.IsJoin isEqual:@1]) {
-                    
-                    [self.alert_Arr addObject:GroupBy_m];
-                }
-                if ([CutGroupBuy_m.IsJoin isEqual:@1]) {
-                    [self.alert_Arr addObject:CutGroupBuy_m];
-                }
-                if ([SendGift_m.IsJoin isEqual:@1]) {
-                    [self.alert_Arr addObject:SendGift_m];
-                }
-                if ([CutPrice_m.IsJoin isEqual:@1]) {
-                    [self.alert_Arr addObject:CutPrice_m];
-                }
+                weakSelf.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
+                [weakSelf.tableHeader addSubview:self.cycleScrollView];
                 
-//                if (self.alert_Arr.count >0) {
-//                    self.addCartTool.buyBtn.hidden = NO;
-//                    self.addCartTool.addCartBtn.mj_w = ScreenW/3;
-//                }else{
-//                    self.addCartTool.buyBtn.hidden = YES;
-//                    self.addCartTool.addCartBtn.mj_w = ScreenW/3*2;
-//                }
-//                // 秒杀
-//                HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
-//                if ([SecKill_m.IsSecKill isEqual:@1]) {
-//                    self.cycleScrollView.frame = CGRectMake(0, 50, ScreenW, 350);
-//                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, 350);
-//                    if (SecKill_m.StartSecond.integerValue>0) {
-//                        self.titleLabel.text = @"距离活动开始";
-//                        self.countDown.timestamp = SecKill_m.StartSecond.integerValue;
-//                    }else{
-//                        self.titleLabel.text = @"距离活动结束";
-//                        self.countDown.timestamp = SecKill_m.EndSecond.integerValue;
-//                    }
-//                }else{
-//                    self.cycleScrollView.frame = CGRectMake(0, 0, ScreenW, ScreenW);
-//                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, 300);
-//                }
-//                self.tabView.tableHeaderView = self.tableHeader;
-                
+                weakSelf.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
+                [weakSelf.tableHeader addSubview:weakSelf.seckill_view];
+
+                // 秒杀
+                HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
+                if ([SecKill_m.IsSecKill isEqual:@1]) {
+                    weakSelf.seckill_view.hidden = NO;
+                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.floatValue];
+                    weakSelf.seckill_view.pre_price_label.text = [NSString stringWithFormat:@"原价:¥%.2f",weakSelf.gooodDetailModel.BuyPrice.floatValue];
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
+                    if (SecKill_m.StartSecond.integerValue>0) {
+                        weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
+                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.StartSecond.integerValue;
+                    }else{
+                        weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
+                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
+                    }
+                }else{
+                    weakSelf.seckill_view.hidden = YES;
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
+                }
+                self.tabView.tableHeaderView = self.tableHeader;
+
             }else{
                 [self.activityIndicator stopAnimating];
                 
@@ -629,35 +662,14 @@ static NSArray *lastSele_IdArray_;
     self.tabView.estimatedSectionHeaderHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
     
-    //tableHeaderView
-//    _tableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 300)];
     
-//    UIView *bg_view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 350, 50)];
-//    bg_view.backgroundColor = [UIColor blackColor];
-//    self.title_label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
-//    self.title_label.textColor = kWhiteColor;
-//    self.title_label.textAlignment = NSTextAlignmentRight;
-//    self.title_label.text = @"距离活动结束";
-//    self.countDown = [CZCountDownView new];
-//    self.countDown.frame = CGRectMake(CGRectGetMaxX(_title_label.frame),0, 200, 50);
-//    self.countDown.backgroundImageName = @"";
-//    self.countDown.timerStopBlock = ^{
-//        NSLog(@"时间停止");
-//    };
-//    [bg_view addSubview:_title_label];
-//    [bg_view addSubview:self.countDown];
-//    [self.countTimeView addSubview:bg_view];
-//    [_tableHeader addSubview:self.countTimeView];
-//    bg_view.centerX = self.countTimeView.centerX;
-//    [_tableHeader addSubview:self.cycleScrollView];
-    
-    UIView *head_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
-    [head_view addSubview:self.cycleScrollView];
-    
-    HHSeckillCustomView *seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
-    [head_view addSubview:seckill_view];
+    self.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
+    [self.tableHeader addSubview:self.cycleScrollView];
 
-    self.tabView.tableHeaderView = head_view;
+    self.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
+    [self.tableHeader addSubview:self.seckill_view];
+
+    self.tabView.tableHeaderView = self.tableHeader;
     
 }
 #pragma mark - 懒加载
