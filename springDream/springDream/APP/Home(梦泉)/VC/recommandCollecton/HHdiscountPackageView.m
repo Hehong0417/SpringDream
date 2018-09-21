@@ -8,7 +8,6 @@
 
 #import "HHdiscountPackageView.h"
 #import "HHdiscountPackageCollectionCell.h"
-//#import "HHdiscountPackageFooter.h"
 
 @interface HHdiscountPackageView ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -59,8 +58,7 @@
     HHPackagesModel *model = self.Packages[indexPath.row];
     cell.backgroundColor = kWhiteColor;
     cell.PackagesProducts_models = model.Products;
-    cell.priceLabel.text =  model.FinalPrice;
-//  cell.p_nameLabel.text = ;
+    cell.priceLabel.text =  [NSString stringWithFormat:@"最多可省¥%.2f",model.BeEconomicalMoney.floatValue];
     return cell;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -69,8 +67,11 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-//    HHdiscountPackageCollectionCell *cell = (HHdiscountPackageCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-
+    HHPackagesModel *model = self.Packages[indexPath.row];
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(didSelectItemWithPackage_Id:)]) {
+        [self.delegate didSelectItemWithPackage_Id:model.PKID];
+    }
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     

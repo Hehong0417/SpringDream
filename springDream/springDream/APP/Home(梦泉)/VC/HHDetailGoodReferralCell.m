@@ -7,6 +7,7 @@
 //
 
 #import "HHDetailGoodReferralCell.h"
+#import "HHActivityModel.h"
 
 @implementation HHDetailGoodReferralCell
 
@@ -30,5 +31,16 @@
     self.package_lab.text = [NSString stringWithFormat:@"运费：%@",gooodDetailModel.StrFreightModey?gooodDetailModel.StrFreightModey:@"0"];
     self.stock_label.text = [NSString stringWithFormat:@"库存：%@件",gooodDetailModel.Stock?gooodDetailModel.Stock:@"0"];
     self.sale_count_label.text = [NSString stringWithFormat:@"销量：%@件",gooodDetailModel.SaleCounts?gooodDetailModel.SaleCounts:@"0"];
+    
+    HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:gooodDetailModel.SecKill];
+    if ([SecKill_m.IsSecKill isEqual:@1]) {
+        self.product_min_priceLabel.text = @"";
+        self.product_s_intergralLabel.text= @"";
+    }
+    HHActivityModel *Group_m = [HHActivityModel mj_objectWithKeyValues:gooodDetailModel.GroupBuy];
+    if ([Group_m.IsJoin isEqual:@1]) {
+        self.product_min_priceLabel.text = @"";
+        self.product_s_intergralLabel.text= @"";
+    }
 }
 @end

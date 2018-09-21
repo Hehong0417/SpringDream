@@ -117,7 +117,7 @@
   
     if (!_cartIconBtn) {
         
-        _cartIconBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3/2, 0, SCREEN_WIDTH/3/2, 50) target:self action:@selector(cartIconBtnAction) image:[UIImage imageNamed:@"add_cart_pdetail"] title:@"" titleColor:kWhiteColor font:FONT(15)];
+        _cartIconBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3/2, 0, SCREEN_WIDTH/3/2, 50) target:self action:@selector(cartIconBtnAction) image:[UIImage imageNamed:@"cart_detail"] title:@"" titleColor:kWhiteColor font:FONT(15)];
         [_cartIconBtn setBackgroundColor:kWhiteColor];
 
     }

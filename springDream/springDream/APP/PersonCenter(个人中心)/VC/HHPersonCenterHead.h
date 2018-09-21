@@ -56,5 +56,6 @@
  */
 @property(nonatomic,strong) UIImageView *notice_icon;
 
+@property(nonatomic,strong) UINavigationController *nav;
 
 @end

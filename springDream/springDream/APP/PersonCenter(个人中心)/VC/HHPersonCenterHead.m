@@ -7,6 +7,7 @@
 //
 
 #import "HHPersonCenterHead.h"
+#import "HHMyCodeVC.h"
 
 @implementation HHPersonCenterHead
 
@@ -141,8 +142,8 @@
  */
 - (void)sign_buttonAction:(UIButton *)sign_button{
     
-    
-    
+    HHMyCodeVC *vc = [HHMyCodeVC new];
+    [self.nav pushVC:vc];
     
 }
 @end

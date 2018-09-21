@@ -16,5 +16,10 @@
 @property(nonatomic,strong) NSString *EndSecond;
 @property(nonatomic,strong) NSNumber *IsSecKill;
 @property(nonatomic,strong) NSString *StartSecond;
+@property(nonatomic,strong) NSString *LimitCount;
+@property(nonatomic,strong) NSArray *JoinActivity;
+
+@end
+@interface HHJoinActivityModel : BaseModel
 
 @end

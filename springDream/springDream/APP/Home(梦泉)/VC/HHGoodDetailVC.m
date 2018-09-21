@@ -26,10 +26,13 @@
 // Vendors
 #import "UIViewController+XWTransition.h"
 #import "HHdiscountPackageViewTabCell.h"
-//#import "HHdiscountPackageVC.h"
 #import "HHGoodDetailFoot.h"
 #import "HHSeckillCustomView.h"
 #import "HHSpellGroupCell.h"
+#import "HHpreferentialModelCell.h"
+#import "HHpreferModel.h"
+
+
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 
@@ -55,9 +58,11 @@
 @property (nonatomic, strong) CZCountDownView *countDown;
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, assign) CGFloat collectionHeight;
-
 @property (nonatomic, strong) HHSeckillCustomView *seckill_view;
 @property (nonatomic, strong) HHGoodDetailFoot *foot;
+
+
+@property (nonatomic, strong) HHpreferModel *preferModel;
 
 @end
 
@@ -65,7 +70,9 @@ static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商�
 static NSString *HHFeatureSelectionViewCellID = @"HHFeatureSelectionViewCell";//商品属性
 static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";//推荐商品
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
-static NSString *HHSpellGroupCellID = @"HHSpellGroupCell";//评价
+static NSString *HHSpellGroupCellID = @"HHSpellGroupCell";
+static NSString *HHpreferentialModelCellID = @"HHpreferentialModelCell";
+
 
 //cell
 static NSString *lastNum_;
@@ -88,6 +95,10 @@ static NSArray *lastSele_IdArray_;
     [super viewDidLoad];
     
     self.title = @"商品详情";
+    
+    self.preferModel = [HHpreferModel new];
+    self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15",@"满100减5",@"满200减15"];
+    self.preferModel.act_name = @"满减活动";
     
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         
@@ -139,6 +150,7 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
     [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
     [self.tabView registerClass:[HHSpellGroupCell class] forCellReuseIdentifier:HHSpellGroupCellID];
+    [self.tabView registerClass:[HHpreferentialModelCell class] forCellReuseIdentifier:HHpreferentialModelCellID];
 
 
 }
@@ -148,102 +160,131 @@ static NSArray *lastSele_IdArray_;
     self.addCartTool.view = self.view;
     [self.view addSubview:self.addCartTool];
     
+    self.addCartTool.addCartBtn.titleLabel.numberOfLines = 1;
+    self.addCartTool.addCartBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.addCartTool.addCartBtn.titleLabel.font = FONT(15);
+    [self.addCartTool.addCartBtn setBackgroundColor:KTitleLabelColor];
+    [self.addCartTool.addCartBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
+    self.addCartTool.buyBtn.titleLabel.numberOfLines = 1;
+    self.addCartTool.buyBtn.titleLabel.font = FONT(15);
+    self.addCartTool.buyBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.addCartTool.buyBtn setTitle:@"立即付款" forState:UIControlStateNormal];
+    [self.addCartTool.buyBtn setBackgroundColor:APP_COMMON_COLOR];
+    
     WEAK_SELF();
-    //加入购物车
+    
     self.addCartTool.addCartBlock = ^{
-        HHFeatureSelectionViewCell *cell = [weakSelf.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        if (cell.seleArray.count != cell.featureAttr.count) {
-            NSLog(@"featureAttr****%@",cell.featureAttr);
-            NSMutableArray *no_select_arr = [NSMutableArray array];
-            [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isKindOfClass:[NSIndexPath class]]) {
-                    NSLog(@"NSIndexPath====%ld",idx);
-                }else{
-                    NSLog(@"00=====%ld",idx);
-                    [no_select_arr addObject:cell.featureAttr[idx]];
-                }
-            }];
-            NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
-            [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                [no_select_ValueName_arr addObject:model.ValueName];
-            }];
-            
-            NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
-            [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1.0];
-        }else{
-            NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
-            NSString *sku_id;
-            if (select_Id.length>0) {
-                sku_id = select_Id;
+        
+            HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:weakSelf.gooodDetailModel.GroupBuy];
+            if ([GroupBy_m.IsJoin isEqual:@1]) {
+                //我要开团
+                [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
             }else{
-                sku_id = @"0";
+                //加入购物车
+                [weakSelf  addCartHandleData];
             }
-            NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
-            NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
-            
-            //加入购物车
-            [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity] netWorkClient] postRequestInView:weakSelf.view finishedBlock:^(HHCartAPI *api, NSError *error) {
-                
-                if (!error) {
-                    if (api.State == 1) {
-                        [SVProgressHUD showSuccessWithStatus:@"加入购物车成功～"];
-                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                        [SVProgressHUD dismissWithDelay:1.0];
-                        
-                    }else{
-                        
-                        [SVProgressHUD showInfoWithStatus:api.Msg];
-                    }
-                }else{
-                    [SVProgressHUD showInfoWithStatus:api.Msg];
-                }
-            }];
-            
-            //-------------------------//
-        }
         
     };
-    //立即购买
+   
     self.addCartTool.buyBlock = ^(UIButton *btn) {
         
-//        MLMenuView *menuView = [[MLMenuView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3*2, SCREEN_HEIGHT-Status_HEIGHT-49-weakSelf.alert_Arr.count*50, SCREEN_WIDTH/3, weakSelf.alert_Arr.count*50) WithmodelsArr:weakSelf.alert_Arr WithMenuViewOffsetTop:Status_HEIGHT WithTriangleOffsetLeft:80 button:btn];
-//        menuView.isHasTriangle = NO;
-//        menuView.didSelectBlock = ^(NSInteger index, HHActivityModel *model) {
-//
-//
-//        };
-        HHFeatureSelectionViewCell *cell = [weakSelf.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        if (cell.seleArray.count != cell.featureAttr.count) {
-            [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1.0];
-        }else{
-            NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
-            NSString *sku_id;
-            if (select_Id.length>0) {
-                sku_id = select_Id;
-            }else{
-                sku_id = @"0";
-            }
-            NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",weakSelf.Id,sku_id];
-            NSString *quantity = @"1";
-            if (cell.Num_>0) {
-                quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
-            }
-            
-            if (sku_id_Str.length>0) {
-                //立即购买
-                //      是否存在收货地址
-                [weakSelf isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
-            }
-            //-------------------------//
-        }
+         //立即购买
+         [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
+
+//        [weakSelf buyProductHandleData];
         
     };
     
 }
+#pragma mark - 处理立即购买数据
+
+- (void)buyProductHandleData{
+    
+    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    if (cell.seleArray.count != cell.featureAttr.count) {
+        [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+    }else{
+        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+        NSString *sku_id;
+        if (select_Id.length>0) {
+            sku_id = select_Id;
+        }else{
+            sku_id = @"0";
+        }
+        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
+        NSString *quantity = @"1";
+        if (cell.Num_>0) {
+            quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+        }
+        if (sku_id_Str.length>0) {
+            //立即购买
+            //      是否存在收货地址
+            [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+        }
+        //-----//
+    }
+    
+}
+
+#pragma mark - 处理加入购物车数据
+
+- (void)addCartHandleData{
+    
+    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    if (cell.seleArray.count != cell.featureAttr.count) {
+        NSMutableArray *no_select_arr = [NSMutableArray array];
+        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[NSIndexPath class]]) {
+            }else{
+                [no_select_arr addObject:cell.featureAttr[idx]];
+            }
+        }];
+        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [no_select_ValueName_arr addObject:model.ValueName];
+        }];
+        
+        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+    }else{
+        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+        NSString *sku_id;
+        if (select_Id.length>0) {
+            sku_id = select_Id;
+        }else{
+            sku_id = @"0";
+        }
+        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
+        NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
+        
+        //加入购物车
+        [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+            
+            if (!error) {
+                if (api.State == 1) {
+                    [SVProgressHUD showSuccessWithStatus:@"加入购物车成功～"];
+                    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                    [SVProgressHUD dismissWithDelay:1.0];
+                    
+                }else{
+                    
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }];
+        
+        //----------//
+        
+    }
+    
+}
+
 #pragma mark - 是否存在收货地址
 - (void)isExitAddressWithsku_id_Str:(NSString *)sku_id_Str quantity:(NSString *)quantity{
     
@@ -295,10 +336,10 @@ static NSArray *lastSele_IdArray_;
         return 1;
     }
     if (section == 2) {
-        return 1;
+        return 3;
     }
     if (section == 3) {
-        return  3;
+        return  0;
     }
     if (section == 4) {
         return  1;
@@ -340,16 +381,31 @@ static NSArray *lastSele_IdArray_;
     }
     if (indexPath.section == 2) {
         //优惠券
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
-        [cell.contentView addSubview:h_line];
-        UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"优惠" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
-        [cell.contentView addSubview:text_lab];
-        UIImageView *right_arrow = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-52, 8, 42, 42) image:[UIImage imageNamed:@"more"]];
-        right_arrow.contentMode = UIViewContentModeCenter;
-        [cell.contentView addSubview:right_arrow];
-        gridcell = cell;
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
+            [cell.contentView addSubview:h_line];
+            UIImageView *imag = [UIImageView lh_imageViewWithFrame:CGRectMake(15, 8, 42, 42) image:[UIImage imageNamed:@"coupon_section"]];
+            imag.contentMode = UIViewContentModeCenter;
+            [cell.contentView addSubview:imag];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(57, 8, 200, 42) text:@"优惠" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            [cell.contentView addSubview:text_lab];
+            UIImageView *right_arrow = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-52, 8, 42, 42) image:[UIImage imageNamed:@"more"]];
+            right_arrow.contentMode = UIViewContentModeCenter;
+            [cell.contentView addSubview:right_arrow];
+            cell.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
+            gridcell = cell;
+        }else{
+            HHpreferentialModelCell *cell = [tableView dequeueReusableCellWithIdentifier:HHpreferentialModelCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.model = self.preferModel;
+            NSArray *act_name_arr = @[@"满减活动",@"店铺优惠券"];
+            cell.act_name = act_name_arr[indexPath.row-1];
+            cell.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
+            gridcell = cell;
+        }
+      
     }
     if (indexPath.section == 3) {
         //拼团
@@ -422,7 +478,10 @@ static NSArray *lastSele_IdArray_;
     }
     if (indexPath.section == 2) {
         //优惠
-        return 50;
+        if (indexPath.row == 0) {
+            return 45;
+        }
+        return [self.tabView cellHeightForIndexPath:indexPath model:self.preferModel keyPath:@"model" cellClass:[HHpreferentialModelCell class] contentViewWidth:[self cellContentViewWith]];
     }
     if (indexPath.section == 3) {
         //拼团
@@ -526,6 +585,7 @@ static NSArray *lastSele_IdArray_;
                     self.addCartTool.collectBtn.selected = NO;
                 }
                
+                
                 self.foot.model = self.gooodDetailModel;
                 
                 HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
@@ -540,9 +600,6 @@ static NSArray *lastSele_IdArray_;
                 
                 [self.activityIndicator removeFromSuperview];
                 [self tableView:self.tabView viewForHeaderInSection:1];
-                
-                //拼团
-//              HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
 
                 
                 weakSelf.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
@@ -555,8 +612,11 @@ static NSArray *lastSele_IdArray_;
                 HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
                 if ([SecKill_m.IsSecKill isEqual:@1]) {
                     weakSelf.seckill_view.hidden = NO;
+                    weakSelf.seckill_view.activity_m = SecKill_m;
                     weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.floatValue];
-                    weakSelf.seckill_view.pre_price_label.text = [NSString stringWithFormat:@"原价:¥%.2f",weakSelf.gooodDetailModel.BuyPrice.floatValue];
+                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.floatValue:0.00]];
+                    [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
+                    weakSelf.seckill_view.pre_price_label.attributedText = newPrice;
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
                     if (SecKill_m.StartSecond.integerValue>0) {
                         weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
@@ -564,6 +624,35 @@ static NSArray *lastSele_IdArray_;
                     }else{
                         weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
                         weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
+                    }
+                }else{
+                    weakSelf.seckill_view.hidden = YES;
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
+                }
+                //拼团
+                HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
+                if ([GroupBy_m.IsJoin isEqual:@1]) {
+                    weakSelf.addCartTool.addCartBtn.titleLabel.numberOfLines = 2;
+                    weakSelf.addCartTool.addCartBtn.titleLabel.font = FONT(13);
+                    [weakSelf.addCartTool.addCartBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n我要开团",GroupBy_m.Price?GroupBy_m.Price.floatValue:0.00] forState:UIControlStateNormal];
+                    [weakSelf.addCartTool.addCartBtn setBackgroundColor:RGB(253,74,76)];
+                    weakSelf.addCartTool.buyBtn.titleLabel.numberOfLines = 2;
+                    weakSelf.addCartTool.buyBtn.titleLabel.font = FONT(13);
+                    [weakSelf.addCartTool.buyBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n单独购买",self.gooodDetailModel.BuyPrice?self.gooodDetailModel.BuyPrice.floatValue:0.00] forState:UIControlStateNormal];
+                    
+                    weakSelf.seckill_view.hidden = NO;
+                    weakSelf.seckill_view.activity_m = GroupBy_m;
+                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",GroupBy_m.Price.floatValue];
+                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.floatValue:0.00]];
+                    [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
+                    weakSelf.seckill_view.pre_price_label.attributedText = newPrice;
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
+                    if (SecKill_m.StartSecond.integerValue>0) {
+                        weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
+//                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.StartSecond.integerValue;
+                    }else{
+                        weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
+//                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
                     }
                 }else{
                     weakSelf.seckill_view.hidden = YES;
@@ -649,7 +738,6 @@ static NSArray *lastSele_IdArray_;
             NSLog(@"没有网");
             self.status = YES;
             [self.tabView reloadData];
-            
         }
     }];
     
@@ -658,15 +746,17 @@ static NSArray *lastSele_IdArray_;
 
 - (void)setUpInit
 {
-    self.tabView.estimatedRowHeight = 0;
+    self.tabView.estimatedRowHeight = 50;
     self.tabView.estimatedSectionHeaderHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
+    self.tabView.rowHeight = UITableViewAutomaticDimension;
     
     
     self.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
     [self.tableHeader addSubview:self.cycleScrollView];
 
     self.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
+    self.seckill_view.hidden = YES;
     [self.tableHeader addSubview:self.seckill_view];
 
     self.tabView.tableHeaderView = self.tableHeader;

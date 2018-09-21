@@ -93,14 +93,18 @@
 //优惠套餐模型
 @interface HHPackagesModel : BaseModel
 @property(nonatomic,strong) NSString *FinalPrice;
+@property(nonatomic,strong) NSString *BeEconomicalMoney;
 @property(nonatomic,strong) NSString *PKID;
 @property(nonatomic,strong) NSString *ProductCount;
+@property(nonatomic,strong) NSString *Name;
 @property(nonatomic,strong) NSArray <HHPackagesProductsModel *>*Products;
 @end
 @interface HHPackagesProductsModel : BaseModel
 @property(nonatomic,strong) NSString *Image;
 @property(nonatomic,strong) NSString *PID;
 @property(nonatomic,strong) NSString *Price;
+@property(nonatomic,strong) NSString *Name;
+
 @end
 
 @interface HHGuess_you_likeModel : BaseModel

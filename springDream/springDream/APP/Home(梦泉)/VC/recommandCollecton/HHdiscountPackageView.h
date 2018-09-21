@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class HHdiscountPackageView;
+
+@protocol HHdiscountPackageViewDelegate<NSObject>
+
+- (void)didSelectItemWithPackage_Id:(NSString *)Package_Id;
+
+@end
+
 @interface HHdiscountPackageView : UIView
 
 @property(nonatomic,strong)UICollectionView *collectionView;
 
 @property (nonatomic, strong)   NSArray <HHPackagesModel *>*Packages;
+
+@property (nonatomic, weak)  id<HHdiscountPackageViewDelegate> delegate;
+
 
 @end

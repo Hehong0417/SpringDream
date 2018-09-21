@@ -9,7 +9,12 @@
 #import "HHSeckillCustomView.h"
 
 @implementation HHSeckillCustomView
-
+{
+    UIImageView *imag1;
+    UIImageView *imag2;
+    UIImageView *group_imag;
+    UILabel *group_label;
+}
 - (instancetype)initWithFrame:(CGRect)frame{
     
     if (self = [super initWithFrame:frame]) {
@@ -19,15 +24,35 @@
         self.price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"¥200.00" textColor:kWhiteColor font:SemiboldFONT(20) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         [self addSubview:self.price_label];
         
-        self.pre_price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"原价:¥400.00" textColor:kWhiteColor font:FONT(11) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        self.pre_price_label = [UILabel lh_labelWithFrame:CGRectZero text:@"原价:400.00" textColor:RGB(222, 204, 206) font:FONT(11) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         [self addSubview:self.pre_price_label];
         
-        self.activity_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:nil backgroundColor:kClearColor];
-        [self.activity_button  setBackgroundImage:[UIImage imageNamed:@"secKill"] forState:UIControlStateNormal];
+        self.skill_bg_view = [UIView new];
+        [self addSubview:self.skill_bg_view];
+        [self.skill_bg_view lh_setCornerRadius:7 borderWidth:1 borderColor:RGB(215, 86, 16)];
         
-        [self addSubview:self.activity_button];
         
-        self.limit_purchase_label = [UILabel lh_labelWithFrame:CGRectZero text:@"每人限购3件！" textColor:RGB(250, 152, 27) font:FONT(11) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        imag1 = [UIImageView lh_imageViewWithFrame:CGRectZero image:[UIImage imageNamed:@"skill_ clock"]];
+        imag1.contentMode = UIViewContentModeCenter;
+        imag1.hidden = YES;
+        [self.skill_bg_view addSubview:imag1];
+        
+        imag2 = [UIImageView lh_imageViewWithFrame:CGRectZero image:[UIImage imageNamed:@"skill_title"]];
+        imag2.contentMode = UIViewContentModeLeft;
+        imag2.hidden = YES;
+        [self.skill_bg_view addSubview:imag2];
+        
+        group_imag = [UIImageView lh_imageViewWithFrame:CGRectZero image:[UIImage imageNamed:@"spell_group"]];;
+        group_imag.contentMode = UIViewContentModeCenter;
+        group_imag.hidden = YES;
+        [self.skill_bg_view addSubview:group_imag];
+        
+        group_label = [UILabel lh_labelWithFrame:CGRectZero text:@"" textColor:RGB(250, 152, 27) font:FONT(10) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        group_label.hidden = YES;
+        [self.skill_bg_view addSubview:group_label];
+
+        
+        self.limit_purchase_label = [UILabel lh_labelWithFrame:CGRectZero text:@"" textColor:RGB(250, 152, 27) font:FONT(10) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         [self addSubview:self.limit_purchase_label];
         
         self.limit_time_label = [UILabel lh_labelWithFrame:CGRectZero text:@"距离结束时间" textColor:kWhiteColor font:FONT(12) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
@@ -54,28 +79,54 @@
     self.price_label.sd_layout
     .leftSpaceToView(self, 15)
     .topSpaceToView(self, 10)
-    .heightIs(20)
-    .widthIs(100);
+    .heightIs(20);
+    [self.price_label setSingleLineAutoResizeWithMaxWidth:140];
+    
     
     self.pre_price_label.sd_layout
     .leftSpaceToView(self.price_label, 8)
     .heightIs(12)
-    .widthIs(120)
+    .widthIs(100)
     .bottomEqualToView(self.price_label);
     
     
-    self.activity_button.sd_layout
+    self.skill_bg_view.sd_layout
     .leftEqualToView(self.price_label)
     .topSpaceToView(self.price_label, 3)
     .heightIs(25)
     .widthIs(64);
     
     
+    imag1.sd_layout
+    .leftSpaceToView(self.skill_bg_view, 0)
+    .topSpaceToView(self.skill_bg_view, 0)
+    .bottomSpaceToView(self.skill_bg_view, 0)
+    .widthIs(24);
+    
+    imag2.sd_layout
+    .leftSpaceToView(imag1, 0)
+    .topSpaceToView(self.skill_bg_view, 0)
+    .rightSpaceToView(self.skill_bg_view, 0)
+    .bottomSpaceToView(self.skill_bg_view, 0);
+
+    group_imag.sd_layout
+    .leftSpaceToView(self.skill_bg_view, 3)
+    .topSpaceToView(self.skill_bg_view, 0)
+    .widthIs(15)
+    .bottomSpaceToView(self.skill_bg_view, 0);
+    
+    group_label.sd_layout
+    .leftSpaceToView(group_imag,2)
+    .topSpaceToView(self.skill_bg_view, 0)
+    .rightSpaceToView(self.skill_bg_view, 0)
+    .bottomSpaceToView(self.skill_bg_view, 0);
+    
+    
     self.limit_purchase_label.sd_layout
-    .leftSpaceToView(self.activity_button, 8)
+    .leftSpaceToView(self.skill_bg_view, 8)
     .heightIs(14)
     .maxWidthIs(130)
-    .bottomEqualToView(self.activity_button);
+    .bottomEqualToView(self.skill_bg_view);
     
     CGFloat  x = (ScreenW-10)*205/365;
     self.v_line.sd_layout
@@ -99,5 +150,26 @@
     .heightIs(30)
     .widthIs(c_w);
     
+}
+- (void)setActivity_m:(HHActivityModel *)activity_m{
+    
+    _activity_m = activity_m;
+    
+    if ([_activity_m.IsSecKill isEqual:@1]) {
+        imag1.hidden = NO;
+        imag2.hidden = NO;
+        group_label.hidden = YES;
+        group_imag.hidden = YES;
+        
+        self.limit_purchase_label.text = [NSString stringWithFormat:@"每人限购%@件！",activity_m.LimitCount];
+    }
+    if ([_activity_m.IsJoin isEqual:@1]) {
+        imag1.hidden = YES;
+        imag2.hidden = YES;
+        group_label.hidden = NO;
+        group_imag.hidden = NO;
+        group_label.text = [NSString stringWithFormat:@"%@人成团",activity_m.Count];
+        self.limit_purchase_label.text = @"";
+    }
 }
 @end

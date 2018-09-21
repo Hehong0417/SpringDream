@@ -141,6 +141,7 @@
     
     
     self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
+    self.personHead.nav = self.navigationController;
     
     if (self.title_arr.count < 5) {
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 175, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
