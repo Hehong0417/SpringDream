@@ -68,7 +68,7 @@
     
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:KVCBackGroundColor];
     UIButton *saveBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 45, SCREEN_WIDTH-60, 45) target:self action:@selector(saveBtnAction) image:nil];
-    [saveBtn lh_setBackgroundColor:APP_COMMON_COLOR forState:UIControlStateNormal];
+    [saveBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
     [saveBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
     [saveBtn setTitle:@"保  存" forState:UIControlStateNormal];
     [saveBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];

@@ -47,7 +47,7 @@
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:kClearColor];
     
     UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 30, SCREEN_WIDTH - 60, 45) target:self action:@selector(commitAction:) backgroundImage:nil title:@"提  交"  titleColor:kWhiteColor font:FONT(14)];
-    finishBtn.backgroundColor = APP_COMMON_COLOR;
+    finishBtn.backgroundColor = APP_NAV_COLOR;
     [finishBtn lh_setRadii:5 borderWidth:0 borderColor:nil];
     
     [footView addSubview:finishBtn];

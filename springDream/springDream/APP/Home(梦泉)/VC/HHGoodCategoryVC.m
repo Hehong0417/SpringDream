@@ -115,9 +115,10 @@
                 }
             }else{
                 if ([api.Msg isEqualToString:@"cancelled"]) {
-                    return ;
-                }
+                    
+                }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
             }
             
         }else{
@@ -159,9 +160,16 @@
                 UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(0, 45, ScreenW, 1) backColor:KVCBackGroundColor];
                 [self.view addSubview:v_line];
                 
+                [self SGSegmentedControl:self.category_SG didSelectBtnAtIndex:0];
+                
             }else{
                 
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                if ([api.Msg isEqualToString:@"cancelled"]) {
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+                
             }
             
         }else{
@@ -400,7 +408,6 @@
     cell.view = self.view;
     cell.indexPath = indexPath;
     return cell;
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

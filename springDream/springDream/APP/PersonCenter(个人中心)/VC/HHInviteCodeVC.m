@@ -59,10 +59,9 @@
     
     UIButton *generate_code_button = [UIButton lh_buttonWithFrame:CGRectMake(20,CGRectGetMaxY(code_text_label.frame)+50+120, ScreenW-40, 44) target:self action:@selector(generateCodeAction:) image:nil title:@"生成邀请码" titleColor:kWhiteColor font:FONT(14)];
     [generate_code_button lh_setCornerRadius:2 borderWidth:0 borderColor:nil];
-    [generate_code_button setBackgroundColor:APP_COMMON_COLOR];
+    [generate_code_button setBackgroundColor:APP_NAV_COLOR];
     [self.view addSubview:generate_code_button];
     
-    self.IsGenerateCode = NO;
     if (self.IsGenerateCode == YES) {
         code_text_label.text = @"动态邀请码";
         self.text_field.enabled = NO;

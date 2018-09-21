@@ -18,6 +18,9 @@
 		CE21846821252D0B003F354F /* UIView+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846621252D0B003F354F /* UIView+Badge.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
+		CE3246232154A7E8006A7527 /* HHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246222154A7E8006A7527 /* HHLoginVC.m */; };
+		CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246252154E439006A7527 /* HHrigsterVC.m */; };
+		CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */; };
 		CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */; };
 		CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32EC49213FAD540088C652 /* HHGoodDetailFoot.m */; };
 		CE390E2D2150F7F40016BD12 /* HHMyStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */; };
@@ -287,8 +290,6 @@
 		CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */; };
 		CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */; };
 		CE75CE70214B969C00AD126D /* HHInviteCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */; };
-		CE8A64E5212AA05900C7C57F /* HHWXLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E2212AA05800C7C57F /* HHWXLoginVC.m */; };
-		CE8A64E6212AA05900C7C57F /* HHWXLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64E4212AA05900C7C57F /* HHWXLoginVC.xib */; };
 		CE8A64EE212AA29600C7C57F /* HHRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */; };
 		CE8A64EF212AA29600C7C57F /* HHPhoneLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */; };
 		CE8A64F0212AA29600C7C57F /* HHPhoneLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */; };
@@ -451,6 +452,12 @@
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
 		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE21847321254A6A003F354F /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
+		CE3246212154A7E8006A7527 /* HHLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHLoginVC.h; sourceTree = "<group>"; };
+		CE3246222154A7E8006A7527 /* HHLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHLoginVC.m; sourceTree = "<group>"; };
+		CE3246242154E439006A7527 /* HHrigsterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHrigsterVC.h; sourceTree = "<group>"; };
+		CE3246252154E439006A7527 /* HHrigsterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHrigsterVC.m; sourceTree = "<group>"; };
+		CE3246272154F8E0006A7527 /* HHPhoneBandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPhoneBandVC.h; sourceTree = "<group>"; };
+		CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPhoneBandVC.m; sourceTree = "<group>"; };
 		CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailItem.h; sourceTree = "<group>"; };
 		CE32EC46213F90FE0088C652 /* HHGoodDetailItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodDetailItem.m; sourceTree = "<group>"; };
 		CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodDetailFoot.h; sourceTree = "<group>"; };
@@ -943,9 +950,6 @@
 		CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodCategoryVC.m; sourceTree = "<group>"; };
 		CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHInviteCodeVC.h; sourceTree = "<group>"; };
 		CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHInviteCodeVC.m; sourceTree = "<group>"; };
-		CE8A64E2212AA05800C7C57F /* HHWXLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHWXLoginVC.m; sourceTree = "<group>"; };
-		CE8A64E3212AA05800C7C57F /* HHWXLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHWXLoginVC.h; sourceTree = "<group>"; };
-		CE8A64E4212AA05900C7C57F /* HHWXLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HHWXLoginVC.xib; sourceTree = "<group>"; };
 		CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHRegisterVC.h; sourceTree = "<group>"; };
 		CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHRegisterVC.m; sourceTree = "<group>"; };
 		CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPhoneLoginVC.h; sourceTree = "<group>"; };
@@ -1215,6 +1219,29 @@
 				CE21846721252D0B003F354F /* UIView+Badge.h */,
 			);
 			path = "UIView+Badge";
+			sourceTree = "<group>";
+		};
+		CE32461E21549E9C006A7527 /* Category(分类) */ = {
+			isa = PBXGroup;
+			children = (
+				CE32461F21549E9C006A7527 /* Models */,
+				CE32462021549E9C006A7527 /* VC */,
+			);
+			path = "Category(分类)";
+			sourceTree = "<group>";
+		};
+		CE32461F21549E9C006A7527 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE32462021549E9C006A7527 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 		CE47261F212D1ECE002BD2A5 /* CollectionView */ = {
@@ -1872,7 +1899,8 @@
 			children = (
 				CE8A64E1212AA04D00C7C57F /* Login(登录) */,
 				CE4D0A6C2124376500796FEE /* Home(梦泉) */,
-				CE4D0A622124376500796FEE /* Recommand(推荐) */,
+				CE32461E21549E9C006A7527 /* Category(分类) */,
+				CE4D0A622124376500796FEE /* Community(社区) */,
 				CE4D0A672124376500796FEE /* ShopCart(购物车) */,
 				CE4D0A5D2124376500796FEE /* PersonCenter(个人中心) */,
 			);
@@ -1985,14 +2013,14 @@
 			path = VC;
 			sourceTree = "<group>";
 		};
-		CE4D0A622124376500796FEE /* Recommand(推荐) */ = {
+		CE4D0A622124376500796FEE /* Community(社区) */ = {
 			isa = PBXGroup;
 			children = (
 				CE4FFD6F2148EC7200767DF1 /* TimeLine */,
 				CE4D0A632124376500796FEE /* Models */,
 				CE4D0A642124376500796FEE /* VC */,
 			);
-			path = "Recommand(推荐)";
+			path = "Community(社区)";
 			sourceTree = "<group>";
 		};
 		CE4D0A632124376500796FEE /* Models */ = {
@@ -2599,9 +2627,6 @@
 		CE8A64F2212AA30400C7C57F /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A64E3212AA05800C7C57F /* HHWXLoginVC.h */,
-				CE8A64E2212AA05800C7C57F /* HHWXLoginVC.m */,
-				CE8A64E4212AA05900C7C57F /* HHWXLoginVC.xib */,
 				CE8A64EA212AA29300C7C57F /* HHBandPhoneVc.h */,
 				CE8A64ED212AA29500C7C57F /* HHBandPhoneVc.m */,
 				CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */,
@@ -2609,6 +2634,12 @@
 				CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */,
 				CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */,
 				CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */,
+				CE3246212154A7E8006A7527 /* HHLoginVC.h */,
+				CE3246222154A7E8006A7527 /* HHLoginVC.m */,
+				CE3246242154E439006A7527 /* HHrigsterVC.h */,
+				CE3246252154E439006A7527 /* HHrigsterVC.m */,
+				CE3246272154F8E0006A7527 /* HHPhoneBandVC.h */,
+				CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2933,7 +2964,6 @@
 				CE4FFE2F2148F4E800767DF1 /* 4.jpg in Resources */,
 				CE4FFE342148F4E800767DF1 /* 3.jpg in Resources */,
 				CE4FFDF52148F49A00767DF1 /* pic3.jpg in Resources */,
-				CE8A64E6212AA05900C7C57F /* HHWXLoginVC.xib in Resources */,
 				CE4FFE2D2148F4E800767DF1 /* icon4.jpg in Resources */,
 				CE4D08CD2124205800796FEE /* LaunchScreen.storyboard in Resources */,
 				CE4FFDF72148F49A00767DF1 /* pic2.jpg in Resources */,
@@ -3126,6 +3156,7 @@
 				CE4D09E8212423F200796FEE /* UILabel+LH.m in Sources */,
 				CE4D0A14212423F200796FEE /* UIView+SGFrame.m in Sources */,
 				CE4D09EC212423F200796FEE /* UITextView+LH.m in Sources */,
+				CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */,
 				CE4725CE212D101D002BD2A5 /* HHModifyInfoVC.m in Sources */,
 				CE4FFDD82148F03900767DF1 /* SDRefreshFooterView.m in Sources */,
 				CE47263D212D1ECE002BD2A5 /* DCCollectionHeaderLayout.m in Sources */,
@@ -3160,6 +3191,7 @@
 				CE4FFD9B2148ECE500767DF1 /* SDBaseTableViewController.m in Sources */,
 				CE4FFD932148EC7200767DF1 /* SDTimeLineCellCommentView.m in Sources */,
 				CE4D0A2F212423F200796FEE /* NetworkClient.m in Sources */,
+				CE3246232154A7E8006A7527 /* HHLoginVC.m in Sources */,
 				CE5264D7212BBFE600F30D29 /* XWFilterTransitionView.m in Sources */,
 				CE8A67D1212ACA2E00C7C57F /* HHEvaluteStarCell.m in Sources */,
 				CE47263B212D1ECE002BD2A5 /* DCFeatureItemCell.m in Sources */,
@@ -3183,6 +3215,7 @@
 				CE8A67D0212ACA2E00C7C57F /* HHEvaluationSuccessVC.m in Sources */,
 				CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */,
 				CE4D0A36212423F200796FEE /* HJStaticGroupTableVC.m in Sources */,
+				CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */,
 				CE5264CB212BBFE600F30D29 /* SDPhotoBrowser.m in Sources */,
 				CE4D08C22124205600796FEE /* AppDelegate.m in Sources */,
 				CE8A66AE212ABAB100C7C57F /* HHShippingAddressCell.m in Sources */,
@@ -3285,7 +3318,6 @@
 				CEA09E192153B76200DDB2A0 /* HHMyCodeVC.m in Sources */,
 				CE8A6522212AAB7A00C7C57F /* SearchTagTableViewCell.m in Sources */,
 				CE5264DD212BBFE600F30D29 /* XWCoolAnimator+XWFold.m in Sources */,
-				CE8A64E5212AA05900C7C57F /* HHWXLoginVC.m in Sources */,
 				CE8A654C212AAC6800C7C57F /* HHOrderIdItem.m in Sources */,
 				CE99C15821355C7D007FC7B9 /* HHMywalletCell.m in Sources */,
 				CE4FFDC22148EEAF00767DF1 /* MLExpressionManager.m in Sources */,
@@ -3631,9 +3663,9 @@
 			baseConfigurationReference = 696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3647,8 +3679,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0d4cee57-4ccb-4522-ad68-cd473c318ddb";
+				PROVISIONING_PROFILE_SPECIFIER = moonCherryDisPP;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

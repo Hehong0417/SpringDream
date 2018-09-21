@@ -59,7 +59,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HHShippingAddressCell" bundle:nil] forCellReuseIdentifier:@"HHShippingAddressCell"];
     
     UIButton *addAddressBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50-Status_HEIGHT-44, SCREEN_WIDTH, 50) target:self action:@selector(addAddressAction) image:nil];
-    [addAddressBtn setBackgroundColor:APP_COMMON_COLOR];
+    [addAddressBtn setBackgroundColor:APP_NAV_COLOR];
     [addAddressBtn setTitle:@"新增收货地址" forState:UIControlStateNormal];
     [addAddressBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
     [self.view addSubview:addAddressBtn];

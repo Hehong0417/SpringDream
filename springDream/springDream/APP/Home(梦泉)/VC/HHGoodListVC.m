@@ -125,9 +125,10 @@
                 }
             }else{
                 if ([api.Msg isEqualToString:@"cancelled"]) {
-                    return ;
-                }
+
+                }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
             }
             
         }else{

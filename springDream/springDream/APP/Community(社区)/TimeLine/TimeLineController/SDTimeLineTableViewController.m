@@ -71,15 +71,15 @@ static CGFloat textFieldH = 40;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.title = @"发现";
+    self.title = @"社区";
 
     UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发布" titleColor:kWhiteColor font:FONT(14)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
     
     UIButton *left_nav_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(backAction) image:[UIImage imageNamed:@"icon_return_default"]];
     [left_nav_button setContentEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_nav_button];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_nav_button];
 
     
     self.edgesForExtendedLayout = UIRectEdgeTop;

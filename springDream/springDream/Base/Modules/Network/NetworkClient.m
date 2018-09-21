@@ -337,6 +337,10 @@
         
         [self.baseAPI showMsgWhileRequestError:@"网络不给力，请稍后重试"];
  
+    }else if ([error.localizedDescription isEqualToString:@"已取消"]) {
+
+        [self.baseAPI hideHUDWhileFinish];
+        
     }else{
         
          [self.baseAPI showMsgWhileRequestError:error.localizedDescription];

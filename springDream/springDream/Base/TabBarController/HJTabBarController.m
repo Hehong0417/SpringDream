@@ -140,7 +140,8 @@
     if (!_tabBarItemTitles) {
         
         _tabBarItemTitles = @[ @"梦泉",
-                               @"推荐",
+                               @"分类",
+                               @"社区",
                                @"购物车",
                                @"个人中心"];
     }
@@ -155,7 +156,8 @@
         _tabBarItemNormalImages = @[@"t1",
                                     @"t2",
                                     @"t3",
-                                    @"t4"
+                                    @"t4",
+                                    @"t5"
                                      ];
     }
     
@@ -169,7 +171,8 @@
         _tabBarItemSelectedImages =  @[@"t1_selected",
                                        @"t2_selected",
                                        @"t3_selected",
-                                       @"t4_selected"
+                                       @"t4_selected",
+                                       @"t5_selected"
                                        ];
         
     }
@@ -183,15 +186,17 @@
         
         //SDTimeLineTableViewController
         
-        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHGoodCategoryVC" viewControllerNonExist:YES];
-        HJStoryBoardItem *item2 = [HJStoryBoardItem itemWithStroyBoardName:@"Recommand" identifier:@"HHGoodListVC" viewControllerNonExist:YES];
-        HJStoryBoardItem *item3 = [HJStoryBoardItem itemWithStroyBoardName:@"ShopCart" identifier:@"HHShoppingVC" viewControllerNonExist:YES];
-        HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"PersonCenter" identifier:@"HHPersonCenterSuperVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHGoodListVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item2 = [HJStoryBoardItem itemWithStroyBoardName:@"category" identifier:@"HHGoodCategoryVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item3 = [HJStoryBoardItem itemWithStroyBoardName:@"community" identifier:@"SDTimeLineTableViewController" viewControllerNonExist:YES];
+        HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"ShopCart" identifier:@"HHShoppingVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item5 = [HJStoryBoardItem itemWithStroyBoardName:@"PersonCenter" identifier:@"HHPersonCenterSuperVC" viewControllerNonExist:YES];
 
         _tabBarStoryBoardItems = @[ item1,
                                     item2,
                                     item3,
                                     item4,
+                                    item5
                                     ];
     }
     

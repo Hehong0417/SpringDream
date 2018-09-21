@@ -540,10 +540,14 @@
                 self.model  =  [HHCartModel mj_objectWithKeyValues:api.Data];
                 self.datas = [self.model.products mutableCopy];
                 HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:self.datas selectionArr:self.selectItems];
-                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+//                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
                 self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
-                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%@",self.model.total?self.model.total:@"0.00"];
-
+//                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%@",self.model.total?self.model.total:@"0.00"];
+                if ([self.selectItems containsObject:@1]) {
+                    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+                }else{
+                    self.settleAccountView.money_totalLabel.text =  @"合计¥0.00";
+                }
                 [self.tableView reloadData];
             }
             

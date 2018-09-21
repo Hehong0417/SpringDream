@@ -97,11 +97,11 @@ typedef   void (^completeHandle)();
 
 - (void)textViewDidEndEditing:(YYTextView *)textView{
     
-    HHPostOrderEvaluateItem *oEvaluateItem = [HHPostOrderEvaluateItem sharedPostOrderEvaluateItem];
-    HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];
-    evaluate_m.content = textView.text;
-    [oEvaluateItem write];
-    
+//    HHPostOrderEvaluateItem *oEvaluateItem = [HHPostOrderEvaluateItem sharedPostOrderEvaluateItem];
+//    HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];
+//    evaluate_m.content = textView.text;
+//    [oEvaluateItem write];
+//
     NSLog(@"textViewDidEndEditing");
 }
 - (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{

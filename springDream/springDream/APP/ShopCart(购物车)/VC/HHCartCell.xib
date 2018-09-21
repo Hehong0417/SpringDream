@@ -80,7 +80,7 @@
                         <rect key="frame" x="141" y="83" width="80" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="axa-to-x41"/>
-                            <constraint firstAttribute="width" constant="80" id="q2E-vg-qhD"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="q2E-vg-qhD"/>
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

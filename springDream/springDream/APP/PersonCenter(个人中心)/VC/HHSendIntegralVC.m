@@ -42,7 +42,7 @@
     
     
     UIButton *commit_button = [UIButton lh_buttonWithFrame:CGRectMake(15, CGRectGetMaxY(send_integral_label.frame)+45, ScreenW-30, 40) target:self action:@selector(commitSendAction:) image:nil title:@"确定配送" titleColor:kWhiteColor font:FONT(15)];
-    [commit_button setBackgroundColor:APP_COMMON_COLOR];
+    [commit_button setBackgroundColor:APP_NAV_COLOR];
     [self.view addSubview:commit_button];
     
     [commit_button lh_setCornerRadius:5 borderWidth:0 borderColor:nil];

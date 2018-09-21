@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "HHWXLoginVC.h"
 #import "WXApi.h"
+#import "HHLoginVC.h"
 
 #define USHARE_DEMO_APPKEY  @"5b90a1808f4a9d121b000037"
 #define Wechat_AppKey  @"wxfc0303b0a7dbf80e"
@@ -31,7 +31,7 @@
     HJUser *user = [HJUser sharedUser];
     if (user.token) {
     }else{
-        self.window.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[[HHWXLoginVC alloc] init]];
+        self.window.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[[HHLoginVC alloc] init]];
     }
     [self IQKeyboardManagerConfig];
     

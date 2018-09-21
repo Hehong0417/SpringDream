@@ -71,7 +71,7 @@
     .heightIs(20)
     .centerYEqualToView(self.contentView);
     
-    [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_COMMON_COLOR];
+    [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
 
 }
 @end

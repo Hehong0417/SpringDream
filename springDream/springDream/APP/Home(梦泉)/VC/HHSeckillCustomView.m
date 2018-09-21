@@ -49,6 +49,7 @@
         
         group_label = [UILabel lh_labelWithFrame:CGRectZero text:@"" textColor:RGB(250, 152, 27) font:FONT(10) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
         group_label.hidden = YES;
+        group_label.adjustsFontSizeToFitWidth = YES;
         [self.skill_bg_view addSubview:group_label];
 
         

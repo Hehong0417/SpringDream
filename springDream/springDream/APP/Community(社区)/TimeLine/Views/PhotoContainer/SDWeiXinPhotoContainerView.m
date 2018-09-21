@@ -85,14 +85,6 @@
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0;
     if (_picPathStringsArray.count == 1) {
-//        NSString *pic_str = _picPathStringsArray.firstObject;
-//        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:pic_str];
-//        if (!cachedImage) {
-//            UIImage *image = [UIImage imagewithImage:[UIImage imageNamed:@"add_pic"]];
-//            itemH = image.size.height / image.size.width * itemW;
-//        }else{
-//            itemH = cachedImage.size.height / cachedImage.size.width * itemW;
-//        }
         itemH = itemW;
 
     } else {
@@ -108,7 +100,11 @@
         [imageView lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.hidden = NO;
-       [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
+        if ([obj hasPrefix:@"http"]) {
+            [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
+        }else{
+            imageView.image = [UIImage imageNamed:obj];
+        }
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
     

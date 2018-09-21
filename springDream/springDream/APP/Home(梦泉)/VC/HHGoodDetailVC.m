@@ -50,7 +50,6 @@
 @property (nonatomic, strong) NSString *headTitle;
 @property (nonatomic, strong) NSString *count;
 @property (nonatomic, strong) NSMutableArray *alert_Arr;
-@property (nonatomic, strong) NSMutableArray *guess_you_like_arr;
 @property (nonatomic, strong) NSNumber *Mode;
 @property (nonatomic, strong) UIView *countTimeView;
 @property (nonatomic, strong) UIView *tableHeader;
@@ -97,7 +96,7 @@ static NSArray *lastSele_IdArray_;
     self.title = @"商品详情";
     
     self.preferModel = [HHpreferModel new];
-    self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15",@"满100减5",@"满200减15"];
+    self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15"];
     self.preferModel.act_name = @"满减活动";
     
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
@@ -324,7 +323,7 @@ static NSArray *lastSele_IdArray_;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -336,10 +335,10 @@ static NSArray *lastSele_IdArray_;
         return 1;
     }
     if (section == 2) {
-        return 3;
+        return 2;
     }
     if (section == 3) {
-        return  0;
+        return  2;
     }
     if (section == 4) {
         return  1;
@@ -414,7 +413,7 @@ static NSArray *lastSele_IdArray_;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
             [cell.contentView addSubview:h_line];
-            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"19人在拼团，可直接参与" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"1人在拼团，可直接参与" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
             [cell.contentView addSubview:text_lab];
             gridcell = cell;
 
@@ -492,8 +491,9 @@ static NSArray *lastSele_IdArray_;
     }
     
     if (indexPath.section == 4) {
-       
-        return  self.gooodDetailModel.Packages.count>0?185:0;
+        
+        CGFloat height = 40+WidthScaleSize_H(120)+10;
+        return  self.gooodDetailModel.Packages.count>0?height:0;
     }
     if (indexPath.section == 5) {
             if (indexPath.row == 0) {
@@ -526,7 +526,7 @@ static NSArray *lastSele_IdArray_;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 3) {
+    if (indexPath.section == 5) {
         if (indexPath.row == 0) {
             //评价列表
             HHEvaluationListVC *vc = [HHEvaluationListVC new];
@@ -607,10 +607,14 @@ static NSArray *lastSele_IdArray_;
                 
                 weakSelf.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
                 [weakSelf.tableHeader addSubview:weakSelf.seckill_view];
+                
+                weakSelf.seckill_view.hidden = YES;
+                self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
 
                 // 秒杀
                 HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
                 if ([SecKill_m.IsSecKill isEqual:@1]) {
+                    
                     weakSelf.seckill_view.hidden = NO;
                     weakSelf.seckill_view.activity_m = SecKill_m;
                     weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.floatValue];
@@ -625,9 +629,8 @@ static NSArray *lastSele_IdArray_;
                         weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
                         weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
                     }
-                }else{
-                    weakSelf.seckill_view.hidden = YES;
-                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
+
                 }
                 //拼团
                 HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
@@ -647,16 +650,18 @@ static NSArray *lastSele_IdArray_;
                     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
                     weakSelf.seckill_view.pre_price_label.attributedText = newPrice;
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
-                    if (SecKill_m.StartSecond.integerValue>0) {
-                        weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
+                    weakSelf.seckill_view.countDown.hidden = YES;
+                    weakSelf.seckill_view.limit_time_label.text = @"";
+
+//                    if (SecKill_m.StartSecond.integerValue>0) {
+//                        weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
 //                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.StartSecond.integerValue;
-                    }else{
-                        weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
+//                    }else{
+//                        weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
 //                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
-                    }
-                }else{
-                    weakSelf.seckill_view.hidden = YES;
-                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
+//                    }
+                    self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
+
                 }
                 self.tabView.tableHeaderView = self.tableHeader;
 
@@ -677,32 +682,11 @@ static NSArray *lastSele_IdArray_;
         }
     }];
     
-    //猜你喜欢
-    [self getGuess_you_likeData];
-    
    //评价
     [self getEvaluateList];
     
 }
-//猜你喜欢
-- (void)getGuess_you_likeData{
-    
-    [[[HHCategoryAPI GetAlliancesProductsWithpids:self.Id]  netWorkClient] getRequestInView:nil finishedBlock:^(HHCategoryAPI *api, NSError *error) {
-        
-        if (!error) {
-            if (api.State == 1) {
-                NSArray *arr =  api.Data;
-                self.guess_you_like_arr = arr.mutableCopy;
-                [self.tableView reloadData];
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-            }
-        }else{
-            
-        }
-    }];
-    
-}
+
 //评价
 - (void)getEvaluateList{
     
@@ -712,7 +696,8 @@ static NSArray *lastSele_IdArray_;
             if (api.State == 1) {
                 NSArray *arr = api.Data;
                 self.evaluations = arr.mutableCopy;
-                [self.tabView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
+                
+                [self.tabView reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
