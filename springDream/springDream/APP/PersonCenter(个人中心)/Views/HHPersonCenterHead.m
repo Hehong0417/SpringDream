@@ -7,7 +7,7 @@
 //
 
 #import "HHPersonCenterHead.h"
-#import "HHMyCodeVC.h"
+#import "HHCommonSetVC.h"
 
 @implementation HHPersonCenterHead
 
@@ -21,7 +21,7 @@
         self.bg_imageV.image = [UIImage imageNamed:@"person_bg"];
         [self addSubview:self.bg_imageV];
         //消息按钮  --msg
-        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@""]];
+        self.message_button = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(message_buttonAction:) image:[UIImage imageNamed:@"service_14"]];
         [self addSubview:self.message_button];
         //头像
         self.icon_view = [UIImageView new];
@@ -82,7 +82,7 @@
     self.bg_imageV.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
     //消息按钮
     self.message_button.sd_layout.rightSpaceToView(self, 24);
-    self.message_button.sd_layout.topSpaceToView(self, 20);
+    self.message_button.sd_layout.topSpaceToView(self, 35);
     self.message_button.sd_layout.widthIs(24);
     self.message_button.sd_layout.heightIs(24);
     //头像
@@ -133,17 +133,14 @@
  */
 - (void)message_buttonAction:(UIButton *)message_button{
     
-    
-    
-    
+    HHCommonSetVC *vc = [HHCommonSetVC new];
+    [self.nav pushVC:vc];
 }
 /**
 签到
  */
 - (void)sign_buttonAction:(UIButton *)sign_button{
-    
-    HHMyCodeVC *vc = [HHMyCodeVC new];
-    [self.nav pushVC:vc];
+
     
 }
 @end

@@ -46,8 +46,6 @@
 		CE4725C7212D0B18002BD2A5 /* HHCouponFailureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725BF212D0B15002BD2A5 /* HHCouponFailureVC.m */; };
 		CE4725C8212D0B18002BD2A5 /* HHCouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4725C0212D0B16002BD2A5 /* HHCouponCell.xib */; };
 		CE4725CB212D0BD2002BD2A5 /* HHMyCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725CA212D0BD2002BD2A5 /* HHMyCollectionVC.m */; };
-		CE4725CE212D101D002BD2A5 /* HHModifyInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725CC212D101C002BD2A5 /* HHModifyInfoVC.m */; };
-		CE4725D1212D108C002BD2A5 /* HHAboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725CF212D108B002BD2A5 /* HHAboutUsVC.m */; };
 		CE4725D3212D141E002BD2A5 /* PersonCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4725D2212D141E002BD2A5 /* PersonCenter.storyboard */; };
 		CE472637212D1ECE002BD2A5 /* DCDetailOverFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE472621212D1ECE002BD2A5 /* DCDetailOverFooterView.m */; };
 		CE472638212D1ECE002BD2A5 /* DCFeatureItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE472624212D1ECE002BD2A5 /* DCFeatureItem.m */; };
@@ -381,6 +379,21 @@
 		CE8A67DD212ACA2E00C7C57F /* HHCellCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BB212ACA2D00C7C57F /* HHCellCommentView.m */; };
 		CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */; };
 		CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */; };
+		CE90659C2155E1C700A13992 /* HHCommonSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659B2155E1C700A13992 /* HHCommonSetVC.m */; };
+		CE90659F2156141600A13992 /* HHAuthenticationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659E2156141600A13992 /* HHAuthenticationVC.m */; };
+		CE9065B3215615DB00A13992 /* BXTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065AD215615DB00A13992 /* BXTextField.m */; };
+		CE9065B4215615DB00A13992 /* UITextField+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065AE215615DB00A13992 /* UITextField+BXExtension.m */; };
+		CE9065B5215615DB00A13992 /* UIView+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065AF215615DB00A13992 /* UIView+BXExtension.m */; };
+		CE9065C1215620F000A13992 /* HHBandCardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065C0215620F000A13992 /* HHBandCardVC.m */; };
+		CE9065C52156267F00A13992 /* HHMywalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065C32156267F00A13992 /* HHMywalletCell.m */; };
+		CE9065C62156267F00A13992 /* HHMywalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE9065C42156267F00A13992 /* HHMywalletCell.xib */; };
+		CE9065C821563B5C00A13992 /* HHMyWalletHead.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE9065C721563B5C00A13992 /* HHMyWalletHead.xib */; };
+		CE9065CB2156422E00A13992 /* HHDistributionGoodsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065CA2156422E00A13992 /* HHDistributionGoodsVC.m */; };
+		CE9065CE21564BDA00A13992 /* HHDistributionOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065CD21564BDA00A13992 /* HHDistributionOrderVC.m */; };
+		CE9065D121564F1A00A13992 /* HHMydistributorsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065D021564F1A00A13992 /* HHMydistributorsVC.m */; };
+		CE9065D821565C2300A13992 /* HHMyMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065D621565C2300A13992 /* HHMyMembersCell.m */; };
+		CE9065D921565C2300A13992 /* HHMyMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE9065D721565C2300A13992 /* HHMyMembersCell.xib */; };
+		CE9065DC21566C4400A13992 /* HHJuniorMembersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065DB21566C4400A13992 /* HHJuniorMembersVC.m */; };
 		CE9938572136412E002B256D /* HHMyWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9938562136412E002B256D /* HHMyWalletVC.m */; };
 		CE99385A2136439A002B256D /* HHMyWalletHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9938592136439A002B256D /* HHMyWalletHead.m */; };
 		CE99385D213649FC002B256D /* HHMyIntegralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99385C213649FC002B256D /* HHMyIntegralVC.m */; };
@@ -394,7 +407,6 @@
 		CE99C15021352DEF007FC7B9 /* HHNewApplyFundHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99C14F21352DEF007FC7B9 /* HHNewApplyFundHeadView.m */; };
 		CE99C15421353441007FC7B9 /* HHNewApplyFundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99C15221353441007FC7B9 /* HHNewApplyFundCell.m */; };
 		CE99C15521353441007FC7B9 /* HHNewApplyFundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE99C15321353441007FC7B9 /* HHNewApplyFundCell.xib */; };
-		CE99C15821355C7D007FC7B9 /* HHMywalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99C15721355C7D007FC7B9 /* HHMywalletCell.m */; };
 		CEA09E162153A7DF00DDB2A0 /* HHdiscountPackageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA09E142153A7DE00DDB2A0 /* HHdiscountPackageVC.m */; };
 		CEA09E192153B76200DDB2A0 /* HHMyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA09E182153B76200DDB2A0 /* HHMyCodeVC.m */; };
 		CEA09E1C2153B88F00DDB2A0 /* HHpreferentialModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA09E1B2153B88F00DDB2A0 /* HHpreferentialModelCell.m */; };
@@ -506,10 +518,6 @@
 		CE4725C2212D0B17002BD2A5 /* HHCouponUsedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHCouponUsedVC.h; sourceTree = "<group>"; };
 		CE4725C9212D0BD2002BD2A5 /* HHMyCollectionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyCollectionVC.h; sourceTree = "<group>"; };
 		CE4725CA212D0BD2002BD2A5 /* HHMyCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyCollectionVC.m; sourceTree = "<group>"; };
-		CE4725CC212D101C002BD2A5 /* HHModifyInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHModifyInfoVC.m; sourceTree = "<group>"; };
-		CE4725CD212D101D002BD2A5 /* HHModifyInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHModifyInfoVC.h; sourceTree = "<group>"; };
-		CE4725CF212D108B002BD2A5 /* HHAboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHAboutUsVC.m; sourceTree = "<group>"; };
-		CE4725D0212D108C002BD2A5 /* HHAboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHAboutUsVC.h; sourceTree = "<group>"; };
 		CE4725D2212D141E002BD2A5 /* PersonCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PersonCenter.storyboard; sourceTree = "<group>"; };
 		CE472621212D1ECE002BD2A5 /* DCDetailOverFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDetailOverFooterView.m; sourceTree = "<group>"; };
 		CE472622212D1ECE002BD2A5 /* DCDetailOverFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDetailOverFooterView.h; sourceTree = "<group>"; };
@@ -1112,6 +1120,33 @@
 		CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHOrderTwoCell.m; sourceTree = "<group>"; };
 		CE8A67DF212ACA3F00C7C57F /* HHMyOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HHMyOrderItem.h; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.h; sourceTree = "<group>"; };
 		CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HHMyOrderItem.m; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.m; sourceTree = "<group>"; };
+		CE90659A2155E1C700A13992 /* HHCommonSetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCommonSetVC.h; sourceTree = "<group>"; };
+		CE90659B2155E1C700A13992 /* HHCommonSetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHCommonSetVC.m; sourceTree = "<group>"; };
+		CE90659D2156141600A13992 /* HHAuthenticationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHAuthenticationVC.h; sourceTree = "<group>"; };
+		CE90659E2156141600A13992 /* HHAuthenticationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHAuthenticationVC.m; sourceTree = "<group>"; };
+		CE9065AD215615DB00A13992 /* BXTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXTextField.m; sourceTree = "<group>"; };
+		CE9065AE215615DB00A13992 /* UITextField+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BXExtension.m"; sourceTree = "<group>"; };
+		CE9065AF215615DB00A13992 /* UIView+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BXExtension.m"; sourceTree = "<group>"; };
+		CE9065B0215615DB00A13992 /* UITextField+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BXExtension.h"; sourceTree = "<group>"; };
+		CE9065B1215615DB00A13992 /* BXTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BXTextField.h; sourceTree = "<group>"; };
+		CE9065B2215615DB00A13992 /* UIView+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BXExtension.h"; sourceTree = "<group>"; };
+		CE9065BF215620F000A13992 /* HHBandCardVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBandCardVC.h; sourceTree = "<group>"; };
+		CE9065C0215620F000A13992 /* HHBandCardVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHBandCardVC.m; sourceTree = "<group>"; };
+		CE9065C22156267F00A13992 /* HHMywalletCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMywalletCell.h; sourceTree = "<group>"; };
+		CE9065C32156267F00A13992 /* HHMywalletCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMywalletCell.m; sourceTree = "<group>"; };
+		CE9065C42156267F00A13992 /* HHMywalletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHMywalletCell.xib; sourceTree = "<group>"; };
+		CE9065C721563B5C00A13992 /* HHMyWalletHead.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHMyWalletHead.xib; sourceTree = "<group>"; };
+		CE9065C92156422E00A13992 /* HHDistributionGoodsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributionGoodsVC.h; sourceTree = "<group>"; };
+		CE9065CA2156422E00A13992 /* HHDistributionGoodsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributionGoodsVC.m; sourceTree = "<group>"; };
+		CE9065CC21564BDA00A13992 /* HHDistributionOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributionOrderVC.h; sourceTree = "<group>"; };
+		CE9065CD21564BDA00A13992 /* HHDistributionOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributionOrderVC.m; sourceTree = "<group>"; };
+		CE9065CF21564F1A00A13992 /* HHMydistributorsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMydistributorsVC.h; sourceTree = "<group>"; };
+		CE9065D021564F1A00A13992 /* HHMydistributorsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMydistributorsVC.m; sourceTree = "<group>"; };
+		CE9065D521565C2300A13992 /* HHMyMembersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyMembersCell.h; sourceTree = "<group>"; };
+		CE9065D621565C2300A13992 /* HHMyMembersCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyMembersCell.m; sourceTree = "<group>"; };
+		CE9065D721565C2300A13992 /* HHMyMembersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHMyMembersCell.xib; sourceTree = "<group>"; };
+		CE9065DA21566C4400A13992 /* HHJuniorMembersVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHJuniorMembersVC.h; sourceTree = "<group>"; };
+		CE9065DB21566C4400A13992 /* HHJuniorMembersVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHJuniorMembersVC.m; sourceTree = "<group>"; };
 		CE9938552136412E002B256D /* HHMyWalletVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyWalletVC.h; sourceTree = "<group>"; };
 		CE9938562136412E002B256D /* HHMyWalletVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyWalletVC.m; sourceTree = "<group>"; };
 		CE9938582136439A002B256D /* HHMyWalletHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMyWalletHead.h; sourceTree = "<group>"; };
@@ -1137,8 +1172,6 @@
 		CE99C15121353441007FC7B9 /* HHNewApplyFundCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHNewApplyFundCell.h; sourceTree = "<group>"; };
 		CE99C15221353441007FC7B9 /* HHNewApplyFundCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHNewApplyFundCell.m; sourceTree = "<group>"; };
 		CE99C15321353441007FC7B9 /* HHNewApplyFundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHNewApplyFundCell.xib; sourceTree = "<group>"; };
-		CE99C15621355C7D007FC7B9 /* HHMywalletCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMywalletCell.h; sourceTree = "<group>"; };
-		CE99C15721355C7D007FC7B9 /* HHMywalletCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMywalletCell.m; sourceTree = "<group>"; };
 		CEA09E142153A7DE00DDB2A0 /* HHdiscountPackageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageVC.m; sourceTree = "<group>"; };
 		CEA09E152153A7DF00DDB2A0 /* HHdiscountPackageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageVC.h; sourceTree = "<group>"; };
 		CEA09E172153B76100DDB2A0 /* HHMyCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMyCodeVC.h; sourceTree = "<group>"; };
@@ -1398,6 +1431,7 @@
 				CE4D09DC212423F200796FEE /* TabBarController */,
 				CE526482212BBFE600F30D29 /* XWTransition */,
 				CE4FFDC62148EF9B00767DF1 /* BaseRefreshView */,
+				CE9065AC215615DB00A13992 /* JYJKeyBoard */,
 				CE4FFDCA2148F03800767DF1 /* SDRefeshView */,
 			);
 			path = Base;
@@ -1910,8 +1944,10 @@
 		CE4D0A5D2124376500796FEE /* PersonCenter(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
-				CE4D0A5E2124376500796FEE /* Models */,
 				CE4D0A5F2124376500796FEE /* VC */,
+				CE9065B921561CA900A13992 /* Cells */,
+				CE9065BA21561CA900A13992 /* Views */,
+				CE4D0A5E2124376500796FEE /* Models */,
 				CE8A677F212ACA0400C7C57F /* order */,
 			);
 			path = "PersonCenter(个人中心)";
@@ -1933,82 +1969,26 @@
 			children = (
 				CE04500C214A547800093AE7 /* HHPersonCenterSuperVC.h */,
 				CE04500D214A547800093AE7 /* HHPersonCenterSuperVC.m */,
-				CE4D0A602124376500796FEE /* HHPersonCenterSub1.h */,
-				CE4D0A612124376500796FEE /* HHPersonCenterSub1.m */,
-				CE04500F214A59EF00093AE7 /* HHPersonCenterSub2.h */,
-				CE045010214A59EF00093AE7 /* HHPersonCenterSub2.m */,
-				CE045012214A59FD00093AE7 /* HHPersonCenterSub3.h */,
-				CE045013214A59FD00093AE7 /* HHPersonCenterSub3.m */,
-				CE045015214A5A1600093AE7 /* HHPersonCenterSub4.h */,
-				CE045016214A5A1600093AE7 /* HHPersonCenterSub4.m */,
-				CE21845221251531003F354F /* HHModelsView.h */,
-				CE21845321251531003F354F /* HHModelsView.m */,
-				CE21845621252371003F354F /* HHOrderStatusCell.h */,
-				CE21845721252371003F354F /* HHOrderStatusCell.m */,
-				CE734F23214A730B005748B7 /* HHDistributeStatusCell.h */,
-				CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */,
-				CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */,
-				CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */,
-				CE21846F212535F0003F354F /* HHPersonCenterHead.h */,
-				CE218470212535F0003F354F /* HHPersonCenterHead.m */,
-				CE21847321254A6A003F354F /* LSPaoMaView.h */,
-				CE21847221254A6A003F354F /* LSPaoMaView.m */,
-				CE4725BA212D0B12002BD2A5 /* HHCouponCell.h */,
-				CE4725B9212D0B11002BD2A5 /* HHCouponCell.m */,
-				CE4725C0212D0B16002BD2A5 /* HHCouponCell.xib */,
-				CE4725BB212D0B12002BD2A5 /* HHCouponSuperVC.h */,
-				CE4725BC212D0B13002BD2A5 /* HHCouponSuperVC.m */,
-				CE4725BE212D0B15002BD2A5 /* HHCouponUnusedVC.h */,
-				CE4725BD212D0B14002BD2A5 /* HHCouponUnusedVC.m */,
-				CE4725C2212D0B17002BD2A5 /* HHCouponUsedVC.h */,
-				CE4725B8212D0B10002BD2A5 /* HHCouponUsedVC.m */,
-				CE4725C1212D0B17002BD2A5 /* HHCouponFailureVC.h */,
-				CE4725BF212D0B15002BD2A5 /* HHCouponFailureVC.m */,
-				CE4725C9212D0BD2002BD2A5 /* HHMyCollectionVC.h */,
-				CE4725CA212D0BD2002BD2A5 /* HHMyCollectionVC.m */,
-				CE4725CD212D101D002BD2A5 /* HHModifyInfoVC.h */,
-				CE4725CC212D101C002BD2A5 /* HHModifyInfoVC.m */,
-				CE4725D0212D108C002BD2A5 /* HHAboutUsVC.h */,
-				CE4725CF212D108B002BD2A5 /* HHAboutUsVC.m */,
-				CE9938552136412E002B256D /* HHMyWalletVC.h */,
-				CE9938562136412E002B256D /* HHMyWalletVC.m */,
-				CE99C15621355C7D007FC7B9 /* HHMywalletCell.h */,
-				CE99C15721355C7D007FC7B9 /* HHMywalletCell.m */,
-				CE9938582136439A002B256D /* HHMyWalletHead.h */,
-				CE9938592136439A002B256D /* HHMyWalletHead.m */,
-				CE99385B213649FC002B256D /* HHMyIntegralVC.h */,
-				CE99385C213649FC002B256D /* HHMyIntegralVC.m */,
-				CE99385E21364E1B002B256D /* HHMyIntegralHead.h */,
-				CE99385F21364E1B002B256D /* HHMyIntegralHead.m */,
-				CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */,
-				CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */,
-				CE3B0468214FA58B00FC0AE2 /* HHIntegralRankCell.h */,
-				CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */,
-				CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */,
-				CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */,
-				CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */,
+				CE90659A2155E1C700A13992 /* HHCommonSetVC.h */,
+				CE90659B2155E1C700A13992 /* HHCommonSetVC.m */,
+				CE90659D2156141600A13992 /* HHAuthenticationVC.h */,
+				CE90659E2156141600A13992 /* HHAuthenticationVC.m */,
+				CE9065BF215620F000A13992 /* HHBandCardVC.h */,
+				CE9065C0215620F000A13992 /* HHBandCardVC.m */,
+				CE99386D21369B25002B256D /* HHSignListVC.h */,
+				CE99386E21369B25002B256D /* HHSignListVC.m */,
+				CE9065BD21561EC800A13992 /* VipCenter(会员中心) */,
+				CE9065BE21561EC900A13992 /* DistributionCenter(分销中心) */,
+				CE9065BC21561EC800A13992 /* StoreManager(门店管理) */,
+				CE9065BB21561EC800A13992 /* DelegateCenter(代理中心) */,
 				CE99386121364FB8002B256D /* HHmyEarningsVC.h */,
 				CE99386221364FB8002B256D /* HHmyEarningsVC.m */,
-				CE99386421364FFD002B256D /* HHmyEarningsHead.h */,
-				CE99386521364FFD002B256D /* HHmyEarningsHead.m */,
 				CE9938702136A1E9002B256D /* HHMyRightsVC.h */,
 				CE9938712136A1E9002B256D /* HHMyRightsVC.m */,
 				CE99386A213693BE002B256D /* HHvipInfoVC.h */,
 				CE99386B213693BE002B256D /* HHvipInfoVC.m */,
-				CE99386D21369B25002B256D /* HHSignListVC.h */,
-				CE99386E21369B25002B256D /* HHSignListVC.m */,
-				CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */,
-				CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */,
 				CE3B046D214FAEA900FC0AE2 /* HHMyServiceVC.h */,
 				CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */,
-				CE3B0470214FC3F000FC0AE2 /* HHMyServiceCell.h */,
-				CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */,
-				CE390E2B2150F7F40016BD12 /* HHMyStoreVC.h */,
-				CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */,
-				CE390E2E2150FD900016BD12 /* HHMystoreCell.h */,
-				CE390E2F2150FD900016BD12 /* HHMystoreCell.m */,
-				CEA09E172153B76100DDB2A0 /* HHMyCodeVC.h */,
-				CEA09E182153B76200DDB2A0 /* HHMyCodeVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2048,8 +2028,10 @@
 		CE4D0A672124376500796FEE /* ShopCart(购物车) */ = {
 			isa = PBXGroup;
 			children = (
-				CE4D0A682124376500796FEE /* Models */,
 				CE4D0A692124376500796FEE /* VC */,
+				CE9065B721561B4700A13992 /* Cells */,
+				CE9065B821561B8C00A13992 /* Views */,
+				CE4D0A682124376500796FEE /* Models */,
 			);
 			path = "ShopCart(购物车)";
 			sourceTree = "<group>";
@@ -2080,20 +2062,12 @@
 			children = (
 				CE8A6696212ABAA800C7C57F /* HHShoppingVC.h */,
 				CE8A66A4212ABAB000C7C57F /* HHShoppingVC.m */,
-				CE8A667E212ABA9A00C7C57F /* HHCartCell.h */,
-				CE8A668D212ABAA300C7C57F /* HHCartCell.m */,
-				CE8A6692212ABAA600C7C57F /* HHCartCell.xib */,
 				CE8A6698212ABAA900C7C57F /* HHActivityWebVC.h */,
 				CE8A66A3212ABAB000C7C57F /* HHActivityWebVC.m */,
 				CE8A6688212ABAA000C7C57F /* HHAddAdressVC.h */,
 				CE8A66A0212ABAAE00C7C57F /* HHAddAdressVC.m */,
-				CE8A668B212ABAA200C7C57F /* HHAddCartTool.h */,
-				CE8A667D212ABA9900C7C57F /* HHAddCartTool.m */,
 				CE8A6693212ABAA600C7C57F /* HHBargainingWebVC.h */,
 				CE8A668C212ABAA200C7C57F /* HHBargainingWebVC.m */,
-				CE8A6682212ABA9C00C7C57F /* HHCartFootView.h */,
-				CE8A66A1212ABAAF00C7C57F /* HHCartFootView.m */,
-				CE8A667F212ABA9B00C7C57F /* HHCartFootView.xib */,
 				CE8A6694212ABAA700C7C57F /* HHFamiliarityPayVC.h */,
 				CE8A6686212ABA9F00C7C57F /* HHFamiliarityPayVC.m */,
 				CE526414212BB90500F30D29 /* HHnormalSuccessVC.h */,
@@ -2105,29 +2079,12 @@
 				CE8A668E212ABAA400C7C57F /* HHSaleGroupWebVC.m */,
 				CE8A6680212ABA9B00C7C57F /* HHSendGiftWebVC.h */,
 				CE8A6683212ABA9D00C7C57F /* HHSendGiftWebVC.m */,
-				CE8A6687212ABA9F00C7C57F /* HHShippingAddressCell.h */,
-				CE8A6691212ABAA500C7C57F /* HHShippingAddressCell.m */,
-				CE8A669E212ABAAD00C7C57F /* HHShippingAddressCell.xib */,
-				CED55DC82133F57F004C2E68 /* HHAddressFooterView.h */,
-				CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */,
-				CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */,
 				CE8A6684212ABA9D00C7C57F /* HHShippingAddressVC.h */,
 				CE8A6681212ABA9C00C7C57F /* HHShippingAddressVC.m */,
-				CE8A669F212ABAAD00C7C57F /* HHSubmitOrderCell.h */,
-				CE8A6699212ABAAA00C7C57F /* HHSubmitOrderCell.m */,
-				CE8A6697212ABAA900C7C57F /* HHSubmitOrderCell.xib */,
-				CE8A6690212ABAA500C7C57F /* HHSubmitOrdersHead.h */,
-				CE8A669D212ABAAC00C7C57F /* HHSubmitOrdersHead.m */,
-				CE8A669C212ABAAC00C7C57F /* HHSubmitOrdersHead.xib */,
 				CE8A6685212ABA9E00C7C57F /* HHSubmitOrdersVC.h */,
 				CE8A668A212ABAA100C7C57F /* HHSubmitOrdersVC.m */,
-				CE8A6689212ABAA000C7C57F /* HHSubmitOrderTool.h */,
-				CE8A66A2212ABAAF00C7C57F /* HHSubmitOrderTool.m */,
-				CE8A669B212ABAAB00C7C57F /* HHSubmitOrderTool.xib */,
 				CE526419212BBD5900F30D29 /* HHPayTypeVC.h */,
 				CE526418212BBD5900F30D29 /* HHPayTypeVC.m */,
-				CE52641A212BBD5A00F30D29 /* HHPayTypeCell.h */,
-				CE52641B212BBD5A00F30D29 /* HHPayTypeCell.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2702,6 +2659,29 @@
 		CE8A6780212ACA0400C7C57F /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				CE8A67A7212ACA2A00C7C57F /* HHOrderVC.h */,
+				CE8A67AE212ACA2B00C7C57F /* HHOrderVC.m */,
+				CE8A6792212ACA2600C7C57F /* HJOrderCell.h */,
+				CE8A67B2212ACA2C00C7C57F /* HJOrderCell.m */,
+				CE8A679D212ACA2800C7C57F /* HJOrderCell.xib */,
+				CE8A6794212ACA2700C7C57F /* HHOrderDetailCellOne.h */,
+				CE8A67AF212ACA2B00C7C57F /* HHOrderDetailCellOne.m */,
+				CE8A6787212ACA2500C7C57F /* HHOrderDetailCellOne.xib */,
+				CE8A67A6212ACA2A00C7C57F /* HHOrderDetailHead.h */,
+				CE8A679E212ACA2800C7C57F /* HHOrderDetailHead.m */,
+				CE8A6791212ACA2600C7C57F /* HHOrderDetailHead.xib */,
+				CE8A679C212ACA2800C7C57F /* HHOrderDetailTableHead.h */,
+				CE8A67B4212ACA2C00C7C57F /* HHOrderDetailTableHead.m */,
+				CE8A6795212ACA2700C7C57F /* HHOrderDetailTableHead.xib */,
+				CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */,
+				CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */,
+				CE8A678F212ACA2600C7C57F /* HHOrderDetailVC.h */,
+				CE8A6797212ACA2700C7C57F /* HHOrderDetailVC.m */,
+				CE8A6788212ACA2500C7C57F /* HHOrderItemModel.h */,
+				CE8A6798212ACA2700C7C57F /* HHOrderItemModel.m */,
+				CE8A6782212ACA2400C7C57F /* HHOrderTwoCell.h */,
+				CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */,
+				CE8A67B5212ACA2C00C7C57F /* HHOrderTwoCell.xib */,
 				CE99C14B21352D89007FC7B9 /* HHNewApplyRefundVC.h */,
 				CE99C14C21352D89007FC7B9 /* HHNewApplyRefundVC.m */,
 				CE99C15121353441007FC7B9 /* HHNewApplyFundCell.h */,
@@ -2726,26 +2706,6 @@
 				CE8A67A3212ACA2900C7C57F /* HHEvaluationSuccessVC.m */,
 				CE8A6786212ACA2400C7C57F /* HHEvaluteStarCell.h */,
 				CE8A67A4212ACA2900C7C57F /* HHEvaluteStarCell.m */,
-				CE8A6794212ACA2700C7C57F /* HHOrderDetailCellOne.h */,
-				CE8A67AF212ACA2B00C7C57F /* HHOrderDetailCellOne.m */,
-				CE8A6787212ACA2500C7C57F /* HHOrderDetailCellOne.xib */,
-				CE8A67A6212ACA2A00C7C57F /* HHOrderDetailHead.h */,
-				CE8A679E212ACA2800C7C57F /* HHOrderDetailHead.m */,
-				CE8A6791212ACA2600C7C57F /* HHOrderDetailHead.xib */,
-				CE8A679C212ACA2800C7C57F /* HHOrderDetailTableHead.h */,
-				CE8A67B4212ACA2C00C7C57F /* HHOrderDetailTableHead.m */,
-				CE8A6795212ACA2700C7C57F /* HHOrderDetailTableHead.xib */,
-				CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */,
-				CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */,
-				CE8A678F212ACA2600C7C57F /* HHOrderDetailVC.h */,
-				CE8A6797212ACA2700C7C57F /* HHOrderDetailVC.m */,
-				CE8A6788212ACA2500C7C57F /* HHOrderItemModel.h */,
-				CE8A6798212ACA2700C7C57F /* HHOrderItemModel.m */,
-				CE8A6782212ACA2400C7C57F /* HHOrderTwoCell.h */,
-				CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */,
-				CE8A67B5212ACA2C00C7C57F /* HHOrderTwoCell.xib */,
-				CE8A67A7212ACA2A00C7C57F /* HHOrderVC.h */,
-				CE8A67AE212ACA2B00C7C57F /* HHOrderVC.m */,
 				CE8A6799212ACA2800C7C57F /* HHPostEvaluateFooter.h */,
 				CE8A67A5212ACA2A00C7C57F /* HHPostEvaluateFooter.m */,
 				CE8A6790212ACA2600C7C57F /* HHPostEvaluateSectionHead.h */,
@@ -2756,9 +2716,6 @@
 				CE8A6785212ACA2400C7C57F /* HHPostOrderEvaluateItem.m */,
 				CE8A679B212ACA2800C7C57F /* HHSelectPhotosCell.h */,
 				CE8A678A212ACA2500C7C57F /* HHSelectPhotosCell.m */,
-				CE8A6792212ACA2600C7C57F /* HJOrderCell.h */,
-				CE8A67B2212ACA2C00C7C57F /* HJOrderCell.m */,
-				CE8A679D212ACA2800C7C57F /* HJOrderCell.xib */,
 				CE5DBEA5213E55E800F17FCB /* HHLogisticsVC.h */,
 				CE5DBEA4213E55E800F17FCB /* HHLogisticsVC.m */,
 				CE5A81C3213E83C900EE61EE /* HHLogisticsCell0.h */,
@@ -2803,6 +2760,176 @@
 				CE8A67BB212ACA2D00C7C57F /* HHCellCommentView.m */,
 			);
 			path = HHCellCommentView;
+			sourceTree = "<group>";
+		};
+		CE9065AC215615DB00A13992 /* JYJKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				CE9065B1215615DB00A13992 /* BXTextField.h */,
+				CE9065AD215615DB00A13992 /* BXTextField.m */,
+				CE9065B2215615DB00A13992 /* UIView+BXExtension.h */,
+				CE9065AF215615DB00A13992 /* UIView+BXExtension.m */,
+				CE9065B0215615DB00A13992 /* UITextField+BXExtension.h */,
+				CE9065AE215615DB00A13992 /* UITextField+BXExtension.m */,
+			);
+			path = JYJKeyBoard;
+			sourceTree = "<group>";
+		};
+		CE9065B721561B4700A13992 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A667E212ABA9A00C7C57F /* HHCartCell.h */,
+				CE8A668D212ABAA300C7C57F /* HHCartCell.m */,
+				CE8A6692212ABAA600C7C57F /* HHCartCell.xib */,
+				CE8A6687212ABA9F00C7C57F /* HHShippingAddressCell.h */,
+				CE8A6691212ABAA500C7C57F /* HHShippingAddressCell.m */,
+				CE8A669E212ABAAD00C7C57F /* HHShippingAddressCell.xib */,
+				CE8A669F212ABAAD00C7C57F /* HHSubmitOrderCell.h */,
+				CE8A6699212ABAAA00C7C57F /* HHSubmitOrderCell.m */,
+				CE8A6697212ABAA900C7C57F /* HHSubmitOrderCell.xib */,
+				CE52641A212BBD5A00F30D29 /* HHPayTypeCell.h */,
+				CE52641B212BBD5A00F30D29 /* HHPayTypeCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CE9065B821561B8C00A13992 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A668B212ABAA200C7C57F /* HHAddCartTool.h */,
+				CE8A667D212ABA9900C7C57F /* HHAddCartTool.m */,
+				CE8A6682212ABA9C00C7C57F /* HHCartFootView.h */,
+				CE8A66A1212ABAAF00C7C57F /* HHCartFootView.m */,
+				CE8A667F212ABA9B00C7C57F /* HHCartFootView.xib */,
+				CE8A6689212ABAA000C7C57F /* HHSubmitOrderTool.h */,
+				CE8A66A2212ABAAF00C7C57F /* HHSubmitOrderTool.m */,
+				CE8A669B212ABAAB00C7C57F /* HHSubmitOrderTool.xib */,
+				CED55DC82133F57F004C2E68 /* HHAddressFooterView.h */,
+				CED55DC92133F57F004C2E68 /* HHAddressFooterView.m */,
+				CED55DCB2133F5A3004C2E68 /* HHAddressFooterView.xib */,
+				CE8A6690212ABAA500C7C57F /* HHSubmitOrdersHead.h */,
+				CE8A669D212ABAAC00C7C57F /* HHSubmitOrdersHead.m */,
+				CE8A669C212ABAAC00C7C57F /* HHSubmitOrdersHead.xib */,
+			);
+			name = Views;
+			path = "springDream/APP/ShopCart(购物车)/View/Views";
+			sourceTree = SOURCE_ROOT;
+		};
+		CE9065B921561CA900A13992 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE21845621252371003F354F /* HHOrderStatusCell.h */,
+				CE21845721252371003F354F /* HHOrderStatusCell.m */,
+				CE734F23214A730B005748B7 /* HHDistributeStatusCell.h */,
+				CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */,
+				CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */,
+				CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */,
+				CE4725BA212D0B12002BD2A5 /* HHCouponCell.h */,
+				CE4725B9212D0B11002BD2A5 /* HHCouponCell.m */,
+				CE4725C0212D0B16002BD2A5 /* HHCouponCell.xib */,
+				CE9065C22156267F00A13992 /* HHMywalletCell.h */,
+				CE9065C32156267F00A13992 /* HHMywalletCell.m */,
+				CE9065C42156267F00A13992 /* HHMywalletCell.xib */,
+				CE3B0468214FA58B00FC0AE2 /* HHIntegralRankCell.h */,
+				CE3B0469214FA58B00FC0AE2 /* HHIntegralRankCell.m */,
+				CE3B046A214FA58B00FC0AE2 /* HHIntegralRankCell.xib */,
+				CE3B0470214FC3F000FC0AE2 /* HHMyServiceCell.h */,
+				CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */,
+				CE390E2E2150FD900016BD12 /* HHMystoreCell.h */,
+				CE390E2F2150FD900016BD12 /* HHMystoreCell.m */,
+				CE9065D521565C2300A13992 /* HHMyMembersCell.h */,
+				CE9065D621565C2300A13992 /* HHMyMembersCell.m */,
+				CE9065D721565C2300A13992 /* HHMyMembersCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CE9065BA21561CA900A13992 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE21846F212535F0003F354F /* HHPersonCenterHead.h */,
+				CE218470212535F0003F354F /* HHPersonCenterHead.m */,
+				CE21845221251531003F354F /* HHModelsView.h */,
+				CE21845321251531003F354F /* HHModelsView.m */,
+				CE21847321254A6A003F354F /* LSPaoMaView.h */,
+				CE21847221254A6A003F354F /* LSPaoMaView.m */,
+				CE99386421364FFD002B256D /* HHmyEarningsHead.h */,
+				CE99386521364FFD002B256D /* HHmyEarningsHead.m */,
+				CE99385E21364E1B002B256D /* HHMyIntegralHead.h */,
+				CE99385F21364E1B002B256D /* HHMyIntegralHead.m */,
+				CE9938582136439A002B256D /* HHMyWalletHead.h */,
+				CE9938592136439A002B256D /* HHMyWalletHead.m */,
+				CE9065C721563B5C00A13992 /* HHMyWalletHead.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE9065BB21561EC800A13992 /* DelegateCenter(代理中心) */ = {
+			isa = PBXGroup;
+			children = (
+				CE045015214A5A1600093AE7 /* HHPersonCenterSub4.h */,
+				CE045016214A5A1600093AE7 /* HHPersonCenterSub4.m */,
+			);
+			path = "DelegateCenter(代理中心)";
+			sourceTree = "<group>";
+		};
+		CE9065BC21561EC800A13992 /* StoreManager(门店管理) */ = {
+			isa = PBXGroup;
+			children = (
+				CE045012214A59FD00093AE7 /* HHPersonCenterSub3.h */,
+				CE045013214A59FD00093AE7 /* HHPersonCenterSub3.m */,
+				CE390E2B2150F7F40016BD12 /* HHMyStoreVC.h */,
+				CE390E2C2150F7F40016BD12 /* HHMyStoreVC.m */,
+			);
+			path = "StoreManager(门店管理)";
+			sourceTree = "<group>";
+		};
+		CE9065BD21561EC800A13992 /* VipCenter(会员中心) */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D0A602124376500796FEE /* HHPersonCenterSub1.h */,
+				CE4D0A612124376500796FEE /* HHPersonCenterSub1.m */,
+				CE4725BB212D0B12002BD2A5 /* HHCouponSuperVC.h */,
+				CE4725BC212D0B13002BD2A5 /* HHCouponSuperVC.m */,
+				CE4725BE212D0B15002BD2A5 /* HHCouponUnusedVC.h */,
+				CE4725BD212D0B14002BD2A5 /* HHCouponUnusedVC.m */,
+				CE4725C2212D0B17002BD2A5 /* HHCouponUsedVC.h */,
+				CE4725B8212D0B10002BD2A5 /* HHCouponUsedVC.m */,
+				CE4725C1212D0B17002BD2A5 /* HHCouponFailureVC.h */,
+				CE4725BF212D0B15002BD2A5 /* HHCouponFailureVC.m */,
+				CE4725C9212D0BD2002BD2A5 /* HHMyCollectionVC.h */,
+				CE4725CA212D0BD2002BD2A5 /* HHMyCollectionVC.m */,
+				CE9938552136412E002B256D /* HHMyWalletVC.h */,
+				CE9938562136412E002B256D /* HHMyWalletVC.m */,
+				CE99385B213649FC002B256D /* HHMyIntegralVC.h */,
+				CE99385C213649FC002B256D /* HHMyIntegralVC.m */,
+				CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */,
+				CE3B0460214F964000FC0AE2 /* HHIntegralRankVC.m */,
+				CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */,
+				CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */,
+				CEA09E172153B76100DDB2A0 /* HHMyCodeVC.h */,
+				CEA09E182153B76200DDB2A0 /* HHMyCodeVC.m */,
+				CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */,
+				CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */,
+			);
+			path = "VipCenter(会员中心)";
+			sourceTree = "<group>";
+		};
+		CE9065BE21561EC900A13992 /* DistributionCenter(分销中心) */ = {
+			isa = PBXGroup;
+			children = (
+				CE04500F214A59EF00093AE7 /* HHPersonCenterSub2.h */,
+				CE045010214A59EF00093AE7 /* HHPersonCenterSub2.m */,
+				CE9065C92156422E00A13992 /* HHDistributionGoodsVC.h */,
+				CE9065CA2156422E00A13992 /* HHDistributionGoodsVC.m */,
+				CE9065CC21564BDA00A13992 /* HHDistributionOrderVC.h */,
+				CE9065CD21564BDA00A13992 /* HHDistributionOrderVC.m */,
+				CE9065CF21564F1A00A13992 /* HHMydistributorsVC.h */,
+				CE9065D021564F1A00A13992 /* HHMydistributorsVC.m */,
+				CE9065DA21566C4400A13992 /* HHJuniorMembersVC.h */,
+				CE9065DB21566C4400A13992 /* HHJuniorMembersVC.m */,
+			);
+			path = "DistributionCenter(分销中心)";
 			sourceTree = "<group>";
 		};
 		CEA09E202153C0F300DDB2A0 /* TagsView */ = {
@@ -3007,8 +3134,10 @@
 				CE4FFDF02148F49A00767DF1 /* test2.jpg in Resources */,
 				CE8A67CE212ACA2E00C7C57F /* photo_delete@2x.png in Resources */,
 				CE4D08C82124205600796FEE /* Main.storyboard in Resources */,
+				CE9065C821563B5C00A13992 /* HHMyWalletHead.xib in Resources */,
 				CE4FFDF62148F49A00767DF1 /* pbg.jpg in Resources */,
 				CE8A66B4212ABAB100C7C57F /* HHSubmitOrdersHead.xib in Resources */,
+				CE9065D921565C2300A13992 /* HHMyMembersCell.xib in Resources */,
 				CE4FFE332148F4E800767DF1 /* 2.jpg in Resources */,
 				CE4FFE252148F4E800767DF1 /* icon0.jpg in Resources */,
 				CE8A66B1212ABAB100C7C57F /* HHSubmitOrderCell.xib in Resources */,
@@ -3023,6 +3152,7 @@
 				CE4FFE362148F4E800767DF1 /* 0.jpg in Resources */,
 				CE4FFDEF2148F49A00767DF1 /* test3.jpg in Resources */,
 				CE8A6500212AAB6D00C7C57F /* SearchDetailViewController.xib in Resources */,
+				CE9065C62156267F00A13992 /* HHMywalletCell.xib in Resources */,
 				CE8A6525212AAB7A00C7C57F /* SearchDetailView.xib in Resources */,
 				CE8A66B6212ABAB100C7C57F /* HHShippingAddressCell.xib in Resources */,
 				CE4FFE232148F4E800767DF1 /* 10.jpg in Resources */,
@@ -3157,13 +3287,13 @@
 				CE4D0A14212423F200796FEE /* UIView+SGFrame.m in Sources */,
 				CE4D09EC212423F200796FEE /* UITextView+LH.m in Sources */,
 				CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */,
-				CE4725CE212D101D002BD2A5 /* HHModifyInfoVC.m in Sources */,
 				CE4FFDD82148F03900767DF1 /* SDRefreshFooterView.m in Sources */,
 				CE47263D212D1ECE002BD2A5 /* DCCollectionHeaderLayout.m in Sources */,
 				CE8A652D212AABD100C7C57F /* HHUrlModel.m in Sources */,
 				CE4725B7212D017E002BD2A5 /* MLMenuView.m in Sources */,
 				CE4FFDBE2148EEAF00767DF1 /* MLLinkLabel.m in Sources */,
 				CE8A67C9212ACA2E00C7C57F /* HHOrderDetailVC.m in Sources */,
+				CE9065B3215615DB00A13992 /* BXTextField.m in Sources */,
 				CE4FFD972148EC7200767DF1 /* SDTimeLineRefreshHeader.m in Sources */,
 				CE8A6503212AAB6D00C7C57F /* SearchDetailViewController.m in Sources */,
 				CE8A6520212AAB7A00C7C57F /* SKTagButton.m in Sources */,
@@ -3286,6 +3416,7 @@
 				CE4D09E9212423F200796FEE /* UITextField+LH.m in Sources */,
 				CE4D09F3212423F200796FEE /* NSMutableAttributedString+NSRangeException.m in Sources */,
 				CE8A64F0212AA29600C7C57F /* HHPhoneLoginVC.m in Sources */,
+				CE9065B4215615DB00A13992 /* UITextField+BXExtension.m in Sources */,
 				CE4FFD982148EC7200767DF1 /* SDWeiXinPhotoContainerView.m in Sources */,
 				CE4725C6212D0B18002BD2A5 /* HHCouponUnusedVC.m in Sources */,
 				CE8A66A8212ABAB100C7C57F /* HHSendGiftWebVC.m in Sources */,
@@ -3297,6 +3428,7 @@
 				CE52641C212BBD5B00F30D29 /* HHPayTypeVC.m in Sources */,
 				CE4D0A3C212423F200796FEE /* HJHomePageHeaderView.m in Sources */,
 				CE4D0A33212423F200796FEE /* AppDelegate+AOP.m in Sources */,
+				CE90659F2156141600A13992 /* HHAuthenticationVC.m in Sources */,
 				CE75CE70214B969C00AD126D /* HHInviteCodeVC.m in Sources */,
 				CE4D0A41212423F200796FEE /* HJTabBarController.m in Sources */,
 				CE8A66B8212ABAB100C7C57F /* HHCartFootView.m in Sources */,
@@ -3319,7 +3451,6 @@
 				CE8A6522212AAB7A00C7C57F /* SearchTagTableViewCell.m in Sources */,
 				CE5264DD212BBFE600F30D29 /* XWCoolAnimator+XWFold.m in Sources */,
 				CE8A654C212AAC6800C7C57F /* HHOrderIdItem.m in Sources */,
-				CE99C15821355C7D007FC7B9 /* HHMywalletCell.m in Sources */,
 				CE4FFDC22148EEAF00767DF1 /* MLExpressionManager.m in Sources */,
 				CE4D0A2D212423F200796FEE /* HJLogFormatter.m in Sources */,
 				CE4D09F0212423F200796FEE /* UIImage+cutImage.m in Sources */,
@@ -3341,6 +3472,7 @@
 				CE8A64F9212AAA5400C7C57F /* HHGoodListVC.m in Sources */,
 				CE526416212BB90600F30D29 /* HHnormalSuccessVC.m in Sources */,
 				CEA09E2A2153C0F300DDB2A0 /* UIButton+LXExpandBtn.m in Sources */,
+				CE9065D121564F1A00A13992 /* HHMydistributorsVC.m in Sources */,
 				CE4D09FC212423F200796FEE /* NSMutableArray+LH.m in Sources */,
 				CE5264D4212BBFE600F30D29 /* XWFilterAnimator+XWMask.m in Sources */,
 				CE4D09F7212423F200796FEE /* NSMutableString+NSRangeException.m in Sources */,
@@ -3348,6 +3480,7 @@
 				CE8A6527212AAB7A00C7C57F /* SearchTagHeadView.m in Sources */,
 				CE8A651D212AAB7A00C7C57F /* SKTag.m in Sources */,
 				CE4081232151F4A300436B42 /* HHSpellGroupCell.m in Sources */,
+				CE9065B5215615DB00A13992 /* UIView+BXExtension.m in Sources */,
 				CE8A67D9212ACA2E00C7C57F /* HJOrderCell.m in Sources */,
 				CE4725C5212D0B18002BD2A5 /* HHCouponSuperVC.m in Sources */,
 				CE5264D9212BBFE600F30D29 /* XWCoolAnimator+XWScanning.m in Sources */,
@@ -3365,7 +3498,9 @@
 				CE4725C4212D0B18002BD2A5 /* HHCouponCell.m in Sources */,
 				CE8A6535212AAC0100C7C57F /* HHgooodDetailModel.m in Sources */,
 				CE472637212D1ECE002BD2A5 /* DCDetailOverFooterView.m in Sources */,
+				CE9065D821565C2300A13992 /* HHMyMembersCell.m in Sources */,
 				CE4D0A30212423F200796FEE /* NSObject+NC.m in Sources */,
+				CE9065CE21564BDA00A13992 /* HHDistributionOrderVC.m in Sources */,
 				CE8A67C3212ACA2E00C7C57F /* HHEvaluationListModel.m in Sources */,
 				CE4D09F5212423F200796FEE /* NSArray+NSRangeException.m in Sources */,
 				CE5264E1212BBFE600F30D29 /* XWMagicMoveAnimator.m in Sources */,
@@ -3396,6 +3531,7 @@
 				CE5264DB212BBFE600F30D29 /* XWCoolAnimator+XWLines.m in Sources */,
 				CE4D0A04212423F200796FEE /* UIViewController+Create.m in Sources */,
 				CE4D0A38212423F200796FEE /* HXCommonPickView.m in Sources */,
+				CE9065DC21566C4400A13992 /* HHJuniorMembersVC.m in Sources */,
 				CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */,
 				CE5A81C6213E83C900EE61EE /* HHLogisticsCell0.m in Sources */,
 				CE5A81C0213E7C2D00EE61EE /* HHLogisticsHead.m in Sources */,
@@ -3407,10 +3543,12 @@
 				CE8A66BA212ABAB100C7C57F /* HHActivityWebVC.m in Sources */,
 				CE4FFDD92148F03900767DF1 /* SDRefreshView.m in Sources */,
 				CE5264E8212C0F0A00F30D29 /* HHGoodDetailVC.m in Sources */,
+				CE9065CB2156422E00A13992 /* HHDistributionGoodsVC.m in Sources */,
 				CE8A6548212AAC6800C7C57F /* HHHomeAPI.m in Sources */,
 				CE5264C8212BBFE600F30D29 /* UIView+Snapshot.m in Sources */,
 				CE21845821252371003F354F /* HHOrderStatusCell.m in Sources */,
 				CE8A67D8212ACA2E00C7C57F /* HHPostEvaluateSectionHead.m in Sources */,
+				CE9065C52156267F00A13992 /* HHMywalletCell.m in Sources */,
 				CE4D0A12212423F200796FEE /* XYQButton.m in Sources */,
 				CE4725B6212D017E002BD2A5 /* MLMenuCell.m in Sources */,
 				CE4D0A37212423F200796FEE /* HHTextfieldcell.m in Sources */,
@@ -3420,12 +3558,12 @@
 				CE4D0A03212423F200796FEE /* NSObject+AutoProperty.m in Sources */,
 				CE21846821252D0B003F354F /* UIView+Badge.m in Sources */,
 				CE4D0A742124376500796FEE /* HHHomeVC.m in Sources */,
-				CE4725D1212D108C002BD2A5 /* HHAboutUsVC.m in Sources */,
 				CE9938572136412E002B256D /* HHMyWalletVC.m in Sources */,
 				CE4D09FE212423F200796FEE /* CATextLayer+LH.m in Sources */,
 				CE4FFD902148EC7200767DF1 /* SDTimeLineCellModel.m in Sources */,
 				CE04500E214A547800093AE7 /* HHPersonCenterSuperVC.m in Sources */,
 				CE5264E4212BBFE600F30D29 /* XWCircleSpreadAnimator.m in Sources */,
+				CE90659C2155E1C700A13992 /* HHCommonSetVC.m in Sources */,
 				CE8A651E212AAB7A00C7C57F /* SKTagView.m in Sources */,
 				CE4D0A05212423F200796FEE /* UIView+Utils.m in Sources */,
 				CED55DCA2133F57F004C2E68 /* HHAddressFooterView.m in Sources */,
@@ -3461,6 +3599,7 @@
 				CE4FFDBB2148EEAF00767DF1 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				CE4FFDC12148EEAF00767DF1 /* NSString+MLExpression.m in Sources */,
 				CE4D0A2C212423F200796FEE /* HJLog.m in Sources */,
+				CE9065C1215620F000A13992 /* HHBandCardVC.m in Sources */,
 				CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */,
 				CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */,
 				CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */,

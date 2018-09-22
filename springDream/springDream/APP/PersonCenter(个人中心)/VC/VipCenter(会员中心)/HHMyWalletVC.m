@@ -38,8 +38,8 @@
     
     self.title = @"我的钱包";
 
-    [self.tabView registerClass:[HHMywalletCell class] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyWalletHead *wallet_head = [[HHMyWalletHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 130)];
+    [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
+    HHMyWalletHead *wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
     self.tabView.tableHeaderView = wallet_head;
 }
 #pragma mark - DZNEmptyDataSetDelegate
@@ -88,21 +88,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
+    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 70;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0.01;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 5;
+    return 0.01;
 }
 @end

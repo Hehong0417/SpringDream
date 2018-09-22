@@ -157,8 +157,8 @@ static const CGFloat kNormalCellHeight = 44;
     //头像cell
     if ([indexPath isEqual:self.headImageCellIndexPath]) {
         
-        CGFloat imageViewSizeW = self.imageViewSizeW?self.imageViewSizeW:WidthScaleSize_W(60);
-        CGFloat imageViewSizeH = self.imageViewSizeH?self.imageViewSizeH:WidthScaleSize_W(60);
+        CGFloat imageViewSizeW = self.imageViewSizeW?self.imageViewSizeW:WidthScaleSize_W(45);
+        CGFloat imageViewSizeH = self.imageViewSizeH?self.imageViewSizeH:WidthScaleSize_W(45);
         
         CGFloat imageViewX = SCREEN_WIDTH-imageViewSizeW - 35;
 

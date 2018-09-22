@@ -6,14 +6,16 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHPersonCenterSub2.h"
+#import "HHPersonCenterSub4.h"
 #import "HHDistributeStatusCell.h"
-#import "HHDistributeServiceCell_one.h"
+#import "HHPersonCenterHead.h"
+#import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
 #import "HHMyServiceVC.h"
+#import "HHMydistributorsVC.h"
 
-@interface HHPersonCenterSub2 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
-
+@interface HHPersonCenterSub4 ()<HHDistributeStatusCellDelagete>
+@property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
@@ -22,7 +24,7 @@
 
 @end
 
-@implementation HHPersonCenterSub2
+@implementation HHPersonCenterSub4
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,14 +43,13 @@
     self.tabView.estimatedSectionFooterHeight = 0;
     self.tabView.estimatedSectionHeaderHeight = 0;
     self.tabView.scrollEnabled = NO;
+
     [self.view addSubview:self.tabView];
 }
 - (void)registerTableViewCell{
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
-    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
-    
     
 }
 #pragma mark - 获取数据
@@ -68,7 +69,7 @@
             if (api.State == 1) {
                 self.orderStatusCount_model = [HHMineModel mj_objectWithKeyValues:api.Data];
                 self.message_arr = @[self.orderStatusCount_model.wait_pay_count,self.orderStatusCount_model.wait_send_count,self.orderStatusCount_model.already_shipped_count,self.orderStatusCount_model.un_evaluate_count,self.orderStatusCount_model.afte_ervice_count];
-                [self.tabView reloadRow:1 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
+                [self.tabView reloadRow:0 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -77,13 +78,12 @@
         }
     }];
     
-    
 }
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -93,27 +93,28 @@
     }else if (section == 1){
         return 1;
     }else{
-        return 2;
+        return 3;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *grideCell;
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
-            cell.textLabel.text = @"佣金金额：0.00元";
-            cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        if (indexPath.row == 0){
+            HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
+            cell.message_arr = self.message_arr;
+            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
+            cell.btn_title_arr = @[@"代理产品",@"分销商",@"会员",@"团队订单"];
             grideCell = cell;
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.message_arr = self.message_arr;
-            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
-            cell.btn_title_arr = @[@"分销产品",@"分销商",@"会员",@"分销订单"];
             cell.delegate = self;
+            cell.message_arr = @[@"0",@"0",@"0",@"0"];
+            cell.btn_image_arr = @[@"order_01",@"",@"",@""];
+            cell.btn_title_arr = @[@"我的佣金",@"",@"",@""];
             grideCell = cell;
         }
         
@@ -135,11 +136,6 @@
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            grideCell = cell;
-        }else if (indexPath.row == 1) {
-            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
             grideCell = cell;
         }
     }
@@ -163,58 +159,42 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 50;
-        }else{
-            return 70;
-        }
+
+        return 70;
     }else if (indexPath.section == 1){
         return 75;
     }else{
-        
         if (indexPath.row == 0) {
             return 50;
         }else{
             return 95;
         }
     }
+    return 0.01;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            //我的订单
-//            HHOrderVC *vc = [HHOrderVC new];
-//            vc.sg_selectIndex = 0;
-//            vc.button_tag = 0;
-//            [self.navigationController pushVC:vc];
-        }
+  
     }
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            //我的服务
 //            HHMyServiceVC *vc = [HHMyServiceVC new];
-//            vc.service_type = MyService_type_distributionCenter;
+//            vc.service_type = MyService_type_delegateCenter;
 //            [self.navigationController pushVC:vc];
         }
     }
-    
+
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
 - (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
-    
-}
-#pragma mark - HHDistributeServiceCell_one_delagete
-
-- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
-    
-    if (buttonIndex == 0) {
-        
-
+    if (buttonIndex == 2) {
+        HHMydistributorsVC *vc = [HHMydistributorsVC new];
+        vc.title_str = @"我的会员";
+        [self.navigationController pushVC:vc];
     }
     
 }
-
 @end

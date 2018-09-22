@@ -6,7 +6,7 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHGoodListVC.h"
+#import "HHDistributionGoodsVC.h"
 #import "HXHomeCollectionCell.h"
 #import "SGSegmentedControl.h"
 #import "SearchView.h"
@@ -14,11 +14,8 @@
 #import "HHGoodDetailVC.h"
 #import "SDTimeLineTableViewController.h"
 
-@interface HHGoodListVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-{
-    SearchView *searchView;
-    
-}
+@interface HHDistributionGoodsVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+
 @property (nonatomic, strong)   UICollectionView *collectionView;
 @property(nonatomic,strong)     SGSegmentedControl *SG;
 @property (nonatomic, strong)   NSMutableArray *title_arr;
@@ -33,16 +30,16 @@
 
 @end
 
-@implementation HHGoodListVC
+@implementation HHDistributionGoodsVC
 
 - (void)viewDidLoad{
     
     [super viewDidLoad];
     
+    self.title = @"分销商品";
+     // UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
     
-    UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
-    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
     
     //商品列表
     self.page = 1;
@@ -57,13 +54,12 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
     
     [self setupSGSegmentedControl];
-
-    [self setupSearchView];
-     //获取数据
+    
+    //获取数据
     [self addHeadRefresh];
     
     [self getDatas];
-
+    
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -80,18 +76,18 @@
 
 - (void)setupSGSegmentedControl{
     
-//    self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
+    //   self.title_arr = [NSMutableArray arrayWithArray:@[@"价格",@"上新",@"浏览量",@"销量"]];
     self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
     NSArray *nomalImageArr = @[@"",@"",@"pArrow"];
     NSArray *selectedImageArr = @[@"",@"",@"pArrow_top"];
-
+    
     if (self.title_arr.count < 5) {
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeStatic nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
-//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
+        //  self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];
     }else{
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:SGSegmentedControlTypeScroll nomalImageArr:nomalImageArr selectedImageArr:selectedImageArr titleArr:self.title_arr];
-
-//        self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
+        
+        //   self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeScroll) titleArr:self.title_arr];
     }
     [self.SG setPriceTop:@"pArrow_top" price_down:@"pArrow_down"];
     self.SG.titleColorStateNormal = kBlackColor;
@@ -113,19 +109,19 @@
         if (!error) {
             
             if (api.State == 1) {
-
+                
                 if (self.isFooterRefresh==YES) {
                     [self loadDataFinish:api.Data];
                 }else{
-                   [self addFootRefresh];
-                   [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self.datas removeAllObjects];
                     [self loadDataFinish:api.Data];
                 }
             }else{
                 if ([api.Msg isEqualToString:@"cancelled"]) {
-
+                    
                 }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
                 }
             }
             
@@ -133,7 +129,7 @@
             if ([error.localizedDescription isEqualToString:@"已取消"]) {
                 
             }else{
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
             }
         }
     }];
@@ -187,7 +183,7 @@
 - (void)loadDataFinish:(NSArray *)arr {
     
     [self.datas addObjectsFromArray:arr];
-
+    
     if (arr.count < self.pageSize) {
         
         [self endRefreshing:YES];
@@ -195,7 +191,6 @@
     }else{
         [self endRefreshing:NO];
     }
-    
 }
 
 /**
@@ -204,7 +199,7 @@
 - (void)endRefreshing:(BOOL)noMoreData {
     // 取消刷新
     self.collectionView.mj_footer.hidden = NO;
-
+    
     if (noMoreData) {
         if (self.datas.count == 0) {
             self.collectionView.mj_footer.hidden = YES;
@@ -220,7 +215,7 @@
     if (self.collectionView.mj_header.isRefreshing) {
         [self.collectionView.mj_header endRefreshing];
     }
-   
+    
     if (self.collectionView.mj_footer.isRefreshing) {
         [self.collectionView.mj_footer endRefreshing];
     }
@@ -228,79 +223,9 @@
     [self.collectionView reloadData];
     
 }
-
-#pragma mark - SearchView
-
-- (void)setupSearchView {
-    searchView = [[SearchView alloc] initWithFrame:CGRectMake(15, 3, self.view.frame.size.width-30, 30)];
-    searchView.textField.text = @"";
-    searchView.delegate = self;
-    searchView.searchTitle_label.text = self.name;
-    searchView.userInteractionEnabled = YES;
-   
-    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
-    backBtn.highlighted = NO;
-    [searchView addSubview:backBtn];
-    
-    if (self.enter_Type == HHenter_category_Type){
-        
-        [self.navigationController.navigationBar addSubview:searchView];
-
-    }else if(self.enter_Type == HHenter_home_Type){
-        
-        [self searchButtonWasPressedForSearchView:searchView];
-        
-        [self.navigationController.navigationBar addSubview:searchView];
-
-
-    }else{
-        UIView *left_view = [UIView lh_viewWithFrame:CGRectMake(0, 0, 20, 20) backColor:kClearColor];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_view];
-        searchView.hidden = YES;
-    }
-
-}
 - (void)backAction{
-
+    
     [self.navigationController popVC];
-}
-#pragma mark - SearchViewDelegate
-
-- (void)searchButtonWasPressedForSearchView:(SearchView *)searchView {
-    
-    SearchDetailViewController *searchViewController = [[SearchDetailViewController alloc] init];
-    searchViewController.textFieldText = self.name;
-    searchViewController.placeHolderText = searchView.textField.text;
-    searchViewController.delegate = self;
-    searchViewController.enter_Type = self.enter_Type;
-
-    UINavigationController *navigationController =
-    [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [self presentViewController:navigationController
-                       animated:NO
-                     completion:nil];
-    
-}
-#pragma mark - SearchDetailViewControllerDelegate
-
-- (void)tagViewButtonDidSelectedForTagTitle:(NSString *)title{
-    //热门搜索/历史搜索标题
-    self.page = 1;
-    self.name = title;
-    if (title.length>0) {
-        self.isCategory = NO;
-    }else{
-        self.isCategory = YES;
-    }
-    searchView.searchTitle_label.text = self.name;
-    [self.datas removeAllObjects];
-    [self getDatas];
-    
-}
-- (void)dismissButtonWasPressedForSearchDetailView:(id)searchView{
-    
-    [self.navigationController popToRootVC];
-    
 }
 #pragma mark - SGSegmentedControlDelegate
 
@@ -309,7 +234,7 @@
     [self.task cancel];
     
     self.page = 1;
-
+    
     if (index == 0){
         //上新
         if (self.orderState==3) {
@@ -320,9 +245,9 @@
         self.orderby = @(self.orderState);
         [self getDatas];
         
-
+        
     }else if (index == 1){
-  
+        
         //销量
         if (self.orderState==7) {
             self.orderState = 8;
@@ -333,7 +258,7 @@
         [self getDatas];
     }
     else if (index == 2){
- 
+        
         //价格
         if (self.orderState==1) {
             self.orderState = 2;
@@ -386,7 +311,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
     return  CGSizeMake(0.001, 0.001);
-
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     
@@ -421,15 +346,4 @@
     return _collectionView;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-
-    [super viewWillAppear:animated];
-    searchView.hidden = NO;
-
-}
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [super viewWillDisappear:animated];
-    searchView.hidden = YES;
-}
 @end

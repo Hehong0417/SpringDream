@@ -9,7 +9,9 @@
 #import "HXHomeCollectionCell.h"
 
 @implementation HXHomeCollectionCell
-
+{
+    UILabel *_tag_label;
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -22,10 +24,17 @@
     [self.collectButton setImage:[UIImage imageNamed:@"tip_02"] forState:UIControlStateSelected];
     
     [self.goodImageV lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
+    
+    NSString *text = @"分享赚10元 自购省10元";
+    CGFloat width = [text lh_sizeWithFont:FONT(10) constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
+    
+    _tag_label = [UILabel lh_labelWithFrame:CGRectMake(20, 207, width, 10) text:text textColor:APP_NAV_COLOR font:FONT(10) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
+    [self.contentView addSubview:_tag_label];
+    
 }
 - (void)setProductsModel:(HHhomeProductsModel *)productsModel{
     _productsModel = productsModel;
-    
+    _tag_label.hidden = YES;
     self.product_nameLabel.text = productsModel.product_name;
     
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:productsModel.product_icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
@@ -36,7 +45,7 @@
 - (void)setGoodsModel:(HHCategoryModel *)goodsModel{
     
     _goodsModel = goodsModel;
-    
+    _tag_label.hidden = YES;
     self.product_nameLabel.text = goodsModel.ProductName;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.ImageUrl1] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.MinShowPrice.floatValue];
@@ -52,6 +61,8 @@
 - (void)setCollectModel:(HHCategoryModel *)collectModel{
     
     _collectModel = collectModel;
+    _tag_label.hidden = YES;
+
     self.product_nameLabel.text = collectModel.product_name;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:collectModel.product_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",collectModel.product_cost_price?collectModel.product_cost_price.floatValue:0.00];

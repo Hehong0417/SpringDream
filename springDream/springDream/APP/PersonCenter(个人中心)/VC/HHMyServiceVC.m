@@ -13,9 +13,6 @@
 #import "HHMyIntegralVC.h"
 #import "HHMyCollectionVC.h"
 #import "HHShippingAddressVC.h"
-#import "HHMyRightsVC.h"
-#import "HHmyEarningsVC.h"
-#import "HHModifyInfoVC.h"
 #import "HHInviteCodeVC.h"
 #import "HHSendIntegralVC.h"
 
@@ -45,14 +42,14 @@
     
     [self.collectionView registerClass:[HHMyServiceCell class] forCellWithReuseIdentifier:@"HHMyServiceCell"];
     
-    self.vc_arr = @[[HHMyWalletVC new],[HHCouponSuperVC new],[HHMyIntegralVC new],[HHMyCollectionVC new],[HHShippingAddressVC new],[HHMyRightsVC new],[HHmyEarningsVC new],[HHModifyInfoVC new],[HHInviteCodeVC new],[HHInviteCodeVC new],[HHSendIntegralVC new]];
+    self.vc_arr = @[[HHMyWalletVC new],[HHCouponSuperVC new],[HHMyIntegralVC new],[HHMyCollectionVC new],[HHShippingAddressVC new],[HHInviteCodeVC new],[HHInviteCodeVC new],[HHSendIntegralVC new]];
     
     if (self.service_type == MyService_type_vipCenter) {
-        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_12",@"service_13",@"service_14",@"service_01",@"service_02",@"service_03"];
-        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"会员权益",@"会员收益",@"基础设置",@"生成邀请码",@"输入邀请码",@"赠送积分"];
+        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@"service_03"];
+        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@"赠送积分"];
     }else if (self.service_type == MyService_type_distributionCenter) {
-        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_12",@"service_13",@"service_14",@"service_01",@"service_02",@"service_03"];
-        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"会员权益",@"会员收益",@"基础设置",@"生成邀请码",@"输入邀请码",@"赠送积分"];
+        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@"service_03"];
+        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@"赠送积分"];
     }else if (self.service_type == MyService_type_storesManager) {
         
     }else if (self.service_type == MyService_type_delegateCenter) {
@@ -132,11 +129,7 @@
     if (self.service_type == MyService_type_vipCenter) {
         
         if (indexPath.row == 7) {
-            HHModifyInfoVC *vc = (HHModifyInfoVC *)self.vc_arr[indexPath.row];
-            HJUser *user = [HJUser sharedUser];
-            vc.userIcon = user.mineModel.UserImage;
-            vc.phoneNum = user.mineModel.CellPhone;
-            [self.navigationController pushVC:vc];
+
         }else if(indexPath.row == 8){
             HHInviteCodeVC *vc = (HHInviteCodeVC *)self.vc_arr[indexPath.row];
             vc.IsGenerateCode = YES;

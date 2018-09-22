@@ -21,7 +21,7 @@
 
 - (void)loadView{
     
-    self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
+    self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:kWhiteColor];
     self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
     self.tabView.estimatedRowHeight = 0;
@@ -31,7 +31,7 @@
     self.tabView.tableFooterView = [UIView new];
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
+//    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
     
@@ -41,8 +41,8 @@
     
     self.title = @"我的积分";
     
-    [self.tabView registerClass:[HHMywalletCell class] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
+    [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
+    HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(110))];
     self.tabView.tableHeaderView = wallet_head;
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
@@ -90,20 +90,26 @@
     return 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
+    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    UIView *head = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 50) backColor:kClearColor];
+    UILabel *remark = [UILabel lh_labelWithFrame:CGRectMake(20, 0, ScreenW-40, 50) text:@"备注：易碎物品" textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+    [head addSubview:remark];
+    return   head;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 70;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0.01;
+    return 50;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     

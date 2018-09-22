@@ -11,7 +11,6 @@
 
 @interface HHPhoneBandVC ()
 {
-    UIImageView *_logo_imagV;
     UIImageView *_phone_imagV;
     UIImageView *_code_imagV;
     UIButton *_rigster_button;
