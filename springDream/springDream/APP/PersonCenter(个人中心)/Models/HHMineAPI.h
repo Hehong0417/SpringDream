@@ -74,6 +74,13 @@
 //获取未完成订单数
 + (instancetype)GetOrderStatusCount;
 
+//我的门店
++ (instancetype)GetUserStore;
+
+//获取门店订单
++ (instancetype)GetStoreOrderWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+
+
 #pragma mark - post
 
 //修改登录密码

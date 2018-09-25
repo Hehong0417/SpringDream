@@ -15,6 +15,7 @@
 #import "HHDistributionOrderVC.h"
 #import "HHMydistributorsVC.h"
 #import "HHJuniorMembersVC.h"
+#import "HHDistributionCommissionVC.h"
 
 @interface HHPersonCenterSub2 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
@@ -49,7 +50,6 @@
 }
 - (void)registerTableViewCell{
     
-    [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
     [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
     
@@ -106,8 +106,13 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"title_cell"];
+            }
             cell.textLabel.text = @"分销佣金:";
             cell.textLabel.font = FONT(13);
+            cell.textLabel.textColor = kDarkGrayColor;
+            cell.detailTextLabel.font = FONT(13);
             cell.detailTextLabel.text = @"0.00元";
             cell.detailTextLabel.textColor = APP_COMMON_COLOR;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -117,7 +122,7 @@
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.message_arr = self.message_arr;
-            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
+            cell.btn_image_arr = @[@"distribute_01",@"distribute_02",@"distribute_03",@"distribute_04"];
             cell.btn_title_arr = @[@"分销商品",@"分销商",@"分销订单",@"下级会员"];
             cell.delegate = self;
             grideCell = cell;
@@ -126,6 +131,9 @@
     }else if (indexPath.section == 1){
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell" ];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"title_cell"];
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UIImageView *ad_imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 75)];
         ad_imgV.contentMode = UIViewContentModeScaleToFill;
@@ -137,6 +145,9 @@
         
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"title_cell"];
+            }
             cell.textLabel.text = @"我的服务";
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -188,7 +199,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            //我的订单
+            //分销佣金
+            HHDistributionCommissionVC *vc = [HHDistributionCommissionVC new];
+            vc.title_str = @"分销佣金";
+            [self.navigationController pushVC:vc];
         }
     }
     if (indexPath.section == 2) {
@@ -200,12 +214,13 @@
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell{
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
     if (buttonIndex == 0) {
         //分销商品
         HHDistributionGoodsVC *vc = [HHDistributionGoodsVC new];
+        vc.title_str = @"分销商品";
         [self.navigationController pushVC:vc];
         
     }else if (buttonIndex == 1){
@@ -225,6 +240,7 @@
         [self.navigationController pushVC:vc];
         
     }
+    
 }
 #pragma mark - HHDistributeServiceCell_one_delagete
 

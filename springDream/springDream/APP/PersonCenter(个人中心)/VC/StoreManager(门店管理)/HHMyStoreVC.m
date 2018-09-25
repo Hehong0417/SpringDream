@@ -8,11 +8,11 @@
 
 #import "HHMyStoreVC.h"
 #import "HHMystoreCell.h"
-#import "HHMyWalletHead.h"
 
 @interface HHMyStoreVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UITableView *tabView;
+@property (nonatomic, strong) NSMutableArray *datas;
 
 @end
 
@@ -37,12 +37,30 @@
     [super viewDidLoad];
     
     self.title = @"我的门店";
+    [self.tabView registerNib:[UINib nibWithNibName:@"HHMystoreCell" bundle:nil] forCellReuseIdentifier:@"HHMystoreCell"];
     
-    [self.tabView registerClass:[HHMystoreCell class] forCellReuseIdentifier:@"HHMystoreCell"];
+    [self getDatas];
+}
+- (void)getDatas{
     
-    UILabel *head_label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW, 60) text:@"门店收益明细" textColor:kDarkGrayColor font:BoldFONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:RGB(255, 239, 239)];
-    self.tabView.tableHeaderView = head_label;
+    [[[HHMineAPI GetUserStore] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+       
+        if (!error) {
+            if (api.State == 1) {
+                NSArray *arr = api.Data;
+                self.datas = arr.mutableCopy;
+                [self.tabView reloadData];
+            }
+        }
+        
+    }];
     
+}
+- (NSMutableArray *)datas{
+    if (!_datas) {
+        _datas = [NSMutableArray array];
+    }
+    return _datas;
 }
 #pragma mark - DZNEmptyDataSetDelegate
 
@@ -79,7 +97,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,14 +108,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMystoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMystoreCell" forIndexPath:indexPath];
+    HHMystoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMystoreCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.store_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 150;
+    return 100;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     

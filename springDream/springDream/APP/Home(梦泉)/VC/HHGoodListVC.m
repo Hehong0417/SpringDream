@@ -39,8 +39,7 @@
     
     [super viewDidLoad];
     
-    
-    UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
+//    UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发现" titleColor:kWhiteColor font:FONT(14)];
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
     
@@ -105,7 +104,7 @@
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil  categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         
         self.collectionView.emptyDataSetDelegate = self;
         self.collectionView.emptyDataSetSource = self;

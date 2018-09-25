@@ -13,6 +13,9 @@
 #import "HHvipInfoVC.h"
 #import "HHMyServiceVC.h"
 #import "HHMydistributorsVC.h"
+#import "HHDelegateOrderVC.h"
+#import "HHDistributionGoodsVC.h"
+#import "HHDistributionCommissionVC.h"
 
 @interface HHPersonCenterSub4 ()<HHDistributeStatusCellDelagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -105,15 +108,15 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.message_arr = self.message_arr;
-            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
-            cell.btn_title_arr = @[@"代理产品",@"分销商",@"会员",@"团队订单"];
+            cell.btn_image_arr = @[@"delegate_01",@"distribute_02",@"distribute_04",@"distribute_03"];
+            cell.btn_title_arr = @[@"代理商品",@"分销商",@"会员",@"团队订单"];
             grideCell = cell;
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.message_arr = @[@"0",@"0",@"0",@"0"];
-            cell.btn_image_arr = @[@"order_01",@"",@"",@""];
+            cell.btn_image_arr = @[@"delegate_10",@"",@"",@""];
             cell.btn_title_arr = @[@"我的佣金",@"",@"",@""];
             grideCell = cell;
         }
@@ -161,6 +164,7 @@
     if (indexPath.section == 0) {
 
         return 70;
+
     }else if (indexPath.section == 1){
         return 75;
     }else{
@@ -176,24 +180,40 @@
     if (indexPath.section == 0) {
   
     }
-    if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-//            HHMyServiceVC *vc = [HHMyServiceVC new];
-//            vc.service_type = MyService_type_delegateCenter;
-//            [self.navigationController pushVC:vc];
-        }
-    }
 
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell{
     
-    NSLog(@"buttonIndex:%ld",buttonIndex);
-    if (buttonIndex == 2) {
-        HHMydistributorsVC *vc = [HHMydistributorsVC new];
-        vc.title_str = @"我的会员";
+    NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
+    
+    if (indexPath.row == 0) {
+        if (buttonIndex == 0) {
+            
+            HHDistributionGoodsVC *vc = [HHDistributionGoodsVC new];
+            vc.title_str = @"代理商品";
+            [self.navigationController pushVC:vc];
+        }
+        if (buttonIndex == 1) {
+            HHMydistributorsVC *vc = [HHMydistributorsVC new];
+            vc.title_str = @"我的分销商";
+            [self.navigationController pushVC:vc];
+        }
+        if (buttonIndex == 2) {
+            HHMydistributorsVC *vc = [HHMydistributorsVC new];
+            vc.title_str = @"我的会员";
+            [self.navigationController pushVC:vc];
+        }
+        if (buttonIndex == 3) {
+            HHDelegateOrderVC *vc = [HHDelegateOrderVC new];
+            [self.navigationController pushVC:vc];
+        }
+    }else if (indexPath.row == 1){
+        HHDistributionCommissionVC *vc = [HHDistributionCommissionVC new];
+        vc.title_str = @"代理佣金";
         [self.navigationController pushVC:vc];
+        
     }
     
 }

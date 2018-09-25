@@ -12,8 +12,26 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+
+    [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_COMMON_COLOR];
 }
 
-
+- (void)setTitle_str:(NSString *)title_str{
+    
+    _title_str = title_str;
+    if ([title_str isEqualToString:@"我的分销商"]) {
+        self.detail_label.hidden = YES;
+        self.topAlig_constant.constant = 15;
+    }else if ([title_str isEqualToString:@"我的代理"]){
+        self.detail_label.hidden = YES;
+        self.topAlig_constant.constant = 15;
+    }else if ([title_str isEqualToString:@"我的会员"]){
+        self.detail_label.hidden = NO;
+        self.topAlig_constant.constant = 3;
+    }else if ([title_str isEqualToString:@"下级会员"]){
+        self.detail_label.hidden = YES;
+        self.topAlig_constant.constant = 15;
+    }
+    
+}
 @end

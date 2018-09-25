@@ -76,7 +76,8 @@
     if (indexPath.row<3) {
         cell.rank_label.hidden = YES;
         cell.rank_button.hidden = NO;
-        [cell.rank_button setTitle:[NSString stringWithFormat:@"%ld",indexPath.row+1] forState:UIControlStateNormal];
+//        [cell.rank_button setTitle:[NSString stringWithFormat:@"%ld",indexPath.row+1] forState:UIControlStateNormal];
+        [cell.rank_button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rank_%ld",indexPath.row+1]] forState:UIControlStateNormal];
     }else{
         cell.rank_label.hidden = NO;
         cell.rank_button.hidden = YES;

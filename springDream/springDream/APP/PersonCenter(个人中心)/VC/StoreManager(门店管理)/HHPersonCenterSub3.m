@@ -14,6 +14,9 @@
 #import "HHMyServiceVC.h"
 #import "HHDistributeServiceCell_one.h"
 #import "HHMyStoreVC.h"
+#import "HHStoreProductsVC.h"
+#import "HHStoreOrderVC.h"
+#import "HHStoreEarningsVC.h"
 
 @interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
@@ -105,17 +108,16 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
-            cell.textLabel.text = @"佣金金额：0.00元";
+            cell.textLabel.text = @"门店中心";
             cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.message_arr = self.message_arr;
-            cell.btn_image_arr = @[@"order_01",@"order_02",@"order_03",@"order_04"];
-            cell.btn_title_arr = @[@"门店产品",@"门店会员",@"VIP会员",@"团队订单"];
+            cell.btn_image_arr = @[@"store_01",@"store_02",@"store_03",@"store_04"];
+            cell.btn_title_arr = @[@"门店商品",@"门店订单",@"我的门店",@"门店收益"];
             cell.delegate = self;
             grideCell = cell;
         }
@@ -130,23 +132,6 @@
         [cell.contentView addSubview:ad_imgV];
         grideCell = cell;
         
-    }else if (indexPath.section == 2){
-        
-        if (indexPath.row == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
-            cell.textLabel.text = @"我的服务";
-            cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            grideCell = cell;
-        }else if (indexPath.row == 1) {
-            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate= self;
-            cell.btn_image_arr = @[@"service_01",@"",@"",@""];
-            cell.btn_title_arr = @[@"门店地址",@"",@"",@""];
-            grideCell = cell;
-        }
     }
     return grideCell;
     
@@ -175,50 +160,44 @@
         }
     }else if (indexPath.section == 1){
         return 75;
-    }else{
-        
-        if (indexPath.row == 0) {
-            return 50;
-        }else{
-            return 95;
-        }
     }
+    return 50;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            //我的订单
-            HHOrderVC *vc = [HHOrderVC new];
-            vc.sg_selectIndex = 0;
-            vc.button_tag = 0;
-            [self.navigationController pushVC:vc];
-        }
-    }
-    if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            //我的服务
-//            HHMyServiceVC *vc = [HHMyServiceVC new];
-//            vc.service_type = MyService_type_storesManager;
-//            [self.navigationController pushVC:vc];
+    
         }
     }
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex{
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell{
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
     if (buttonIndex == 0) {
+        HHStoreProductsVC *vc = [HHStoreProductsVC new];
+        [self.navigationController pushVC:vc];
+    }else if (buttonIndex == 1) {
+        HHStoreOrderVC *vc = [HHStoreOrderVC new];
+        [self.navigationController pushVC:vc];
         
+    }else if (buttonIndex == 2) {
+        
+        HHMyStoreVC *vc = [HHMyStoreVC new];
+        [self.navigationController pushVC:vc];
+
+    }else if (buttonIndex == 3) {
+        
+        HHStoreEarningsVC *vc = [HHStoreEarningsVC new];
+        [self.navigationController pushVC:vc];
     }
-    
     
 }
 #pragma mark - HHDistributeServiceCell_one_delagete
 
 - (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
     
- 
     
 }
 

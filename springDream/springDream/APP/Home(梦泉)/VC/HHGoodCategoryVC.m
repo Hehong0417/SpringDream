@@ -99,7 +99,7 @@
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         
         self.collectionView.emptyDataSetDelegate = self;
         self.collectionView.emptyDataSetSource = self;

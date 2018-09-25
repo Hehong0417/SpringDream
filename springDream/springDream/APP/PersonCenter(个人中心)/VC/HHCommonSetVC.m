@@ -12,6 +12,7 @@
 #import "HHLoginVC.h"
 #import "HHAuthenticationVC.h"
 #import "HHBandCardVC.h"
+#import "HHInviteCodeVC.h"
 
 @interface HHCommonSetVC ()
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -123,6 +124,16 @@
     if (indexPath.section == 1&&indexPath.row == 1) {
         
         HHShippingAddressVC *vc = [HHShippingAddressVC new];
+        [self.navigationController pushVC:vc];
+    }
+    if (indexPath.section == 2&&indexPath.row == 0) {
+        HHInviteCodeVC *vc = [HHInviteCodeVC new];
+        vc.IsGenerateCode = YES;
+        [self.navigationController pushVC:vc];
+    }
+    if (indexPath.section == 2&&indexPath.row == 1) {
+        HHInviteCodeVC *vc = [HHInviteCodeVC new];
+        vc.IsGenerateCode = NO;
         [self.navigationController pushVC:vc];
     }
     if (indexPath.section == 3&&indexPath.row == 0) {

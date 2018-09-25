@@ -26,8 +26,9 @@
     [super viewDidLoad];
     
     self.title = @"身份验证";
-
-    _phone_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25),WidthScaleSize_H(30), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"phone"]];
+    self.view.backgroundColor = kWhiteColor;
+    
+    _phone_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25),WidthScaleSize_H(30), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"identity_01"]];
     _phone_imagV.contentMode = UIViewContentModeCenter;
     [self.view addSubview:_phone_imagV];
     
@@ -38,7 +39,7 @@
     [self.view addSubview:h_line];
     
     
-    _code_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25), CGRectGetMaxY(_name_textfield.frame)+WidthScaleSize_H(20), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"v_code"]];
+    _code_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25), CGRectGetMaxY(_name_textfield.frame)+WidthScaleSize_H(20), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"identity_02"]];
     _code_imagV.contentMode = UIViewContentModeCenter;
     [self.view addSubview:_code_imagV];
     

@@ -190,6 +190,34 @@
     api.parametersAddToken = NO;
     return api;
 }
+
+//我的门店
++ (instancetype)GetUserStore{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserStore;
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+
+//获取门店订单
++ (instancetype)GetStoreOrderWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetStoreOrder;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
+
+
+
+
 #pragma mark - post
 
 //修改登录密码

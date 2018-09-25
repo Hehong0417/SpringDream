@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
-    HHhandle_type_delete,
-    HHhandle_type_cancel,
-    HHhandle_type_Confirm,
-} HHhandle_type;
 
 @interface HHDistributionOrderVC : UIViewController
 

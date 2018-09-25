@@ -10,4 +10,11 @@
 
 @interface HHMyMembersCell : UITableViewCell
 
+@property(nonatomic,strong)   NSString *title_str;
+@property (weak, nonatomic) IBOutlet UIImageView *icon_imagV;
+@property (weak, nonatomic) IBOutlet UILabel *name_label;
+@property (weak, nonatomic) IBOutlet UILabel *detail_label;
+@property (weak, nonatomic) IBOutlet UILabel *price_label;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAlig_constant;
+
 @end

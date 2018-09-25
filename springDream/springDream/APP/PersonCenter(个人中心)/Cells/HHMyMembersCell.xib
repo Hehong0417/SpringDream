@@ -41,7 +41,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="29" id="w1Q-Fr-OBT"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -69,6 +69,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="detail_label" destination="89S-Fu-6ak" id="VUm-0N-NIF"/>
+                <outlet property="icon_imagV" destination="5lY-qD-haO" id="GGp-Xp-GNd"/>
+                <outlet property="name_label" destination="Qmc-0t-nEr" id="9qp-or-9ve"/>
+                <outlet property="price_label" destination="T2Y-Xo-bc6" id="lLU-3A-bRD"/>
+                <outlet property="topAlig_constant" destination="DDA-vh-WtY" id="Qfr-72-dRy"/>
+            </connections>
             <point key="canvasLocation" x="33.5" y="54"/>
         </tableViewCell>
     </objects>

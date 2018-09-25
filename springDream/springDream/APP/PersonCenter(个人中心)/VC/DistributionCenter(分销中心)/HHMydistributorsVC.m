@@ -70,6 +70,7 @@
     
     HHMyMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMyMembersCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.title_str = self.title_str;
     
     return cell;
 }

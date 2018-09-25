@@ -83,8 +83,8 @@
     //消息按钮
     self.message_button.sd_layout.rightSpaceToView(self, 24);
     self.message_button.sd_layout.topSpaceToView(self, 35);
-    self.message_button.sd_layout.widthIs(24);
-    self.message_button.sd_layout.heightIs(24);
+    self.message_button.sd_layout.widthIs(30);
+    self.message_button.sd_layout.heightIs(30);
     //头像
     self.icon_view.sd_layout.widthIs(70);
     self.icon_view.sd_layout.heightIs(70);
@@ -104,11 +104,7 @@
     self.vip_label.sd_layout.centerYIs(self.centerY+self.icon_view.height/2-10);
     [self.vip_label lh_setCornerRadius:self.vip_label.mj_h/2 borderWidth:0 borderColor:nil];
 
-    //签到
-    self.sign_button.sd_layout.heightIs(25);
-    self.sign_button.sd_layout.widthIs(80);
-    self.sign_button.sd_layout.rightSpaceToView(self, 0);
-    self.sign_button.sd_layout.centerYIs(self.centerY);
+
     //消费金额
     self.consumption_amount_label.sd_layout.leftSpaceToView(self.icon_view, 15);
     self.consumption_amount_label.sd_layout.topSpaceToView(self.name_label, 5);
@@ -116,6 +112,12 @@
     self.consumption_amount_label.sd_layout.heightIs(20);
     self.consumption_amount_label.font = FONT(13);
 
+    //签到
+    self.sign_button.sd_layout.heightIs(25);
+    self.sign_button.sd_layout.widthIs(80);
+    self.sign_button.sd_layout.rightSpaceToView(self, 0);
+    self.sign_button.sd_layout.centerYIs(self.consumption_amount_label.centerY);
+    
     //通知条
     self.notice_bgV.sd_layout.spaceToSuperView(UIEdgeInsetsMake(self.mj_h-20, 0, 0, 0));
     

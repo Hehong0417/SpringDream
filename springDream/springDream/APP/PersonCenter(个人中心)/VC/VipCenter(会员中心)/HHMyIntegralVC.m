@@ -31,9 +31,9 @@
     self.tabView.tableFooterView = [UIView new];
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
+    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"积分排行榜" titleColor:kWhiteColor font:FONT(14)];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
     
 }
 - (void)viewDidLoad {
@@ -43,6 +43,7 @@
     
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(110))];
+    wallet_head.backgroundColor = kWhiteColor;
     self.tabView.tableHeaderView = wallet_head;
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
@@ -94,14 +95,16 @@
     
     HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 69, ScreenW, 1) backColor:KVCBackGroundColor];
+    [cell.contentView addSubview:h_line];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    UIView *head = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 50) backColor:kClearColor];
+    UIView *Footer = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 50) backColor:kWhiteColor];
     UILabel *remark = [UILabel lh_labelWithFrame:CGRectMake(20, 0, ScreenW-40, 50) text:@"备注：易碎物品" textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
-    [head addSubview:remark];
-    return   head;
+    [Footer addSubview:remark];
+    return   Footer;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     

@@ -19,6 +19,7 @@
 #import "HHShippingAddressVC.h"
 #import "HHMyServiceVC.h"
 #import "HHMyCodeVC.h"
+#import "HHSendIntegralVC.h"
 
 @interface HHPersonCenterSub1 ()<HHDistributeServiceCell_one_delagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -152,8 +153,8 @@
             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate= self;
-            cell.btn_image_arr = @[@"service_14",@"",@"",@""];
-            cell.btn_title_arr = @[@"分享邀请码",@"",@"",@""];
+            cell.btn_image_arr = @[@"service_10",@"service_04",@"",@""];
+            cell.btn_title_arr = @[@"分享邀请码",@"赠送积分",@"",@""];
             grideCell = cell;
         }
     }
@@ -205,12 +206,6 @@
     }
     if (indexPath.section == 2){
         
-        if (indexPath.row == 0) {
-            //我的服务
-            HHMyServiceVC *vc = [HHMyServiceVC new];
-            vc.service_type = MyService_type_vipCenter;
-            [self.navigationController pushVC:vc];
-        }
     }
 }
 #pragma mark - HHDistributeServiceCell_one_delagete
@@ -247,6 +242,11 @@
             HHMyCodeVC *vc = [HHMyCodeVC new];
             [self.navigationController pushVC:vc];
             
+           }if (buttonIndex == 1){
+               //赠送积分
+               HHSendIntegralVC *vc = [HHSendIntegralVC new];
+               [self.navigationController pushVC:vc];
+               
            }
     }
     

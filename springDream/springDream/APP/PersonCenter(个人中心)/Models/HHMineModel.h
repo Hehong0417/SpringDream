@@ -123,6 +123,13 @@
 @property(nonatomic,strong) NSString *nu;
 @property(nonatomic,strong) NSNumber *ischeck;
 
+//我的门店
+@property(nonatomic,strong) NSString *store_address;
+@property(nonatomic,strong) NSString *store_id;
+@property(nonatomic,strong) NSString *store_image;
+@property(nonatomic,strong) NSString *store_name;
+@property(nonatomic,strong) NSString *store_phone;
+
 @end
 
 @interface HHExpress_message_list : BaseModel

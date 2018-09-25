@@ -52,13 +52,6 @@
 //接口类型5
 #define API_SUB_URL4(_url) [NSString stringWithFormat:@"%@/%@", API_HOST4, _url]
 
-typedef enum : NSUInteger {
-    HHenter_itself_Type,
-    HHenter_home_Type,
-    HHenter_category_Type
-} HHenter_Type;
-
-
 #import "HJUser.h"
 
 //微信APPStore URL
@@ -231,6 +224,14 @@ typedef enum : NSUInteger {
 #define API_GetOrderExpress API_SUB_URL2(@"Order/GetCheckLogistics")
 //4.2获取未完成订单数
 #define API_GetOrderStatusCount API_SUB_URL2(@"Order/GetOrderStatusCount")
+//4.3我的门店
+#define API_GetUserStore API_SUB_URL(@"Store/GetUserStore")
+//4.4获取门店订单
+#define API_GetStoreOrder API_SUB_URL2(@"Order/GetStoreOrder")
+//4.4获取门店订单
+#define API_GetStoreOrder API_SUB_URL2(@"Order/GetStoreOrder")
+
+
 /**
  *  支付
  */
@@ -241,3 +242,14 @@ typedef enum : NSUInteger {
 
 //代理支付完成，刷新个人中心
 #define KPersonCter_Refresh_Notification @"KPersonCter_Refresh_Notification" //微信支付失败通知
+
+typedef enum : NSUInteger {
+    HHenter_itself_Type,
+    HHenter_home_Type,
+    HHenter_category_Type
+} HHenter_Type;
+typedef enum : NSUInteger {
+    HHhandle_type_delete,
+    HHhandle_type_cancel,
+    HHhandle_type_Confirm,
+} HHhandle_type;

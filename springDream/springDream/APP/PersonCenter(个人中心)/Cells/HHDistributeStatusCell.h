@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "HHModelsView.h"
-
+@class HHDistributeStatusCell;
 @protocol HHDistributeStatusCellDelagete<NSObject>
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex;
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell;
 
 @end
 
