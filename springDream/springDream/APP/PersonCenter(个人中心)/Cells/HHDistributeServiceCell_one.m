@@ -20,7 +20,7 @@
         
         NSArray *btn_image_arr = @[@"service_01",@"service_02",@"service_03",@"service_04"];
         NSArray *btn_title_arr = @[@"分销专题",@"一级",@"二级",@"三级"];
-        self.models_view = [HHModelsView createModelViewWithFrame:CGRectMake(0, 0, ScreenW, 85) btn_image_arr:btn_image_arr btn_title_arr:btn_title_arr title_color:kDarkGrayColor lineCount:5 message_arr:@[] title_image_padding:1 top_padding:0];
+        self.models_view = [HHModelsView createModelViewWithFrame:CGRectMake(0, -6, ScreenW, 85) btn_image_arr:btn_image_arr btn_title_arr:btn_title_arr title_color:kDarkGrayColor lineCount:5 message_arr:@[] title_image_padding:1 top_padding:0];
         self.models_view.delegate = self;
         [self.contentView addSubview:self.models_view];
     }

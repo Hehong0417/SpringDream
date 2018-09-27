@@ -32,6 +32,9 @@
 		CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */; };
 		CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */; };
 		CE4081232151F4A300436B42 /* HHSpellGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4081222151F4A300436B42 /* HHSpellGroupCell.m */; };
+		CE4286CE215B1E3E0080B24A /* HHStoreStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4286CD215B1E3E0080B24A /* HHStoreStatusCell.m */; };
+		CE4286D1215B1EF30080B24A /* HHDelegateStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4286D0215B1EF30080B24A /* HHDelegateStatusCell.m */; };
+		CE4286D4215B95E00080B24A /* HHCommissionDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4286D3215B95E00080B24A /* HHCommissionDetailVC.m */; };
 		CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */; };
 		CE470483212FF0AE00BF4C39 /* HHOrderDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE470482212FF0AE00BF4C39 /* HHOrderDetailCell3.m */; };
 		CE4725B0212D0141002BD2A5 /* HHActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4725AE212D0140002BD2A5 /* HHActivityModel.m */; };
@@ -497,6 +500,12 @@
 		CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSendIntegralVC.m; sourceTree = "<group>"; };
 		CE4081212151F4A300436B42 /* HHSpellGroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSpellGroupCell.h; sourceTree = "<group>"; };
 		CE4081222151F4A300436B42 /* HHSpellGroupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSpellGroupCell.m; sourceTree = "<group>"; };
+		CE4286CC215B1E3E0080B24A /* HHStoreStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHStoreStatusCell.h; sourceTree = "<group>"; };
+		CE4286CD215B1E3E0080B24A /* HHStoreStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHStoreStatusCell.m; sourceTree = "<group>"; };
+		CE4286CF215B1EF30080B24A /* HHDelegateStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDelegateStatusCell.h; sourceTree = "<group>"; };
+		CE4286D0215B1EF30080B24A /* HHDelegateStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDelegateStatusCell.m; sourceTree = "<group>"; };
+		CE4286D2215B95E00080B24A /* HHCommissionDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCommissionDetailVC.h; sourceTree = "<group>"; };
+		CE4286D3215B95E00080B24A /* HHCommissionDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHCommissionDetailVC.m; sourceTree = "<group>"; };
 		CE47047E212FA3C200BF4C39 /* NSAttributedString+LH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+LH.h"; sourceTree = "<group>"; };
 		CE47047F212FA3C200BF4C39 /* NSAttributedString+LH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+LH.m"; sourceTree = "<group>"; };
 		CE470481212FF0AE00BF4C39 /* HHOrderDetailCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHOrderDetailCell3.h; sourceTree = "<group>"; };
@@ -2836,6 +2845,10 @@
 				CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */,
 				CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */,
 				CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */,
+				CE4286CC215B1E3E0080B24A /* HHStoreStatusCell.h */,
+				CE4286CD215B1E3E0080B24A /* HHStoreStatusCell.m */,
+				CE4286CF215B1EF30080B24A /* HHDelegateStatusCell.h */,
+				CE4286D0215B1EF30080B24A /* HHDelegateStatusCell.m */,
 				CE4725BA212D0B12002BD2A5 /* HHCouponCell.h */,
 				CE4725B9212D0B11002BD2A5 /* HHCouponCell.m */,
 				CE4725C0212D0B16002BD2A5 /* HHCouponCell.xib */,
@@ -2954,6 +2967,8 @@
 				CE9065DB21566C4400A13992 /* HHJuniorMembersVC.m */,
 				CE90EABC2159DD9900F62B8A /* HHDistributionCommissionVC.h */,
 				CE90EABD2159DD9900F62B8A /* HHDistributionCommissionVC.m */,
+				CE4286D2215B95E00080B24A /* HHCommissionDetailVC.h */,
+				CE4286D3215B95E00080B24A /* HHCommissionDetailVC.m */,
 			);
 			path = "DistributionCenter(分销中心)";
 			sourceTree = "<group>";
@@ -3383,6 +3398,7 @@
 				CE470480212FA3C200BF4C39 /* NSAttributedString+LH.m in Sources */,
 				CE5DBEAA213E55EA00F17FCB /* HHLogisticsCell1.m in Sources */,
 				CE8A66AD212ABAB100C7C57F /* HHSaleGroupWebVC.m in Sources */,
+				CE4286D4215B95E00080B24A /* HHCommissionDetailVC.m in Sources */,
 				CE472649212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m in Sources */,
 				CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */,
 				CE8A654E212AAC6800C7C57F /* HHtEditCarItem.m in Sources */,
@@ -3517,6 +3533,7 @@
 				CE8A67C8212ACA2E00C7C57F /* HHEvaluationListCell.m in Sources */,
 				CE4D09E5212423F200796FEE /* UIImageView+LH.m in Sources */,
 				CE4D09FA212423F200796FEE /* NSDate+LH.m in Sources */,
+				CE4286D1215B1EF30080B24A /* HHDelegateStatusCell.m in Sources */,
 				CE8A67C1212ACA2E00C7C57F /* HHPostEvaluationVC.m in Sources */,
 				CEFEAF88214A8B310085B5D1 /* HHPostTimeLineVC.m in Sources */,
 				CE5264E2212BBFE600F30D29 /* XWInteractiveTransition.m in Sources */,
@@ -3550,6 +3567,7 @@
 				CE99385D213649FC002B256D /* HHMyIntegralVC.m in Sources */,
 				CE5DBEAC213E55EA00F17FCB /* HHLogisticsVC.m in Sources */,
 				CE5264DF212BBFE600F30D29 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
+				CE4286CE215B1E3E0080B24A /* HHStoreStatusCell.m in Sources */,
 				CE8A6521212AAB7A00C7C57F /* SearchDetailView.m in Sources */,
 				CE8A6501212AAB6D00C7C57F /* HXHomeCollectionCell.m in Sources */,
 				CE8A67C2212ACA2E00C7C57F /* HHSelectPhotosCell.m in Sources */,
@@ -3808,7 +3826,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
@@ -3823,8 +3841,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "70ef317e-5822-4ca0-ad95-5a9f4e44ac7b";
-				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDevPP;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3834,8 +3852,8 @@
 			baseConfigurationReference = 696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
@@ -3850,8 +3868,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0d4cee57-4ccb-4522-ad68-cd473c318ddb";
-				PROVISIONING_PROFILE_SPECIFIER = moonCherryDisPP;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

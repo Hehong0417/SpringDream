@@ -71,7 +71,6 @@
         if (!error) {
             if (api.State == 1) {
                 self.orderStatusCount_model = [HHMineModel mj_objectWithKeyValues:api.Data];
-                self.message_arr = @[self.orderStatusCount_model.wait_pay_count,self.orderStatusCount_model.wait_send_count,self.orderStatusCount_model.already_shipped_count,self.orderStatusCount_model.un_evaluate_count,self.orderStatusCount_model.afte_ervice_count];
                 [self.tabView reloadRow:1 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -113,7 +112,8 @@
             cell.textLabel.font = FONT(13);
             cell.textLabel.textColor = kDarkGrayColor;
             cell.detailTextLabel.font = FONT(13);
-            cell.detailTextLabel.text = @"0.00元";
+            HJUser *user = [HJUser sharedUser];
+            cell.detailTextLabel.text = user.usableComm;
             cell.detailTextLabel.textColor = APP_COMMON_COLOR;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -121,7 +121,6 @@
         }else{
             HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"distribute_01",@"distribute_02",@"distribute_03",@"distribute_04"];
             cell.btn_title_arr = @[@"分销商品",@"分销商",@"分销订单",@"下级会员"];
             cell.delegate = self;

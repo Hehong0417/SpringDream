@@ -149,10 +149,8 @@
 - (NSArray *)indicatorIndexPaths{
     
     NSMutableArray *indexPaths = [NSMutableArray array];
-    NSIndexPath *indexPath0_1 = [NSIndexPath indexPathForRow:1 inSection:0];
     NSIndexPath *indexPath0_2 = [NSIndexPath indexPathForRow:2 inSection:0];
     NSIndexPath *indexPath0_3 = [NSIndexPath indexPathForRow:3 inSection:0];
-    [indexPaths addObject:indexPath0_1];
     [indexPaths addObject:indexPath0_2];
     [indexPaths addObject:indexPath0_3];
 

@@ -41,4 +41,6 @@ singleton_h(User)
 
 @property(nonatomic,strong) HHMineModel *mineModel;
 
+@property(nonatomic,strong) NSString  *usableComm;
+
 @end

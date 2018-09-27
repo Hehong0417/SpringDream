@@ -177,7 +177,8 @@ static const CGFloat kNormalCellHeight = 44;
 //        [headImageView setRoundImageViewWithBorderWidth:0];
         self.cellHeadImageView = headImageView;
         [cell.contentView addSubview:headImageView];
-        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
     }
     
     //textfield

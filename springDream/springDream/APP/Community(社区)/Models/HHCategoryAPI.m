@@ -20,16 +20,19 @@
     return api;
 }
 //获取商品列表
-+ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize{
++ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission{
     
     HHCategoryAPI *api = [self new];
     api.subUrl = API_Product_search;
 //    if (type) {
 //        [api.parameters setObject:type forKey:@"type"];
 //    }
-        if (storeId) {
-            [api.parameters setObject:storeId forKey:@"storeId"];
-        }
+    if (isCommission) {
+        [api.parameters setObject:isCommission forKey:@"isCommission"];
+    }
+    if (storeId) {
+       [api.parameters setObject:storeId forKey:@"storeId"];
+    }
     if (categoryId) {
         [api.parameters setObject:categoryId forKey:@"groupId"];
     }

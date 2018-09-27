@@ -250,6 +250,10 @@
     HHGoodDetailVC *vc = [HHGoodDetailVC new];
     vc.Id = goodsModel.product_id;
     [self.navigationController pushVC:vc];
+    vc.goodDetail_backBlock = ^{
+  
+        
+    };
 }
 - (void)collectHandleComplete{
     

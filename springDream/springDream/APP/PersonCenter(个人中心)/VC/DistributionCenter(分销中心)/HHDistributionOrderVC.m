@@ -51,7 +51,7 @@
     
     //tableView
     CGFloat tableHeight;
-    tableHeight = SCREEN_HEIGHT;
+    tableHeight = SCREEN_HEIGHT-64;
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,tableHeight) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = KVCBackGroundColor;
     self.tableView.delegate = self;
@@ -166,9 +166,11 @@
     return 20;
 }
 #pragma mark - NetWork
+
 - (void)getDatasWithIndex:(NSNumber *)index{
     
-    [[[HHMineAPI GetOrderListWithstatus:index page:@(self.page)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+    
+    [[[HHMineAPI GetDistributionOrderWithpage:@(self.page) pageSize:@15] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         self.isLoading = YES;
         
         if (self.isHeaderRefresh ==YES) {
@@ -233,7 +235,7 @@
         }];
         [self.items_arr addObject:orderItem_m];
     }];
-    if (arr.count < 10) {
+    if (arr.count < 15) {
         [self endRefreshing:YES];
         
     }else{
@@ -629,9 +631,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-//    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
-//    return model.footHeight;
-    return 0.001;
+    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
+    return model.footHeight;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     

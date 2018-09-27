@@ -1,0 +1,32 @@
+//
+//  HHStoreStatusCell.h
+//  springDream
+//
+//  Created by User on 2018/9/26.
+//  Copyright © 2018年 User. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "HHModelsView.h"
+
+@class HHStoreStatusCell;
+
+@protocol HHStoreStatusCellDelagete<NSObject>
+
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHStoreStatusCell *)cell;
+
+@end
+
+@interface HHStoreStatusCell : UITableViewCell<HHModelsViewDelegate>
+
+@property(nonatomic,strong)  NSArray *message_arr;
+
+@property(nonatomic,strong)  HHModelsView *models_view;
+
+@property(nonatomic,strong)  NSArray *btn_image_arr;
+
+@property(nonatomic,strong)  NSArray *btn_title_arr;
+
+@property(nonatomic,assign) id<HHStoreStatusCellDelagete>delegate;
+
+@end

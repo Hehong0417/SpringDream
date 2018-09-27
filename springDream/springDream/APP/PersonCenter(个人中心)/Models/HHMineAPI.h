@@ -80,6 +80,18 @@
 //获取门店订单
 + (instancetype)GetStoreOrderWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 
+//获取分销总佣金
++ (instancetype)GetUserTotalCommission;
+//获取分销佣金
++ (instancetype)GetFansSaleWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//获取分销商
++ (instancetype)GetDistributionBusinessWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//获取分销订单
++ (instancetype)GetDistributionOrderWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//我的下级会员总数接口
++ (instancetype)GetUserFanCount;
+//我的下级会员接口
++ (instancetype)GetUserFewFansWithFew:(NSNumber *)few page:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 
 #pragma mark - post
 

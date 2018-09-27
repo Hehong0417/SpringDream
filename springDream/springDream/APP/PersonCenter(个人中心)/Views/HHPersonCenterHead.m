@@ -116,7 +116,7 @@
     self.sign_button.sd_layout.heightIs(25);
     self.sign_button.sd_layout.widthIs(80);
     self.sign_button.sd_layout.rightSpaceToView(self, 0);
-    self.sign_button.sd_layout.centerYIs(self.consumption_amount_label.centerY);
+    self.sign_button.sd_layout.topSpaceToView(self.name_label, 0);
     
     //通知条
     self.notice_bgV.sd_layout.spaceToSuperView(UIEdgeInsetsMake(self.mj_h-20, 0, 0, 0));

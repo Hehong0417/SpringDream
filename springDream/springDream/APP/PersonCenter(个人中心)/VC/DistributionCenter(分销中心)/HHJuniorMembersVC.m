@@ -10,10 +10,10 @@
 #import "HHMydistributorsVC.h"
 
 @interface HHJuniorMembersVC ()<SGSegmentedControlDelegate>
-
 @property(nonatomic,strong)     SGSegmentedControl *SG;
 @property (nonatomic, strong)   NSMutableArray *title_arr;
 @property (nonatomic, strong)   HHMydistributorsVC *vc;
+@property (nonatomic, strong)   UILabel *bankInfo_title_label2;
 
 @end
 
@@ -29,8 +29,10 @@
     UILabel *bankInfo_title_label = [UILabel lh_labelWithFrame:CGRectMake(0, WidthScaleSize_H(14), ScreenW, WidthScaleSize_H(18)) text:@"当前会员人数" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
     [head addSubview:bankInfo_title_label];
     
-    UILabel *bankInfo_title_label2 = [UILabel lh_labelWithFrame:CGRectMake(0, CGRectGetMaxY(bankInfo_title_label.frame), ScreenW, WidthScaleSize_H(18)) text:@"49999999" textColor:APP_COMMON_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
-    [head addSubview:bankInfo_title_label2];
+    _bankInfo_title_label2 = [UILabel lh_labelWithFrame:CGRectMake(0, CGRectGetMaxY(bankInfo_title_label.frame), ScreenW, WidthScaleSize_H(18)) text:@"" textColor:APP_COMMON_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+    [head addSubview:_bankInfo_title_label2];
+    
+    [self GetUserFanCount];
     
     [self setupSGSegmentedControl];
 }
@@ -61,6 +63,7 @@
 
     self.vc = [[HHMydistributorsVC alloc]init];
     self.vc.title_str = @"下级会员";
+    self.vc.few = @1;
     self.vc.view.frame = CGRectMake(0, WidthScaleSize_H(75)+WidthScaleSize_H(8)+44, ScreenW, ScreenH-WidthScaleSize_H(75)-WidthScaleSize_H(8)-44);
     [self addChildViewController:self.vc];
     [self.view addSubview:self.vc.view];
@@ -69,8 +72,25 @@
 #pragma mark - SGSegmentedControlDelegate
 
 - (void)SGSegmentedControl:(SGSegmentedControl *)segmentedControl didSelectBtnAtIndex:(NSInteger)index{
-    
-    [self.vc.tableView reloadData];
+    self.vc.few = @(index+1);
+    [self.vc.datas removeAllObjects];
+    [self.vc getUserFewFans];
 }
 
+- (void)GetUserFanCount{
+    
+    [[[HHMineAPI GetUserFanCount] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                NSString *fanCount = [NSString stringWithFormat:@"%@",api.Data];
+                self.bankInfo_title_label2.text = fanCount;
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
+}
 @end

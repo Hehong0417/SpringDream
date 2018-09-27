@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-
+    [self.store_icon lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
 }
 - (void)setStore_model:(HHMineModel *)store_model{
     

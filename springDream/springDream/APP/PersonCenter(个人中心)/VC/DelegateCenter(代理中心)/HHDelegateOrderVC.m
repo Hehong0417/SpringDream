@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"分销订单";
+    self.title = @"代理订单";
     self.view.backgroundColor = KVCBackGroundColor;
     self.page = 1;
     //UI

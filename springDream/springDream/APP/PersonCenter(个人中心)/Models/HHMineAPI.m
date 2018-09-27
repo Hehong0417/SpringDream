@@ -214,9 +214,78 @@
     api.parametersAddToken = NO;
     return api;
 }
+//获取分销总佣金
++ (instancetype)GetUserTotalCommission{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserCommission;
+    api.parametersAddToken = NO;
+    return api;
+}
+//获取分销佣金
++ (instancetype)GetFansSaleWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.subUrl = API_GetFansSale;
+    api.parametersAddToken = NO;
+    return api;
+}
+//获取分销商
++ (instancetype)GetDistributionBusinessWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserBusiness;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
+//获取分销订单
++ (instancetype)GetDistributionOrderWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetDistributionOrder;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 
-
-
+//我的下级会员总数接口
++ (instancetype)GetUserFanCount{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserFanCount;
+    api.parametersAddToken = NO;
+    return api;
+}
+//我的下级会员接口
++ (instancetype)GetUserFewFansWithFew:(NSNumber *)few page:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserFewFans;
+    if (few) {
+        [api.parameters setObject:few forKey:@"few"];
+    }
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 
 #pragma mark - post
 

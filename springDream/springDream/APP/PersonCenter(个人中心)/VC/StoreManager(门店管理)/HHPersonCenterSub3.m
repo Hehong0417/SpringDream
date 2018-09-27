@@ -7,7 +7,7 @@
 //
 
 #import "HHPersonCenterSub3.h"
-#import "HHDistributeStatusCell.h"
+#import "HHStoreStatusCell.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
@@ -18,7 +18,7 @@
 #import "HHStoreOrderVC.h"
 #import "HHStoreEarningsVC.h"
 
-@interface HHPersonCenterSub3 ()<HHDistributeStatusCellDelagete,HHDistributeServiceCell_one_delagete>
+@interface HHPersonCenterSub3 ()<HHStoreStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
@@ -26,6 +26,7 @@
 @property(nonatomic,strong) NSString  *userLevelName;
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
+@property(nonatomic,strong) HHMineModel  *store_model;
 
 @end
 
@@ -53,7 +54,7 @@
 - (void)registerTableViewCell{
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
-    [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
+    [self.tabView registerClass:[HHStoreStatusCell class] forCellReuseIdentifier:@"HHStoreStatusCell"];
     
     
 }
@@ -63,6 +64,7 @@
     //未完成订单数
     [self GetOrderStatusCount];
     
+    [self getStoreDatas];
 }
 - (void)GetOrderStatusCount{
     
@@ -73,7 +75,6 @@
         if (!error) {
             if (api.State == 1) {
                 self.orderStatusCount_model = [HHMineModel mj_objectWithKeyValues:api.Data];
-                self.message_arr = @[self.orderStatusCount_model.wait_pay_count,self.orderStatusCount_model.wait_send_count,self.orderStatusCount_model.already_shipped_count,self.orderStatusCount_model.un_evaluate_count,self.orderStatusCount_model.afte_ervice_count];
                 [self.tabView reloadRow:1 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -84,6 +85,21 @@
     }];
     
     
+}
+
+- (void)getStoreDatas{
+    
+    [[[HHMineAPI GetUserStore] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                NSArray *arr = api.Data;
+                if (arr.count>0) {
+                    self.store_model = [HHMineModel mj_objectWithKeyValues:arr[0]];
+                }
+            }
+        }
+    }];
 }
 #pragma mark - Table view data source
 
@@ -113,9 +129,8 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else{
-            HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
+            HHStoreStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHStoreStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"store_01",@"store_02",@"store_03",@"store_04"];
             cell.btn_title_arr = @[@"门店商品",@"门店订单",@"我的门店",@"门店收益"];
             cell.delegate = self;
@@ -172,11 +187,12 @@
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell{
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHStoreStatusCell *)cell{
     
     NSLog(@"buttonIndex:%ld",buttonIndex);
     if (buttonIndex == 0) {
         HHStoreProductsVC *vc = [HHStoreProductsVC new];
+        vc.store_model = self.store_model;
         [self.navigationController pushVC:vc];
     }else if (buttonIndex == 1) {
         HHStoreOrderVC *vc = [HHStoreOrderVC new];

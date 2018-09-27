@@ -28,9 +28,13 @@
     self.tableView.tableHeaderView = tableHeaderView;
 
     
+    UIView *tableFooterView = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(90)) backColor:KVCBackGroundColor];
+    
      UIButton  *commit_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20),WidthScaleSize_H(35), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(commit_buttonAction:) title:@"提交" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
     [commit_button lh_setCornerRadius:3 borderWidth:0 borderColor:nil];
-    self.tableView.tableFooterView = commit_button;
+    [tableFooterView addSubview:commit_button];
+
+    self.tableView.tableFooterView = tableFooterView;
 
 }
 
@@ -56,6 +60,9 @@
 
     HHTextfieldcell  *cell = [[HHTextfieldcell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
     cell.titleLabel.text = title_arr[indexPath.row];
+    if (indexPath.row == 0) {
+        cell.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
+    }
     cell.inputTextField.placeholder = placeholder_arr[indexPath.row];
 
     return cell;

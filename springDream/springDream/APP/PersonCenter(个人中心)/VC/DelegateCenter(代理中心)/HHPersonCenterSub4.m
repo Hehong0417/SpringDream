@@ -7,7 +7,7 @@
 //
 
 #import "HHPersonCenterSub4.h"
-#import "HHDistributeStatusCell.h"
+#import "HHDelegateStatusCell.h"
 #import "HHPersonCenterHead.h"
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
@@ -17,7 +17,7 @@
 #import "HHDistributionGoodsVC.h"
 #import "HHDistributionCommissionVC.h"
 
-@interface HHPersonCenterSub4 ()<HHDistributeStatusCellDelagete>
+@interface HHPersonCenterSub4 ()<HHDelegateStatusCellDelagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -52,7 +52,7 @@
 - (void)registerTableViewCell{
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
-    [self.tabView registerClass:[HHDistributeStatusCell class] forCellReuseIdentifier:@"HHDistributeStatusCell"];
+    [self.tabView registerClass:[HHDelegateStatusCell class] forCellReuseIdentifier:@"HHDelegateStatusCell"];
     
 }
 #pragma mark - 获取数据
@@ -71,7 +71,6 @@
         if (!error) {
             if (api.State == 1) {
                 self.orderStatusCount_model = [HHMineModel mj_objectWithKeyValues:api.Data];
-                self.message_arr = @[self.orderStatusCount_model.wait_pay_count,self.orderStatusCount_model.wait_send_count,self.orderStatusCount_model.already_shipped_count,self.orderStatusCount_model.un_evaluate_count,self.orderStatusCount_model.afte_ervice_count];
                 [self.tabView reloadRow:0 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -104,15 +103,14 @@
     UITableViewCell *grideCell;
     if (indexPath.section == 0) {
         if (indexPath.row == 0){
-            HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
+            HHDelegateStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDelegateStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
-            cell.message_arr = self.message_arr;
             cell.btn_image_arr = @[@"delegate_01",@"distribute_02",@"distribute_04",@"distribute_03"];
-            cell.btn_title_arr = @[@"代理商品",@"分销商",@"会员",@"团队订单"];
+            cell.btn_title_arr = @[@"代理商品",@"分销商",@"会员",@"代理订单"];
             grideCell = cell;
         }else{
-            HHDistributeStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeStatusCell"];
+            HHDelegateStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDelegateStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.message_arr = @[@"0",@"0",@"0",@"0"];
@@ -184,7 +182,7 @@
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
-- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDistributeStatusCell *)cell{
+- (void)modelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex StatusCell:(HHDelegateStatusCell *)cell{
     
     NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
     
@@ -197,7 +195,7 @@
         }
         if (buttonIndex == 1) {
             HHMydistributorsVC *vc = [HHMydistributorsVC new];
-            vc.title_str = @"我的分销商";
+            vc.title_str = @"我的代理";
             [self.navigationController pushVC:vc];
         }
         if (buttonIndex == 2) {

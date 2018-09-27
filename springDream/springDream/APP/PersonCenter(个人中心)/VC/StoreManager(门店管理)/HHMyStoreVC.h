@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HHMyStoreVCDelagete<NSObject>
+
+- (void)didSelectRowWithstoreModel:(HHMineModel *)storeModel;
+
+@end
 @interface HHMyStoreVC : UITableViewController
+
+@property(nonatomic,assign) id<HHMyStoreVCDelagete>delegate;
+
 
 @end

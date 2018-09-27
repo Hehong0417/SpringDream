@@ -130,6 +130,24 @@
 @property(nonatomic,strong) NSString *store_name;
 @property(nonatomic,strong) NSString *store_phone;
 
+//我的分销商
+//@property(nonatomic,strong) NSString *BuyTotal;
+//@property(nonatomic,strong) NSString *CreateDate;
+@property(nonatomic,strong) NSString *HeadLogo;
+//@property(nonatomic,strong) NSString *Level;
+@property(nonatomic,strong) NSString *Name;
+@property(nonatomic,strong) NSString *Phone;
+
+//分销总佣金
+@property(nonatomic,strong) NSString *HistoryCommission;
+@property(nonatomic,strong) NSString *TotalComm;
+@property(nonatomic,strong) NSString *YestodayComm;
+//分销佣金
+@property(nonatomic,strong) NSString *OrderInfo_Id;
+@property(nonatomic,strong) NSString *TradeTime;
+@property(nonatomic,strong) NSString *UserCommission;
+@property(nonatomic,strong) NSString *CommTotal;
+
 @end
 
 @interface HHExpress_message_list : BaseModel

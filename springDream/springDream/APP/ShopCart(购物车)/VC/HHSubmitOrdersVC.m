@@ -182,7 +182,7 @@
             if (api.State == 1) {
                 
                 self.model =  [HHCartModel mj_objectWithKeyValues:api.Data];
-//
+
 //                if ([self.model.familiarityPay isEqual:@1]) {
 //                    self.submitOrderTool.closePay_constant_w.constant = 77;
 //                    self.submitOrderTool.closePay.hidden = NO;

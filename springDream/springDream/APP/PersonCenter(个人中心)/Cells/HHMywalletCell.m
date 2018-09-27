@@ -17,9 +17,24 @@
     self.left_detail_label.text = @"单据：234567890456456745";
     self.date_time_label.text = @"2018-02-19 10:00";
     self.integral_label.text = @"积分：-23";
-
     
 }
+- (void)setCommission_model:(HHMineModel *)commission_model{
+    _commission_model = commission_model;
+    self.left_title_label.font = FONT(12);
+    self.left_detail_label.font = FONT(12);
+    self.date_time_label.font = FONT(12);
+    self.integral_label.font = FONT(12);
+    self.left_title_label.textColor = kDarkGrayColor;
+    self.left_detail_label.textColor = kDarkGrayColor;
+    self.date_time_label.textColor = kDarkGrayColor;
+    self.integral_label.textColor = kDarkGrayColor;
+    
+    self.left_title_label.text = [NSString stringWithFormat:@"订单号:%@",commission_model.OrderInfo_Id];
+    self.left_detail_label.text = [NSString stringWithFormat:@"收益时间:%@",commission_model.TradeTime];
+    self.date_time_label.text = [NSString stringWithFormat:@"+%@",commission_model.CommTotal];
+    self.integral_label.text = [NSString stringWithFormat:@"%.2f",commission_model.UserCommission.floatValue];
 
+}
 
 @end

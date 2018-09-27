@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ox4-4f-UnZ">
-                        <rect key="frame" x="20" y="36" width="197" height="35"/>
+                        <rect key="frame" x="20" y="36" width="197" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="197" id="t46-kI-vcr"/>
                         </constraints>
@@ -47,7 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pqd-mf-Y3e">
-                        <rect key="frame" x="227" y="36" width="137" height="35"/>
+                        <rect key="frame" x="227" y="36" width="137" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="137" id="qqv-qO-rUd"/>
                         </constraints>
@@ -69,8 +69,8 @@
             </tableViewCellContentView>
             <constraints>
                 <constraint firstItem="iVH-Uc-uBe" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" id="KhM-BM-u1C"/>
-                <constraint firstItem="ox4-4f-UnZ" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" id="rHY-bi-de7"/>
-                <constraint firstItem="Pqd-mf-Y3e" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" id="slS-DL-NeN"/>
+                <constraint firstItem="ox4-4f-UnZ" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" constant="-7" id="rHY-bi-de7"/>
+                <constraint firstItem="Pqd-mf-Y3e" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" constant="-7" id="slS-DL-NeN"/>
                 <constraint firstItem="7hP-gE-Ac4" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="1:2" id="x5o-F6-rwz"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>

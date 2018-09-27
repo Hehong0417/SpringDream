@@ -99,19 +99,26 @@
     
     return self.datas.count;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return 1;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     HHMystoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMystoreCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.store_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+   HHMineModel *store_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+ 
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(didSelectRowWithstoreModel:)]) {
+        [self.delegate didSelectRowWithstoreModel:store_model];
+        [self.navigationController popVC];
+    }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     

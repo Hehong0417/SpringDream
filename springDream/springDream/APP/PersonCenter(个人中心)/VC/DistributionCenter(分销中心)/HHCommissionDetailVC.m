@@ -6,14 +6,15 @@
 //  Copyright © 2018年 User. All rights reserved.
 //
 
-#import "HHMydistributorsVC.h"
-#import "HHMyMembersCell.h"
+#import "HHCommissionDetailVC.h"
+#import "HHMywalletCell.h"
 
-@interface HHMydistributorsVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-
+@interface HHCommissionDetailVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@property (nonatomic, strong)   NSMutableArray *datas;
+@property (nonatomic, assign)   NSInteger page;
 @end
 
-@implementation HHMydistributorsVC
+@implementation HHCommissionDetailVC
 
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -24,19 +25,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = self.title_str;
-    [self.tableView registerNib:[UINib nibWithNibName:@"HHMyMembersCell" bundle:nil] forCellReuseIdentifier:@"HHMyMembersCell"];
+    self.title = @"佣金明细";
+    [self.tableView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
     self.page = 1;
-    if ([self.title_str isEqualToString:@"我的分销商"]) {
-        [self getDistributionBusiness];
-    }else if ([self.title_str isEqualToString:@"我的代理"]) {
-        [self getDelegateBusiness];
-    }else if ([self.title_str isEqualToString:@"下级会员"]) {
-        [self getUserFewFans];
-    }
+    
+    [self GetFansSale];
+
     [self addHeadRefresh];
     [self addFootRefresh];
 }
@@ -45,13 +42,8 @@
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.datas removeAllObjects];
         self.page = 1;
-        if ([self.title_str isEqualToString:@"我的分销商"]) {
-            [self getDistributionBusiness];
-        }else if ([self.title_str isEqualToString:@"我的代理"]) {
-            [self getDelegateBusiness];
-        }else if ([self.title_str isEqualToString:@"下级会员"]) {
-            [self getUserFewFans];
-        }
+        [self GetFansSale];
+
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
@@ -62,46 +54,18 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        if ([self.title_str isEqualToString:@"我的分销商"]) {
-            [self getDistributionBusiness];
-        }else if ([self.title_str isEqualToString:@"我的代理"]) {
-            [self getDelegateBusiness];
-        }else if ([self.title_str isEqualToString:@"下级会员"]) {
-            [self getUserFewFans];
-        }
+        [self GetFansSale];
     }];
     self.tableView.mj_footer = refreshfooter;
     
 }
-- (void)getDistributionBusiness{
+- (void)GetFansSale{
     
-    [[[HHMineAPI GetDistributionBusinessWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetFansSaleWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
-                
-                [self loadDataFinish:api.Data];
-                
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-            }
-        }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
-        }
-    }];
-    
-}
-- (void)getDelegateBusiness{
-    
-    
-    
-}
-- (void)getUserFewFans{
-    
-    [[[HHMineAPI GetUserFewFansWithFew:self.few page:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-        if (!error) {
-            if (api.State == 1) {
-                
-                [self loadDataFinish:api.Data];
+                NSArray *arr = api.Data[@"List"];
+                [self loadDataFinish:arr];
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -194,20 +158,20 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.datas.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HHMyMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMyMembersCell" forIndexPath:indexPath];
+    HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.title_str = self.title_str;
-    cell.business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    cell.commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

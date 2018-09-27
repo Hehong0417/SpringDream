@@ -17,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *price_label;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAlig_constant;
 
+@property(nonatomic,strong)   HHMineModel *business_model;
+
 @end

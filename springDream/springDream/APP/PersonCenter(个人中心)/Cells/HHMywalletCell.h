@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *date_time_label;
 @property (weak, nonatomic) IBOutlet UILabel *integral_label;
 
+@property (strong, nonatomic)  HHMineModel *commission_model;
+
 @end

@@ -228,9 +228,18 @@
 #define API_GetUserStore API_SUB_URL(@"Store/GetUserStore")
 //4.4获取门店订单
 #define API_GetStoreOrder API_SUB_URL2(@"Order/GetStoreOrder")
-//4.4获取门店订单
-#define API_GetStoreOrder API_SUB_URL2(@"Order/GetStoreOrder")
-
+//4.5获取分销总佣金
+#define API_GetUserCommission API_SUB_URL(@"Commission/GetUserCommission")
+//4.6获取分销佣金
+#define API_GetFansSale API_SUB_URL(@"Commission/GetFansSale")
+//4.8获取分销商
+#define API_GetUserBusiness API_SUB_URL(@"UserInfo/GetUserBusiness")
+//4.9获取分销订单
+#define API_GetDistributionOrder API_SUB_URL2(@"Order/GetDistributionOrder")
+//4.10我的下级会员总数接口
+#define API_GetUserFanCount API_SUB_URL(@"UserInfo/GetUserFanCount")
+//4.20我的下级会员接口
+#define API_GetUserFewFans API_SUB_URL(@"UserInfo/GetUserFewFans")
 
 /**
  *  支付

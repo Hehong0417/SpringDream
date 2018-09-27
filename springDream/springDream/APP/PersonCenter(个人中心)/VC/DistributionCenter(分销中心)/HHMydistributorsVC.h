@@ -11,4 +11,12 @@
 @interface HHMydistributorsVC : UITableViewController
 
 @property(nonatomic,strong)   NSString *title_str;
+
+@property(nonatomic,strong)   NSNumber *few;
+
+@property (nonatomic, strong)   NSMutableArray *datas;
+@property (nonatomic, assign)   NSInteger page;
+
+- (void)getUserFewFans;
+
 @end

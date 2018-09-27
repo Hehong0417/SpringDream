@@ -13,14 +13,10 @@
 #import "SearchDetailViewController.h"
 #import "HHGoodDetailVC.h"
 #import "SDTimeLineTableViewController.h"
+#import "HHMyStoreVC.h"
 
-@interface HHStoreProductsVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-{
-    UIImageView *_imagV;
-    UILabel *_name_label;
-    UILabel *_address_label;
-    UILabel *_call_label;
-}
+@interface HHStoreProductsVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHMyStoreVCDelagete>
+
 @property (nonatomic, strong)   UICollectionView *collectionView;
 @property(nonatomic,strong)     SGSegmentedControl *SG;
 @property (nonatomic, strong)   NSMutableArray *title_arr;
@@ -32,6 +28,11 @@
 @property(nonatomic,strong)   NSURLSessionDataTask *task;
 @property(nonatomic,assign)   BOOL  isCategory;
 @property(nonatomic,assign)   BOOL  isGoodDetailBack;
+@property(nonatomic,strong)   UIImageView *imagV;
+@property(nonatomic,strong)   UILabel *name_label;
+@property(nonatomic,strong)   UILabel *address_label;
+@property(nonatomic,strong)   UILabel *call_label;
+@property(nonatomic,strong)   NSString *store_Id;
 
 @end
 
@@ -49,8 +50,9 @@
     
     self.isCategory = YES;
     
-    [self setupSGSegmentedControl];
+    self.store_Id = self.store_model.store_id;
 
+    [self setupSGSegmentedControl];
     
     //collectionView
     self.collectionView.backgroundColor = KVCBackGroundColor;
@@ -61,8 +63,6 @@
     
     //获取数据
     [self addHeadRefresh];
-    
-    [self getDatas];
     
 }
 - (NSMutableArray *)datas{
@@ -83,18 +83,24 @@
     UIView *store_head = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(90)) backColor:kWhiteColor];
     [self.view addSubview:store_head];
     store_head.userInteractionEnabled = YES;
-    
+    WEAKSELF;
+    [store_head setTapActionWithBlock:^{
+        HHMyStoreVC *vc = [HHMyStoreVC new];
+        vc.delegate = self;
+        [weakSelf.navigationController pushVC:vc];
+    }];
     
     _imagV = [[UIImageView alloc] initWithFrame:CGRectMake(WidthScaleSize_W(10), WidthScaleSize_H(10), WidthScaleSize_H(70), WidthScaleSize_H(70))];
-    _imagV.image = [UIImage imageNamed:@"icon0"];
+    _imagV.image = [UIImage imageNamed:@""];
+    [_imagV lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
     [store_head addSubview:_imagV];
     
-    _name_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(_imagV.frame)+WidthScaleSize_W(10), _imagV.mj_y, ScreenW-CGRectGetMaxX(_imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(20)) text:@"阿斯蒂芬股份有限公司" textColor:kBlackColor font:FONT(15) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-    [store_head addSubview:_name_label];
-    _address_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(_imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(_name_label.frame), ScreenW-CGRectGetMaxX(_imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"广州市番禺区厦滘商业大厦E座609" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-    [store_head addSubview:_address_label];
-    _call_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(_imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(_address_label.frame), ScreenW-CGRectGetMaxX(_imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"13826424459" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-    [store_head addSubview:_call_label];
+    self.name_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), self.imagV.mj_y, ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(20)) text:@"" textColor:kBlackColor font:FONT(15) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    [store_head addSubview:self.name_label];
+    self.address_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.name_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    [store_head addSubview:self.address_label];
+    self.call_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.address_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    [store_head addSubview:self.call_label];
 
     self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
     NSArray *nomalImageArr = @[@"",@"",@"pArrow"];
@@ -117,12 +123,17 @@
     self.SG.showsBottomScrollIndicator = NO;
     [self.view addSubview:_SG];
     
+    [self.imagV sd_setImageWithURL:[NSURL URLWithString:self.store_model.store_image]];
+    self.name_label.text = self.store_model.store_name;
+    self.address_label.text = self.store_model.store_address;
+    self.call_label.text = self.store_model.store_phone;
+    
 }
 #pragma 加载数据
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:self.store_Id categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize) IsCommission:nil] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         
         self.collectionView.emptyDataSetDelegate = self;
         self.collectionView.emptyDataSetSource = self;
@@ -341,18 +352,30 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     HHGoodDetailVC *vc = [HHGoodDetailVC new];
     vc.Id = goodsModel.Id;
     [self.navigationController pushVC:vc];
-    
     vc.goodDetail_backBlock = ^{
         self.isGoodDetailBack = YES;
         self.isFooterRefresh = NO;
         [self getDatas];
     };
 }
+#pragma mark- HHMyStoreVCDelagete
+
+-(void)didSelectRowWithstoreModel:(HHMineModel *)storeModel{
+    
+    [self.imagV sd_setImageWithURL:[NSURL URLWithString:storeModel.store_image]];
+    self.name_label.text = storeModel.store_name;
+    self.address_label.text = storeModel.store_address;
+    self.call_label.text = storeModel.store_phone;
+    self.store_Id = storeModel.store_id;
+    self.isGoodDetailBack = YES;
+    self.isFooterRefresh = NO;
+    [self getDatas];
+}
+
 
 - (UICollectionView *)collectionView{
     
