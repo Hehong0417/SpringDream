@@ -49,14 +49,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 3;
+    return 5;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSArray *title_arr = @[@"银行卡号",@"开户行",@"开户名"];
-    NSArray *placeholder_arr = @[@"请输入银行卡号",@"请选择开户行",@"请输入开户名"];
+    NSArray *title_arr = @[@"银行卡号",@"开户行",@"开户名",@"开户网点",@"预留手机号码"];
+    NSArray *placeholder_arr = @[@"请输入银行卡号",@"请选择开户行",@"请输入开户名",@"请输入开户网点",@"请输入预留手机号码"];
 
     HHTextfieldcell  *cell = [[HHTextfieldcell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
     cell.titleLabel.text = title_arr[indexPath.row];
@@ -73,7 +72,44 @@
 }
 - (void)commit_buttonAction:(UIButton *)button{
     
+    HHTextfieldcell  *BankAccountNo_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    HHTextfieldcell  *BankName_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    HHTextfieldcell  *BankAccountName_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    HHTextfieldcell  *AccountOpeningBranch_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    HHTextfieldcell  *Tel_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+
+    NSString *isvalid = [self isValidWithBankAccountNo:BankAccountNo_cell.inputTextField.text BankAccountName:BankAccountName_cell.inputTextField.text BankName:BankName_cell.inputTextField.text  AccountOpeningBranch:AccountOpeningBranch_cell.inputTextField.text Tel:Tel_cell.inputTextField.text];
+    if (!isvalid) {
+        
+        [[[HHUserLoginAPI postBindBankCardInformationWithUserId:@"" BankAccountNo:BankAccountNo_cell.inputTextField.text BankAccountName:BankAccountName_cell.inputTextField.text BankName:BankName_cell.inputTextField.text AccountOpeningBranch:AccountOpeningBranch_cell.inputTextField.text Tel:Tel_cell.inputTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+
+
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+    }else{
+        [SVProgressHUD showInfoWithStatus:isvalid];
+    }
     
+}
+- (NSString *)isValidWithBankAccountNo:(NSString *)BankAccountNo BankAccountName:(NSString *)BankAccountName  BankName:(NSString *)BankName AccountOpeningBranch:(NSString *)AccountOpeningBranch Tel:(NSString *)Tel {
     
+    if (BankAccountNo.length == 0) {
+        return @"请输入银行卡号！";
+    }else if (BankAccountName.length == 0){
+        return @"请输入开户名！";
+    }
+    else if (BankName.length == 0){
+        return @"请输入开户行！";
+    }else if (AccountOpeningBranch.length == 0){
+        return @"请输入开户网点！";
+    }else  if (Tel.length == 0) {
+        return @"请输入预留手机号码！";
+    }
+    return nil;
 }
 @end

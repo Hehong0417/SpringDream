@@ -60,7 +60,24 @@
 }
 - (void)_commit_buttonAction:(UIButton *)button{
     
-    
+    if (_name_textfield.text.length == 0) {
+        [SVProgressHUD showInfoWithStatus:@"请先填写姓名！"];
+
+    }else if (_bXTextField.text.length == 0) {
+        [SVProgressHUD showInfoWithStatus:@"请先填写身份证号！"];
+    }else{
+        
+        [[[HHUserLoginAPI postBindCardIDInformationWithUserId:@"" RealName:_name_textfield.text CardID:_bXTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+    }
     
     
 }

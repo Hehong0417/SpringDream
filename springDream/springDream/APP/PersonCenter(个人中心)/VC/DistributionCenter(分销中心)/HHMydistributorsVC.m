@@ -36,9 +36,10 @@
         [self getDelegateBusiness];
     }else if ([self.title_str isEqualToString:@"下级会员"]) {
         [self getUserFewFans];
+    }else if ([self.title_str isEqualToString:@"我的会员"]) {
+        [self GetSubUsers];
     }
     [self addHeadRefresh];
-    [self addFootRefresh];
 }
 - (void)addHeadRefresh{
     
@@ -51,6 +52,8 @@
             [self getDelegateBusiness];
         }else if ([self.title_str isEqualToString:@"下级会员"]) {
             [self getUserFewFans];
+        }else if ([self.title_str isEqualToString:@"我的会员"]) {
+            [self GetSubUsers];
         }
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -68,19 +71,23 @@
             [self getDelegateBusiness];
         }else if ([self.title_str isEqualToString:@"下级会员"]) {
             [self getUserFewFans];
+        }else if ([self.title_str isEqualToString:@"我的会员"]) {
+            [self GetSubUsers];
         }
     }];
     self.tableView.mj_footer = refreshfooter;
     
 }
+//分销商
 - (void)getDistributionBusiness{
     
     [[[HHMineAPI GetDistributionBusinessWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
                 
+                [self addFootRefresh];
                 [self loadDataFinish:api.Data];
-                
+
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -90,17 +97,51 @@
     }];
     
 }
+//代理商
 - (void)getDelegateBusiness{
     
-    
-    
+    [[ [HHMineAPI GetSubAgentsWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                
+                [self addFootRefresh];
+                [self loadDataFinish:api.Data];
+
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
 }
+//下级会员
 - (void)getUserFewFans{
     
     [[[HHMineAPI GetUserFewFansWithFew:self.few page:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
                 
+                [self addFootRefresh];
+                [self loadDataFinish:api.Data];
+
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
+   
+}
+//我的会员
+- (void)GetSubUsers{
+    
+    [[ [HHMineAPI GetSubUsersWithPage:@(self.page)  pageSize:@20]netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                [self addFootRefresh];
                 [self loadDataFinish:api.Data];
                 
             }else{
@@ -112,7 +153,6 @@
     }];
     
 }
-
 /**
  *  加载数据完成
  */
@@ -158,6 +198,7 @@
     //刷新界面
     [self.tableView reloadData];
     
+
 }
 #pragma mark - DZNEmptyDataSetDelegate
 
@@ -207,7 +248,15 @@
     HHMyMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMyMembersCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.title_str = self.title_str;
-    cell.business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    if ([self.title_str isEqualToString:@"我的分销商"]) {
+        cell.business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    }else if ([self.title_str isEqualToString:@"我的代理"]) {
+        cell.delegate_business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    }else if ([self.title_str isEqualToString:@"下级会员"]) {
+        cell.business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    }else if([self.title_str isEqualToString:@"我的会员"]){
+        cell.delegate_business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

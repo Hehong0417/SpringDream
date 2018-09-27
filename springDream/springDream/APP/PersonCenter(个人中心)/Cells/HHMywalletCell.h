@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic)  HHMineModel *commission_model;
 
+@property (strong, nonatomic)  HHMineModel *delegate_commission_model;
+
 @end

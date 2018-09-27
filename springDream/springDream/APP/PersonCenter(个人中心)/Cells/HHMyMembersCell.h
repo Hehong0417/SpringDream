@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAlig_constant;
 
 @property(nonatomic,strong)   HHMineModel *business_model;
+@property(nonatomic,strong)   HHMineModel *delegate_business_model;
 
 @end

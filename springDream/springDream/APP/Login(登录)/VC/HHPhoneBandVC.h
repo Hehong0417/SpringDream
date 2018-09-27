@@ -10,4 +10,6 @@
 
 @interface HHPhoneBandVC : UIViewController
 
+@property(nonatomic,strong)NSString *openId;
+
 @end

@@ -101,7 +101,11 @@
     [store_head addSubview:self.address_label];
     self.call_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.address_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [store_head addSubview:self.call_label];
+    
+    UIImageView *arrow_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-WidthScaleSize_H(60), 0, WidthScaleSize_H(50), WidthScaleSize_H(90)) image:[UIImage imageNamed:@"more"]];
+    [store_head addSubview:arrow_imagV];
 
+    
     self.title_arr = [NSMutableArray arrayWithArray:@[@"上新",@"销量",@"价格"]];
     NSArray *nomalImageArr = @[@"",@"",@"pArrow"];
     NSArray *selectedImageArr = @[@"",@"",@"pArrow_top"];

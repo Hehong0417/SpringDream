@@ -9,7 +9,7 @@
 #import "HHPhoneBandVC.h"
 #import "LHVerifyCodeButton.h"
 
-@interface HHPhoneBandVC ()
+@interface HHPhoneBandVC ()<UITextFieldDelegate>
 {
     UIImageView *_phone_imagV;
     UIImageView *_code_imagV;
@@ -61,7 +61,7 @@
     
     self.verifyCodeBtn = [[LHVerifyCodeButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(h_line_1.frame)-WidthScaleSize_W(15)-WidthScaleSize_W(100), CGRectGetMaxY(h_line.frame)+WidthScaleSize_H(10), WidthScaleSize_W(100), WidthScaleSize_H(30))];
     [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-    [self.verifyCodeBtn lh_setBackgroundColor:KDCLabelColor forState:UIControlStateNormal];
+    [self.verifyCodeBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
     [self.verifyCodeBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
     [self.verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.verifyCodeBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
@@ -114,9 +114,40 @@
 }
 - (void)rigsterAction:(UIButton *)button{
     
+    NSString *isValid =  [self isValidWithphoneStr:_phone_textfield.text verifyCodeStr:_code_textfield.text newPwdStr:_pw_textfield.text commitPwdStr:_cpw_textfield.text];
+
+    if (!isValid) {
+        [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:self.openId Pwd:_pw_textfield.text VerificationCode:_code_textfield.text InviteCode:_inv_code_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+        
+    }else{
+        [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+        [SVProgressHUD showInfoWithStatus:isValid];
+    }
     
+}
+- (NSString *)isValidWithphoneStr:(NSString *)phoneStr verifyCodeStr:(NSString *)verifyCodeStr  newPwdStr:(NSString *)newPwdStr commitPwdStr:(NSString *)commitPwdStr{
     
-    
+    if (phoneStr.length == 0) {
+        return @"请输入手机号！";
+    }else if (verifyCodeStr.length == 0){
+        return @"请输入验证码！";
+    }else if (newPwdStr.length == 0){
+        return @"请输入密码！";
+    }else if (commitPwdStr.length == 0){
+        return @"请输入确认密码！";
+    }else if (![commitPwdStr isEqualToString:newPwdStr]){
+        return @"两次输入的密码不一致！";
+    }
+    return nil;
 }
 - (void)agreeAction:(UIButton *)button{
     
@@ -124,7 +155,19 @@
 }
 - (void)sendVerifyCode{
     
-    
+    if (_phone_textfield.text.length==0) {
+           [SVProgressHUD showInfoWithStatus:@"请先填写手机号"];
+    }else{
+        [[[HHUserLoginAPI postSmsSendCodeWithmobile:_phone_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    [self.verifyCodeBtn startTimer:60];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+    }
     
 }
 - (void)backAction{

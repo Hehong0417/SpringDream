@@ -35,6 +35,23 @@
     self.date_time_label.text = [NSString stringWithFormat:@"+%@",commission_model.CommTotal];
     self.integral_label.text = [NSString stringWithFormat:@"%.2f",commission_model.UserCommission.floatValue];
 
-}
 
+}
+- (void)setDelegate_commission_model:(HHMineModel *)delegate_commission_model{
+    _delegate_commission_model = delegate_commission_model;
+    
+    self.left_title_label.font = FONT(12);
+    self.left_detail_label.font = FONT(12);
+    self.date_time_label.font = FONT(12);
+    self.integral_label.font = FONT(12);
+    self.left_title_label.textColor = kDarkGrayColor;
+    self.left_detail_label.textColor = kDarkGrayColor;
+    self.date_time_label.textColor = kDarkGrayColor;
+    self.integral_label.textColor = kDarkGrayColor;
+    
+    self.left_title_label.text = [NSString stringWithFormat:@"订单号:%@",delegate_commission_model.oid];
+    self.left_detail_label.text = [NSString stringWithFormat:@"收益时间:%@",delegate_commission_model.time];
+    self.date_time_label.text = [NSString stringWithFormat:@"%@",delegate_commission_model.bonus_value];
+    self.integral_label.text = [NSString stringWithFormat:@"%.2f",delegate_commission_model.bonus_result.floatValue];
+}
 @end

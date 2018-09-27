@@ -92,6 +92,13 @@
 + (instancetype)GetUserFanCount;
 //我的下级会员接口
 + (instancetype)GetUserFewFansWithFew:(NSNumber *)few page:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//代理商
++ (instancetype)GetSubAgentsWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//获取代理佣金
++ (instancetype)GetBonusWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//团队下级的会员
++ (instancetype)GetSubUsersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+
 
 #pragma mark - post
 
@@ -144,4 +151,6 @@
 + (instancetype)postOrderEvaluateWithOrderId:(NSString *)orderId level:(NSNumber *)level logisticsScore:(NSNumber *)logisticsScore serviceScore:(NSNumber *)serviceScore productEvaluate:(NSString *)productEvaluate;
 //上传多张图片
 + (instancetype)postUploadManyImageWithimageDatas:(NSArray *)imageDatas;
+//佣金转余额(分销佣金 = 0、代理佣金 = 1、门店佣金 = 2）
++ (instancetype)postBonusToBalanceWithmoney:(NSArray *)money bonusType:(NSNumber *)bonusType;
 @end

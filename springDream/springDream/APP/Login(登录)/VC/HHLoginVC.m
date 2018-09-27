@@ -10,7 +10,9 @@
 #import "HHrigsterVC.h"
 #import "WXApi.h"
 #import "LHVerifyCodeButton.h"
-@interface HHLoginVC ()
+#import "HHPhoneBandVC.h"
+
+@interface HHLoginVC ()<UITextFieldDelegate>
 {
     UIImageView *_logo_imagV;
     UIImageView *_phone_imagV;
@@ -46,19 +48,12 @@ static BOOL flag=0;
     
     _phone_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_phone_imagV.frame)+10, _phone_imagV.mj_y, ScreenW-CGRectGetMaxX(_phone_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入手机号" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _phone_textfield.keyboardType = UIKeyboardTypeNumberPad;
+    _phone_textfield.delegate = self;
     [self.view addSubview:_phone_textfield];
     
     UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(_phone_imagV.mj_x,CGRectGetMaxY(_phone_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
     [self.view addSubview:h_line];
 
-    self.verifyCodeBtn = [[LHVerifyCodeButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(h_line.frame)-WidthScaleSize_W(15)-WidthScaleSize_W(100), CGRectGetMaxY(h_line.frame)+WidthScaleSize_H(10), WidthScaleSize_W(100), WidthScaleSize_H(30))];
-    [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-    [self.verifyCodeBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
-    [self.verifyCodeBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
-    [self.verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [self.verifyCodeBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
-    self.verifyCodeBtn.titleLabel.font = FONT(13);
-    [self.view addSubview:self.verifyCodeBtn];
     
     
     _code_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25), CGRectGetMaxY(_phone_textfield.frame)+WidthScaleSize_H(20), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"password"]];
@@ -67,10 +62,23 @@ static BOOL flag=0;
     
     _code_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_code_imagV.frame)+10, _code_imagV.mj_y, ScreenW-CGRectGetMaxX(_phone_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入密码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _code_textfield.keyboardType = UIKeyboardTypeASCIICapable;
+    _code_textfield.secureTextEntry = YES;
+    _code_textfield.delegate = self;
+
     [self.view addSubview:_code_textfield];
     
     UIView *h_line_1 = [UIView lh_viewWithFrame:CGRectMake(_code_imagV.mj_x,CGRectGetMaxY(_code_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
     [self.view addSubview:h_line_1];
+    
+    self.verifyCodeBtn = [[LHVerifyCodeButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(h_line.frame)-WidthScaleSize_W(15)-WidthScaleSize_W(100), CGRectGetMaxY(h_line.frame)+WidthScaleSize_H(10), WidthScaleSize_W(100), WidthScaleSize_H(30))];
+    [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode) forControlEvents:UIControlEventTouchUpInside];
+    [self.verifyCodeBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
+    [self.verifyCodeBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+    [self.verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    self.verifyCodeBtn.hidden = YES;
+    [self.verifyCodeBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
+    self.verifyCodeBtn.titleLabel.font = FONT(13);
+    [self.view addSubview:self.verifyCodeBtn];
     
     
     _login_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_1.frame)+WidthScaleSize_H(35), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(loginAction:) title:@"登录" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
@@ -110,15 +118,17 @@ static BOOL flag=0;
     _wx_login_button.centerX = self.view.centerX;
     [self.view addSubview:_wx_login_button];
     
-    
     [self.msg_code_label setTapActionWithBlock:^{
         flag = !flag;
         if (flag) {
             weakSelf.msg_code_label.text = @"密码登录";
             weakSelf.verifyCodeBtn.hidden = NO;
+            _code_textfield.placeholder = @"输入验证码";
         }else{
-            weakSelf.msg_code_label.text = @"验证码登录";
+            weakSelf.msg_code_label.text = @"短信验证码登录";
             weakSelf.verifyCodeBtn.hidden = YES;
+            _code_textfield.placeholder = @"输入密码";
+
         }
     }];
     
@@ -140,18 +150,76 @@ static BOOL flag=0;
 }
 
 - (void)sendVerifyCode{
+
+    if (_phone_textfield.text.length==0) {
+        [SVProgressHUD showInfoWithStatus:@"请先填写手机号"];
+    }else{
+        [[[HHUserLoginAPI postSmsSendCodeWithmobile:_phone_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    [self.verifyCodeBtn startTimer:60];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+    }
+}
+- (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
     
-    
-    
+    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }
+    }];
+
 }
 - (void)loginAction:(UIButton *)button{
 
+    if (flag) {
+        // 短信验证码登录
+        NSString *isvalid =  [self isValidWithphoneStr:_phone_textfield.text verifyCodeStr:_code_textfield.text];
+        if (!isvalid) {
+            [self loginWithUseWay:@3 Pwd:nil VerificationCode:_code_textfield.text];
+        }else{
+            [SVProgressHUD showInfoWithStatus:isvalid];
+        }
+    }else{
+        // 密码登录
+       NSString *isvalid =  [self isValidWithphoneStr:_phone_textfield.text newPwdStr:_code_textfield.text];
+        if (!isvalid) {
+            [self loginWithUseWay:@1 Pwd:_code_textfield.text VerificationCode:nil];
+        }else{
+            [SVProgressHUD showInfoWithStatus:isvalid];
+        }
+    }
     
+}
+- (NSString *)isValidWithphoneStr:(NSString *)phoneStr newPwdStr:(NSString *)newPwdStr{
+    
+    if (phoneStr.length == 0) {
+        return @"请输入手机号！";
+    }else if (newPwdStr.length == 0){
+        return @"请输入密码！";
+    }
+    return nil;
+}
+- (NSString *)isValidWithphoneStr:(NSString *)phoneStr verifyCodeStr:(NSString *)verifyCodeStr{
+    if (phoneStr.length == 0) {
+        return @"请输入手机号！";
+    }else if (verifyCodeStr.length == 0){
+        return @"请输入验证码！";
+    }
+    return nil;
     
 }
  - (void)wx_login_buttonAction:(UIButton *)button{
-                            
-                            
+     
     [self getAuthWithUserInfoFromWechat];
 
                             
@@ -163,52 +231,55 @@ static BOOL flag=0;
     
     [SVProgressHUD setMinimumDismissTimeInterval:1.0];
     
-    //
-    //    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
-    //
-    //        if (error) {
-    //            NSLog(@"error--%@",error);
-    //
-    //        } else {
-    //
-    //            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //            hud.color = KA0LabelColor;
-    //            hud.detailsLabelText = @"授权中，请稍后...";
-    //            hud.detailsLabelColor = kWhiteColor;
-    //            hud.detailsLabelFont = FONT(14);
-    //            hud.activityIndicatorColor = kWhiteColor;
-    //            [hud showAnimated:YES];
-    //
-    //            UMSocialUserInfoResponse *resp = result;
-    //            // 授权信息
-    //            NSLog(@"Wechat uid: %@", resp.uid);
-    //            NSLog(@"Wechat unionId: %@", resp.unionId);
-    //            NSLog(@"Wechat openid: %@", resp.openid);
-    //            NSLog(@"Wechat accessToken: %@", resp.accessToken);
-    //            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
-    //            NSLog(@"Wechat expiration: %@", resp.expiration);
-    //            // 用户信息
-    //            NSLog(@"Wechat name: %@", resp.name);
-    //            NSLog(@"Wechat iconurl: %@", resp.iconurl);
-    //            NSLog(@"Wechat gender: %@", resp.gender);
     
-    //账户是否存在 ？登录:注册
-    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
-    //                             NSString *openid = resp.openid;
-    //***************//
-    [[[HHUserLoginAPI postApiLoginWithopenId:openid] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
-        
+        [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+    
+            if (error) {
+                NSLog(@"error--%@",error);
+    
+            } else {
+    
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.color = KA0LabelColor;
+                hud.detailsLabelText = @"授权中，请稍后...";
+                hud.detailsLabelColor = kWhiteColor;
+                hud.detailsLabelFont = FONT(14);
+                hud.activityIndicatorColor = kWhiteColor;
+                [hud showAnimated:YES];
+    
+                UMSocialUserInfoResponse *resp = result;
+                // 授权信息
+                NSLog(@"Wechat uid: %@", resp.uid);
+                NSLog(@"Wechat unionId: %@", resp.unionId);
+                NSLog(@"Wechat openid: %@", resp.openid);
+                NSLog(@"Wechat accessToken: %@", resp.accessToken);
+                NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
+                NSLog(@"Wechat expiration: %@", resp.expiration);
+                // 用户信息
+                NSLog(@"Wechat name: %@", resp.name);
+                NSLog(@"Wechat iconurl: %@", resp.iconurl);
+                NSLog(@"Wechat gender: %@", resp.gender);
+    
+//    账户是否存在 ？登录:注册
+//    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
+         NSString *openid = resp.openid;
+//    ***************//
+    [[[HHUserLoginAPI postApiLoginWithUseWay:@2 Phone:nil OpenId:openid Pwd:nil VerificationCode:nil] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+
         if (!error) {
             if (api.State == 1) {
-                NSString *token = api.Data;
-                HJUser *user = [HJUser sharedUser];
-                user.token = token;
-                [user write];
-                kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
                 
+//                NSString *token = api.Data;
+//                HJUser *user = [HJUser sharedUser];
+//                user.token = token;
+//                [user write];
+//                kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
+
             }else if (api.State == -99) {
+
+                HHPhoneBandVC *vc = [HHPhoneBandVC new];
+                vc.openId = openid;
                 
-                //                                        [self registerWithName:resp.name image:resp.iconurl openid:resp.openid unionId:resp.unionId];
             }else{
                 [hud hideAnimated:YES];
                 [SVProgressHUD showInfoWithStatus:error.localizedDescription];
@@ -220,41 +291,33 @@ static BOOL flag=0;
                 [SVProgressHUD showInfoWithStatus:@"网络竟然崩溃了～"];
             }
         }
-        
-    }];
-    //*********************//
-    
-    //        }
-    //
-    //    }];
-    
-    
-    
-}
-#pragma mark- 注册
 
-- (void)registerWithName:(NSString *)name image:(NSString *)image openid:(NSString *)openid  unionId:(NSString *)unionId{
-    
-    //注册
-    [[[HHUserLoginAPI postRegsterWithopenId:openid name:name image:image unionId:unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
-        
-        if (!error) {
-            if (api.State == 1) {
-                NSString *token = api.Data;
-                HJUser *user = [HJUser sharedUser];
-                user.token = token;
-                [user write];
-                kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-                [hud hideAnimated:YES];
-                
-            }
-        }else{
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
-            [hud hideAnimated:YES];
-        }
     }];
+//    *********************//
     
+            }
+    
+        }];
+}
+#pragma mark - textfieldDelegate限制手机号为11位
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (textField == _phone_textfield) {
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 11 && range.length!=1){
+            textField.text = [toBeString substringToIndex:11];
+            return NO;
+        }
+    }
+    if (textField == _code_textfield) {
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 20 && range.length!=1){
+            textField.text = [toBeString substringToIndex:20];
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 @end

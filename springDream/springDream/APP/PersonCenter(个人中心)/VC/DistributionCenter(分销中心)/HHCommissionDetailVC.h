@@ -10,4 +10,6 @@
 
 @interface HHCommissionDetailVC : UITableViewController
 
+@property (nonatomic, assign)   BOOL isDelegate_commission;
+
 @end

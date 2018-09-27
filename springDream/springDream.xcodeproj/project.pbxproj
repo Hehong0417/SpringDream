@@ -293,7 +293,6 @@
 		CE8A64EE212AA29600C7C57F /* HHRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */; };
 		CE8A64EF212AA29600C7C57F /* HHPhoneLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */; };
 		CE8A64F0212AA29600C7C57F /* HHPhoneLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */; };
-		CE8A64F1212AA29600C7C57F /* HHBandPhoneVc.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64ED212AA29500C7C57F /* HHBandPhoneVc.m */; };
 		CE8A64F6212AA34B00C7C57F /* HHUserLoginAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64F4212AA34B00C7C57F /* HHUserLoginAPI.m */; };
 		CE8A64F9212AAA5400C7C57F /* HHGoodListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64F8212AAA5400C7C57F /* HHGoodListVC.m */; };
 		CE8A6500212AAB6D00C7C57F /* SearchDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64FA212AAB6A00C7C57F /* SearchDetailViewController.xib */; };
@@ -974,10 +973,8 @@
 		CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHRegisterVC.h; sourceTree = "<group>"; };
 		CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHRegisterVC.m; sourceTree = "<group>"; };
 		CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPhoneLoginVC.h; sourceTree = "<group>"; };
-		CE8A64EA212AA29300C7C57F /* HHBandPhoneVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHBandPhoneVc.h; sourceTree = "<group>"; };
 		CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HHPhoneLoginVC.xib; sourceTree = "<group>"; };
 		CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHPhoneLoginVC.m; sourceTree = "<group>"; };
-		CE8A64ED212AA29500C7C57F /* HHBandPhoneVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHBandPhoneVc.m; sourceTree = "<group>"; };
 		CE8A64F4212AA34B00C7C57F /* HHUserLoginAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHUserLoginAPI.m; sourceTree = "<group>"; };
 		CE8A64F5212AA34B00C7C57F /* HHUserLoginAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHUserLoginAPI.h; sourceTree = "<group>"; };
 		CE8A64F7212AAA5400C7C57F /* HHGoodListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHGoodListVC.h; sourceTree = "<group>"; };
@@ -2605,8 +2602,6 @@
 		CE8A64F2212AA30400C7C57F /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A64EA212AA29300C7C57F /* HHBandPhoneVc.h */,
-				CE8A64ED212AA29500C7C57F /* HHBandPhoneVc.m */,
 				CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */,
 				CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */,
 				CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */,
@@ -2625,8 +2620,8 @@
 		CE8A64F3212AA34B00C7C57F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A64F4212AA34B00C7C57F /* HHUserLoginAPI.m */,
 				CE8A64F5212AA34B00C7C57F /* HHUserLoginAPI.h */,
+				CE8A64F4212AA34B00C7C57F /* HHUserLoginAPI.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3588,7 +3583,6 @@
 				CE4725C3212D0B18002BD2A5 /* HHCouponUsedVC.m in Sources */,
 				CE4D0A17212423F200796FEE /* SGPageTitleView.m in Sources */,
 				CE045014214A59FD00093AE7 /* HHPersonCenterSub3.m in Sources */,
-				CE8A64F1212AA29600C7C57F /* HHBandPhoneVc.m in Sources */,
 				CE8A66BA212ABAB100C7C57F /* HHActivityWebVC.m in Sources */,
 				CE4FFDD92148F03900767DF1 /* SDRefreshView.m in Sources */,
 				CE5264E8212C0F0A00F30D29 /* HHGoodDetailVC.m in Sources */,

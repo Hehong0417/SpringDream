@@ -42,4 +42,13 @@
     self.price_label.text = [NSString stringWithFormat:@"手机号:%@",business_model.Phone?business_model.Phone:@"暂未提供"];
    
 }
+- (void)setDelegate_business_model:(HHMineModel *)delegate_business_model{
+    _delegate_business_model = delegate_business_model;
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:delegate_business_model.Icon]];
+    
+    self.name_label.text = delegate_business_model.Name;
+    self.price_label.text = [NSString stringWithFormat:@"手机号:%@",delegate_business_model.mobile?delegate_business_model.mobile:@"暂未提供"];
+    
+}
+
 @end

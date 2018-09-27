@@ -21,15 +21,8 @@
 //分类、商品详情
 #define API_HOST3  @"http://mrs-product.elevo.cn/api/Product"
 
+#define API_HOST4  @"http://mrs-product.elevo.cn/api"
 
-//#define API_HOST @"http://dm-base-api.elevo.cn/api"
-//
-//#define API_HOST1 @"http://dm-client.elevo.cn"
-//
-//#define API_HOST2 @"http://dm-order-api.elevo.cn/api"
-//
-////分类、商品详情
-//#define API_HOST3  @"http://dm-product-api.elevo.cn/api/Product"
 
 
 ////公共设置
@@ -64,19 +57,26 @@
 #define Cid @"1"
 
 //1.3注册
-#define API_Register API_SUB_URL(@"WeiXin/AppRegister")
+#define API_Register API_SUB_URL4(@"UserInfo/Register")
 //1.4登录
-#define API_Login   API_SUB_URL(@"WeiXin/AppLogin")
+#define API_Login   API_SUB_URL4(@"UserInfo/Login")
+//1.8身份证绑定
+#define API_BindCardIDInformation API_SUB_URL4(@"UserInfo/BindCardIDInformation")
+//1.7银行卡绑定
+#define API_BindBankCardInformation API_SUB_URL4(@"UserInfo/BindBankCardInformation")
+//1.6发送短信验证码
+#define API_Sms_SendCode API_SUB_URL1(@"CommonApi/Sms/Send")
+//1.8佣金转余额
+#define API_BonusToBalance  API_SUB_URL4(@"Balance/BonusToBalance")
+
+
 //1.4手机号登录
 #define API_IOSAuthenticationLogin   API_SUB_URL(@"WeiXin/IOSAuthenticationLogin")
-//1.5获取图片验证码
-#define API_Image_GetCode API_SUB_URL2(@"Admin/Login/GetCode")
-//1.6发送短信验证码
-#define API_Sms_SendCode API_SUB_URL1(@"Admin/Login/GetSmsCode")
 //1.6忘记密码，重置密码
 #define API_ResetPassword API_SUB_URL(@"CustomerApi/User/ResetPassword")
 //1.7验证手机号
 #define API_VerifyMobile API_SUB_URL(@"UserInfo/VerifyMobile")
+
 
 /**
  *  首页
@@ -240,6 +240,12 @@
 #define API_GetUserFanCount API_SUB_URL(@"UserInfo/GetUserFanCount")
 //4.20我的下级会员接口
 #define API_GetUserFewFans API_SUB_URL(@"UserInfo/GetUserFewFans")
+//4.21获得用户代理佣金明细
+#define API_GetBonus API_SUB_URL(@"Agent/GetBonus")
+//4.22获得团队下级的会员
+#define API_GetSubUsers API_SUB_URL(@"Agent/GetSubUsers")
+//4.23获得团队下级的代理
+#define API_GetSubAgents API_SUB_URL(@"Agent/GetSubAgents")
 
 /**
  *  支付

@@ -17,6 +17,7 @@
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   HHDistributionCommissionHead *distributionCommissionHead;
+@property (nonatomic, strong)   UIButton *all_button;
 
 @end
 
@@ -47,26 +48,35 @@
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
     
-    if ([self.title_str isEqualToString:@"分销佣金"]) {
-        self.distributionCommissionHead.commission_title_label.text = @"当前分销总金额";
-    }else if ([self.title_str isEqualToString:@"代理佣金"]){
-        self.distributionCommissionHead.commission_title_label.text = @"当前代理总金额";
-    }
     self.page = 1;
 
-    [self GetUserTotalCommission];
-    [self GetFansSale];
-
     
-    UIButton *all_button = [UIButton lh_buttonWithFrame:CGRectMake(0, ScreenH-40-STATUS_NAV_HEIGHT, ScreenW, 40) target:self action:@selector(all_buttonAction:) image:nil title:@"查看全部" titleColor:kDarkGrayColor font:FONT(13)];
-    [all_button setBackgroundColor:kWhiteColor];
-    [self.view addSubview:all_button];
+    if ([self.title_str isEqualToString:@"分销佣金"]) {
+        self.distributionCommissionHead.commission_title_label.text = @"当前分销总金额";
+        [self getDistributionCommissionData];
+        
+    }else if ([self.title_str isEqualToString:@"代理佣金"]){
+        self.distributionCommissionHead.commission_title_label.text = @"当前代理总金额";
+        [self getDelegateCommissionData];
+    }
+    
+    self.all_button = [UIButton lh_buttonWithFrame:CGRectMake(0, ScreenH-40-STATUS_NAV_HEIGHT, ScreenW, 40) target:self action:@selector(all_buttonAction:) image:nil title:@"查看全部" titleColor:kDarkGrayColor font:FONT(13)];
+    [self.all_button setBackgroundColor:kWhiteColor];
+    [self.view addSubview:self.all_button];
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
         _datas = [NSMutableArray array];
     }
     return _datas;
+}
+#pragma mark - 分销佣金
+
+- (void)getDistributionCommissionData{
+    
+    [self GetUserTotalCommission];
+    [self GetFansSale];
+    
 }
 - (void)GetUserTotalCommission{
     
@@ -77,7 +87,7 @@
                 
                 self.distributionCommissionHead.commission_price_label.text = model.TotalComm;
                 self.distributionCommissionHead.yestoday_commission_label.text = [NSString stringWithFormat:@"昨日佣金  +%@",model.YestodayComm?model.YestodayComm:@"0"];
-                self.distributionCommissionHead.history_commission_label.text = [NSString stringWithFormat:@"历史总佣金  %@",model.HistoryCommission?model.HistoryCommission:@"0"];;
+                self.distributionCommissionHead.history_commission_label.text = [NSString stringWithFormat:@"历史总佣金  %@",model.HistoryCommission?model.HistoryCommission:@"0"];
     
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -95,6 +105,9 @@
             if (api.State == 1) {
                 NSArray *arr = api.Data[@"List"];
                 self.datas = arr.mutableCopy;
+                if (self.datas.count<10) {
+                    self.all_button.hidden = YES;
+                }
                 [self.tabView reloadData];
                 
             }else{
@@ -105,8 +118,32 @@
         }
     }];
 }
+#pragma mark - 代理佣金
 
-
+- (void)getDelegateCommissionData{
+    
+    [[[HHMineAPI GetBonusWithpage:@(self.page)  pageSize:@10] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                HHMineModel *model = [HHMineModel mj_objectWithKeyValues:api.Data];
+                self.distributionCommissionHead.commission_price_label.text = model.remain_bonus;
+                self.distributionCommissionHead.yestoday_commission_label.text = [NSString stringWithFormat:@"昨日佣金  %@",model.yesterday_bonus?model.yesterday_bonus:@"0"];
+                self.distributionCommissionHead.history_commission_label.text = [NSString stringWithFormat:@"历史总佣金  %@",model.history_total_bonus?model.history_total_bonus:@"0"];;
+                NSArray *arr = api.Data[@"list"];
+                self.datas = arr.mutableCopy;
+                [self.tabView reloadData];
+                if (self.datas.count<10) {
+                    self.all_button.hidden = YES;
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
+}
 #pragma mark - DZNEmptyDataSetDelegate
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
@@ -154,7 +191,11 @@
     
     HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    if ([self.title_str isEqualToString:@"分销佣金"]) {
+        cell.commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    }else if ([self.title_str isEqualToString:@"代理佣金"]) {
+        cell.delegate_commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -172,6 +213,11 @@
 - (void)all_buttonAction:(UIButton *)button{
     
     HHCommissionDetailVC *vc = [HHCommissionDetailVC new];
+    if ([self.title_str isEqualToString:@"分销佣金"]) {
+        vc.isDelegate_commission = NO;
+    }else if ([self.title_str isEqualToString:@"代理佣金"]){
+        vc.isDelegate_commission = YES;
+    }
     [self.navigationController pushVC:vc];
     
 }

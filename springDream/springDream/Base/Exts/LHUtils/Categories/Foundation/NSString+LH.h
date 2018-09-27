@@ -54,7 +54,7 @@
  @param contentColor 全部字符串字体颜色
  @return 属性字符串
  */
-+ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolStrColor:(UIColor *)protocolStrColor  contentColor:(UIColor *)contentColor;
++ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolStrColor:(UIColor *)protocolStrColor  contentColor:(UIColor *)contentColor commonFont:(UIFont *)commonFont;
 
 
 /**
@@ -66,7 +66,7 @@
  @param contentFont 全部字符串字体大小
  @return 属性字符串
  */
-+ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolFont:(UIFont *)protocolFont  contentFont:(UIFont *)contentFont;
++ (NSMutableAttributedString *)lh_attriStrWithprotocolStr:(NSString *)protocolStr content:(NSString *)content protocolFont:(UIFont *)protocolFont  contentFont:(UIFont *)contentFont comonColor:(UIColor *)comonColor;
 
 
 /**

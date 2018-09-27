@@ -76,7 +76,7 @@
         else {
             strongSelf.enabled = YES;
             if (strongSelf.isCustomStyle) {
-                strongSelf.backgroundColor = kWhiteColor;
+                strongSelf.backgroundColor = APP_NAV_COLOR;
             }
 //            self.backgroundColor = APP_COMMON_COLOR;
             strongSelf.timeInterval = 0;

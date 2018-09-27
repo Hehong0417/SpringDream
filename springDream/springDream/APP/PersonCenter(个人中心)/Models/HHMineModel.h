@@ -137,6 +137,9 @@
 //@property(nonatomic,strong) NSString *Level;
 @property(nonatomic,strong) NSString *Name;
 @property(nonatomic,strong) NSString *Phone;
+@property(nonatomic,strong) NSString *name;
+@property(nonatomic,strong) NSString *mobile;
+@property(nonatomic,strong) NSString *icon;
 
 //分销总佣金
 @property(nonatomic,strong) NSString *HistoryCommission;
@@ -147,6 +150,15 @@
 @property(nonatomic,strong) NSString *TradeTime;
 @property(nonatomic,strong) NSString *UserCommission;
 @property(nonatomic,strong) NSString *CommTotal;
+//代理佣金
+@property(nonatomic,strong) NSString *remain_bonus;
+@property(nonatomic,strong) NSString *history_total_bonus;
+@property(nonatomic,strong) NSString *yesterday_bonus;
+
+@property(nonatomic,strong) NSString *oid;
+@property(nonatomic,strong) NSString *time;
+@property(nonatomic,strong) NSString *bonus_value;
+@property(nonatomic,strong) NSString *bonus_result;
 
 @end
 

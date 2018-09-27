@@ -32,18 +32,25 @@
     
     self.page = 1;
     
-    [self GetFansSale];
-
+    if (self.isDelegate_commission == YES) {
+       
+        [self getDelegateCommissionData];
+        
+    }else{
+        [self GetFansSale];
+    }
     [self addHeadRefresh];
-    [self addFootRefresh];
 }
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.datas removeAllObjects];
         self.page = 1;
-        [self GetFansSale];
-
+        if (self.isDelegate_commission == YES) {
+            [self getDelegateCommissionData];
+        }else{
+            [self GetFansSale];
+        }
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
@@ -54,17 +61,45 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        [self GetFansSale];
+        if (self.isDelegate_commission == YES) {
+            [self getDelegateCommissionData];
+        }else{
+            [self GetFansSale];
+        }
+        
     }];
     self.tableView.mj_footer = refreshfooter;
     
 }
+//分销佣金明细
 - (void)GetFansSale{
     
     [[[HHMineAPI GetFansSaleWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
+                [self addFootRefresh];
+
                 NSArray *arr = api.Data[@"List"];
+                [self loadDataFinish:arr];
+
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
+}
+//代理佣金明细
+
+- (void)getDelegateCommissionData{
+    
+    [[[HHMineAPI GetBonusWithpage:@(self.page)  pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                [self addFootRefresh];
+                NSArray *arr = api.Data[@"list"];
                 [self loadDataFinish:arr];
                 
             }else{
@@ -76,7 +111,6 @@
     }];
     
 }
-
 /**
  *  加载数据完成
  */
@@ -109,7 +143,6 @@
     }else{
         
         [self.tableView.mj_footer setState:MJRefreshStateIdle];
-        
     }
     
     if (self.tableView.mj_header.isRefreshing) {
@@ -170,8 +203,11 @@
     
     HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
-
+    if (self.isDelegate_commission == YES) {
+        cell.delegate_commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    }else{
+        cell.commission_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

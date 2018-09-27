@@ -8,9 +8,8 @@
 
 #import "HHrigsterVC.h"
 #import "LHVerifyCodeButton.h"
-#import "HHPhoneBandVC.h"
 
-@interface HHrigsterVC ()
+@interface HHrigsterVC ()<UITextFieldDelegate>
 {
     UIImageView *_logo_imagV;
     UIImageView *_phone_imagV;
@@ -49,6 +48,7 @@
     
     _phone_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_phone_imagV.frame)+10, _phone_imagV.mj_y, ScreenW-CGRectGetMaxX(_phone_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入手机号" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _phone_textfield.keyboardType = UIKeyboardTypeNumberPad;
+    _phone_textfield.delegate = self;
     [self.view addSubview:_phone_textfield];
     
     UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(_phone_imagV.mj_x,CGRectGetMaxY(_phone_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
@@ -61,14 +61,16 @@
     
     _code_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_code_imagV.frame)+10, _code_imagV.mj_y, ScreenW-CGRectGetMaxX(_phone_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入验证码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _code_textfield.keyboardType = UIKeyboardTypeNumberPad;
+    _code_textfield.delegate = self;
     [self.view addSubview:_code_textfield];
     
     UIView *h_line_1 = [UIView lh_viewWithFrame:CGRectMake(_code_imagV.mj_x,CGRectGetMaxY(_code_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
     [self.view addSubview:h_line_1];
     
     self.verifyCodeBtn = [[LHVerifyCodeButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(h_line_1.frame)-WidthScaleSize_W(15)-WidthScaleSize_W(100), CGRectGetMaxY(h_line.frame)+WidthScaleSize_H(10), WidthScaleSize_W(100), WidthScaleSize_H(30))];
-    [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-    [self.verifyCodeBtn lh_setBackgroundColor:KDCLabelColor forState:UIControlStateNormal];
+    [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
+    [self.verifyCodeBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
+    [self.verifyCodeBtn lh_setBackgroundColor:KDCLabelColor forState:UIControlStateSelected];
     [self.verifyCodeBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
     [self.verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.verifyCodeBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
@@ -82,6 +84,8 @@
     
     _pw_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(pw_imagV.frame)+10, pw_imagV.mj_y, ScreenW-CGRectGetMaxX(pw_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入密码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _pw_textfield.keyboardType = UIKeyboardTypeASCIICapable;
+    _pw_textfield.secureTextEntry = YES;
+    _pw_textfield.delegate = self;
     [self.view addSubview:_pw_textfield];
     
     UIView *h_line_2 = [UIView lh_viewWithFrame:CGRectMake(pw_imagV.mj_x,CGRectGetMaxY(pw_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
@@ -94,6 +98,8 @@
     
     _cpw_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(c_pw_imagV.frame)+10, c_pw_imagV.mj_y, ScreenW-CGRectGetMaxX(c_pw_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"确认密码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _cpw_textfield.keyboardType = UIKeyboardTypeASCIICapable;
+    _cpw_textfield.secureTextEntry = YES;
+    _cpw_textfield.delegate = self;
     [self.view addSubview:_cpw_textfield];
     
     UIView *h_line_3 = [UIView lh_viewWithFrame:CGRectMake(c_pw_imagV.mj_x,CGRectGetMaxY(c_pw_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
@@ -121,32 +127,99 @@
     [_protocol_btn setImage:[UIImage imageNamed:@"agree_selected"] forState:UIControlStateSelected];
     [self.view addSubview:_protocol_btn];
     
-    
-    UILabel *protocol_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(_protocol_btn.frame), 0, WidthScaleSize_W(150), WidthScaleSize_H(30)) text:@"我已阅读了《梦泉合约》" textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+    NSString *content_str = @"我已阅读了《梦泉合约》";
+    NSString *protocol_str = @"《梦泉合约》";
+
+    UILabel *protocol_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(_protocol_btn.frame), 0, WidthScaleSize_W(150), WidthScaleSize_H(30)) text:protocol_str textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+    NSMutableAttributedString *attr =[NSString lh_attriStrWithprotocolStr:protocol_str content:content_str protocolStrColor:APP_NAV_COLOR  contentColor:kDarkGrayColor commonFont:FONT(12)];
+    protocol_label.attributedText = attr;
     protocol_label.centerY = _protocol_btn.centerY;
     [self.view addSubview:protocol_label];
-    
     
 }
 - (void)rigsterAction:(UIButton *)button{
     
-    HHPhoneBandVC *vc = [HHPhoneBandVC new];
-    [self.navigationController pushVC:vc];
+  NSString *isValid =  [self isValidWithphoneStr:_phone_textfield.text verifyCodeStr:_code_textfield.text newPwdStr:_pw_textfield.text commitPwdStr:_cpw_textfield.text];
     
+    if (!isValid) {
+        [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:nil Pwd:_pw_textfield.text VerificationCode:nil InviteCode:_inv_code_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+              
+                    
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+
+    }else{
+        [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+        [SVProgressHUD showInfoWithStatus:isValid];
+    }
     
+}
+- (NSString *)isValidWithphoneStr:(NSString *)phoneStr verifyCodeStr:(NSString *)verifyCodeStr  newPwdStr:(NSString *)newPwdStr commitPwdStr:(NSString *)commitPwdStr{
+    
+    if (phoneStr.length == 0) {
+        return @"请输入手机号！";
+    }else if (verifyCodeStr.length == 0){
+        return @"请输入验证码！";
+    }
+    else if (newPwdStr.length == 0){
+        return @"请输入密码！";
+    }else if (commitPwdStr.length == 0){
+        return @"请输入确认密码！";
+    }else if (![commitPwdStr isEqualToString:newPwdStr]){
+        return @"两次输入的密码不一致！";
+    }else  if (_protocol_btn.selected == NO) {
+        return @"请先勾选梦泉合约！";
+    }
+    return nil;
 }
 - (void)agreeAction:(UIButton *)button{
     
     button.selected = !button.selected;
 }
-- (void)sendVerifyCode{
-    
-    
-    
+- (void)sendVerifyCode:(LHVerifyCodeButton *)button{
+    if (_phone_textfield.text.length==0) {
+        [SVProgressHUD showInfoWithStatus:@"请先填写手机号"];
+    }else{
+        [[[HHUserLoginAPI postSmsSendCodeWithmobile:_phone_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    [button startTimer:60];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
+    }
 }
 - (void)backAction{
     
     [self.navigationController popVC];
 }
+#pragma mark - textfieldDelegate限制手机号为11位
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (textField == _phone_textfield) {
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 11 && range.length!=1){
+            textField.text = [toBeString substringToIndex:11];
+            return NO;
+        }
+    }
+    if (textField == _code_textfield||textField == _pw_textfield||textField == _cpw_textfield) {
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 20 && range.length!=1){
+            textField.text = [toBeString substringToIndex:20];
+            return NO;
+        }
+    }
+    
+    return YES;
+}
 @end

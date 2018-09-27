@@ -286,6 +286,48 @@
     api.parametersAddToken = NO;
     return api;
 }
+//代理商
++ (instancetype)GetSubAgentsWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetSubAgents;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
+//获取代理佣金
++ (instancetype)GetBonusWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.subUrl = API_GetBonus;
+    api.parametersAddToken = NO;
+    return api;
+}
+//团队下级的会员
++ (instancetype)GetSubUsersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetSubUsers;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
+
 
 #pragma mark - post
 
@@ -617,6 +659,20 @@
     }
     api.parametersAddToken = NO;
     return api;
+    
+}
++ (instancetype)postBonusToBalanceWithmoney:(NSArray *)money bonusType:(NSNumber *)bonusType{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_BonusToBalance;
+    if (money) {
+        [api.parameters setObject:money forKey:@"money"];
+    }
+    if (bonusType) {
+        [api.parameters setObject:bonusType forKey:@"bonusType"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+    
     
 }
 //上传多张图片
