@@ -31,6 +31,7 @@
     if (VerificationCode) {
         [api.parameters setObject:VerificationCode forKey:@"VerificationCode"];
     }
+    [api.parameters setObject:@"1" forKey:@"ClientInfo_Id"];
 
     return api;
 }

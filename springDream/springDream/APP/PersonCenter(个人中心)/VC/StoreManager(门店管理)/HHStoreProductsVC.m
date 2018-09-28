@@ -103,6 +103,7 @@
     [store_head addSubview:self.call_label];
     
     UIImageView *arrow_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-WidthScaleSize_H(60), 0, WidthScaleSize_H(50), WidthScaleSize_H(90)) image:[UIImage imageNamed:@"more"]];
+    arrow_imagV.contentMode = UIViewContentModeCenter;
     [store_head addSubview:arrow_imagV];
 
     

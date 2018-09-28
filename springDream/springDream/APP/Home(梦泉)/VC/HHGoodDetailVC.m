@@ -35,7 +35,9 @@
 
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
-
+{
+    HXCommonPickView *_pickView;
+}
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong)   SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong)   HHAddCartTool *addCartTool;
@@ -60,8 +62,14 @@
 @property (nonatomic, strong) HHSeckillCustomView *seckill_view;
 @property (nonatomic, strong) HHGoodDetailFoot *foot;
 
+@property (nonatomic, strong) NSMutableArray *productStores_names;
+@property (nonatomic, strong) NSMutableArray *productStores_ids;
 
 @property (nonatomic, strong) HHpreferModel *preferModel;
+
+@property (nonatomic, strong) NSString *store_id;
+@property (nonatomic, strong) UILabel *detailText_lab;
+
 
 @end
 
@@ -131,6 +139,8 @@ static NSArray *lastSele_IdArray_;
              weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
              weakSelf.tabView.tableFooterView = weakSelf.foot;
     };
+    
+    _pickView = [[HXCommonPickView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
 }
 - (void)backBtnAction{
     
@@ -139,6 +149,20 @@ static NSArray *lastSele_IdArray_;
         [self.navigationController popViewControllerAnimated:YES];
     }
     
+}
+- (NSMutableArray *)productStores_names{
+    
+    if (!_productStores_names) {
+        _productStores_names = [NSMutableArray array];
+    }
+    return _productStores_names;
+}
+- (NSMutableArray *)productStores_ids{
+    
+    if (!_productStores_ids) {
+        _productStores_ids = [NSMutableArray array];
+    }
+    return _productStores_ids;
 }
 #pragma mark - regsterTableCell
 
@@ -261,7 +285,7 @@ static NSArray *lastSele_IdArray_;
         NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
         
         //加入购物车
-        [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+        [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity storeId:self.store_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
             
             if (!error) {
                 if (api.State == 1) {
@@ -323,7 +347,7 @@ static NSArray *lastSele_IdArray_;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -338,12 +362,15 @@ static NSArray *lastSele_IdArray_;
         return 2;
     }
     if (section == 3) {
-        return  2;
+        return  self.productStores_names.count?1:0;
     }
     if (section == 4) {
-        return  1;
+        return  2;
     }
     if (section == 5) {
+        return  1;
+    }
+    if (section == 6) {
         return self.evaluations.count>0?2:0;
     }
     return 1;
@@ -406,7 +433,30 @@ static NSArray *lastSele_IdArray_;
         }
       
     }
-    if (indexPath.section == 3) {
+    if (indexPath.section == 3){
+        //选择门店
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        cell.detailTextLabel.font = FONT(13);
+        UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
+        [cell.contentView addSubview:h_line];
+        UIImageView *imag = [UIImageView lh_imageViewWithFrame:CGRectMake(15, 8, 42, 42) image:[UIImage imageNamed:@"coupon_section"]];
+        imag.contentMode = UIViewContentModeCenter;
+        [cell.contentView addSubview:imag];
+        UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(57, 8, 100, 42) text:@"选择门店" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+        [cell.contentView addSubview:text_lab];
+        UIImageView *right_arrow = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-52, 8, 42, 42) image:[UIImage imageNamed:@"more"]];
+        right_arrow.contentMode = UIViewContentModeCenter;
+        [cell.contentView addSubview:right_arrow];
+        
+        self.detailText_lab = [UILabel lh_labelWithFrame:CGRectMake(157, 8, ScreenW-157-94, 42) text:@"" textColor:KTitleLabelColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        [cell.contentView addSubview:self.detailText_lab];
+
+        gridcell = cell;
+    }
+    if (indexPath.section == 4) {
         //拼团
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -423,7 +473,7 @@ static NSArray *lastSele_IdArray_;
           gridcell = cell;
         }
     }
-    if (indexPath.section == 4) {
+    if (indexPath.section == 5) {
         //搭配套餐
         HHdiscountPackageViewTabCell *cell = [tableView dequeueReusableCellWithIdentifier:HHdiscountPackageViewTabCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -433,7 +483,7 @@ static NSArray *lastSele_IdArray_;
         gridcell = cell;
     }
     
-    if (indexPath.section == 5) {
+    if (indexPath.section == 6) {
         if (indexPath.row == 0) {
             //商品评价
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -475,6 +525,7 @@ static NSArray *lastSele_IdArray_;
         
         return   self.collectionHeight+10;
     }
+
     if (indexPath.section == 2) {
         //优惠
         if (indexPath.row == 0) {
@@ -483,6 +534,9 @@ static NSArray *lastSele_IdArray_;
         return [self.tabView cellHeightForIndexPath:indexPath model:self.preferModel keyPath:@"model" cellClass:[HHpreferentialModelCell class] contentViewWidth:[self cellContentViewWith]];
     }
     if (indexPath.section == 3) {
+        return 50;
+    }
+    if (indexPath.section == 4) {
         //拼团
         if (indexPath.row == 0) {
             return 50;
@@ -490,12 +544,12 @@ static NSArray *lastSele_IdArray_;
         return 60;
     }
     
-    if (indexPath.section == 4) {
+    if (indexPath.section == 5) {
         
         CGFloat height = 40+WidthScaleSize_H(120)+10;
         return  self.gooodDetailModel.Packages.count>0?height:0;
     }
-    if (indexPath.section == 5) {
+    if (indexPath.section == 6) {
             if (indexPath.row == 0) {
                 return 50;
             }else{
@@ -526,13 +580,23 @@ static NSArray *lastSele_IdArray_;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 5) {
+    if (indexPath.section == 6) {
         if (indexPath.row == 0) {
             //评价列表
             HHEvaluationListVC *vc = [HHEvaluationListVC new];
             vc.pid = self.gooodDetailModel.Id;
             [self.navigationController pushVC:vc];
         }
+    }
+    if (indexPath.section == 3) {
+        [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.productStores_names];
+        WEAK_SELF();
+        _pickView.completeBlock = ^(NSString *result) {
+            self.detailText_lab.text = result;
+            NSInteger index = [weakSelf.productStores_names indexOfObject:result];
+            weakSelf.store_id = weakSelf.productStores_ids[index];
+        };
+        [_pickView showPickViewAnimation:YES];
     }
 }
 #pragma mark - HHFeatureSelectionViewCellDelegate
@@ -685,8 +749,32 @@ static NSArray *lastSele_IdArray_;
    //评价
     [self getEvaluateList];
     
+    //门店
+    [self GetProductStore];
 }
-
+//门店列表
+- (void)GetProductStore{
+    
+    [[[HHHomeAPI GetProductStoreWithpid:self.Id] netWorkClient] getRequestInView:nil finishedBlock:^(HHHomeAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                NSArray *arr = api.Data;
+                [arr enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+                    HHHomeModel *model = [HHHomeModel mj_objectWithKeyValues:dic];
+                    [self.productStores_names addObject:model.store_name];
+                    [self.productStores_ids addObject:model.store_id];
+                }];
+                [self.tabView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+        }
+    }];
+    
+}
 //评价
 - (void)getEvaluateList{
     
@@ -697,7 +785,7 @@ static NSArray *lastSele_IdArray_;
                 NSArray *arr = api.Data;
                 self.evaluations = arr.mutableCopy;
                 
-                [self.tabView reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
+                [self.tabView reloadSection:6 withRowAnimation:UITableViewRowAnimationNone];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }

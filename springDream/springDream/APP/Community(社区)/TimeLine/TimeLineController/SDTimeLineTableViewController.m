@@ -177,7 +177,10 @@ static CGFloat textFieldH = 40;
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [_textField resignFirstResponder];
+    [_textField removeFromSuperview];
+
 }
 
 - (void)dealloc
@@ -210,7 +213,6 @@ static CGFloat textFieldH = 40;
     _textField.leftViewMode = UITextFieldViewModeAlways;
     [[UIApplication sharedApplication].keyWindow addSubview:_textField];
     
-    [_textField becomeFirstResponder];
     [_textField resignFirstResponder];
 }
 
@@ -382,10 +384,8 @@ static CGFloat textFieldH = 40;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [_textField resignFirstResponder];
-    _textField.placeholder = @"评论";
+    _textField.placeholder = @"写评论";
 }
-
-
 
 - (CGFloat)cellContentViewWith
 {

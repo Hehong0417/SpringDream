@@ -74,12 +74,16 @@
                 HJSettingItem *item0_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 item0_1.detailTitle = self.mineModel.CellPhone;
                 HJSettingItem *item0_2 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-                item0_2.detailTitle = @"微信号";
+                item0_2.detailTitle = @"去绑定";
                 HJSettingItem *item0_3 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
                 item0_3.detailTitle = @"";
                 
                 HJSettingItem *item3_0 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-                item3_0.detailTitle = @"未验证";
+                if (self.mineModel.RealName) {
+                    item3_0.detailTitle = @"未验证";
+                }else{
+                    item3_0.detailTitle = @"已验证";
+                }
                 HJSettingItem *item3_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]];
                 item3_1.detailTitle = @"去添加";
         

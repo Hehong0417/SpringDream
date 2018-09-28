@@ -70,8 +70,9 @@
         [[[HHUserLoginAPI postBindCardIDInformationWithUserId:@"" RealName:_name_textfield.text CardID:_bXTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
-
-                    
+               
+                    [SVProgressHUD showSuccessWithStatus:@"提交成功！"];
+                    [self.navigationController popVC];
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }

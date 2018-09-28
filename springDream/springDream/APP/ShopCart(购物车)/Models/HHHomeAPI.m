@@ -67,7 +67,18 @@
     return api;
     
 }
-
+//获取有某商品的门店
++ (instancetype)GetProductStoreWithpid:(NSString *)pid{
+    
+    HHHomeAPI *api = [self new];
+    api.subUrl = API_GetProductStore;
+    if (pid) {
+        [api.parameters setObject:pid forKey:@"pid"];
+    }
+    api.parametersAddToken = NO;
+    
+    return api;
+}
 //月成交记录
 + (instancetype)GetFinishLogId:(NSString *)Id page:(NSNumber *)page pageSize:(NSNumber *)pageSize{
     
@@ -104,7 +115,6 @@
     
 }
 #pragma mark - post
-
 //增加商品收藏
 + (instancetype)postAddProductCollectionWithpids:(NSString *)pids {
     

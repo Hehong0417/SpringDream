@@ -104,13 +104,14 @@
  *  购物车
  */
 //3.1获取购物车中商品
-#define API_GetProducts  API_SUB_URL2(@"ShopCart/Get")
+//#define API_GetProducts  API_SUB_URL2(@"ShopCart/Get")
+#define API_GetProducts  API_SUB_URL2(@"ShopCart/GetShopCart")
 //3.2是否存在收货地址
 #define API_IsExistOrderAddress  API_SUB_URL(@"UserInfo/IsExistOrderAddress")
 //3.2添加购物车数量
 #define API_AddQuantity API_SUB_URL2(@"ShopCart/Create")
 //3.2减少购物车数量
-#define API_minusQuantity API_SUB_URL2(@"ShopCart/Minus")
+#define API_minusQuantity API_SUB_URL2(@"ShopCart/AddCount")
 //3.3加入购物车
 #define API_AddProducts API_SUB_URL2(@"ShopCart/Create")
 //3.4删除购物车
@@ -131,6 +132,8 @@
 #define API_UploadManyImage API_SUB_URL(@"FileUpload/UploadManyImage")
 //3.6商品评价列表
 #define API_GetProductEvaluate API_SUB_URL2(@"Order/GetProductEvaluate")
+//3.6门店列表
+#define API_GetProductStore API_SUB_URL(@"Store/GetProductStore")
 //3.7商品收藏
 #define API_AddProductCollection API_SUB_URL3(@"AddProductCollection")
 //3.8取消商品收藏

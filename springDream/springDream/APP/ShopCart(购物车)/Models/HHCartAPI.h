@@ -31,7 +31,7 @@
 //减少购物车数量
 + (instancetype)postminusQuantityWithcart_id:(NSString *)cart_id quantity:(NSString *)quantity;
 //加入购车
-+ (instancetype)postAddProductsWithsku_id:(NSString *)sku_id quantity:(NSString *)quantity;
++ (instancetype)postAddProductsWithsku_id:(NSString *)sku_id quantity:(NSString *)quantity storeId:(NSString *)storeId;
 
 //删除购物车
 + (instancetype)postShopCartDeleteWithcart_id:(NSString *)cart_id;

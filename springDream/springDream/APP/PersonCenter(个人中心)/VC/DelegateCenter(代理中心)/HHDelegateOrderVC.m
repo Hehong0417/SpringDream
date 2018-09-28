@@ -170,7 +170,7 @@
     
     [[[HHMineAPI GetOrderListWithstatus:index page:@(self.page)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         self.isLoading = YES;
-        
+
         if (self.isHeaderRefresh ==YES) {
             [self.datas removeAllObjects];
             [self.items_arr removeAllObjects];
@@ -180,7 +180,7 @@
                 self.isWlan = YES;
                 [self.items_arr  removeAllObjects];
                 [self loadDataFinish:api.Data];
-                
+
             }else{
                 self.isWlan = YES;
                 [SVProgressHUD showInfoWithStatus:api.Msg];

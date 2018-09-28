@@ -8,15 +8,17 @@
 
 #import "BaseModel.h"
 
-@class HHproductsModel,HHordersModel,HHskuidModel,HHproducts_item_Model,HHcouponsModel;
+@class HHproductsModel,HHordersModel,HHskuidModel,HHproducts_item_Model,HHcouponsModel,HHstoreModel;
 
 @interface HHCartModel : BaseModel
 //购物车
 @property(nonatomic,strong) NSString *count;
 @property (nonatomic, strong) NSNumber *sendGift;
-
 @property(nonatomic,strong) NSArray <HHproductsModel*>*products;
 @property(nonatomic,strong) NSArray <HHproductsModel*>*prodcuts;
+
+@property(nonatomic,strong) NSArray <HHstoreModel*>*stores;
+
 
 //提交订单
 @property(nonatomic,strong) NSString *shop_card_ids;
@@ -145,3 +147,10 @@
 @property(nonatomic,strong) NSString *UserCouponId;
 @end
 
+//购物车组模型
+
+@interface HHstoreModel : BaseModel
+@property(nonatomic,strong) NSString *storeName;
+@property(nonatomic,strong) NSArray <HHproductsModel*>*products;
+
+@end

@@ -14,6 +14,7 @@
 #import "HHtEditCarItem.h"
 #import "HHGoodListVC.h"
 #import "HHAddAdressVC.h"
+#import "HHSelectSectionItem.h"
 
 @interface HHShoppingVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 {
@@ -95,7 +96,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = KVCBackGroundColor;
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHCartCell" bundle:nil] forCellReuseIdentifier:@"HHCartCell"];
@@ -271,10 +272,8 @@
     
 }
 - (void)getShopCartListFinsih:(HHCartModel *)data {
-    NSArray *arr = [data.products mutableCopy];
     
-    self.datas = [data.products mutableCopy];
-    if (self.datas.count ==0) {
+    if (data.stores.count ==0) {
         tipLabel.hidden = YES;
         if (self.cartType == HHcartType_goodDetail) {
             self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-Status_HEIGHT-44);
@@ -294,18 +293,23 @@
     }
     self.settleAccountView.selectBtn.selected = NO;
     
-    //pids
-    [self.pids_arr removeAllObjects];
-    [arr enumerateObjectsUsingBlock:^(HHproductsModel *productsModel, NSUInteger idx, BOOL *stop) {
-        [self.pids_arr addObject:productsModel.pid];
-        
-    }];
-    
     //全选左边点击数据源
     self.selectItems = [NSMutableArray array];
-    [self.datas enumerateObjectsUsingBlock:^(HHproductsModel *productsModel, NSUInteger idx, BOOL *stop) {
-        [self.selectItems addObject:@0];
+    [self.model.stores enumerateObjectsUsingBlock:^(HHstoreModel *storeModel, NSUInteger idx, BOOL *stop) {
+        HHSelectSectionItem *sectionItem = [HHSelectSectionItem new];
+        NSMutableArray *section_items = [NSMutableArray array];
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+            HHSelectRowItem *item = [HHSelectRowItem new];
+            item.row_selected = @0;
+            [section_items addObject:item];
+            *stop = NO;
+
+        }];
+        sectionItem.selectRow_Arr = section_items;
+        [self.selectItems addObject:sectionItem];
+        *stop = NO;
     }];
+
     //新增
     [self.tableView reloadData];
 }
@@ -322,7 +326,7 @@
 - (void)addSettleAccountView{
     
     self.settleAccountView  = [[[NSBundle mainBundle] loadNibNamed:@"HHCartFootView" owner:self options:nil] lastObject];
-    self.settleAccountView.hidden = YES;
+//    self.settleAccountView.hidden = YES;
 //    self.settleAccountView.sendGift_label.hidden = YES;
 //    self.settleAccountView.sendGift_widthConstant.constant = 0;
     CGFloat settleView_y;
@@ -349,17 +353,27 @@
     };
     
   
-    //提交订单
+    //提交订单&删除已选
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{
-        //获取已选数组
-        NSMutableArray *select_idx_arr = [self getNewSelect_arr];
         
-        if (select_idx_arr.count>0) {
+        NSLog(@"selectItems:%@",self.selectItems);
+        //获取已选数组
+        NSMutableArray *select_idx_arr = [self getNewSelect_ids];
+        
+        if (self.manage_btn.selected == YES) {
+            //删除已选 select_idx_arr(cart_ids)
+            NSString *cartIds = [select_idx_arr componentsJoinedByString:@","];
+            [self deleteGetDataWithCartIds:cartIds];
             
-            [self isExitAddressWithSendGift:@0];
         }else{
-  
-            [self lh_showHudInView:self.view labText:@"您还没有选择宝贝哦"];
+            //去结算
+            if (select_idx_arr.count>0) {
+                
+                [self isExitAddressWithSendGift:@0];
+            }else{
+                
+                [self lh_showHudInView:self.view labText:@"您还没有选择宝贝哦"];
+            }
         }
         
     }];
@@ -368,22 +382,22 @@
     self.settleAccountView.sendGift_label.userInteractionEnabled = YES;
     [self.settleAccountView.sendGift_label setTapActionWithBlock:^{
         //获取已选数组id
-        NSMutableArray *select_ids = [self getNewSelect_ids];
+        NSMutableArray *select_ids = [self getNewSelect_arr];
         
         // [self isExitAddressWithSendGift:@1];
         if (self.manage_btn.selected == YES) {
             //移入收藏夹
             NSString *pid_str = [select_ids componentsJoinedByString:@","];
-            NSLog(@"pid_str:%@",pid_str);
+            
         if (pid_str.length>0) {
 
             [[[HHHomeAPI postAddProductCollectionWithpids:pid_str] netWorkClient] postRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
                 if (!error) {
                     if (api.State == 1) {
-
+                        
                         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
                         [SVProgressHUD showSuccessWithStatus:api.Msg];
-
+                        [self getDatas];
                     }else{
                         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
 
@@ -400,7 +414,6 @@
             [SVProgressHUD showInfoWithStatus:@"请先选择商品～"];
            }
         }
-        
         
     }];
     
@@ -434,7 +447,7 @@
                     [self.navigationController pushVC:vc];
                 }else{
                     HHAddAdressVC *vc = [HHAddAdressVC new];
-                    vc.pids = [self.pids_arr componentsJoinedByString:@","];
+//                    vc.pids = [self.pids_arr componentsJoinedByString:@","];
                     vc.addressType = HHAddress_settlementType_cart;
                     if ([self.model.sendGift isEqual:@1]) {
                         if ([sendGiftBtnSelected isEqual:@1]) {
@@ -466,7 +479,7 @@
     
     HHCartCell *cell = (HHCartCell *)btn.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    HHproductsModel *model = self.model.products[indexPath.section];
+    HHproductsModel *model = self.model.stores[indexPath.section].products[indexPath.row];
     if (model.quantity.integerValue>1) {
         UIButton *minusBtn = (UIButton *)cell.quantityTextField.leftView;
         minusBtn.enabled = YES;
@@ -474,15 +487,15 @@
     NSInteger  quantity = model.quantity.integerValue;
     quantity++;
     
-    [self plusQuantityWithcart_id:model.skuId quantity:@"1" cartCell:cell];
-    
+    [self minusQuantityWithcart_id:model.cartid quantity:@"1"  cartCell:cell];
+
 }
 //减
 - (void)minusBtnAction:(UIButton *)btn{
 
      HHCartCell *cell = (HHCartCell *)btn.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    HHproductsModel *model = self.model.products[indexPath.section];
+    HHproductsModel *model = self.model.stores[indexPath.section].products[indexPath.row];
     if (model.quantity.integerValue<=1) {
         btn.enabled = NO;
     }else{
@@ -539,11 +552,20 @@
                 [self.datas removeAllObjects];
                 self.model  =  [HHCartModel mj_objectWithKeyValues:api.Data];
                 self.datas = [self.model.products mutableCopy];
-                HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:self.datas selectionArr:self.selectItems];
+                HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:self.model.stores selectionArr:self.selectItems];
 //                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
                 self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
 //                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%@",self.model.total?self.model.total:@"0.00"];
-                if ([self.selectItems containsObject:@1]) {
+                __block BOOL isSelect = NO;
+                [self.selectItems enumerateObjectsUsingBlock:^(HHSelectSectionItem *secItem, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (rowItem.row_selected.boolValue == YES) {
+                            isSelect = YES;
+                            *stop = YES;
+                        }
+                    }];
+                }];
+                if (isSelect == YES) {
                     self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
                 }else{
                     self.settleAccountView.money_totalLabel.text =  @"合计¥0.00";
@@ -559,18 +581,32 @@
     }];
     
 }
+#pragma mark - 全选
 - (void)caculateSettleGoodsListBaseLeftSelectArrIsAllSelected:(BOOL )allSelect{
     
     [self.selectItems removeAllObjects];
-    [self.datas enumerateObjectsUsingBlock:^(HHproductsModel *productsModel, NSUInteger idx, BOOL *stop) {
-        [self.selectItems addObject:@(allSelect)];
+    
+    [self.model.stores enumerateObjectsUsingBlock:^(HHstoreModel *storeModel, NSUInteger idx, BOOL *stop) {
+        HHSelectSectionItem *sectionItem = [HHSelectSectionItem new];
+        NSMutableArray *section_items = [NSMutableArray array];
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+            HHSelectRowItem *item = [HHSelectRowItem new];
+            item.row_selected = @(allSelect);
+            [section_items addObject:item];
+            *stop = NO;
+            
+        }];
+        sectionItem.selectRow_Arr = section_items;
+        [self.selectItems addObject:sectionItem];
+        *stop = NO;
     }];
+
     [self caculateSettleGoodsListBaseLeftSelectArr];
     
 }
 - (void)caculateSettleGoodsListBaseLeftSelectArr {
     
-    HHtEditCarItem *editCarItem = [HHtEditCarItem shopCartGoodsList:self.datas selectionArr:self.selectItems];
+    HHtEditCarItem *editCarItem = [HHtEditCarItem shopCartGoodsList:self.model.stores selectionArr:self.selectItems];
     self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
     
     if (self.manage_btn.selected == YES) {
@@ -586,9 +622,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     HHCartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHCartCell"];
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    HHproductsModel *model = self.model.products[indexPath.section];
+    HHproductsModel *model = self.model.stores[indexPath.section].products[indexPath.row];
     cell.productModel = model;
     UIButton *plusBtn = (UIButton *)cell.quantityTextField.rightView;
     [plusBtn addTarget:self action:@selector(plusBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -600,15 +635,34 @@
         minusBtn.enabled = YES;
     }
     cell.indexPath = indexPath;
-    cell.leftSelected = ((NSNumber *)self.selectItems[indexPath.section]).boolValue;
+    
+    HHSelectSectionItem *sectin_selectItem = self.selectItems[indexPath.section];
+    HHSelectRowItem *row_selectItem = sectin_selectItem.selectRow_Arr[indexPath.row];
+    cell.leftSelected = row_selectItem.row_selected.boolValue;
     WEAK_SELF();
-    cell.ChooseBtnSelectAction = ^(NSIndexPath *indexPath, BOOL chooseBtnSelected) {
-        [weakSelf.selectItems replaceObjectAtIndex:indexPath.section withObject:@(chooseBtnSelected)];
+    cell.ChooseBtnSelectAction = ^(NSIndexPath *inPath, BOOL chooseBtnSelected) {
         
-        HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:weakSelf.datas selectionArr:weakSelf.selectItems];
+        HHSelectSectionItem *section_Item = weakSelf.selectItems[indexPath.section];
+        
+        HHSelectSectionItem  *new_section_Item = [HHSelectSectionItem new];
+        NSMutableArray *new_selectRow_Arr = [NSMutableArray array];
+        [section_Item.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger idx, BOOL * _Nonnull stop) {
+            HHSelectRowItem *new_rowItem = [HHSelectRowItem new];
+            if (idx == inPath.row) {
+                new_rowItem.row_selected = @(chooseBtnSelected);
+                [new_selectRow_Arr addObject:new_rowItem];
+            }else{
+                new_rowItem.row_selected = rowItem.row_selected;
+                [new_selectRow_Arr addObject:new_rowItem];
+            }
+        }];
+        new_section_Item.selectRow_Arr = new_selectRow_Arr;
+        [self.selectItems replaceObjectAtIndex:indexPath.section withObject:new_section_Item];
+
+        HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:weakSelf.model.stores selectionArr:weakSelf.selectItems];
         self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
         self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
-        
+
         //
         if (self.manage_btn.selected == YES) {
             //获取已选数组
@@ -621,12 +675,13 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return self.model.products.count;
+    return self.model.stores.count;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    HHstoreModel *model = self.model.stores[section];
+    return model.products.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -648,7 +703,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 5;
+    return 45;
     
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -656,25 +711,32 @@
     return YES;
     
 }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    HHstoreModel *model = self.model.stores[section];
+    UIView *headView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) backColor:KVCBackGroundColor];
+    //店铺名称
+    UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(8, 0, 40, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:nil titleColor:kBlackColor font:FONT(13)];
+    [headView addSubview:button];
+//
+    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(52, 0, ScreenW-100, 40) text:model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    [headView addSubview:storeName_label];
 
+//        CGSize mode_size = [model.order_mode_name lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+//        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(button.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];
+//        activityLabel.centerY = headView.centerY;
+//        [headView addSubview:activityLabel];
+    
+    return headView;
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        HHproductsModel *model = self.model.products[indexPath.section];
-        [[[HHCartAPI postShopCartDeleteWithcart_id:model.cartid] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
-            if (!error) {
-                if (api.State == 1) {
-                    [self.datas removeAllObjects];
-                    [self.pids_arr removeAllObjects];
-                    [self deleteGetData];
-                }else{
-                    [SVProgressHUD showInfoWithStatus:api.Msg];
-                }
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-            }
-        }];
+        HHproductsModel *model = self.model.stores[indexPath.section].products[indexPath.row];
+        
+        [self deleteGetDataWithCartIds:model.cartid];
+
         
     }else if (editingStyle == UITableViewCellEditingStyleInsert) {
         
@@ -685,36 +747,72 @@
     return @"删除";
 
 }
-
+//pid 数组
 - (NSMutableArray *)getNewSelect_arr{
     
     NSMutableArray *select_idx_arr = [NSMutableArray array];
-    [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isEqual:@1]) {
-            [select_idx_arr addObject:obj];
-        }
+    
+    [self.model.stores enumerateObjectsUsingBlock :^(HHstoreModel  *storeModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger idx1, BOOL * _Nonnull stop) {
+            
+            [self.selectItems enumerateObjectsUsingBlock:^( HHSelectSectionItem *secItem, NSUInteger oneIdx, BOOL * _Nonnull stop) {
+                [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+                    if ([rowItem.row_selected isEqual:@1]) {
+                        if ((oneIdx == idx)&&(twoIdx == idx1)) {
+                            [select_idx_arr addObject:productModel.pid];
+                        }
+                    }
+                    
+                }];
+            }];
+            
+        }];
+        
     }];
     
     return select_idx_arr;
 }
+//cartid数组
 - (NSMutableArray *)getNewSelect_ids{
     
     NSMutableArray *select_ids_arr = [NSMutableArray array];
 
-    [self.selectItems enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isEqual:@1]) {
-            [select_ids_arr addObject:self.pids_arr[idx]];
-        }
+    [self.model.stores enumerateObjectsUsingBlock :^(HHstoreModel  *storeModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger idx1, BOOL * _Nonnull stop) {
+            
+            [self.selectItems enumerateObjectsUsingBlock:^( HHSelectSectionItem *secItem, NSUInteger oneIdx, BOOL * _Nonnull stop) {
+                [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+                    if ([rowItem.row_selected isEqual:@1]) {
+                        if ((oneIdx == idx)&&(twoIdx == idx1)) {
+                            [select_ids_arr addObject:productModel.cartid];
+                        }
+                    }
+                    
+                }];
+            }];
+            
+        }];
+        
     }];
     
     return select_ids_arr;
 }
 #pragma mark - 删除购物车
 
-- (void)deleteGetData{
+- (void)deleteGetDataWithCartIds:(NSString *)cartIds{
     
-    [self getDatas];
- 
+    [[[HHCartAPI postShopCartDeleteWithcart_id:cartIds] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                [self getDatas];
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
 }
 
 @end

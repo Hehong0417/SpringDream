@@ -140,13 +140,14 @@
 - (void)rigsterAction:(UIButton *)button{
     
   NSString *isValid =  [self isValidWithphoneStr:_phone_textfield.text verifyCodeStr:_code_textfield.text newPwdStr:_pw_textfield.text commitPwdStr:_cpw_textfield.text];
-    
+    NSString *pw_str = _pw_textfield.text;
+    NSString *verification_str = _code_textfield.text;
     if (!isValid) {
-        [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:nil Pwd:_pw_textfield.text VerificationCode:nil InviteCode:_inv_code_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:nil Pwd:_pw_textfield.text VerificationCode:_code_textfield.text InviteCode:_inv_code_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
               
-                    
+                    [self loginWithUseWay:@1 Pwd:pw_str  VerificationCode:verification_str];
                     
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -158,6 +159,25 @@
         [SVProgressHUD setMinimumDismissTimeInterval:1.0];
         [SVProgressHUD showInfoWithStatus:isValid];
     }
+    
+}
+- (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
+    
+    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                NSString *token = api.Data;
+                HJUser *user = [HJUser sharedUser];
+                user.token = token;
+                [user write];
+                HJTabBarController *tabBarVC = [[HJTabBarController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVC;
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }
+    }];
     
 }
 - (NSString *)isValidWithphoneStr:(NSString *)phoneStr verifyCodeStr:(NSString *)verifyCodeStr  newPwdStr:(NSString *)newPwdStr commitPwdStr:(NSString *)commitPwdStr{
@@ -189,7 +209,9 @@
         [[[HHUserLoginAPI postSmsSendCodeWithmobile:_phone_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
-                    [button startTimer:60];
+                    NSNumber *time = api.Data[@"expires"];
+                    [self.verifyCodeBtn startTimer:time.integerValue];
+                    
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }

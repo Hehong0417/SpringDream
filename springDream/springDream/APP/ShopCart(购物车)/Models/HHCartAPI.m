@@ -81,7 +81,7 @@
     HHCartAPI *api = [self new];
     api.subUrl = API_AddQuantity;
     if (cart_id) {
-        [api.parameters setObject:cart_id forKey:@"sku"];
+        [api.parameters setObject:cart_id forKey:@"cartId"];
     }
     if (quantity) {
         [api.parameters setObject:quantity forKey:@"quantity"];
@@ -98,14 +98,14 @@
         [api.parameters setObject:cart_id forKey:@"cartId"];
     }
     if (quantity) {
-        [api.parameters setObject:quantity forKey:@"quantity"];
+        [api.parameters setObject:quantity forKey:@"count"];
     }
     api.parametersAddToken = NO;
     return api;
 }
 
 //加入购物车
-+ (instancetype)postAddProductsWithsku_id:(NSString *)sku_id quantity:(NSString *)quantity{
++ (instancetype)postAddProductsWithsku_id:(NSString *)sku_id quantity:(NSString *)quantity storeId:(NSString *)storeId{
     
     HHCartAPI *api = [self new];
     api.subUrl = API_AddProducts;
@@ -114,6 +114,9 @@
     }
     if (quantity) {
         [api.parameters setObject:quantity forKey:@"quantity"];
+    }
+    if (storeId) {
+        [api.parameters setObject:storeId forKey:@"storeId"];
     }
     api.parametersAddToken = NO;
     return api;
@@ -124,7 +127,7 @@
     HHCartAPI *api = [self new];
     api.subUrl = API_ShopCart_Delete;
     if (cart_id) {
-        [api.parameters setObject:cart_id forKey:@""];
+        [api.parameters setObject:cart_id forKey:@"cartIds"];
     }
     api.parametersAddToken = NO;
     return api;

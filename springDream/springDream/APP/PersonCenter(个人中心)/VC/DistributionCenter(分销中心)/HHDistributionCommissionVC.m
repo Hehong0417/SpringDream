@@ -11,14 +11,21 @@
 #import "HHDistributionCommissionHead.h"
 #import "HHCommissionDetailVC.h"
 
-@interface HHDistributionCommissionVC ()<DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
+static CGFloat _bottomToolBarH = 120;
 
+@interface HHDistributionCommissionVC ()<DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UITextFieldDelegate>
+{
+    CGFloat _totalKeybordHeight;
+}
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   HHDistributionCommissionHead *distributionCommissionHead;
 @property (nonatomic, strong)   UIButton *all_button;
 
+@property (nonatomic, strong) UIView *bottomToolBar;
+
+@property (nonatomic, strong) UITextField *textField;
 @end
 
 @implementation HHDistributionCommissionVC
@@ -41,9 +48,14 @@
     
     self.title = self.title_str;
     
+    [self setupTextField];
+
+    
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     self.distributionCommissionHead = [[[NSBundle mainBundle] loadNibNamed:@"HHDistributionCommissionHead" owner:self options:nil] firstObject];
+    self.distributionCommissionHead.vc = self;
     self.distributionCommissionHead.backgroundColor = kWhiteColor;
+    [self.distributionCommissionHead.commission_balance_button addTarget:self action:@selector(commission_balance_buttonAction) forControlEvents:UIControlEventTouchUpInside];
     self.tabView.tableHeaderView = self.distributionCommissionHead;
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
@@ -69,6 +81,93 @@
         _datas = [NSMutableArray array];
     }
     return _datas;
+}
+//佣金转余额
+- (void)commission_balance_buttonAction{
+    
+    [_textField becomeFirstResponder];
+}
+
+- (void)setupTextField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+
+    _bottomToolBar = [UIView lh_viewWithFrame:CGRectMake(0, ScreenH, ScreenW, _bottomToolBarH) backColor:KVCBackGroundColor];
+    
+    UILabel *title_label = [UILabel lh_labelAdaptionWithFrame:CGRectMake(35, 20, ScreenW-70, 30) text:@"转账金额" textColor:kDarkGrayColor font:FONT(14) textAlignment:NSTextAlignmentLeft];
+    [_bottomToolBar addSubview:title_label];
+
+    UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(ScreenW-60, 20, 50, 30) target:self action:@selector(commit_btnAction) image:nil title:@"确定" titleColor:kDarkGrayColor font:FONT(14)];
+    [_bottomToolBar addSubview:commit_btn];
+
+    
+    _textField = [UITextField new];
+    _textField.returnKeyType = UIReturnKeySend;
+    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+    _textField.delegate = self;
+    [_textField lh_setCornerRadius:5 borderWidth:1 borderColor:KDCLabelColor];
+    _textField.placeholder = @"";
+    _textField.font = FONT(14);
+    //为textfield添加背景颜色 字体颜色的设置 还有block设置 , 在block中改变它的键盘样式 (当然背景颜色和字体颜色也可以直接在block中写)
+    
+    _textField.frame = CGRectMake(40,50, [UIScreen mainScreen].bounds.size.width-80, 40);
+    _textField.backgroundColor = [UIColor whiteColor];
+    UIView *left_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
+    _textField.leftView = left_view;
+    _textField.leftViewMode = UITextFieldViewModeAlways;
+    [_bottomToolBar addSubview:_textField];
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:_bottomToolBar];
+    
+}
+- (void)commit_btnAction{
+    
+    [_textField resignFirstResponder];
+    
+    if ([self.title_str isEqualToString:@"分销佣金"]) {
+        [self BonusToBalanceWithbonusType:@0];
+    }else if ([self.title_str isEqualToString:@"代理佣金"]){
+        [self BonusToBalanceWithbonusType:@1];
+    }
+}
+- (void)BonusToBalanceWithbonusType:(NSNumber *)bonusType{
+    if (_textField.text.length==0) {
+        [SVProgressHUD showInfoWithStatus:@"请输入转账金额！"];
+    }else{
+    
+    [[[HHMineAPI postBonusToBalanceWithmoney:_textField.text bonusType:bonusType] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+                [SVProgressHUD showSuccessWithStatus:@"转账成功！"];
+                [self.datas removeAllObjects];
+                if ([self.title_str isEqualToString:@"分销佣金"]) {
+                    [self getDistributionCommissionData];
+                    
+                }else if ([self.title_str isEqualToString:@"代理佣金"]){
+                    [self getDelegateCommissionData];
+                }
+            }else{
+                
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }
+        
+    }];
+
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    [_textField removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)dealloc
+{
+    [_textField removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - 分销佣金
 
@@ -220,5 +319,25 @@
     }
     [self.navigationController pushVC:vc];
     
+}
+- (void)keyboardNotification:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.userInfo;
+    CGRect rect = [dict[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    
+    
+    CGRect textFieldRect = CGRectMake(0, rect.origin.y - _bottomToolBarH, rect.size.width, _bottomToolBarH);
+    if (rect.origin.y == [UIScreen mainScreen].bounds.size.height) {
+        textFieldRect = rect;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _bottomToolBar.frame = textFieldRect;
+    }];
+    
+    CGFloat h = rect.size.height + _bottomToolBarH;
+    if (_totalKeybordHeight != h) {
+        _totalKeybordHeight = h;
+    }
 }
 @end

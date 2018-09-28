@@ -98,7 +98,7 @@
 + (instancetype)GetBonusWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 //团队下级的会员
 + (instancetype)GetSubUsersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
-
+//我的钱包
 
 #pragma mark - post
 
@@ -152,5 +152,6 @@
 //上传多张图片
 + (instancetype)postUploadManyImageWithimageDatas:(NSArray *)imageDatas;
 //佣金转余额(分销佣金 = 0、代理佣金 = 1、门店佣金 = 2）
-+ (instancetype)postBonusToBalanceWithmoney:(NSArray *)money bonusType:(NSNumber *)bonusType;
++ (instancetype)postBonusToBalanceWithmoney:(NSString *)money bonusType:(NSNumber *)bonusType;
+
 @end

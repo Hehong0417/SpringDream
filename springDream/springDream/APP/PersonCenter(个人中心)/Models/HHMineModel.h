@@ -22,6 +22,7 @@
 @property(nonatomic,strong) NSString  *Points;
 @property(nonatomic,strong) NSNumber  *isExtraBonus;
 @property(nonatomic,strong) NSString  *CellPhone;
+@property(nonatomic,strong) NSString  *RealName;
 
 
 //订单消息数

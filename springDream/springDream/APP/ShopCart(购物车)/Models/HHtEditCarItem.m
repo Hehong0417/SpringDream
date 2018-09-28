@@ -7,6 +7,7 @@
 //
 
 #import "HHtEditCarItem.h"
+#import "HHSelectSectionItem.h"
 
 @implementation HHtEditCarItem
 
@@ -14,33 +15,43 @@
     
     __block NSMutableArray *productsArr = [NSMutableArray array];
     
-    [shopCartGoodsList enumerateObjectsUsingBlock:^(HHproductsModel  *productModel, NSUInteger idx, BOOL * _Nonnull stop) {
-       
-        [selectionArr enumerateObjectsUsingBlock:^(NSNumber *index, NSUInteger twoIdx, BOOL * _Nonnull stop) {
-            if ([index isEqual:@1]) {
-                if (twoIdx == idx) {
-                    [productsArr addObject:productModel];
-                }
-            }
+    [shopCartGoodsList enumerateObjectsUsingBlock :^(HHstoreModel  *storeModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger idx1, BOOL * _Nonnull stop) {
+            
+            [selectionArr enumerateObjectsUsingBlock:^( HHSelectSectionItem *secItem, NSUInteger oneIdx, BOOL * _Nonnull stop) {
+                [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+                    if ([rowItem.row_selected isEqual:@1]) {
+                        if ((oneIdx == idx)&&(twoIdx == idx1)) {
+                                [productsArr addObject:productModel];
+                        }
+                    }
+                
+                }];
+        }];
+        
         }];
         
     }];
     HHtEditCarItem *editCarItem  = [HHtEditCarItem settleGoodsModelWithGoodsList:productsArr];
 
+    
     __block BOOL allSelect = YES;
-    [selectionArr enumerateObjectsUsingBlock:^(NSNumber *select, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (select.boolValue == NO) {
-             allSelect = NO;
-            *stop = YES;
-        }
+    [selectionArr enumerateObjectsUsingBlock:^( HHSelectSectionItem *secItem, NSUInteger oneIdx, BOOL * _Nonnull stop) {
+        [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+            if (rowItem.row_selected.boolValue == NO) {
+                allSelect = NO;
+                *stop = YES;
+            }
+        }];
     }];
-     editCarItem.settleAllSelect = allSelect;
+        editCarItem.settleAllSelect = allSelect;
     
     return  editCarItem;
 }
 
 + (instancetype)settleGoodsModelWithGoodsList:(NSArray *)goodsList{
     
+    NSLog(@"goodsList:%@",goodsList);
     if (goodsList.count>0) {
         HHtEditCarItem *editCarItem = [HHtEditCarItem new];
 

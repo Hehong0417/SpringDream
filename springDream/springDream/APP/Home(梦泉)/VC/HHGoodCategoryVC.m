@@ -159,6 +159,15 @@
                 [self.view addSubview:self.category_SG];
                 UIView *v_line = [UIView lh_viewWithFrame:CGRectMake(0, 45, ScreenW, 1) backColor:KVCBackGroundColor];
                 [self.view addSubview:v_line];
+                if (self.category_arr.count == 0) {
+                    self.category_SG.hidden = YES;
+                    self.SG.hidden = YES;
+
+                }else{
+                    self.category_SG.hidden = NO;
+                    self.SG.hidden = NO;
+                }
+                
                 
                 [self SGSegmentedControl:self.category_SG didSelectBtnAtIndex:0];
                 
@@ -354,9 +363,12 @@
     }else  if (segmentedControl == self.category_SG){
         self.isFooterRefresh = NO;
         [self.task cancel];
-        HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
-        self.categoryId = category_m.Id;
-        [self refreshCategoryData];
+        if (self.category_arr.count>0) {
+                    HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
+                    self.categoryId = category_m.Id;
+                    [self refreshCategoryData];
+        }
+
     }
 
 }

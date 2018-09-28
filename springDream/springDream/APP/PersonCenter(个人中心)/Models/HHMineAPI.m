@@ -661,7 +661,7 @@
     return api;
     
 }
-+ (instancetype)postBonusToBalanceWithmoney:(NSArray *)money bonusType:(NSNumber *)bonusType{
++ (instancetype)postBonusToBalanceWithmoney:(NSString *)money bonusType:(NSNumber *)bonusType{
     HHMineAPI *api = [self new];
     api.subUrl = API_BonusToBalance;
     if (money) {

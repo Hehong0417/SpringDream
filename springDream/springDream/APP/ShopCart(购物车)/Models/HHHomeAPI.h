@@ -21,7 +21,8 @@
 //月成交记录
 + (instancetype)GetFinishLogId:(NSString *)Id page:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 
-
+//获取有某商品的门店
++ (instancetype)GetProductStoreWithpid:(NSString *)pid;
 //商品详情
 + (instancetype)GetProductEvaluateWithId:(NSString *)Id page:(NSNumber *)page  pageSize:(NSNumber *)pageSize hasImage:(NSNumber *)hasImage level:(NSNumber *)level;
 

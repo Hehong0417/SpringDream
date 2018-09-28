@@ -157,7 +157,8 @@ static BOOL flag=0;
         [[[HHUserLoginAPI postSmsSendCodeWithmobile:_phone_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
-                    [self.verifyCodeBtn startTimer:60];
+                    NSNumber *time = api.Data[@"expires"];
+                    [self.verifyCodeBtn startTimer:time.integerValue];
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }
@@ -165,20 +166,7 @@ static BOOL flag=0;
         }];
     }
 }
-- (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
-    
-    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
-        if (!error) {
-            if (api.State == 1) {
-                
-                
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
-            }
-        }
-    }];
 
-}
 - (void)loginAction:(UIButton *)button{
 
     if (flag) {
@@ -198,6 +186,25 @@ static BOOL flag=0;
             [SVProgressHUD showInfoWithStatus:isvalid];
         }
     }
+    
+}
+- (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
+    
+    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                NSString *token = api.Data;
+                HJUser *user = [HJUser sharedUser];
+                user.token = token;
+                [user write];
+                HJTabBarController *tabBarVC = [[HJTabBarController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVC;
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }
+    }];
     
 }
 - (NSString *)isValidWithphoneStr:(NSString *)phoneStr newPwdStr:(NSString *)newPwdStr{
@@ -269,16 +276,18 @@ static BOOL flag=0;
         if (!error) {
             if (api.State == 1) {
                 
-//                NSString *token = api.Data;
-//                HJUser *user = [HJUser sharedUser];
-//                user.token = token;
-//                [user write];
-//                kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
+                NSString *token = api.Data;
+                HJUser *user = [HJUser sharedUser];
+                user.token = token;
+                [user write];
+                kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
 
-            }else if (api.State == -99) {
+            }else if (api.State == -1) {
 
                 HHPhoneBandVC *vc = [HHPhoneBandVC new];
                 vc.openId = openid;
+                [self.navigationController pushVC:vc];
+                [hud hideAnimated:YES];
                 
             }else{
                 [hud hideAnimated:YES];

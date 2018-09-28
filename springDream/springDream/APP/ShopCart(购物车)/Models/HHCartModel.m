@@ -12,7 +12,7 @@
 
 +(NSDictionary *)mj_objectClassInArray{
     
-    return @{@"products": [HHproductsModel class],@"items": [HHproductsModel class],@"orders": [HHordersModel class],@"prodcuts":[HHproductsModel class],@"coupons":[HHcouponsModel class]};
+    return @{@"products": [HHproductsModel class],@"items": [HHproductsModel class],@"orders": [HHordersModel class],@"prodcuts":[HHproductsModel class],@"coupons":[HHcouponsModel class],@"stores":[HHstoreModel class]};
 }
 //我的订单
 - (void)mj_keyValuesDidFinishConvertingToObject {
@@ -95,4 +95,10 @@
 @implementation HHcouponsModel
 
 @end
+@implementation HHstoreModel : BaseModel
 
++(NSDictionary *)mj_objectClassInArray{
+    
+    return @{@"products": [HHproductsModel class]};
+}
+@end

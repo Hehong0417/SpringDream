@@ -17,6 +17,10 @@
 @property(nonatomic,strong) NSString *category_type;
 @property(nonatomic,strong) NSArray *product;
 
+//门店
+@property(nonatomic,strong) NSString *store_id;
+@property(nonatomic,strong) NSString *store_name;
+
 //月成交记录
 @property(nonatomic,strong) NSString *user_name;
 @property(nonatomic,strong) NSString *score;
@@ -33,7 +37,7 @@
 @property(nonatomic,strong) NSString *product_max_price;
 @property(nonatomic,strong) NSString *product_min_price;
 @property(nonatomic,strong) NSString *product_s_intergral;
-//0 百业惠 1惠万家
 @property(nonatomic,strong) NSString *product_type;
+
 
 @end

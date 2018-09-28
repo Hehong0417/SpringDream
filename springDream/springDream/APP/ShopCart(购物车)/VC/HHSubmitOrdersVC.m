@@ -27,7 +27,6 @@
     UITextField *noteTF;
     HHSubmitOrdersHead *SubmitOrdersHead;
     UISwitch *swi;
-    HXCommonPickView *pickView;
 }
 
 @property (nonatomic, strong)   UITableView *tableView;

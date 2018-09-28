@@ -286,6 +286,7 @@
 		CE5DBEAA213E55EA00F17FCB /* HHLogisticsCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DBEA2213E55E700F17FCB /* HHLogisticsCell1.m */; };
 		CE5DBEAC213E55EA00F17FCB /* HHLogisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DBEA4213E55E800F17FCB /* HHLogisticsVC.m */; };
 		CE5DBEAD213E55EA00F17FCB /* HHLogisticsCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5DBEA7213E55E900F17FCB /* HHLogisticsCell1.xib */; };
+		CE62C61B215E35F5004E7C93 /* HHSelectSectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C61A215E35F5004E7C93 /* HHSelectSectionItem.m */; };
 		CE734F25214A730B005748B7 /* HHDistributeStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */; };
 		CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */; };
 		CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */; };
@@ -962,6 +963,8 @@
 		CE5DBEA5213E55E800F17FCB /* HHLogisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHLogisticsVC.h; sourceTree = "<group>"; };
 		CE5DBEA7213E55E900F17FCB /* HHLogisticsCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HHLogisticsCell1.xib; sourceTree = "<group>"; };
 		CE5DBEA9213E55EA00F17FCB /* HHLogisticsCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHLogisticsCell1.h; sourceTree = "<group>"; };
+		CE62C619215E35F5004E7C93 /* HHSelectSectionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSelectSectionItem.h; sourceTree = "<group>"; };
+		CE62C61A215E35F5004E7C93 /* HHSelectSectionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSelectSectionItem.m; sourceTree = "<group>"; };
 		CE734F23214A730B005748B7 /* HHDistributeStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributeStatusCell.h; sourceTree = "<group>"; };
 		CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributeStatusCell.m; sourceTree = "<group>"; };
 		CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributeServiceCell_one.h; sourceTree = "<group>"; };
@@ -2071,6 +2074,8 @@
 				CE8A6544212AAC6700C7C57F /* HHOrderIdItem.m */,
 				CE8A6541212AAC6600C7C57F /* HHtEditCarItem.h */,
 				CE8A6547212AAC6800C7C57F /* HHtEditCarItem.m */,
+				CE62C619215E35F5004E7C93 /* HHSelectSectionItem.h */,
+				CE62C61A215E35F5004E7C93 /* HHSelectSectionItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2602,17 +2607,17 @@
 		CE8A64F2212AA30400C7C57F /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				CE3246212154A7E8006A7527 /* HHLoginVC.h */,
+				CE3246222154A7E8006A7527 /* HHLoginVC.m */,
+				CE3246272154F8E0006A7527 /* HHPhoneBandVC.h */,
+				CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */,
+				CE3246242154E439006A7527 /* HHrigsterVC.h */,
+				CE3246252154E439006A7527 /* HHrigsterVC.m */,
 				CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */,
 				CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */,
 				CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */,
 				CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */,
 				CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */,
-				CE3246212154A7E8006A7527 /* HHLoginVC.h */,
-				CE3246222154A7E8006A7527 /* HHLoginVC.m */,
-				CE3246242154E439006A7527 /* HHrigsterVC.h */,
-				CE3246252154E439006A7527 /* HHrigsterVC.m */,
-				CE3246272154F8E0006A7527 /* HHPhoneBandVC.h */,
-				CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3407,6 +3412,7 @@
 				CE4FFDC02148EEAF00767DF1 /* MLTextAttachment.m in Sources */,
 				CE8A66A7212ABAB100C7C57F /* HHShippingAddressVC.m in Sources */,
 				CE99386021364E1B002B256D /* HHMyIntegralHead.m in Sources */,
+				CE62C61B215E35F5004E7C93 /* HHSelectSectionItem.m in Sources */,
 				CE4D0A07212423F200796FEE /* UIImage+Extension.m in Sources */,
 				CE8A67D2212ACA2E00C7C57F /* HHPostEvaluateFooter.m in Sources */,
 				CE390E2D2150F7F40016BD12 /* HHMyStoreVC.m in Sources */,
