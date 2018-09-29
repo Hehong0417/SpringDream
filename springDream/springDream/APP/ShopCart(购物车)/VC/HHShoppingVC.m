@@ -25,14 +25,12 @@
 @property (nonatomic, strong)   UITableView *tableView;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   NSMutableArray *datas;
-@property (nonatomic, strong)   NSMutableArray *pids_arr;
 @property (nonatomic, strong)   HHCartFootView *settleAccountView;
 @property (nonatomic, strong)   HHCartModel *model;
 @property (nonatomic, strong)   NSString *money_total;
 @property (nonatomic, strong)   NSString *s_integral_total;
 @property (nonatomic, strong)   NSMutableArray *selectItems;
 @property (nonatomic, strong)   UIButton *manage_btn;
-
 @end
 @implementation HHShoppingVC
 
@@ -41,12 +39,6 @@
         _datas = [NSMutableArray array];
     }
     return _datas;
-}
-- (NSMutableArray *)pids_arr{
-    if (!_pids_arr) {
-        _pids_arr = [NSMutableArray array];
-    }
-    return _pids_arr;
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -100,7 +92,6 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHCartCell" bundle:nil] forCellReuseIdentifier:@"HHCartCell"];
-    
     
 //    //顶部提示条
 //    [self addTipHeadView];
@@ -192,12 +183,12 @@
 }
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
 
-    HHGoodListVC *vc = [HHGoodListVC new];
-    vc.type = nil;
-    vc.categoryId = nil;
-    vc.name = nil;
-    vc.orderby = nil;
-    [self.navigationController pushVC:vc];
+//    HHGoodListVC *vc = [HHGoodListVC new];
+//    vc.type = nil;
+//    vc.categoryId = nil;
+//    vc.name = nil;
+//    vc.orderby = nil;
+//    [self.navigationController pushVC:vc];
 
 }
 #pragma mark - 刷新控件
@@ -241,7 +232,6 @@
         if ([self.tableView.mj_header isRefreshing]) {
             [self.tableView.mj_header endRefreshing];
         }
-        
         if (!error) {
             if (api.State == 1) {
                 
@@ -356,7 +346,6 @@
     //提交订单&删除已选
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{
         
-        NSLog(@"selectItems:%@",self.selectItems);
         //获取已选数组
         NSMutableArray *select_idx_arr = [self getNewSelect_ids];
         
@@ -369,7 +358,16 @@
             //去结算
             if (select_idx_arr.count>0) {
                 
-                [self isExitAddressWithSendGift:@0];
+                //判断是否存在高管商品和其他商品
+                NSMutableArray *selectGroupNameItems = [self getSelectGroupNameItems];
+                
+                if ([selectGroupNameItems containsObject:@1]&&[selectGroupNameItems containsObject:@0]) {
+                    
+                    [SVProgressHUD showInfoWithStatus:@"高管订货商品不能和普通商品一起结算！"];
+                }else{
+                    [self isExitAddressWithSendGift:@0];
+                }
+                
             }else{
                 
                 [self lh_showHudInView:self.view labText:@"您还没有选择宝贝哦"];
@@ -429,7 +427,7 @@
 
                     HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
                     NSMutableArray *select_ids = [self getNewSelect_ids];
-                    vc.pids = [select_ids componentsJoinedByString:@","];
+                    vc.cartIds = [select_ids componentsJoinedByString:@","];
 
                     if ([self.model.sendGift isEqual:@1]) {
                         if ([sendGiftBtnSelected isEqual:@1]) {
@@ -447,7 +445,6 @@
                     [self.navigationController pushVC:vc];
                 }else{
                     HHAddAdressVC *vc = [HHAddAdressVC new];
-//                    vc.pids = [self.pids_arr componentsJoinedByString:@","];
                     vc.addressType = HHAddress_settlementType_cart;
                     if ([self.model.sendGift isEqual:@1]) {
                         if ([sendGiftBtnSelected isEqual:@1]) {
@@ -719,14 +716,18 @@
     UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(8, 0, 40, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:nil titleColor:kBlackColor font:FONT(13)];
     [headView addSubview:button];
 //
-    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(52, 0, ScreenW-100, 40) text:model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    CGSize storeName_size = [model.storeName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+
+    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(52, 0, storeName_size.width+10, 40) text:model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [headView addSubview:storeName_label];
 
-//        CGSize mode_size = [model.order_mode_name lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-//        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(button.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];
-//        activityLabel.centerY = headView.centerY;
-//        [headView addSubview:activityLabel];
-    
+    if (model.groupName.length>0) {
+        CGSize mode_size = [model.groupName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(storeName_label.frame)+5, 0,mode_size.width+10, 20) text:model.groupName textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+        activityLabel.centerY = headView.centerY;
+        [activityLabel lh_setCornerRadius:5 borderWidth:1 borderColor:APP_NAV_COLOR];
+        [headView addSubview:activityLabel];
+    }
     return headView;
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -736,7 +737,6 @@
         HHproductsModel *model = self.model.stores[indexPath.section].products[indexPath.row];
         
         [self deleteGetDataWithCartIds:model.cartid];
-
         
     }else if (editingStyle == UITableViewCellEditingStyleInsert) {
         
@@ -796,6 +796,33 @@
     }];
     
     return select_ids_arr;
+}
+- (NSMutableArray *)getSelectGroupNameItems{
+    
+    NSMutableArray *selectGroupNameItems = [NSMutableArray array];
+    
+    [self.model.stores enumerateObjectsUsingBlock :^(HHstoreModel  *storeModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [storeModel.products enumerateObjectsUsingBlock:^(HHproductsModel * productModel, NSUInteger idx1, BOOL * _Nonnull stop) {
+            
+            [self.selectItems enumerateObjectsUsingBlock:^( HHSelectSectionItem *secItem, NSUInteger oneIdx, BOOL * _Nonnull stop) {
+                [secItem.selectRow_Arr enumerateObjectsUsingBlock:^(HHSelectRowItem * rowItem, NSUInteger twoIdx, BOOL * _Nonnull stop) {
+                    if ([rowItem.row_selected isEqual:@1]) {
+                        if ((oneIdx == idx)&&(twoIdx == idx1)) {
+                            if ([storeModel.groupName containsString:@"高管订货区"]) {
+                                [selectGroupNameItems addObject:@1];
+                            }else{
+                                [selectGroupNameItems addObject:@0];
+                            }
+                        }
+                    }
+                    
+                }];
+            }];
+        }];
+        
+    }];
+    
+    return selectGroupNameItems;
 }
 #pragma mark - 删除购物车
 

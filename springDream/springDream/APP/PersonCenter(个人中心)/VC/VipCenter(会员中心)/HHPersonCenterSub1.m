@@ -228,6 +228,7 @@
         }else if (buttonIndex == 2){
             //我的积分
             HHMyIntegralVC *vc = [HHMyIntegralVC new];
+            
             [self.navigationController pushVC:vc];
             
         }else if (buttonIndex == 3){
@@ -242,11 +243,6 @@
             HHMyCodeVC *vc = [HHMyCodeVC new];
             [self.navigationController pushVC:vc];
             
-           }if (buttonIndex == 1){
-               //赠送积分
-               HHSendIntegralVC *vc = [HHSendIntegralVC new];
-               [self.navigationController pushVC:vc];
-               
            }
     }
     

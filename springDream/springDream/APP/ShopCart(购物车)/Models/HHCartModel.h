@@ -38,6 +38,8 @@
 @property(nonatomic,strong) NSString *totalIntegral;
 @property(nonatomic,strong) NSNumber *order_can_evaluate;
 
+//是否选择收货门店
+@property(nonatomic,strong) NSNumber *isSeniorExecutiveGroup;
 
 //优惠券模型
 @property(nonatomic,strong) NSArray <HHcouponsModel*>*coupons;
@@ -151,6 +153,7 @@
 
 @interface HHstoreModel : BaseModel
 @property(nonatomic,strong) NSString *storeName;
+@property(nonatomic,strong) NSString *groupName;
 @property(nonatomic,strong) NSArray <HHproductsModel*>*products;
 
 @end

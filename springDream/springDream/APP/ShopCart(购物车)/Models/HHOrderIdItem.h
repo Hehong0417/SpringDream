@@ -13,6 +13,6 @@
 singleton_h(OrderIdItem)
 
 @property(nonatomic,strong) NSString *order_id;
-@property(nonatomic,strong) NSString *pids;
+@property(nonatomic,strong) NSString *cartIds;
 
 @end

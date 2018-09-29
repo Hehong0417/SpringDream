@@ -157,6 +157,7 @@ static NSArray *lastSele_IdArray_;
     }
     return _productStores_names;
 }
+
 - (NSMutableArray *)productStores_ids{
     
     if (!_productStores_ids) {
@@ -212,9 +213,9 @@ static NSArray *lastSele_IdArray_;
     self.addCartTool.buyBlock = ^(UIButton *btn) {
         
          //立即购买
-         [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
+//         [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
 
-//        [weakSelf buyProductHandleData];
+        [weakSelf buyProductHandleData];
         
     };
     
@@ -319,9 +320,9 @@ static NSArray *lastSele_IdArray_;
                     
                     HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
                     vc.enter_type = HHaddress_type_Spell_group;
-                    vc.ids_Str = sku_id_Str;
-                    vc.pids = self.Id;
+                    vc.sku_Id = sku_id_Str;
                     vc.count = quantity;
+                    vc.storeId = self.store_id;
                     vc.mode = self.Mode;
                     [self.navigationController pushVC:vc];
                 }else{
@@ -329,8 +330,8 @@ static NSArray *lastSele_IdArray_;
                     vc.titleStr = @"新增收货地址";
                     vc.addressType = HHAddress_settlementType_productDetail;
                     vc.mode = self.Mode;
-                    vc.ids_Str = sku_id_Str;
-                    vc.pids = self.Id;
+                    vc.sku_ids = sku_id_Str;
+                    vc.storeId = self.store_id;
                     [self.navigationController pushVC:vc];
                 }
             }else{
@@ -649,7 +650,6 @@ static NSArray *lastSele_IdArray_;
                     self.addCartTool.collectBtn.selected = NO;
                 }
                
-                
                 self.foot.model = self.gooodDetailModel;
                 
                 HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];

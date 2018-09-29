@@ -62,7 +62,6 @@ static CGFloat _bottomToolBarH = 120;
     
     self.page = 1;
 
-    
     if ([self.title_str isEqualToString:@"分销佣金"]) {
         self.distributionCommissionHead.commission_title_label.text = @"当前分销总金额";
         [self getDistributionCommissionData];
@@ -141,6 +140,7 @@ static CGFloat _bottomToolBarH = 120;
                 [SVProgressHUD setMinimumDismissTimeInterval:1.0];
                 [SVProgressHUD showSuccessWithStatus:@"转账成功！"];
                 [self.datas removeAllObjects];
+                self.page = 1;
                 if ([self.title_str isEqualToString:@"分销佣金"]) {
                     [self getDistributionCommissionData];
                     

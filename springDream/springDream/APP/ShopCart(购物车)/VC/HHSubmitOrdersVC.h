@@ -18,14 +18,15 @@ typedef enum : NSUInteger {
 } HHenter_type;
 
 @interface HHSubmitOrdersVC : UIViewController
-@property(nonatomic,strong) NSString *ids_Str;
+@property(nonatomic,strong) NSString *sku_Id;
 @property(nonatomic,assign) HHenter_type enter_type;
 @property(nonatomic,strong) NSNumber *mode;
 @property(nonatomic,strong) NSString *count;
 @property(nonatomic,strong) NSNumber *sendGift;
 @property(nonatomic,strong) NSString *gbId;
-//商品id
-@property(nonatomic,strong) NSString *pids;
+//购物车ids
+@property(nonatomic,strong) NSString *cartIds;
+@property(nonatomic,strong) NSString *storeId;
 
 @end
 

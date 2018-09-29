@@ -46,7 +46,7 @@
         self.text_field.textAlignment = NSTextAlignmentCenter;
         self.text_field.delegate = self;
         [self.text_field lh_setCornerRadius:2 borderWidth:1 borderColor:APP_COMMON_COLOR];
-        self.text_field.keyboardType = UIKeyboardTypeNumberPad;
+        self.text_field.keyboardType = UIKeyboardTypeASCIICapable;
         if (i == 0) {
             self.text_field.enabled = YES;
         }else{
@@ -78,13 +78,26 @@
     
     [self.navigationController popVC];
 }
+//生成邀请码
 - (void)generateCodeAction:(UIButton *)button{
     
-    NSArray *arr = @[@"3",@"6",@"1",@"9"];
-    for (NSInteger i = 0; i<4; i++) {
-        UITextField *text_field = self.text_field_arr[i];
-        text_field.text = arr[i];
-    }
+    [[[HHMineAPI GetRecommendCode] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                for (NSInteger i = 0; i<4; i++) {
+                    UITextField *text_field = self.text_field_arr[i];
+                    NSString *text = [api.Data substringWithRange:NSMakeRange(i, 1)];
+                    text_field.text = text;
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+    }];
+    
+
 }
 #pragma mark - textfieldDelegate限制手机号为11位
 
@@ -112,9 +125,33 @@
     return YES;
 }
 - (void)commitInviteCode{
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
-        [SVProgressHUD showSuccessWithStatus:@"邀请成功！"];
+
+    NSMutableArray *recom_arr = [NSMutableArray array];
+     for (NSInteger i = 0; i<4; i++)
+     {
+        UITextField *text_field = self.text_field_arr[i];
+         [recom_arr addObject: text_field.text];
+    }
+    NSString *code = [recom_arr componentsJoinedByString:@""];
+    if (code.length>0) {
+        [[[HHMineAPI ValidateRecommendCodeWithCode:code] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+                    [SVProgressHUD showSuccessWithStatus:@"邀请成功！"];
+                    [self.navigationController popVC];
+                    
+                }else{
+                    
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }];
+    }
+
         
 //        for (NSInteger i=0; i<self.text_field_arr.count; i++) {
 //            UITextField *text_field = self.text_field_arr[i];

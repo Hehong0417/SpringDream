@@ -18,4 +18,10 @@
 
 @property (strong, nonatomic)  HHMineModel *delegate_commission_model;
 
+@property (strong, nonatomic)  HHMineModel *store_commission_model;
+
+@property (strong, nonatomic)  HHMineModel *integral_model;
+
+@property (strong, nonatomic)  HHMineModel *wallet_model;
+
 @end

@@ -53,9 +53,6 @@
 //获取提现信息
 + (instancetype)GetUserApplyMessage;
 
-//获取积分列表
-+ (instancetype)GetIntegralListWithPage:(NSNumber *)page;
-
 //获取消息列表
 + (instancetype)GetUserNoticeWithPage:(NSNumber *)page isRead:(NSNumber *)isRead;
 
@@ -99,6 +96,19 @@
 //团队下级的会员
 + (instancetype)GetSubUsersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 //我的钱包
+
+//门店收益
++ (instancetype)GetUserStoreCommissionWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//门店总收益
++ (instancetype)GetUserStoreCommissionStatictis;
+//我的积分
++ (instancetype)GetIntegralListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//会员积分排行榜
++ (instancetype)GetTopPointsLeaderboardWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+//获取推荐码
++ (instancetype)GetRecommendCode;
+//获取余额变更记录
++ (instancetype)GetBalanceChangeListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 
 #pragma mark - post
 
@@ -146,12 +156,15 @@
 //订单支付
 + (instancetype)postOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money;
 //创建订单
-+ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message;
++ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId;
 //发布评价
 + (instancetype)postOrderEvaluateWithOrderId:(NSString *)orderId level:(NSNumber *)level logisticsScore:(NSNumber *)logisticsScore serviceScore:(NSNumber *)serviceScore productEvaluate:(NSString *)productEvaluate;
 //上传多张图片
 + (instancetype)postUploadManyImageWithimageDatas:(NSArray *)imageDatas;
 //佣金转余额(分销佣金 = 0、代理佣金 = 1、门店佣金 = 2）
 + (instancetype)postBonusToBalanceWithmoney:(NSString *)money bonusType:(NSNumber *)bonusType;
-
+//转送积分
++ (instancetype)postGiveAwayPointsWithgetUserId:(NSString *)getUserId points:(NSString *)points;
+//校验推荐码并绑定上下级关系
++ (instancetype)ValidateRecommendCodeWithCode:(NSString *)code;
 @end

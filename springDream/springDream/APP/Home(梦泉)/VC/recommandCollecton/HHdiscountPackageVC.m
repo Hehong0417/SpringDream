@@ -90,7 +90,7 @@
         rightBtn.hidden = YES;
         HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[navigationResponse.response.URL.absoluteString lh_parametersKeyValue]];
         HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-        vc.ids_Str = model.skuId;
+        vc.sku_Id = model.skuId;
         vc.mode = model.mode;
         vc.gbId = model.gbId;
         vc.enter_type = HHaddress_type_package;

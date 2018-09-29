@@ -54,4 +54,56 @@
     self.date_time_label.text = [NSString stringWithFormat:@"%@",delegate_commission_model.bonus_value];
     self.integral_label.text = [NSString stringWithFormat:@"%.2f",delegate_commission_model.bonus_result.floatValue];
 }
+- (void)setStore_commission_model:(HHMineModel *)store_commission_model{
+    _store_commission_model = store_commission_model;
+    
+    self.left_title_label.font = FONT(16);
+    self.left_detail_label.font = FONT(10);
+    self.date_time_label.font = FONT(12);
+    self.integral_label.font = FONT(12);
+    self.left_title_label.textColor = kDarkGrayColor;
+    self.left_detail_label.textColor = kDarkGrayColor;
+    self.date_time_label.textColor = kDarkGrayColor;
+    self.integral_label.textColor = kDarkGrayColor;
+    
+    self.left_title_label.text = [NSString stringWithFormat:@"%@",store_commission_model.product_name];
+    self.left_detail_label.text = [NSString stringWithFormat:@"订单号:%@",store_commission_model.order_id];
+    self.date_time_label.text = [NSString stringWithFormat:@"%@",store_commission_model.order_date];
+    self.integral_label.text = [NSString stringWithFormat:@"规格:%@",store_commission_model.product_sku_name];
+    
+}
+- (void)setIntegral_model:(HHMineModel *)integral_model{
+    
+    _integral_model = integral_model;
+    self.left_title_label.font = FONT(16);
+    self.left_detail_label.font = FONT(10);
+    self.date_time_label.font = FONT(12);
+    self.integral_label.font = FONT(12);
+    self.left_title_label.textColor = kDarkGrayColor;
+    self.left_detail_label.textColor = kDarkGrayColor;
+    self.date_time_label.textColor = kDarkGrayColor;
+    self.integral_label.textColor = kDarkGrayColor;
+    
+    self.left_title_label.text = [NSString stringWithFormat:@"%@",integral_model.integraType];
+    self.left_detail_label.text = [NSString stringWithFormat:@"单据:%@",integral_model.oid.length>0?integral_model.oid:@"无"];
+    self.date_time_label.text = [NSString stringWithFormat:@"%@",integral_model.datetime];
+    self.integral_label.text = [NSString stringWithFormat:@"积分:%.2f",integral_model.integra.floatValue];
+}
+- (void)setWallet_model:(HHMineModel *)wallet_model{
+    _wallet_model = wallet_model;
+    
+    self.left_title_label.font = FONT(14);
+    self.left_detail_label.font = FONT(12);
+    self.date_time_label.font = FONT(14);
+    self.integral_label.font = FONT(12);
+    self.left_title_label.textColor = kDarkGrayColor;
+    self.left_detail_label.textColor = kDarkGrayColor;
+    self.date_time_label.textColor = kDarkGrayColor;
+    self.integral_label.textColor = kDarkGrayColor;
+    
+    self.left_title_label.text = [NSString stringWithFormat:@"%@",wallet_model.ChangeModeString];
+    self.left_detail_label.text = [NSString stringWithFormat:@"订单号:%@",wallet_model.oid.length>0?wallet_model.oid:@"无"];
+    self.date_time_label.text = [NSString stringWithFormat:@"%@",wallet_model.ChangeMoney];
+    self.integral_label.text = [NSString stringWithFormat:@"%@",wallet_model.CreateDate];
+}
 @end

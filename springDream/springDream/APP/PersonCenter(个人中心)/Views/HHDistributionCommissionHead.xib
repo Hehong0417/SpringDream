@@ -140,9 +140,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="commissionDetail_label" destination="pZX-jI-7rg" id="1Ks-fr-67u"/>
                 <outlet property="commission_balance_button" destination="O19-66-Iw5" id="ooK-YV-kIu"/>
                 <outlet property="commission_price_label" destination="N1j-In-oqp" id="qQM-L1-bGH"/>
-                <outlet property="commission_title_label" destination="kZa-9R-YK1" id="ETp-8p-2bM"/>
+                <outlet property="commission_title_label" destination="kZa-9R-YK1" id="74X-1D-OOu"/>
                 <outlet property="history_commission_label" destination="tBa-2m-KFG" id="Nhy-tD-HYf"/>
                 <outlet property="yestoday_commission_label" destination="5Zj-F6-JS0" id="bkn-s6-c9I"/>
             </connections>

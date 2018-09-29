@@ -15,6 +15,8 @@
 
 @property(nonatomic,strong) HHCartModel *addressModel;
 @property(nonatomic,strong) HHMineModel *model;
+@property (weak, nonatomic) IBOutlet UILabel *goodStore_name_label;
+@property (weak, nonatomic) IBOutlet UIView *goodStore_view;
 
 
 @end

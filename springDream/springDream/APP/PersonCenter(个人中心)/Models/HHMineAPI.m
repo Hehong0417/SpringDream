@@ -109,16 +109,6 @@
     api.parametersAddToken = NO;
     return api;
 }
-//获取积分列表
-+ (instancetype)GetIntegralListWithPage:(NSNumber *)page{
-    HHMineAPI *api = [self new];
-    api.subUrl = API_IntegralList;
-    if (page) {
-        [api.parameters setObject:page forKey:@"page"];
-    }
-    api.parametersAddToken = NO;
-    return api;
-}
 
 //获取消息列表
 + (instancetype)GetUserNoticeWithPage:(NSNumber *)page isRead:(NSNumber *)isRead{
@@ -327,7 +317,78 @@
     api.parametersAddToken = NO;
     return api;
 }
+//门店收益
++ (instancetype)GetUserStoreCommissionWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserStoreCommission;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
+//门店总收益
++ (instancetype)GetUserStoreCommissionStatictis{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserStoreCommissionStatictis;
+    api.parametersAddToken = NO;
+    return api;
+}
 
+//我的积分
++ (instancetype)GetIntegralListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_IntegralList;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+//会员积分排行榜
++ (instancetype)GetTopPointsLeaderboardWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_TopPointsLeaderboard;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+//获取推荐码
++ (instancetype)GetRecommendCode{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetRecommendCode;
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+//获取余额变更记录
++ (instancetype)GetBalanceChangeListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    HHMineAPI *api = [self new];
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.subUrl = API_BalanceChangeList;
+    api.parametersAddToken = NO;
+    return api;
+}
 
 #pragma mark - post
 
@@ -611,7 +672,7 @@
     
 }
 //创建订单
-+ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message{
++ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId{
     HHMineAPI *api = [self new];
     api.subUrl = API_Order_Create;
     if (addr_id) {
@@ -629,8 +690,14 @@
     if (couponId) {
         [api.parameters setObject:couponId forKey:@"couponId"];
     }
+    if (cartIds) {
+        [api.parameters setObject:cartIds forKey:@"cartIds"];
+    }
     if (gbId) {
         [api.parameters setObject:gbId forKey:@"gbId"];
+    }
+    if (storeId) {
+        [api.parameters setObject:storeId forKey:@"toStoreId"];
     }
     if (integralTempIds) {
         [api.parameters setObject:integralTempIds forKey:@"integralTempIds"];
@@ -661,20 +728,6 @@
     return api;
     
 }
-+ (instancetype)postBonusToBalanceWithmoney:(NSString *)money bonusType:(NSNumber *)bonusType{
-    HHMineAPI *api = [self new];
-    api.subUrl = API_BonusToBalance;
-    if (money) {
-        [api.parameters setObject:money forKey:@"money"];
-    }
-    if (bonusType) {
-        [api.parameters setObject:bonusType forKey:@"bonusType"];
-    }
-    api.parametersAddToken = NO;
-    return api;
-    
-    
-}
 //上传多张图片
 + (instancetype)postUploadManyImageWithimageDatas:(NSArray *)imageDatas{
     HHMineAPI *api = [self new];
@@ -690,5 +743,43 @@
     api.parametersAddToken = NO;
     return api;
     
+}
++ (instancetype)postBonusToBalanceWithmoney:(NSString *)money bonusType:(NSNumber *)bonusType{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_BonusToBalance;
+    if (money) {
+        [api.parameters setObject:money forKey:@"money"];
+    }
+    if (bonusType) {
+        [api.parameters setObject:bonusType forKey:@"bonusType"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+
+}
+//转送积分
++ (instancetype)postGiveAwayPointsWithgetUserId:(NSString *)getUserId points:(NSString *)points{
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GiveAwayPoints;
+    if (getUserId) {
+        [api.parameters setObject:getUserId forKey:@"getUserId"];
+    }
+    if (points) {
+        [api.parameters setObject:points forKey:@"points"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+//校验推荐码并绑定上下级关系
++ (instancetype)ValidateRecommendCodeWithCode:(NSString *)code{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_ValidateRecommendCode;
+    if (code) {
+        [api.parameters setObject:code forKey:@"code"];
+    }
+    api.parametersAddToken = NO;
+    return api;
 }
 @end

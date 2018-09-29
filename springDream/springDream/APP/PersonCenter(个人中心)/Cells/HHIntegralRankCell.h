@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *integral_label;
 
+@property (strong, nonatomic)  HHMineModel *integral_model;
+
+
 @end

@@ -50,7 +50,27 @@
 }
 - (void)commitSendAction:(UIButton *)button{
     
-    
-    
+    if (_send_Id_textField.text.length==0) {
+        [SVProgressHUD showInfoWithStatus:@"请先输入赠送的会员ID！"];
+    }else if (_send_integral_textfield.text.length==0) {
+        [SVProgressHUD showInfoWithStatus:@"请先输入赠送的积分数！"];
+    }else{
+        [[[HHMineAPI postGiveAwayPointsWithgetUserId:_send_Id_textField.text points:_send_integral_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    
+                    [SVProgressHUD showSuccessWithStatus:@"赠送成功！"];
+                    [self.navigationController popVC];
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+            
+        }];
+        
+    }
 }
 @end

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *yestoday_commission_label;
 @property (weak, nonatomic) IBOutlet UILabel *history_commission_label;
 
+@property (weak, nonatomic) IBOutlet UILabel *commissionDetail_label;
 
 
 @property (nonatomic, strong) UIViewController *vc;

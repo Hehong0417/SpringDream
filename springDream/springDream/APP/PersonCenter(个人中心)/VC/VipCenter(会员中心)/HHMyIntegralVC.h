@@ -10,4 +10,5 @@
 
 @interface HHMyIntegralVC : UITableViewController
 
+
 @end

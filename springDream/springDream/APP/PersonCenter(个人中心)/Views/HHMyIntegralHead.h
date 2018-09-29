@@ -11,4 +11,6 @@
 @interface HHMyIntegralHead : UIView
 @property (nonatomic, strong)   UILabel *vip_integral_label;
 
+@property (nonatomic, strong)   UINavigationController *nav;
+
 @end

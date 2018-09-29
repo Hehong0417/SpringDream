@@ -24,7 +24,6 @@
 #define API_HOST4  @"http://mrs-product.elevo.cn/api"
 
 
-
 ////公共设置
 #define APP_key @"59334e721bcd31"
 #define APP_scode @"15ca7554e8cb486f3b8cbe1fa166c75b"
@@ -68,7 +67,18 @@
 #define API_Sms_SendCode API_SUB_URL1(@"CommonApi/Sms/Send")
 //1.8佣金转余额
 #define API_BonusToBalance  API_SUB_URL4(@"Balance/BonusToBalance")
-
+//1.9获取推荐码
+#define API_GetRecommendCode  API_SUB_URL4(@"User/GetRecommendCode")
+//1.10校验推荐码并绑定上下级关系
+#define API_ValidateRecommendCode  API_SUB_URL4(@"User/ValidateRecommendCode")
+//1.11转送积分
+#define API_GiveAwayPoints  API_SUB_URL4(@"UserInfo/GiveAwayPoints")
+//1.12会员积分排行榜
+#define API_TopPointsLeaderboard API_SUB_URL4(@"UserInfo/TopPointsLeaderboard")
+//1.13我的积分
+//#define API_IntegralList API_SUB_URL4(@"Personal/IntegralList")
+//1.14获取余额变更记录
+#define API_BalanceChangeList API_SUB_URL4(@"Balance/BalanceChangeList")
 
 //1.4手机号登录
 #define API_IOSAuthenticationLogin   API_SUB_URL(@"WeiXin/IOSAuthenticationLogin")
@@ -184,7 +194,7 @@
 //4.21佣金申请
 #define API_CommissionApply  API_SUB_URL(@"Commission/Apply")
 //4.34获取积分列表
-#define API_IntegralList API_SUB_URL(@"UserInfo/IntegralList")
+#define API_IntegralList API_SUB_URL(@"Integral/GetHistorys")
 //4.34获取消息列表
 #define API_GetUserNotice API_SUB_URL(@"Notice/GetUserNotice")
 //4.35设置消息全部已读
@@ -249,6 +259,11 @@
 #define API_GetSubUsers API_SUB_URL(@"Agent/GetSubUsers")
 //4.23获得团队下级的代理
 #define API_GetSubAgents API_SUB_URL(@"Agent/GetSubAgents")
+//4.24 门店收益
+#define API_GetUserStoreCommission API_SUB_URL(@"Store/GetUserStoreCommission")
+//4.24 门店zo收益
+#define API_GetUserStoreCommissionStatictis API_SUB_URL(@"Store/GetUserStoreCommissionStatictis")
+
 
 /**
  *  支付

@@ -7,6 +7,7 @@
 //
 
 #import "HHMyIntegralHead.h"
+#import "HHSendIntegralVC.h"
 
 @implementation HHMyIntegralHead
 
@@ -14,8 +15,13 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        self.vip_integral_label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(70)) text:@"299分" textColor:kBlackColor font:FONT(20) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+        self.vip_integral_label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW/2, WidthScaleSize_H(70)) text:@"" textColor:kBlackColor font:FONT(20) textAlignment:NSTextAlignmentRight backgroundColor:kClearColor];
         [self addSubview:self.vip_integral_label];
+        
+        UIButton *send_btn = [UIButton lh_buttonWithFrame:CGRectMake(CGRectGetMaxX(self.vip_integral_label.frame)+10, 0, 70, 25) target:self action:@selector(sendAction) title:@"赠送积分" titleColor:kWhiteColor font:FONT(14) backgroundColor:APP_NAV_COLOR];
+        send_btn.centerY = self.vip_integral_label.centerY;
+        [send_btn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+        [self addSubview:send_btn];
         
         UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, CGRectGetMaxY(self.vip_integral_label.frame), ScreenW,1) backColor:KVCBackGroundColor];
         [self addSubview:h_line];
@@ -27,5 +33,11 @@
     }
     return self;
 }
-
+- (void)sendAction{
+    
+    //赠送积分
+    HHSendIntegralVC *vc = [HHSendIntegralVC new];
+    [self.nav pushVC:vc];
+    
+}
 @end

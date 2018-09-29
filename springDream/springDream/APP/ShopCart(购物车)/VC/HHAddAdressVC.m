@@ -152,7 +152,7 @@
                       }else if(self.addressType == HHAddress_settlementType_cart){
                           //提交订单页面
                           HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                          vc.pids = self.pids;
+                          vc.cartIds = self.cartIds;
                           if ([self.sendGift isEqual:@1]) {
                               vc.enter_type = HHaddress_type_Spell_group;
                               vc.mode = @8;
@@ -168,8 +168,8 @@
                           HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
                           vc.enter_type = HHaddress_type_add_productDetail;
                           vc.mode = self.mode;
-                          vc.ids_Str = self.ids_Str;
-                          vc.pids = self.pids;
+                          vc.sku_Id = self.sku_ids;
+                          vc.cartIds = self.cartIds;
                           [self.navigationController pushVC:vc];
                       }
 

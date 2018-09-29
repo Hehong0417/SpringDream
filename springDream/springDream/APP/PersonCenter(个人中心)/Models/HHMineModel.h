@@ -56,9 +56,18 @@
 @property(nonatomic,strong) NSString *ApplyMoney;
 
 //我的积分
-@property (nonatomic, assign) NSInteger integra;
+@property (nonatomic, assign) NSString *integra;
 @property (nonatomic, copy) NSString *integraType;
 @property (nonatomic, copy) NSString *datetime;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *oid;
+
+//积分排行榜
+@property (nonatomic, assign) NSString *Ponits;
+@property (nonatomic, copy) NSString *Sort;
+@property (nonatomic, copy) NSString *UserId;
+//@property (nonatomic, copy) NSString *UserImage;
+//@property (nonatomic, copy) NSString *UserName;
 
 //我的消息
 @property (nonatomic, copy) NSString *Author;
@@ -92,14 +101,22 @@
 
 
 //我的钱包
-@property(nonatomic,strong) NSString *action_name;
+@property(nonatomic,strong) NSString *ChangeModeString;
+@property(nonatomic,strong) NSString *ChangeMoney;
+@property(nonatomic,strong) NSString *CreateDate;
+@property(nonatomic,strong) NSString *Operator;
+@property(nonatomic,strong) NSString *OriginalMoney;
+@property(nonatomic,strong) NSString *Remarks;
+
+
 @property(nonatomic,strong) NSString *integral_type;
+
 
 @property(nonatomic,strong) NSString *is_certified;
 
 //代理信息
 //@property(nonatomic,strong) NSString *AgentName;
-@property(nonatomic,strong) NSString *CreateDate;
+//@property(nonatomic,strong) NSString *CreateDate;
 @property(nonatomic,strong) NSString *Discount;
 @property(nonatomic,strong) NSString *IsApplyJoin;
 @property(nonatomic,strong) NSString *JoinMoney;
@@ -146,6 +163,17 @@
 @property(nonatomic,strong) NSString *HistoryCommission;
 @property(nonatomic,strong) NSString *TotalComm;
 @property(nonatomic,strong) NSString *YestodayComm;
+//门店收益
+@property(nonatomic,strong) NSString *history_commission;
+@property(nonatomic,strong) NSString *total_comm;
+@property(nonatomic,strong) NSString *yestoday_comm;
+@property(nonatomic,strong) NSString *product_name;
+@property(nonatomic,strong) NSString *order_date;
+@property(nonatomic,strong) NSString *order_id;
+@property(nonatomic,strong) NSString *product_sku_name;
+@property(nonatomic,strong) NSString *store_reward;
+@property(nonatomic,strong) NSString *store_rebate;
+
 //分销佣金
 @property(nonatomic,strong) NSString *OrderInfo_Id;
 @property(nonatomic,strong) NSString *TradeTime;
@@ -156,7 +184,7 @@
 @property(nonatomic,strong) NSString *history_total_bonus;
 @property(nonatomic,strong) NSString *yesterday_bonus;
 
-@property(nonatomic,strong) NSString *oid;
+//@property(nonatomic,strong) NSString *oid;
 @property(nonatomic,strong) NSString *time;
 @property(nonatomic,strong) NSString *bonus_value;
 @property(nonatomic,strong) NSString *bonus_result;

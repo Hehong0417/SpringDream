@@ -28,7 +28,7 @@
 }
 
 //获得结算订单
-+ (instancetype)GetConfirmOrderWithids:(NSString *)ids mode:(NSNumber *)mode skuId:(NSString *)skuId quantity:(NSNumber *)quantity gbId:(NSString *)gbId{
++ (instancetype)GetConfirmOrderWithids:(NSString *)ids mode:(NSNumber *)mode skuId:(NSString *)skuId quantity:(NSNumber *)quantity gbId:(NSString *)gbId storeId:(NSString *)storeId  cardIds:(NSString *)cardIds{
     
     HHCartAPI *api = [self new];
     api.subUrl = API_GetConfirmOrder;
@@ -42,10 +42,16 @@
         [api.parameters setObject:skuId forKey:@"skuId"];
     }
     if (quantity) {
-        [api.parameters setObject:quantity forKey:@"quantity"];
+        [api.parameters setObject:quantity forKey:@"count"];
     }
     if (gbId) {
         [api.parameters setObject:gbId forKey:@"gbId"];
+    }
+    if (storeId) {
+        [api.parameters setObject:storeId forKey:@"storeId"];
+    }
+    if (cardIds) {
+        [api.parameters setObject:cardIds forKey:@"cardIds"];
     }
     api.parametersAddToken = NO;
     return api;
@@ -127,7 +133,7 @@
     HHCartAPI *api = [self new];
     api.subUrl = API_ShopCart_Delete;
     if (cart_id) {
-        [api.parameters setObject:cart_id forKey:@"cartIds"];
+        [api.parameters setObject:cart_id forKey:@""];
     }
     api.parametersAddToken = NO;
     return api;

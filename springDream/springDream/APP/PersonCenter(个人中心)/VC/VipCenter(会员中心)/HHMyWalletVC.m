@@ -13,7 +13,8 @@
 @interface HHMyWalletVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UITableView *tabView;
-
+@property (nonatomic, strong)   NSMutableArray *datas;
+@property (nonatomic, assign)   NSInteger page;
 @end
 
 @implementation HHMyWalletVC
@@ -41,7 +42,47 @@
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     HHMyWalletHead *wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
     self.tabView.tableHeaderView = wallet_head;
+    
+    
+    self.page = 1;
+    
+    [self addHeadRefresh];
+    [self addFootRefresh];
+    
 }
+- (void)GetBalanceChangeList{
+    
+    [[[HHMineAPI GetBalanceChangeListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                
+                [self loadDataFinish:api.Data[@"list"]];
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:api.Msg];
+        }
+        
+    }];
+    
+}
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [self GetBalanceChangeList];
+    
+}
+- (NSMutableArray *)datas{
+    if (!_datas) {
+        _datas = [NSMutableArray array];
+    }
+    return _datas;
+}
+
 #pragma mark - DZNEmptyDataSetDelegate
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
@@ -73,11 +114,77 @@
 - (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
     return 20;
 }
+
+- (void)addHeadRefresh{
+    
+    MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.datas removeAllObjects];
+        self.page = 1;
+        [self GetBalanceChangeList];
+    }];
+    refreshHeader.lastUpdatedTimeLabel.hidden = YES;
+    refreshHeader.stateLabel.hidden = YES;
+    self.tabView.mj_header = refreshHeader;
+    
+}
+- (void)addFootRefresh{
+    
+    MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.page++;
+        
+        [self GetBalanceChangeList];
+    }];
+    self.tabView.mj_footer = refreshfooter;
+}
+/**
+ *  加载数据完成
+ */
+- (void)loadDataFinish:(NSArray *)arr {
+    
+    [self.datas addObjectsFromArray:arr];
+    
+    if (self.datas.count == 0) {
+        self.tabView.mj_footer.hidden = YES;
+    }
+    
+    if (arr.count < 20) {
+        
+        [self endRefreshing:YES];
+        
+    }else{
+        [self endRefreshing:NO];
+    }
+}
+
+/**
+ *  结束刷新
+ */
+- (void)endRefreshing:(BOOL)noMoreData {
+    // 取消刷新
+    
+    if (noMoreData) {
+        
+        [self.tabView.mj_footer setState:MJRefreshStateNoMoreData];
+    }else{
+        
+        [self.tabView.mj_footer setState:MJRefreshStateIdle];
+    }
+    if (self.tabView.mj_header.isRefreshing) {
+        [self.tabView.mj_header endRefreshing];
+    }
+    
+    if (self.tabView.mj_footer.isRefreshing) {
+        [self.tabView.mj_footer endRefreshing];
+    }
+    //刷新界面
+    [self.tabView reloadData];
+    
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 4;
+    return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,7 +197,7 @@
     
     HHMywalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHMywalletCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    cell.wallet_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
