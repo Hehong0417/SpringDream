@@ -34,15 +34,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
-    self.title_arr = [NSMutableArray arrayWithArray:@[@"会员中心",@"分销中心",@"门店管理",@"代理中心"]];
-//    self.title_arr = [NSMutableArray arrayWithArray:@[@"会员中心"]];
-
+    [self.title_arr addObject:@"会员中心"];
     // 1.添加所有子控制器
     [self setupChildViewController];
     
     [self setupSegmentedControl];
+    
+    self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
+    self.personHead.nav = self.navigationController;
     
     [self getDatas];
 
@@ -56,6 +56,7 @@
     self.tabView.estimatedRowHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
     self.tabView.estimatedSectionHeaderHeight = 0;
+    self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tabView];
     
 }
@@ -93,6 +94,25 @@
                 user.mineModel = self.mineModel;
                 user.usableComm = [NSString stringWithFormat:@"%@",api.Data[@"usableComm"]];
                 [user write];
+                
+                HHMineModel *data_model = [HHMineModel mj_objectWithKeyValues:api.Data];
+                if ([data_model.isUserDistribution isEqual:@1]) {
+                    [self.title_arr addObject:@"分销中心"];
+                    if ([data_model.isUserAgent isEqual:@1]) {
+                        [self.title_arr addObject:@"代理中心"];
+                        if ([data_model.isHasStore isEqual:@1]) {
+                            [self.title_arr addObject:@"门店管理"];
+                        }
+                    }else{
+                        
+                    }
+                }
+
+                // 1.添加所有子控制器
+                [self setupChildViewController];
+                
+                [self setupSegmentedControl];
+                
                 self.personHead.name_label.text = self.mineModel.UserName;
                 [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
                 self.userLevelName = api.Data[@"userLevelName"];
@@ -155,10 +175,6 @@
     _mainScrollView.delegate = self;
 //    [self.view addSubview:_mainScrollView];
     self.tabView.tableFooterView = self.mainScrollView;
-    
-    
-    self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
-    self.personHead.nav = self.navigationController;
     
     if (self.title_arr.count < 5) {
         self.SG = [SGSegmentedControl segmentedControlWithFrame:CGRectMake(0, 175, self.view.frame.size.width, 44) delegate:self segmentedControlType:(SGSegmentedControlTypeStatic) titleArr:self.title_arr];

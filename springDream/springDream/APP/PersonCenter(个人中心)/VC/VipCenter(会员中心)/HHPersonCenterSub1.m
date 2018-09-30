@@ -153,8 +153,8 @@
             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate= self;
-            cell.btn_image_arr = @[@"service_10",@"service_04",@"",@""];
-            cell.btn_title_arr = @[@"分享邀请码",@"赠送积分",@"",@""];
+            cell.btn_image_arr = @[@"service_10",@"",@"",@""];
+            cell.btn_title_arr = @[@"分享邀请码",@"",@"",@""];
             grideCell = cell;
         }
     }

@@ -18,7 +18,7 @@
 + (XYQButton *)aopBackButton {
     
     XYQButton *backButton = [XYQButton buttonWithType:UIButtonTypeCustom];
-    [backButton setFrame:CGRectMake(0, 0, 30, 44)];
+    [backButton setFrame:CGRectMake(0, 0, 60, 44)];
     UIImage *image = [UIImage imageNamed:@"icon_return_default"];
     [backButton setImage:image forState:UIControlStateNormal];
     CGFloat imageWidth = image.size.width;

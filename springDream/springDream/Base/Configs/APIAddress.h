@@ -87,6 +87,18 @@
 //1.7验证手机号
 #define API_VerifyMobile API_SUB_URL(@"UserInfo/VerifyMobile")
 
+/**
+ *  内容电商
+ */
+//获取社区列表
+#define API_ContentECSubject API_SUB_URL4(@"ContentECSubject/GetList")
+//点赞/取消点赞
+#define API_PriseUnPrise API_SUB_URL4(@"ContentECSubject/PriseUnPrise")
+//评论
+#define API_Comment  API_SUB_URL4(@"ContentECSubject/Comment")
+//新增评论
+#define API_Comment_Add  API_SUB_URL4(@"ContentECSubject/Add")
+
 
 /**
  *  首页

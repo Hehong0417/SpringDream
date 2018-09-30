@@ -28,8 +28,9 @@
 
 #import "SDTimeLineCellCommentView.h"
 #import "UIView+SDAutoLayout.h"
-#import "SDTimeLineCellModel.h"
+//#import "SDTimeLineCellModel.h"
 #import "MLLinkLabel.h"
+#import "SDTimeLineModel.h"
 
 @interface SDTimeLineCellCommentView () <MLLinkLabelDelegate>
 
@@ -78,7 +79,7 @@
     _bgImageView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
 }
 
-- (void)setCommentItemsArray:(NSArray *)commentItemsArray
+- (void)setCommentItemsArray:(NSArray <SDTimeLineCellCommentItemModel *>*)commentItemsArray
 {
     _commentItemsArray = commentItemsArray;
     
@@ -140,8 +141,9 @@
     return _commentLabelsArray;
 }
 
-- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray *)commentItemsArray
+- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray <SDTimeLineCellCommentItemModel *>*)commentItemsArray
 {
+    
 //    self.likeItemsArray = likeItemsArray;
     self.commentItemsArray = commentItemsArray;
     
@@ -218,30 +220,33 @@
 
 - (NSMutableAttributedString *)generateAttributedStringWithCommentItemModel:(SDTimeLineCellCommentItemModel *)model
 {
+    NSString *text = @"无名字";
+    if (model.UserName) {
+        text = model.UserName;
+    }
+//    if (model.secondUserName.length) {
+//        text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
+//    }
+    text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.Comment]];
     
-    NSString *text = model.firstUserName;
-    if (model.secondUserName.length) {
-        text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
-    }
-    text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    [attString setAttributes:@{NSLinkAttributeName : model.firstUserId} range:[text rangeOfString:model.firstUserName]];
+    [attString setAttributes:@{NSLinkAttributeName : model.UserId} range:[text rangeOfString:model.UserName?model.UserName:@"无名字"]];
 
-    if (model.secondUserName) {
-        [attString setAttributes:@{NSLinkAttributeName : model.secondUserId} range:[text rangeOfString:model.secondUserName]];
-    }
+//    if (model.secondUserName) {
+//        [attString setAttributes:@{NSLinkAttributeName : model.secondUserId} range:[text rangeOfString:model.secondUserName]];
+//    }
     return attString;
 }
 
-- (NSMutableAttributedString *)generateAttributedStringWithLikeItemModel:(SDTimeLineCellLikeItemModel *)model
-{
-    NSString *text = model.userName;
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    UIColor *highLightColor = [UIColor blueColor];
-    [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
-    
-    return attString;
-}
+//- (NSMutableAttributedString *)generateAttributedStringWithLikeItemModel:(SDTimeLineCellLikeItemModel *)model
+//{
+//    NSString *text = model.userName;
+//    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
+//    UIColor *highLightColor = [UIColor blueColor];
+//    [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
+//
+//    return attString;
+//}
 
 
 #pragma mark - MLLinkLabelDelegate

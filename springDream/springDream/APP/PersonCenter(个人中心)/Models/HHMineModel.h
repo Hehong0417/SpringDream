@@ -25,6 +25,12 @@
 @property(nonatomic,strong) NSString  *RealName;
 
 
+@property(nonatomic,strong) NSNumber  *isUserAgent;
+@property(nonatomic,strong) NSNumber  *isUserDistribution;
+@property(nonatomic,strong) NSNumber  *isHasStore;
+
+
+
 //订单消息数
 @property(nonatomic,strong) NSString  *wait_pay_count;//待付款
 @property(nonatomic,strong) NSString  *wait_send_count;//待发货

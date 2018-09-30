@@ -186,7 +186,7 @@
         
         //SDTimeLineTableViewController
         
-        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHGoodListVC" viewControllerNonExist:YES];
+        HJStoryBoardItem *item1 = [HJStoryBoardItem itemWithStroyBoardName:@"Home" identifier:@"HHHomeVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item2 = [HJStoryBoardItem itemWithStroyBoardName:@"category" identifier:@"HHGoodCategoryVC" viewControllerNonExist:YES];
         HJStoryBoardItem *item3 = [HJStoryBoardItem itemWithStroyBoardName:@"community" identifier:@"SDTimeLineTableViewController" viewControllerNonExist:YES];
         HJStoryBoardItem *item4 = [HJStoryBoardItem itemWithStroyBoardName:@"ShopCart" identifier:@"HHShoppingVC" viewControllerNonExist:YES];

@@ -34,12 +34,14 @@
 #import "SDTimeLineRefreshHeader.h"
 #import "SDTimeLineRefreshFooter.h"
 #import "SDTimeLineCell.h"
-#import "SDTimeLineCellModel.h"
 #import "HHPostTimeLineVC.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 
 #import "UIView+SDAutoLayout.h"
 #import "GlobalDefines.h"
+
+#import "SDTimeLineAPI.h"
+#import "SDTimeLineModel.h"
 
 #define kTimeLineTableViewCellId @"SDTimeLineCell"
 
@@ -51,6 +53,7 @@ static CGFloat textFieldH = 40;
 @property (nonatomic, assign) BOOL isReplayingComment;
 @property (nonatomic, strong) NSIndexPath *currentEditingIndexthPath;
 @property (nonatomic, copy) NSString *commentToUser;
+@property (nonatomic, assign)   NSInteger page;
 
 @end
 
@@ -64,7 +67,6 @@ static CGFloat textFieldH = 40;
     CGFloat _lastScrollViewOffsetY;
     CGFloat _totalKeybordHeight;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,71 +75,60 @@ static CGFloat textFieldH = 40;
     
     self.title = @"社区";
 
+    self.page = 1;
+    
     UIButton *post_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(post_buttonAction) image:nil title:@"发布" titleColor:kWhiteColor font:FONT(14)];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:post_button];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:post_button];
     
     UIButton *left_nav_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(backAction) image:[UIImage imageNamed:@"icon_return_default"]];
     [left_nav_button setContentEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:left_nav_button];
 
     
     self.edgesForExtendedLayout = UIRectEdgeTop;
     
-    [self.dataArray addObjectsFromArray:[self creatModelsWithCount:10]];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    //下拉刷新
-    _refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self refreshDatas];
-    }];
-    
-    _refreshHeader.lastUpdatedTimeLabel.hidden = YES;
-    _refreshHeader.stateLabel.hidden = YES;
-    self.tableView.mj_header = _refreshHeader;
-    
-    
-    
-    // 上拉加载
-    _refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            [weakSelf.dataArray addObjectsFromArray:[weakSelf creatModelsWithCount:10]];
-            [weakSelf.tableView reloadDataWithExistedHeightCache];
-        if ([weakSelf.tableView.mj_footer isRefreshing]) {
-            [weakSelf.tableView.mj_footer endRefreshing];
-        }
-    }];
-    self.tableView.mj_footer = _refreshfooter;
-    
-//    _refreshFooter = [SDTimeLineRefreshFooter refreshFooterWithRefreshingText:@"正在加载数据..."];
-//    __weak typeof(_refreshFooter) weakRefreshFooter = _refreshFooter;
-//    [_refreshFooter addToScrollView:self.tableView refreshOpration:^{
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [weakSelf.dataArray addObjectsFromArray:[weakSelf creatModelsWithCount:10]];
-//
-//            /**
-//             [weakSelf.tableView reloadDataWithExistedHeightCache]
-//             作用等同于
-//             [weakSelf.tableView reloadData]
-//             只是“reloadDataWithExistedHeightCache”刷新tableView但不清空之前已经计算好的高度缓存，用于直接将新数据拼接在旧数据之后的tableView刷新
-//             */
-//            [weakSelf.tableView reloadDataWithExistedHeightCache];
-//
-//            [weakRefreshFooter endRefreshing];
-//        });
-//    }];
-    
-//    SDTimeLineTableHeaderView *headerView = [SDTimeLineTableHeaderView new];
-//    headerView.frame = CGRectMake(0, 0, 0, 260);
-//    self.tableView.tableHeaderView = headerView;
-    
     [self.tableView registerClass:[SDTimeLineCell class] forCellReuseIdentifier:kTimeLineTableViewCellId];
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //获取社区数据
+    [self getTimeLineData];
+    
+    [self addRefreshHeader];
     
     [self setupTextField];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
+- (void)addRefreshHeader{
+    
+    //下拉刷新
+    _refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//      [self refreshDatas];
+        [self.dataArray removeAllObjects];
+        self.page=1;
+        [self getTimeLineData];
+    }];
+    
+    _refreshHeader.lastUpdatedTimeLabel.hidden = YES;
+    _refreshHeader.stateLabel.hidden = YES;
+    self.tableView.mj_header = _refreshHeader;
+    
+}
+- (void)addRefreshFooter{
+    // 上拉加载
+    _refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//      [self.dataArray addObjectsFromArray:[self creatModelsWithCount:10]];
+        self.page++;
+        [self getTimeLineData];
+//        [self.tableView reloadDataWithExistedHeightCache];
+//        if ([self.tableView.mj_footer isRefreshing]) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }
+    }];
+    self.tableView.mj_footer = _refreshfooter;
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -164,14 +155,15 @@ static CGFloat textFieldH = 40;
 }
 - (void)refreshDatas{
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        weakSelf.dataArray = [[weakSelf creatModelsWithCount:10] mutableCopy];
-        if ([self.tableView.mj_header isRefreshing]) {
-            [self.tableView.mj_header endRefreshing];
-        }
+//        weakSelf.dataArray = [[weakSelf creatModelsWithCount:10] mutableCopy];
+    
+//        if ([self.tableView.mj_header isRefreshing]) {
+//            [self.tableView.mj_header endRefreshing];
+//        }
 //        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
+//            [weakSelf.tableView reloadData];
 //        });
 //    });
 }
@@ -215,111 +207,169 @@ static CGFloat textFieldH = 40;
     
     [_textField resignFirstResponder];
 }
+- (void)getTimeLineData{
+    
+    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+      
+        if (!error) {
+            if (api.State == 1) {
+                 
+                [self loadDataFinish:api.Data[@"List"]];
+                [self addRefreshFooter];
 
-- (NSArray *)creatModelsWithCount:(NSInteger)count
-{
-    NSArray *iconImageNamesArray = @[@"icon0.jpg",
-                                     @"icon1.jpg",
-                                     @"icon2.jpg",
-                                     @"icon3.jpg",
-                                     @"icon4.jpg",
-                                     ];
-    
-    NSArray *namesArray = @[@"GSD_iOS",
-                            @"风口上的猪",
-                            @"当今世界网名都不好起了",
-                            @"我叫郭德纲",
-                            @"Hello Kitty"];
-    
-    NSArray *textArray = @[@"当你的 app 没有提供 3x 的 LaunchImage 时，系统默认进入兼容模式，https://github.com/gsdios/SDAutoLayout大屏幕一切按照 320 宽度渲染，屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。",
-                           @"然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，https://github.com/gsdios/SDAutoLayout等于把小屏完全拉伸。",
-                           @"当你的 app 没有提供 3x 的 LaunchImage 时屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。",
-                           @"但是建议不要长期处于这种模式下，否则在大屏上会显得字大，内容少，容易遭到用户投诉。",
-                           @"屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。"
-                           ];
-    
-    NSArray *commentsArray = @[@"社会主义好！👌👌👌👌",
-                               @"正宗好凉茶，正宗好声音。。。",
-                               @"你好，我好，大家好才是真的好",
-                               @"有意思",
-                               @"你瞅啥？",
-                               @"瞅你咋地？？？！！！",
-                               @"hello，看我",
-                               @"曾经在幽幽暗暗反反复复中追问，才知道平平淡淡从从容容才是真",
-                               @"人艰不拆",
-                               @"咯咯哒",
-                               @"呵呵~~~~~~~~",
-                               @"我勒个去，啥世道啊",
-                               @"真有意思啊你💢💢💢"];
-    
-    NSArray *picImageNamesArray = @[ @"pic0.jpg",
-                                     @"pic1.jpg",
-                                     @"pic2.jpg",
-                                     @"pic3.jpg",
-                                     @"pic4.jpg",
-                                     @"pic5.jpg",
-                                     @"pic6.jpg",
-                                     @"pic7.jpg",
-                                     @"pic8.jpg"
-                                     ];
-    NSMutableArray *resArr = [NSMutableArray new];
-    
-    for (int i = 0; i < count; i++) {
-        int iconRandomIndex = arc4random_uniform(5);
-        int nameRandomIndex = arc4random_uniform(5);
-        int contentRandomIndex = arc4random_uniform(5);
-        
-        SDTimeLineCellModel *model = [SDTimeLineCellModel new];
-        model.iconName = iconImageNamesArray[iconRandomIndex];
-        model.name = namesArray[nameRandomIndex];
-        model.msgContent = textArray[contentRandomIndex];
-        
-        
-        // 模拟“随机图片”
-        int random = arc4random_uniform(6);
-        
-        NSMutableArray *temp = [NSMutableArray new];
-        for (int i = 0; i < random; i++) {
-            int randomIndex = arc4random_uniform(9);
-            [temp addObject:picImageNamesArray[randomIndex]];
-        }
-        if (temp.count) {
-            model.picNamesArray = [temp copy];
-        }
-        
-        // 模拟随机评论数据
-        int commentRandom = arc4random_uniform(3);
-        NSMutableArray *tempComments = [NSMutableArray new];
-        for (int i = 0; i < commentRandom; i++) {
-            SDTimeLineCellCommentItemModel *commentItemModel = [SDTimeLineCellCommentItemModel new];
-            int index = arc4random_uniform((int)namesArray.count);
-            commentItemModel.firstUserName = namesArray[index];
-            commentItemModel.firstUserId = @"666";
-            if (arc4random_uniform(10) < 5) {
-                commentItemModel.secondUserName = namesArray[arc4random_uniform((int)namesArray.count)];
-                commentItemModel.secondUserId = @"888";
             }
-            commentItemModel.commentString = commentsArray[arc4random_uniform((int)commentsArray.count)];
-            [tempComments addObject:commentItemModel];
         }
-        model.commentItemsArray = [tempComments copy];
+    }];
+}
+//- (NSArray *)creatModelsWithCount:(NSInteger)count
+//{
+//    NSArray *iconImageNamesArray = @[@"icon0.jpg",
+//                                     @"icon1.jpg",
+//                                     @"icon2.jpg",
+//                                     @"icon3.jpg",
+//                                     @"icon4.jpg",
+//                                     ];
+//
+//    NSArray *namesArray = @[@"GSD_iOS",
+//                            @"风口上的猪",
+//                            @"当今世界网名都不好起了",
+//                            @"我叫郭德纲",
+//                            @"Hello Kitty"];
+//
+//    NSArray *textArray = @[@"当你的 app 没有提供 3x 的 LaunchImage 时，系统默认进入兼容模式，https://github.com/gsdios/SDAutoLayout大屏幕一切按照 320 宽度渲染，屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。",
+//                           @"然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，https://github.com/gsdios/SDAutoLayout等于把小屏完全拉伸。",
+//                           @"当你的 app 没有提供 3x 的 LaunchImage 时屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。",
+//                           @"但是建议不要长期处于这种模式下，否则在大屏上会显得字大，内容少，容易遭到用户投诉。",
+//                           @"屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。"
+//                           ];
+//
+//    NSArray *commentsArray = @[@"社会主义好！👌👌👌👌",
+//                               @"正宗好凉茶，正宗好声音。。。",
+//                               @"你好，我好，大家好才是真的好",
+//                               @"有意思",
+//                               @"你瞅啥？",
+//                               @"瞅你咋地？？？！！！",
+//                               @"hello，看我",
+//                               @"曾经在幽幽暗暗反反复复中追问，才知道平平淡淡从从容容才是真",
+//                               @"人艰不拆",
+//                               @"咯咯哒",
+//                               @"呵呵~~~~~~~~",
+//                               @"我勒个去，啥世道啊",
+//                               @"真有意思啊你💢💢💢"];
+//
+//    NSArray *picImageNamesArray = @[ @"pic0.jpg",
+//                                     @"pic1.jpg",
+//                                     @"pic2.jpg",
+//                                     @"pic3.jpg",
+//                                     @"pic4.jpg",
+//                                     @"pic5.jpg",
+//                                     @"pic6.jpg",
+//                                     @"pic7.jpg",
+//                                     @"pic8.jpg"
+//                                     ];
+//    NSMutableArray *resArr = [NSMutableArray new];
+//
+//    for (int i = 0; i < count; i++) {
+//        int iconRandomIndex = arc4random_uniform(5);
+//        int nameRandomIndex = arc4random_uniform(5);
+//        int contentRandomIndex = arc4random_uniform(5);
+//
+//        SDTimeLineCellModel *model = [SDTimeLineCellModel new];
+//        model.iconName = iconImageNamesArray[iconRandomIndex];
+//        model.name = namesArray[nameRandomIndex];
+//        model.msgContent = textArray[contentRandomIndex];
+//
+//
+//        // 模拟“随机图片”
+//        int random = arc4random_uniform(6);
+//
+//        NSMutableArray *temp = [NSMutableArray new];
+//        for (int i = 0; i < random; i++) {
+//            int randomIndex = arc4random_uniform(9);
+//            [temp addObject:picImageNamesArray[randomIndex]];
+//        }
+//        if (temp.count) {
+//            model.picNamesArray = [temp copy];
+//        }
+//
+//        // 模拟随机评论数据
+//        int commentRandom = arc4random_uniform(3);
+//        NSMutableArray *tempComments = [NSMutableArray new];
+//        for (int i = 0; i < commentRandom; i++) {
+//            SDTimeLineCellCommentItemModel *commentItemModel = [SDTimeLineCellCommentItemModel new];
+//            int index = arc4random_uniform((int)namesArray.count);
+//            commentItemModel.firstUserName = namesArray[index];
+//            commentItemModel.firstUserId = @"666";
+//            if (arc4random_uniform(10) < 5) {
+//                commentItemModel.secondUserName = namesArray[arc4random_uniform((int)namesArray.count)];
+//                commentItemModel.secondUserId = @"888";
+//            }
+//            commentItemModel.Comment = commentsArray[arc4random_uniform((int)commentsArray.count)];
+//            [tempComments addObject:commentItemModel];
+//        }
+//        model.commentItemsArray = [tempComments copy];
+//
+//        // 模拟随机点赞数据
+//        int likeRandom = arc4random_uniform(3);
+//        NSMutableArray *tempLikes = [NSMutableArray new];
+//        for (int i = 0; i < likeRandom; i++) {
+//            SDTimeLineCellLikeItemModel *model = [SDTimeLineCellLikeItemModel new];
+//            int index = arc4random_uniform((int)namesArray.count);
+//            model.userName = namesArray[index];
+//            model.userId = namesArray[index];
+//            [tempLikes addObject:model];
+//        }
+//
+//        model.likeItemsArray = [tempLikes copy];
+//
+//        [resArr addObject:model];
+//    }
+//    return [resArr copy];
+//}
+/**
+ *  加载数据完成
+ */
+- (void)loadDataFinish:(NSArray *)arr {
+    
+    [self.dataArray addObjectsFromArray:arr];
+    
+    if (arr.count < 20) {
         
-        // 模拟随机点赞数据
-        int likeRandom = arc4random_uniform(3);
-        NSMutableArray *tempLikes = [NSMutableArray new];
-        for (int i = 0; i < likeRandom; i++) {
-            SDTimeLineCellLikeItemModel *model = [SDTimeLineCellLikeItemModel new];
-            int index = arc4random_uniform((int)namesArray.count);
-            model.userName = namesArray[index];
-            model.userId = namesArray[index];
-            [tempLikes addObject:model];
-        }
+        [self endRefreshing:YES];
         
-        model.likeItemsArray = [tempLikes copy];
-        
-        [resArr addObject:model];
+    }else{
+        [self endRefreshing:NO];
     }
-    return [resArr copy];
+}
+
+/**
+ *  结束刷新
+ */
+- (void)endRefreshing:(BOOL)noMoreData {
+    // 取消刷新
+    self.tableView.mj_footer.hidden = NO;
+    
+    if (noMoreData) {
+        if (self.dataArray.count == 0) {
+            self.tableView.mj_footer.hidden = YES;
+        }else {
+            [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+        }
+    }else{
+        
+        [self.tableView.mj_footer setState:MJRefreshStateIdle];
+        
+    }
+    
+    if (self.tableView.mj_header.isRefreshing) {
+        [self.tableView.mj_header endRefreshing];
+    }
+    
+    if (self.tableView.mj_footer.isRefreshing) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    //刷新界面
+    [self.tableView reloadData];
 }
 #pragma mark - 发布
 
@@ -341,7 +391,7 @@ static CGFloat textFieldH = 40;
     __weak typeof(self) weakSelf = self;
     if (!cell.moreButtonClickedBlock) {
         [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-            SDTimeLineCellModel *model = weakSelf.dataArray[indexPath.row];
+            SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
             model.isOpening = !model.isOpening;
             [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
@@ -361,11 +411,10 @@ static CGFloat textFieldH = 40;
     
     ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
     
-    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+//    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
     
     ///////////////////////////////////////////////////////////////////////
-    
-    cell.model = self.dataArray[indexPath.row];
+    cell.model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
     return cell;
 }
 
@@ -377,7 +426,7 @@ static CGFloat textFieldH = 40;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // >>>>>>>>>>>>>>>>>>>>> * cell自适应 * >>>>>>>>>>>>>>>>>>>>>>>>
-    id model = self.dataArray[indexPath.row];
+    id model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
     return [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[SDTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
 }
 
@@ -416,32 +465,32 @@ static CGFloat textFieldH = 40;
 }
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell
 {
-    NSIndexPath *index = [self.tableView indexPathForCell:cell];
-    SDTimeLineCellModel *model = self.dataArray[index.row];
-    NSMutableArray *temp = [NSMutableArray arrayWithArray:model.likeItemsArray];
-    
-    if (!model.isLiked) {
-        SDTimeLineCellLikeItemModel *likeModel = [SDTimeLineCellLikeItemModel new];
-        likeModel.userName = @"GSD_iOS";
-        likeModel.userId = @"gsdios";
-        [temp addObject:likeModel];
-        model.liked = YES;
-    } else {
-        SDTimeLineCellLikeItemModel *tempLikeModel = nil;
-        for (SDTimeLineCellLikeItemModel *likeModel in model.likeItemsArray) {
-            if ([likeModel.userId isEqualToString:@"gsdios"]) {
-                tempLikeModel = likeModel;
-                break;
-            }
-        }
-        [temp removeObject:tempLikeModel];
-        model.liked = NO;
-    }
-    model.likeItemsArray = [temp copy];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
-    });
+//    NSIndexPath *index = [self.tableView indexPathForCell:cell];
+//    SDTimeLineCellModel *model = self.dataArray[index.row];
+//    NSMutableArray *temp = [NSMutableArray arrayWithArray:model.likeItemsArray];
+//
+//    if (!model.isLiked) {
+//        SDTimeLineCellLikeItemModel *likeModel = [SDTimeLineCellLikeItemModel new];
+//        likeModel.userName = @"GSD_iOS";
+//        likeModel.userId = @"gsdios";
+//        [temp addObject:likeModel];
+//        model.liked = YES;
+//    } else {
+//        SDTimeLineCellLikeItemModel *tempLikeModel = nil;
+//        for (SDTimeLineCellLikeItemModel *likeModel in model.likeItemsArray) {
+//            if ([likeModel.userId isEqualToString:@"gsdios"]) {
+//                tempLikeModel = likeModel;
+//                break;
+//            }
+//        }
+//        [temp removeObject:tempLikeModel];
+//        model.liked = NO;
+//    }
+//    model.likeItemsArray = [temp copy];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+//    });
 }
 
 
@@ -474,26 +523,26 @@ static CGFloat textFieldH = 40;
     if (textField.text.length) {
         [_textField resignFirstResponder];
         
-        SDTimeLineCellModel *model = self.dataArray[_currentEditingIndexthPath.row];
+        SDTimeLineModel *model = self.dataArray[_currentEditingIndexthPath.row];
         NSMutableArray *temp = [NSMutableArray new];
-        [temp addObjectsFromArray:model.commentItemsArray];
+        [temp addObjectsFromArray:model.ContentECSubjectCommentModel];
         SDTimeLineCellCommentItemModel *commentItemModel = [SDTimeLineCellCommentItemModel new];
         
         if (self.isReplayingComment) {
-            commentItemModel.firstUserName = @"GSD_iOS";
-            commentItemModel.firstUserId = @"GSD_iOS";
-            commentItemModel.secondUserName = self.commentToUser;
-            commentItemModel.secondUserId = self.commentToUser;
-            commentItemModel.commentString = textField.text;
+            commentItemModel.UserName = @"GSD_iOS";
+            commentItemModel.UserId = @"GSD_iOS";
+//            commentItemModel.secondUserName = self.commentToUser;
+//            commentItemModel.secondUserId = self.commentToUser;
+            commentItemModel.Comment = textField.text;
             
             self.isReplayingComment = NO;
         } else {
-            commentItemModel.firstUserName = @"GSD_iOS";
-            commentItemModel.commentString = textField.text;
-            commentItemModel.firstUserId = @"GSD_iOS";
+            commentItemModel.UserName = @"GSD_iOS";
+            commentItemModel.Comment = textField.text;
+            commentItemModel.UserId = @"GSD_iOS";
         }
         [temp addObject:commentItemModel];
-        model.commentItemsArray = [temp copy];
+        model.ContentECSubjectCommentModel = [temp copy];
         [self.tableView reloadRowsAtIndexPaths:@[_currentEditingIndexthPath] withRowAnimation:UITableViewRowAnimationNone];
         
         _textField.text = @"";

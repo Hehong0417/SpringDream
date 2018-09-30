@@ -54,7 +54,7 @@
 }
 - (void)loadData{
     //
-    NSString  *url = [NSString stringWithFormat:@"%@/Home/Index?cid=1",API_HOST1];
+    NSString  *url = [NSString stringWithFormat:@"%@/Home/Index",API_HOST1];
     
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
     [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];

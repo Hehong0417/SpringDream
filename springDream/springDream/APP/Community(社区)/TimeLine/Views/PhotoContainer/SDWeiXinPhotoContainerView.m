@@ -32,6 +32,7 @@
 #import "UIView+SDAutoLayout.h"
 
 #import "SDPhotoBrowser.h"
+#import "SDTimeLineModel.h"
 
 @interface SDWeiXinPhotoContainerView () <SDPhotoBrowserDelegate>
 
@@ -93,17 +94,17 @@
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin = 5;
     
-    [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_picPathStringsArray enumerateObjectsUsingBlock:^(SDContentECSubjectPicModel * picMode, NSUInteger idx, BOOL * _Nonnull stop) {
         long columnIndex = idx % perRowItemCount;
         long rowIndex = idx / perRowItemCount;
         UIImageView *imageView = [weakSelf.imageViewsArray objectAtIndex:idx];
         [imageView lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.hidden = NO;
-        if ([obj hasPrefix:@"http"]) {
-            [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
+        if ([picMode.PicUrl hasPrefix:@"http"]) {
+            [imageView sd_setImageWithURL:[NSURL URLWithString:picMode.PicUrl] placeholderImage:nil];
         }else{
-            imageView.image = [UIImage imageNamed:obj];
+            imageView.image = [UIImage imageNamed:@"icon0"];
         }
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
@@ -159,8 +160,9 @@
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
-    NSString *imageName = self.picPathStringsArray[index];
-    NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
+    SDContentECSubjectPicModel * picMode = self.picPathStringsArray[index];
+    NSString *imageName = picMode.PicUrl;
+    NSURL *url = [NSURL URLWithString:imageName];
     return url;
 }
 

@@ -193,7 +193,6 @@ typedef   void (^completeHandle)();
                 if (oEvaluateItem.productEvaluate>0) {
                     HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];
                     evaluate_m.pictures = api.Path;
-                    
                     [oEvaluateItem write];
                     completeHandle();
                 }

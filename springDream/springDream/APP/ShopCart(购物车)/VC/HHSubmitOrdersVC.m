@@ -733,10 +733,15 @@
                 HHWXModel *model = [HHWXModel mj_objectWithKeyValues:api.Data];
                 [HHWXModel payReqWithModel:model];
             }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                if ([api.Msg isEqualToString:@"客户不存在"]) {
+                    
+                    [SVProgressHUD showInfoWithStatus:@"微信支付相关公众号正在申请中，请耐心等候！"];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
             }
         }else {
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
 }

@@ -45,11 +45,11 @@
     self.vc_arr = @[[HHMyWalletVC new],[HHCouponSuperVC new],[HHMyIntegralVC new],[HHMyCollectionVC new],[HHShippingAddressVC new],[HHInviteCodeVC new],[HHInviteCodeVC new],[HHSendIntegralVC new]];
     
     if (self.service_type == MyService_type_vipCenter) {
-        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@"service_03"];
-        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@"赠送积分"];
+        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@""];
+        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@""];
     }else if (self.service_type == MyService_type_distributionCenter) {
-        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@"service_03"];
-        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@"赠送积分"];
+        self.model_images = @[@"service_01",@"service_02",@"service_03",@"service_04",@"service_11",@"service_01",@"service_02",@""];
+        self.model_titles = @[@"我的钱包",@"我的优惠券",@"我的积分",@"我的收藏",@"地址管理",@"生成邀请码",@"输入邀请码",@""];
     }else if (self.service_type == MyService_type_storesManager) {
         
     }else if (self.service_type == MyService_type_delegateCenter) {

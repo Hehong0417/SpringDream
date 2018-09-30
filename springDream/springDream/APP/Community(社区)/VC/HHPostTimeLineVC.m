@@ -9,6 +9,9 @@
 #import "HHPostTimeLineVC.h"
 #import "TZImagePickerController.h"
 #import "CollectionViewCell.h"
+#import "SDPostTimeLinePicItem.h"
+#import "SDTimeLineAPI.h"
+#import "SDPostContentModel.h"
 
 typedef   void (^completeHandle)();
 
@@ -69,10 +72,33 @@ typedef   void (^completeHandle)();
     }
     return _assestArray;
 }
+//提交
 - (void)commit_buttonAction{
     
-    
-    
+    if (self.text_filed.text.length == 0) {
+        [SVProgressHUD showInfoWithStatus:@"请输入标题！"];
+    }else if(self.text_view.text.length == 0){
+        [SVProgressHUD showInfoWithStatus:@"请输入内容！"];
+    }else{
+        SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
+        
+        SDPostContentModel *contentModel = [SDPostContentModel new];
+        
+        contentModel.Title = self.text_filed.text;
+        
+        contentModel.SubjectContent = self.text_view.text;
+        
+        contentModel.ContentECSubjectPicModel = oEvaluateItem.ContentECSubjectPicModel;
+        
+        contentModel.UserId = @"0";
+ 
+      NSString *contentmodel =  [contentModel mj_JSONObject];
+
+        [[[SDTimeLineAPI  postComment_AddWithContentECSubjectModel:contentmodel] netWorkClient] postRequestInView:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+            
+            
+        }];
+    }
 }
 
 -(UICollectionView *)collectionView{
@@ -213,11 +239,16 @@ typedef   void (^completeHandle)();
         [hud hideAnimated:YES];
         if (!error) {
             if (api.State == 1) {
-                HHPostOrderEvaluateItem *oEvaluateItem = [HHPostOrderEvaluateItem sharedPostOrderEvaluateItem];
-                if (oEvaluateItem.productEvaluate>0) {
-                    HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];
-                    evaluate_m.pictures = api.Path;
-                    
+                SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
+                if (oEvaluateItem.ContentECSubjectPicModel>0) {
+                    NSMutableArray *ContentECSubjectPicModel_copy = [NSMutableArray array];
+                    [api.Data enumerateObjectsUsingBlock:^(NSString *pUrl, NSUInteger idx, BOOL * _Nonnull stop) {
+                        ContentECSubjectPicModel  *picModel = [ContentECSubjectPicModel new];
+                        picModel.PicUrl = pUrl;
+                        picModel.Priority = @"0";
+                        [ContentECSubjectPicModel_copy addObject:picModel];
+                    }];
+                    oEvaluateItem.ContentECSubjectPicModel = ContentECSubjectPicModel_copy;
                     [oEvaluateItem write];
                     completeHandle();
                 }
@@ -238,6 +269,9 @@ typedef   void (^completeHandle)();
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag-100 inSection:0];
         [_collectionView deleteItemsAtIndexPaths:@[indexPath]];
     } completion:^(BOOL finished) {
+        SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
+        [oEvaluateItem.ContentECSubjectPicModel removeObjectAtIndex:sender.tag-100];
+        [oEvaluateItem write];
         [_collectionView reloadData];
     }];
 }

@@ -29,10 +29,11 @@
 #import <UIKit/UIKit.h>
 
 #import "GlobalDefines.h"
+#import "SDTimeLineModel.h"
 
 @interface SDTimeLineCellCommentView : UIView
 
-- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray *)commentItemsArray;
+- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray <SDTimeLineCellCommentItemModel *>*)commentItemsArray;
 
 @property (nonatomic, copy) void (^didClickCommentLabelBlock)(NSString *commentId, CGRect rectInWindow);
 

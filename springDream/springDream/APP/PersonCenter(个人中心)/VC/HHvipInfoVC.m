@@ -55,7 +55,7 @@
 }
 - (NSArray *)groupTitles{
     
-    return @[@[@"头像",@"昵称",@"账号",@"会员等级",@"经理"]];
+    return @[@[@"头像",@"昵称",@"账号ID",@"会员等级",@"经理"]];
     
 }
 - (NSArray *)groupIcons {
@@ -65,7 +65,7 @@
 }
 - (NSArray *)groupDetials{
     
-    return @[@[@" ",self.mineModel.UserName?self.mineModel.UserName:@"",self.mineModel.CellPhone?self.mineModel.CellPhone:@"",self.userLevelName?self.userLevelName:@"",self.mineModel.UserName?self.mineModel.UserName:@""]];
+    return @[@[@" ",self.mineModel.UserName?self.mineModel.UserName:@"",self.mineModel.Id?self.mineModel.Id:@"",self.userLevelName?self.userLevelName:@"",@""]];
 
 }
 

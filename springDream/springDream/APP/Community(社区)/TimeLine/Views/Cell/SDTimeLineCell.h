@@ -36,13 +36,13 @@
 
 @end
 
-@class SDTimeLineCellModel;
+@class SDTimeLineModel;
 
 @interface SDTimeLineCell : UITableViewCell
 
 @property (nonatomic, weak) id<SDTimeLineCellDelegate> delegate;
 
-@property (nonatomic, strong) SDTimeLineCellModel *model;
+@property (nonatomic, strong) SDTimeLineModel *model;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 

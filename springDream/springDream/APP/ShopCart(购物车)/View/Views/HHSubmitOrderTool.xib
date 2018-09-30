@@ -31,10 +31,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6c-xn-ln4">
-                    <rect key="frame" x="115" y="12" width="96" height="25"/>
+                    <rect key="frame" x="76" y="12" width="136" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="eEh-Bv-gyR"/>
-                        <constraint firstAttribute="width" constant="96" id="qma-As-bke"/>
+                        <constraint firstAttribute="width" constant="136" id="qma-As-bke"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.67450980390000004" green="0.0039215686269999999" blue="0.066666666669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,7 +72,7 @@
                 <constraint firstAttribute="bottom" secondItem="gSd-XG-m5M" secondAttribute="bottom" constant="-1" id="hmY-uT-vk1"/>
                 <constraint firstItem="Rze-57-fM0" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="iOw-yu-yh0"/>
                 <constraint firstItem="gSd-XG-m5M" firstAttribute="top" secondItem="KbN-73-FN5" secondAttribute="bottom" id="jSs-9W-3K0"/>
-                <constraint firstItem="gSd-XG-m5M" firstAttribute="leading" secondItem="s6c-xn-ln4" secondAttribute="trailing" constant="9" id="pMG-dZ-2MT"/>
+                <constraint firstItem="gSd-XG-m5M" firstAttribute="leading" secondItem="s6c-xn-ln4" secondAttribute="trailing" constant="8" id="pMG-dZ-2MT"/>
                 <constraint firstItem="95h-00-x8h" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="pru-lf-niq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

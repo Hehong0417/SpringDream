@@ -29,7 +29,6 @@
 
 #import "SDTimeLineCell.h"
 
-#import "SDTimeLineCellModel.h"
 #import "UIView+SDAutoLayout.h"
 
 #import "SDTimeLineCellCommentView.h"
@@ -39,6 +38,8 @@
 #import "SDTimeLineCellOperationMenu.h"
 
 #import "SDTimeLineCellOperationView.h"
+
+#import "SDTimeLineModel.h"
 
 const CGFloat contentLabelFontSize = 13;
 CGFloat maxContentLabelHeight = 0; // 根据具体font而定
@@ -61,7 +62,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDTimeLineCellOperationMenu *_operationMenu;
     
     SDTimeLineCellOperationView *_peration_view;
-    
+    UIView *_line;
+
 }
 
 
@@ -149,9 +151,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
             [weakSelf.delegate didClickcCommentButtonInCell:weakSelf];
         }
     }];
+    _line = [UIView lh_viewWithFrame:CGRectZero backColor:KVCBackGroundColor];
     
-    
-    NSArray *views = @[_iconView, _nameLable, _timeLabel,_titleLabel, _contentLabel, _moreButton, _picContainerView, _peration_view, _commentView];
+    NSArray *views = @[_iconView, _nameLable, _timeLabel,_titleLabel, _contentLabel, _moreButton, _picContainerView, _peration_view, _commentView,_line];
     
     [self.contentView sd_addSubviews:views];
     
@@ -218,6 +220,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .rightSpaceToView(self.contentView, margin)
     .topSpaceToView(_peration_view, 5); // 已经在内部实现高度自适应所以不需要再设置高度
     
+    _line.sd_layout
+    .leftSpaceToView(self.contentView, 0)
+    .rightSpaceToView(self.contentView, 0)
+    .topSpaceToView(_commentView, 8)
+    .heightIs(1);
+    
 //    _operationMenu.sd_layout
 //    .rightSpaceToView(_operationButton, 0)
 //    .heightIs(36)
@@ -230,16 +238,18 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setModel:(SDTimeLineCellModel *)model
+- (void)setModel:(SDTimeLineModel *)model
 {
+    
     _model = model;
     
-    [_commentView setupWithLikeItemsArray:model.likeItemsArray commentItemsArray:model.commentItemsArray];
+    [_commentView setupWithLikeItemsArray:@[] commentItemsArray:model.ContentECSubjectCommentModel];
     
-    _iconView.image = [UIImage imageNamed:model.iconName];
-    _nameLable.text = model.name;
-    _contentLabel.text = model.msgContent;
-    _picContainerView.picPathStringsArray = model.picNamesArray;
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.UserName]];
+    [_iconView lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
+    _nameLable.text = model.UserName;
+    _contentLabel.text = model.SubjectContent;
+    _picContainerView.picPathStringsArray = model.ContentECSubjectPicModel;
     
     
     if (model.shouldShowMoreButton) { // 如果文字高度超过60
@@ -262,23 +272,23 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }
     
     CGFloat picContainerTopMargin = 0;
-    if (model.picNamesArray.count) {
+    if (model.ContentECSubjectPicModel.count) {
         picContainerTopMargin = 10;
     }
     _picContainerView.sd_layout.topSpaceToView(_moreButton, picContainerTopMargin);
     
     UIView *bottomView;
 //    && !model.likeItemsArray.count
-    if (!model.commentItemsArray.count) {
+    if (!model.ContentECSubjectCommentModel.count) {
         bottomView = _peration_view;
     } else {
         bottomView = _commentView;
     }
-    
+
     [self setupAutoHeightWithBottomView:bottomView bottomMargin:15];
     
-    _timeLabel.text = @"1分钟前";
-    _titleLabel.text = @"亲测6种网红口红，有3种颜色好好看，安利给你们～";
+    _timeLabel.text = model.UploadDateTime;
+    _titleLabel.text = model.Title;
 }
 
 - (void)setFrame:(CGRect)frame
