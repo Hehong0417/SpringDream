@@ -35,8 +35,6 @@
 
 #import "SDWeiXinPhotoContainerView.h"
 
-#import "SDTimeLineCellOperationMenu.h"
-
 #import "SDTimeLineCellOperationView.h"
 
 #import "SDTimeLineModel.h"
@@ -59,14 +57,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     UIButton *_moreButton;
     UIButton *_operationButton;
     SDTimeLineCellCommentView *_commentView;
-    SDTimeLineCellOperationMenu *_operationMenu;
     
     SDTimeLineCellOperationView *_peration_view;
     UIView *_line;
 
 }
-
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -81,10 +76,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 - (void)setup
 {
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveOperationButtonClickedNotification:) name:kSDTimeLineCellOperationButtonClickedNotification object:nil];
-    
     _iconView = [UIImageView new];
-    
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont boldSystemFontOfSize:14];
     _nameLable.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
@@ -112,12 +104,10 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, -40)];
     
     [_moreButton setTitleColor:[UIColor colorWithRed:251/255.0 green:75/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
-    [_moreButton addTarget:self action:@selector(moreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     _moreButton.titleLabel.font = [UIFont systemFontOfSize:11];
     
     _operationButton = [UIButton new];
     [_operationButton setImage:[UIImage imageNamed:@"AlbumOperateMore"] forState:UIControlStateNormal];
-    [_operationButton addTarget:self action:@selector(operationButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
     _picContainerView = [SDWeiXinPhotoContainerView new];
     
@@ -139,21 +129,15 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         }
         
     }];
+    [_peration_view setPriseButtonClickedOperation_new:^(UIButton *button) {
+        if ([weakSelf.delegate respondsToSelector:@selector(didClickLikeButtonInCell:likeButton:)]) {
+            [weakSelf.delegate didClickLikeButtonInCell:weakSelf likeButton:button];
+        }
+    }];
     
-    _operationMenu = [SDTimeLineCellOperationMenu new];
-    [_operationMenu setLikeButtonClickedOperation:^{
-        if ([weakSelf.delegate respondsToSelector:@selector(didClickLikeButtonInCell:)]) {
-            [weakSelf.delegate didClickLikeButtonInCell:weakSelf];
-        }
-    }];
-    [_operationMenu setCommentButtonClickedOperation:^{
-        if ([weakSelf.delegate respondsToSelector:@selector(didClickcCommentButtonInCell:)]) {
-            [weakSelf.delegate didClickcCommentButtonInCell:weakSelf];
-        }
-    }];
     _line = [UIView lh_viewWithFrame:CGRectZero backColor:KVCBackGroundColor];
     
-    NSArray *views = @[_iconView, _nameLable, _timeLabel,_titleLabel, _contentLabel, _moreButton, _picContainerView, _peration_view, _commentView,_line];
+    NSArray *views = @[_iconView, _nameLable, _timeLabel,_titleLabel, _contentLabel, _moreButton, _picContainerView, _peration_view, _commentView];
     
     [self.contentView sd_addSubviews:views];
     
@@ -209,11 +193,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .heightIs(45)
     .widthIs(ScreenW/2);
     
-//    _operationButton.sd_layout
-//    .rightSpaceToView(contentView, margin)
-//    .topSpaceToView(_picContainerView, margin)
-//    .heightIs(25)
-//    .widthIs(25);
     
     _commentView.sd_layout
     .leftEqualToView(_contentLabel)
@@ -226,11 +205,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .topSpaceToView(_commentView, 8)
     .heightIs(1);
     
-//    _operationMenu.sd_layout
-//    .rightSpaceToView(_operationButton, 0)
-//    .heightIs(36)
-//    .centerYEqualToView(_operationButton)
-//    .widthIs(0);
 }
 
 - (void)dealloc
@@ -245,12 +219,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_commentView setupWithLikeItemsArray:@[] commentItemsArray:model.ContentECSubjectCommentModel];
     
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.UserName]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.UserName] placeholderImage:[UIImage imageWithColor:KVCBackGroundColor]];
     [_iconView lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
     _nameLable.text = model.UserName;
     _contentLabel.text = model.SubjectContent;
     _picContainerView.picPathStringsArray = model.ContentECSubjectPicModel;
-    
+    _peration_view.model = model;
     
     if (model.shouldShowMoreButton) { // 如果文字高度超过60
         _moreButton.sd_layout.heightIs(20);
@@ -278,7 +252,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _picContainerView.sd_layout.topSpaceToView(_moreButton, picContainerTopMargin);
     
     UIView *bottomView;
-//    && !model.likeItemsArray.count
     if (!model.ContentECSubjectCommentModel.count) {
         bottomView = _peration_view;
     } else {
@@ -289,53 +262,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _timeLabel.text = model.UploadDateTime;
     _titleLabel.text = model.Title;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    if (_operationMenu.isShowing) {
-        _operationMenu.show = NO;
-    }
-}
-
-#pragma mark - private actions
-
-- (void)moreButtonClicked
-{
-    if (self.moreButtonClickedBlock) {
-        self.moreButtonClickedBlock(self.indexPath);
-    }
-}
-
-- (void)operationButtonClicked
-{
-    [self postOperationButtonClickedNotification];
-    _operationMenu.show = !_operationMenu.isShowing;
-}
-
-- (void)receiveOperationButtonClickedNotification:(NSNotification *)notification
-{
-    UIButton *btn = [notification object];
     
-    if (btn != _operationButton && _operationMenu.isShowing) {
-        _operationMenu.show = NO;
-    }
 }
-
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-    [self postOperationButtonClickedNotification];
-    if (_operationMenu.isShowing) {
-        _operationMenu.show = NO;
-    }
-}
-
-- (void)postOperationButtonClickedNotification
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSDTimeLineCellOperationButtonClickedNotification object:_operationButton];
+- (void)setIsPraise:(BOOL)isPraise{
+    _isPraise = isPraise;
+    _peration_view.isPraise = isPraise;
 }
 
 @end

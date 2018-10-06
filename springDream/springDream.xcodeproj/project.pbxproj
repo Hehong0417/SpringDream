@@ -62,7 +62,6 @@
 		CE472646212D3180002BD2A5 /* DCConsts.m in Sources */ = {isa = PBXBuildFile; fileRef = CE472644212D317F002BD2A5 /* DCConsts.m */; };
 		CE472649212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE472648212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m */; };
 		CE4D08C22124205600796FEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4D08C12124205600796FEE /* AppDelegate.m */; };
-		CE4D08C82124205600796FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D08C62124205600796FEE /* Main.storyboard */; };
 		CE4D08CA2124205800796FEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4D08C92124205800796FEE /* Assets.xcassets */; };
 		CE4D08CD2124205800796FEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D08CB2124205800796FEE /* LaunchScreen.storyboard */; };
 		CE4D08D02124205800796FEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4D08CF2124205800796FEE /* main.m */; };
@@ -168,7 +167,6 @@
 		CE4D0A742124376500796FEE /* HHHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4D0A702124376500796FEE /* HHHomeVC.m */; };
 		CE4FFD8F2148EC7200767DF1 /* SDTimeLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD722148EC7200767DF1 /* SDTimeLineTableViewController.m */; };
 		CE4FFD912148EC7200767DF1 /* SDTimeLineCellOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD782148EC7200767DF1 /* SDTimeLineCellOperationView.m */; };
-		CE4FFD922148EC7200767DF1 /* SDTimeLineCellOperationMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD7C2148EC7200767DF1 /* SDTimeLineCellOperationMenu.m */; };
 		CE4FFD932148EC7200767DF1 /* SDTimeLineCellCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD7F2148EC7200767DF1 /* SDTimeLineCellCommentView.m */; };
 		CE4FFD942148EC7200767DF1 /* SDTimeLineRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD812148EC7200767DF1 /* SDTimeLineRefreshFooter.m */; };
 		CE4FFD952148EC7200767DF1 /* SDTimeLineTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4FFD842148EC7200767DF1 /* SDTimeLineTableHeaderView.m */; };
@@ -239,6 +237,9 @@
 		CE4FFE342148F4E800767DF1 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE4FFE172148F4E800767DF1 /* 3.jpg */; };
 		CE4FFE352148F4E800767DF1 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE4FFE182148F4E800767DF1 /* 1.jpg */; };
 		CE4FFE362148F4E800767DF1 /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE4FFE192148F4E800767DF1 /* 0.jpg */; };
+		CE501E65216887EA002EFBFC /* HHWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE501E64216887EA002EFBFC /* HHWebVC.m */; };
+		CE501E6B2168AD1E002EFBFC /* HHMyActivityWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE501E692168AD1E002EFBFC /* HHMyActivityWebVC.m */; };
+		CE501E6C2168AD1E002EFBFC /* HHMySaleGroupWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE501E6A2168AD1E002EFBFC /* HHMySaleGroupWebVC.m */; };
 		CE526416212BB90600F30D29 /* HHnormalSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE526413212BB90500F30D29 /* HHnormalSuccessVC.m */; };
 		CE526417212BB90600F30D29 /* HHnormalSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE526415212BB90600F30D29 /* HHnormalSuccessVC.xib */; };
 		CE52641C212BBD5B00F30D29 /* HHPayTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE526418212BBD5900F30D29 /* HHPayTypeVC.m */; };
@@ -562,7 +563,6 @@
 		CE4D08BD2124205600796FEE /* springDream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = springDream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4D08C02124205600796FEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE4D08C12124205600796FEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CE4D08C72124205600796FEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4D08C92124205800796FEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE4D08CC2124205800796FEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE4D08CE2124205800796FEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -779,8 +779,6 @@
 		CE4FFD722148EC7200767DF1 /* SDTimeLineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineTableViewController.m; sourceTree = "<group>"; };
 		CE4FFD782148EC7200767DF1 /* SDTimeLineCellOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineCellOperationView.m; sourceTree = "<group>"; };
 		CE4FFD792148EC7200767DF1 /* SDTimeLineCellOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTimeLineCellOperationView.h; sourceTree = "<group>"; };
-		CE4FFD7B2148EC7200767DF1 /* SDTimeLineCellOperationMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTimeLineCellOperationMenu.h; sourceTree = "<group>"; };
-		CE4FFD7C2148EC7200767DF1 /* SDTimeLineCellOperationMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineCellOperationMenu.m; sourceTree = "<group>"; };
 		CE4FFD7E2148EC7200767DF1 /* SDTimeLineCellCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTimeLineCellCommentView.h; sourceTree = "<group>"; };
 		CE4FFD7F2148EC7200767DF1 /* SDTimeLineCellCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineCellCommentView.m; sourceTree = "<group>"; };
 		CE4FFD812148EC7200767DF1 /* SDTimeLineRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineRefreshFooter.m; sourceTree = "<group>"; };
@@ -876,6 +874,12 @@
 		CE4FFE172148F4E800767DF1 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		CE4FFE182148F4E800767DF1 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		CE4FFE192148F4E800767DF1 /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpg; sourceTree = "<group>"; };
+		CE501E63216887EA002EFBFC /* HHWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHWebVC.h; sourceTree = "<group>"; };
+		CE501E64216887EA002EFBFC /* HHWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHWebVC.m; sourceTree = "<group>"; };
+		CE501E672168AD1E002EFBFC /* HHMyActivityWebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMyActivityWebVC.h; sourceTree = "<group>"; };
+		CE501E682168AD1E002EFBFC /* HHMySaleGroupWebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMySaleGroupWebVC.h; sourceTree = "<group>"; };
+		CE501E692168AD1E002EFBFC /* HHMyActivityWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHMyActivityWebVC.m; sourceTree = "<group>"; };
+		CE501E6A2168AD1E002EFBFC /* HHMySaleGroupWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHMySaleGroupWebVC.m; sourceTree = "<group>"; };
 		CE526413212BB90500F30D29 /* HHnormalSuccessVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHnormalSuccessVC.m; sourceTree = "<group>"; };
 		CE526414212BB90500F30D29 /* HHnormalSuccessVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHnormalSuccessVC.h; sourceTree = "<group>"; };
 		CE526415212BB90600F30D29 /* HHnormalSuccessVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HHnormalSuccessVC.xib; sourceTree = "<group>"; };
@@ -1418,7 +1422,6 @@
 				CE4D08C12124205600796FEE /* AppDelegate.m */,
 				CE4725D2212D141E002BD2A5 /* PersonCenter.storyboard */,
 				CE21845521251B44003F354F /* springDream.pch */,
-				CE4D08C62124205600796FEE /* Main.storyboard */,
 				CE4FFDFC2148F4E800767DF1 /* cell_icons */,
 				CE4FFDDA2148F49900767DF1 /* test */,
 				CE4FFDE02148F49900767DF1 /* TimeLineImages */,
@@ -1971,6 +1974,7 @@
 				CE4D0A622124376500796FEE /* Community(社区) */,
 				CE4D0A672124376500796FEE /* ShopCart(购物车) */,
 				CE4D0A5D2124376500796FEE /* PersonCenter(个人中心) */,
+				CE501E662168AD1E002EFBFC /* Activitys(活动) */,
 			);
 			path = APP;
 			sourceTree = "<group>";
@@ -2094,12 +2098,8 @@
 			children = (
 				CE8A6696212ABAA800C7C57F /* HHShoppingVC.h */,
 				CE8A66A4212ABAB000C7C57F /* HHShoppingVC.m */,
-				CE8A6698212ABAA900C7C57F /* HHActivityWebVC.h */,
-				CE8A66A3212ABAB000C7C57F /* HHActivityWebVC.m */,
 				CE8A6688212ABAA000C7C57F /* HHAddAdressVC.h */,
 				CE8A66A0212ABAAE00C7C57F /* HHAddAdressVC.m */,
-				CE8A6693212ABAA600C7C57F /* HHBargainingWebVC.h */,
-				CE8A668C212ABAA200C7C57F /* HHBargainingWebVC.m */,
 				CE8A6694212ABAA700C7C57F /* HHFamiliarityPayVC.h */,
 				CE8A6686212ABA9F00C7C57F /* HHFamiliarityPayVC.m */,
 				CE526414212BB90500F30D29 /* HHnormalSuccessVC.h */,
@@ -2152,6 +2152,8 @@
 			children = (
 				CE4D0A6F2124376500796FEE /* HHHomeVC.h */,
 				CE4D0A702124376500796FEE /* HHHomeVC.m */,
+				CE501E63216887EA002EFBFC /* HHWebVC.h */,
+				CE501E64216887EA002EFBFC /* HHWebVC.m */,
 				CE8A64F7212AAA5400C7C57F /* HHGoodListVC.h */,
 				CE8A64F8212AAA5400C7C57F /* HHGoodListVC.m */,
 				CE8A64FC212AAB6B00C7C57F /* HXHomeCollectionCell.h */,
@@ -2232,7 +2234,6 @@
 			isa = PBXGroup;
 			children = (
 				CE4FFD772148EC7200767DF1 /* SDTimeLineCellOperationView */,
-				CE4FFD7A2148EC7200767DF1 /* OperationMenu */,
 				CE4FFD7D2148EC7200767DF1 /* CommentView */,
 				CE4FFD802148EC7200767DF1 /* TimeLineRefreshFooter */,
 				CE4FFD832148EC7200767DF1 /* HeaderView */,
@@ -2250,15 +2251,6 @@
 				CE4FFD792148EC7200767DF1 /* SDTimeLineCellOperationView.h */,
 			);
 			path = SDTimeLineCellOperationView;
-			sourceTree = "<group>";
-		};
-		CE4FFD7A2148EC7200767DF1 /* OperationMenu */ = {
-			isa = PBXGroup;
-			children = (
-				CE4FFD7B2148EC7200767DF1 /* SDTimeLineCellOperationMenu.h */,
-				CE4FFD7C2148EC7200767DF1 /* SDTimeLineCellOperationMenu.m */,
-			);
-			path = OperationMenu;
 			sourceTree = "<group>";
 		};
 		CE4FFD7D2148EC7200767DF1 /* CommentView */ = {
@@ -2467,6 +2459,21 @@
 				CE4FFE192148F4E800767DF1 /* 0.jpg */,
 			);
 			path = cell_icons;
+			sourceTree = "<group>";
+		};
+		CE501E662168AD1E002EFBFC /* Activitys(活动) */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A6698212ABAA900C7C57F /* HHActivityWebVC.h */,
+				CE8A66A3212ABAB000C7C57F /* HHActivityWebVC.m */,
+				CE8A6693212ABAA600C7C57F /* HHBargainingWebVC.h */,
+				CE8A668C212ABAA200C7C57F /* HHBargainingWebVC.m */,
+				CE501E672168AD1E002EFBFC /* HHMyActivityWebVC.h */,
+				CE501E692168AD1E002EFBFC /* HHMyActivityWebVC.m */,
+				CE501E682168AD1E002EFBFC /* HHMySaleGroupWebVC.h */,
+				CE501E6A2168AD1E002EFBFC /* HHMySaleGroupWebVC.m */,
+			);
+			path = "Activitys(活动)";
 			sourceTree = "<group>";
 		};
 		CE526482212BBFE600F30D29 /* XWTransition */ = {
@@ -3190,7 +3197,6 @@
 				CE4FFE322148F4E800767DF1 /* 6.jpg in Resources */,
 				CE4FFDF02148F49A00767DF1 /* test2.jpg in Resources */,
 				CE8A67CE212ACA2E00C7C57F /* photo_delete@2x.png in Resources */,
-				CE4D08C82124205600796FEE /* Main.storyboard in Resources */,
 				CE9065C821563B5C00A13992 /* HHMyWalletHead.xib in Resources */,
 				CE4FFDF62148F49A00767DF1 /* pbg.jpg in Resources */,
 				CE90EAC82159EF4F00F62B8A /* HHMystoreCell.xib in Resources */,
@@ -3475,6 +3481,7 @@
 				CE4725B1212D0141002BD2A5 /* HHselecetModel.m in Sources */,
 				CE4D0A1C212423F200796FEE /* HJNavigationController.m in Sources */,
 				CE4D0A00212423F200796FEE /* CAShapeLayer+LH.m in Sources */,
+				CE501E6B2168AD1E002EFBFC /* HHMyActivityWebVC.m in Sources */,
 				CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */,
 				CE4D09E9212423F200796FEE /* UITextField+LH.m in Sources */,
 				CE4D09F3212423F200796FEE /* NSMutableAttributedString+NSRangeException.m in Sources */,
@@ -3530,6 +3537,7 @@
 				CE4D0A15212423F200796FEE /* SGPageContentScrollView.m in Sources */,
 				CE8A66B0212ABAB100C7C57F /* HHPaySucessVC.m in Sources */,
 				CE8A66B9212ABAB100C7C57F /* HHSubmitOrderTool.m in Sources */,
+				CE501E6C2168AD1E002EFBFC /* HHMySaleGroupWebVC.m in Sources */,
 				CE32EC47213F90FE0088C652 /* HHGoodDetailItem.m in Sources */,
 				CE4D0A01212423F200796FEE /* CATransition+LH.m in Sources */,
 				CE8A64F9212AAA5400C7C57F /* HHGoodListVC.m in Sources */,
@@ -3617,6 +3625,7 @@
 				CE90EACB215A0E4300F62B8A /* HHStoreOrderVC.m in Sources */,
 				CE5E6F572160BE0700FE875D /* SDPostTimeLinePicItem.m in Sources */,
 				CE8A67D8212ACA2E00C7C57F /* HHPostEvaluateSectionHead.m in Sources */,
+				CE501E65216887EA002EFBFC /* HHWebVC.m in Sources */,
 				CE9065C52156267F00A13992 /* HHMywalletCell.m in Sources */,
 				CE5E6F542160873900FE875D /* SDTimeLineModel.m in Sources */,
 				CE4D0A12212423F200796FEE /* XYQButton.m in Sources */,
@@ -3638,7 +3647,6 @@
 				CED55DCA2133F57F004C2E68 /* HHAddressFooterView.m in Sources */,
 				CE4FFD952148EC7200767DF1 /* SDTimeLineTableHeaderView.m in Sources */,
 				CE4D0A34212423F200796FEE /* HJUser.m in Sources */,
-				CE4FFD922148EC7200767DF1 /* SDTimeLineCellOperationMenu.m in Sources */,
 				CEA09E2D2153C0F300DDB2A0 /* LXTagsView.m in Sources */,
 				CE8A6549212AAC6800C7C57F /* HHCartAPI.m in Sources */,
 				CE472639212D1ECE002BD2A5 /* DCLIRLButton.m in Sources */,
@@ -3709,14 +3717,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CE4D08C62124205600796FEE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE4D08C72124205600796FEE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CE4D08CB2124205800796FEE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3859,8 +3859,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "70ef317e-5822-4ca0-ad95-5a9f4e44ac7b";
-				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDevPP;
+				PROVISIONING_PROFILE = "95a84302-cbc7-4411-8237-c5d319cf7784";
+				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDev_PP;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3870,9 +3870,9 @@
 			baseConfigurationReference = 696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3886,8 +3886,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "8773da6c-537e-495b-ab05-e92170501dee";
+				PROVISIONING_PROFILE_SPECIFIER = moonCherryDisPP_AHC;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

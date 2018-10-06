@@ -113,7 +113,7 @@
             cell.textLabel.textColor = kDarkGrayColor;
             cell.detailTextLabel.font = FONT(13);
             HJUser *user = [HJUser sharedUser];
-            cell.detailTextLabel.text = user.usableComm;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@元",user.usableComm];
             cell.detailTextLabel.textColor = APP_COMMON_COLOR;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

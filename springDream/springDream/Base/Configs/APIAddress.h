@@ -269,6 +269,8 @@
 #define API_GetBonus API_SUB_URL(@"Agent/GetBonus")
 //4.22获得团队下级的会员
 #define API_GetSubUsers API_SUB_URL(@"Agent/GetSubUsers")
+//4.22获得代理订单
+#define API_GetAgentOrders API_SUB_URL2(@"Order/GetAgentOrders")
 //4.23获得团队下级的代理
 #define API_GetSubAgents API_SUB_URL(@"Agent/GetSubAgents")
 //4.24 门店收益

@@ -102,9 +102,9 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.hidden = NO;
         if ([picMode.PicUrl hasPrefix:@"http"]) {
-            [imageView sd_setImageWithURL:[NSURL URLWithString:picMode.PicUrl] placeholderImage:nil];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:picMode.PicUrl] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
         }else{
-            imageView.image = [UIImage imageNamed:@"icon0"];
+            imageView.image = [UIImage imageNamed:KPlaceImageName];
         }
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];

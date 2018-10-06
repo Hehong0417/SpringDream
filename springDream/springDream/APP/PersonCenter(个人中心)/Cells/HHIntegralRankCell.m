@@ -20,7 +20,7 @@
     
     _integral_model = integral_model;
     self.userName.text = integral_model.UserName;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:integral_model.UserImage]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:integral_model.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.integral_label.text = [NSString stringWithFormat:@"%.2f",integral_model.Ponits.floatValue];
     
 }

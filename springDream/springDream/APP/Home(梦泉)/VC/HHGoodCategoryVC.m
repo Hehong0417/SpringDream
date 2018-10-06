@@ -58,7 +58,19 @@
     [self setupSearchView];
     //获取数据
     [self addHeadRefresh];
+    NSString *back_navName = @"";
+    if (self.enter_Type == 1) {
+     back_navName = @"icon_return_default";
+    }
+    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 30, 45) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:back_navName]];
+    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 0)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+}
+- (void)backBtnAction{
     
+    if (self.enter_Type == 1) {
+    [self.navigationController popVC];
+    }
 }
 - (NSMutableArray *)datas{
     if (!_datas) {

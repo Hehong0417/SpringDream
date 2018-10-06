@@ -28,7 +28,7 @@
     _imagV = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_imagV];
     
-    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"icon-share"]];
+    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"share_white"]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 }
 
@@ -40,7 +40,7 @@
 
         if (!error) {
             if (api.State == 1) {
-                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data]];
+                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 webpageUrl = api.Data;
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];

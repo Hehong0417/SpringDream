@@ -168,7 +168,7 @@
 #pragma mark - NetWork
 - (void)getDatasWithIndex:(NSNumber *)index{
     
-    [[[HHMineAPI GetOrderListWithstatus:index page:@(self.page)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetAgentOrdersWithPage:@(self.page) pageSize:@10] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         self.isLoading = YES;
 
         if (self.isHeaderRefresh ==YES) {
@@ -180,7 +180,6 @@
                 self.isWlan = YES;
                 [self.items_arr  removeAllObjects];
                 [self loadDataFinish:api.Data];
-
             }else{
                 self.isWlan = YES;
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -413,16 +412,16 @@
 //}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[indexPath.section]];
-    
-    if (indexPath.row == model.items.count){
-        //订单总计
-    }else{
-        //商品
-        HHOrderDetailVC *vc = [HHOrderDetailVC new];
-        vc.orderid = model.order_id;
-        [self.navigationController pushVC:vc];
-    }
+//    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+//
+//    if (indexPath.row == model.items.count){
+//        //订单总计
+//    }else{
+//        //商品
+//        HHOrderDetailVC *vc = [HHOrderDetailVC new];
+//        vc.orderid = model.order_id;
+//        [self.navigationController pushVC:vc];
+//    }
 }
 //设置按钮隐藏或显示
 - (void)setOneBtn:(UIButton *)oneBtn WithOneBtnState:(BOOL)oneBtnSate twoBtn:(UIButton *)twoBtn twoBtnState:(BOOL)twoBtnState{

@@ -415,16 +415,16 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[indexPath.section]];
-    
-    if (indexPath.row == model.items.count){
-        //订单总计
-    }else{
-        //商品
-        HHOrderDetailVC *vc = [HHOrderDetailVC new];
-        vc.orderid = model.order_id;
-        [self.navigationController pushVC:vc];
-    }
+//    HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[indexPath.section]];
+//
+//    if (indexPath.row == model.items.count){
+//        //订单总计
+//    }else{
+//        //商品
+//        HHOrderDetailVC *vc = [HHOrderDetailVC new];
+//        vc.orderid = model.order_id;
+//        [self.navigationController pushVC:vc];
+//    }
 }
 //设置按钮隐藏或显示
 - (void)setOneBtn:(UIButton *)oneBtn WithOneBtnState:(BOOL)oneBtnSate twoBtn:(UIButton *)twoBtn twoBtnState:(BOOL)twoBtnState{

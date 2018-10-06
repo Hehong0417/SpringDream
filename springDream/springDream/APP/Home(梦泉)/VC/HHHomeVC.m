@@ -11,6 +11,8 @@
 #import "HHGoodDetailVC.h"
 #import "HHUrlModel.h"
 #import "HHGoodListVC.h"
+#import "HHGoodCategoryVC.h"
+#import "HHWebVC.h"
 
 @interface HHHomeVC ()<WKUIDelegate,WKNavigationDelegate>
 {
@@ -105,16 +107,20 @@
     if ([responseUrl containsString:@"ProductDetail"]) {
         HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
         HHGoodDetailVC *vc = [HHGoodDetailVC new];
+        vc.goodDetail_backBlock = ^{
+            
+        };
         vc.Id = model.Id;
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 
     }else if ([responseUrl containsString:@"Search"]) {
-        HHGoodListVC *vc = [HHGoodListVC new];
-        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
-        vc.enter_Type = HHenter_itself_Type;
-        NSString *string3 = [model.Name stringByRemovingPercentEncoding];
-        vc.name = string3;
+        HHGoodCategoryVC *vc = [HHGoodCategoryVC new];
+//        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
+//        vc.enter_Type = HHenter_itself_Type;
+//        NSString *string3 = [model.Name stringByRemovingPercentEncoding];
+//        vc.name = string3;
+        vc.enter_Type = 1;
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 
@@ -122,6 +128,38 @@
         //当前页
         decisionHandler(WKNavigationResponsePolicyAllow);
 
+    }else if ([responseUrl containsString:@"Personal/MallDiscountCoupon"]) {
+        //优惠券
+        HHWebVC *vc = [HHWebVC new];
+        vc.title_str = @"优惠券";
+        vc.url_str = responseUrl;
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
+    }else if ([responseUrl containsString:@"Personal/CollageGoods"]) {
+        //拼团
+        HHWebVC *vc = [HHWebVC new];
+        vc.title_str = @"拼团";
+        vc.url_str = responseUrl;
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
+    }else if ([responseUrl containsString:@"Personal/LowerPriceGroup"]) {
+        //降价团
+        HHWebVC *vc = [HHWebVC new];
+        vc.title_str = @"降价团";
+        vc.url_str = responseUrl;
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
+    }else if ([responseUrl containsString:@"Personal/Seckill"]) {
+        //秒杀
+        HHWebVC *vc = [HHWebVC new];
+        vc.title_str = @"秒杀";
+        vc.url_str = responseUrl;
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
     }else{
         decisionHandler(WKNavigationResponsePolicyCancel);
     }

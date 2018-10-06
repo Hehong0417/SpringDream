@@ -27,7 +27,7 @@
     
     _item_model = item_model;
     
-    [self.icn_url_imgV sd_setImageWithURL:[NSURL URLWithString:item_model.icon]];
+    [self.icn_url_imgV sd_setImageWithURL:[NSURL URLWithString:item_model.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.product_name_label.text = item_model.prodcut_name;
     self.sku_label.text = item_model.product_item_sku_name;
     self.price_label.text = [NSString stringWithFormat:@"¥%.2f",item_model.product_item_price.floatValue];

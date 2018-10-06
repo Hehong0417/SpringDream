@@ -30,7 +30,7 @@
 
 @protocol SDTimeLineCellDelegate <NSObject>
 
-- (void)didClickLikeButtonInCell:(UITableViewCell *)cell;
+- (void)didClickLikeButtonInCell:(UITableViewCell *)cell likeButton:(UIButton *)likeButton;
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
 - (void)didClickcShareButtonInCell:(UITableViewCell *)cell;
 
@@ -49,5 +49,8 @@
 @property (nonatomic, copy) void (^moreButtonClickedBlock)(NSIndexPath *indexPath);
 
 @property (nonatomic, copy) void (^didClickCommentLabelBlock)(NSString *commentId, CGRect rectInWindow, NSIndexPath *indexPath);
+
+@property (nonatomic, assign) BOOL isPraise;
+
 
 @end

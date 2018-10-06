@@ -152,7 +152,7 @@ const CGFloat contentLabelFontSize1 = 15;
 }
 - (void)setModel:(HHEvaluationListModel *)model{
     _model = model;
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.userImage]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.userImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     _nameLable.text = model.userName;
     _timeLabel.text = model.createDate;
     _propertyLabel.text = model.skuName;

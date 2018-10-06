@@ -20,6 +20,8 @@
 #import "HHMyServiceVC.h"
 #import "HHMyCodeVC.h"
 #import "HHSendIntegralVC.h"
+#import "HHMyActivityWebVC.h"
+#import "HHMySaleGroupWebVC.h"
 
 @interface HHPersonCenterSub1 ()<HHDistributeServiceCell_one_delagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
@@ -139,7 +141,7 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
             cell.textLabel.text = @"我的服务";
             cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else if (indexPath.row == 1) {
@@ -153,8 +155,8 @@
             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate= self;
-            cell.btn_image_arr = @[@"service_10",@"",@"",@""];
-            cell.btn_title_arr = @[@"分享邀请码",@"",@"",@""];
+            cell.btn_image_arr = @[@"sub1_service11",@"sub1_service12",@"service_10",@""];
+            cell.btn_title_arr = @[@"拼团活动",@"降价团活动",@"分享邀请码",@""];
             grideCell = cell;
         }
     }
@@ -238,7 +240,18 @@
         }
     }
     if (indexPath.row == 2) {
-           if (buttonIndex == 0){
+        if(buttonIndex == 0){
+            //拼团
+            HHMyActivityWebVC *vc = [HHMyActivityWebVC new];
+            [self.navigationController pushVC:vc];
+        }
+        
+        if(buttonIndex == 1){
+            //降价团
+            HHMySaleGroupWebVC *vc = [HHMySaleGroupWebVC new];
+            [self.navigationController pushVC:vc];
+        }
+           if (buttonIndex == 2){
             //分享邀请码
             HHMyCodeVC *vc = [HHMyCodeVC new];
             [self.navigationController pushVC:vc];

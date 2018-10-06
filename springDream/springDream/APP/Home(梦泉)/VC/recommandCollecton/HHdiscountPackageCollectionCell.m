@@ -153,7 +153,7 @@
 
         [self.PackagesProducts_models enumerateObjectsUsingBlock:^(HHPackagesProductsModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake((1-idx)*h_padding+idx*(w+add_w+h_padding), 0,w, w) image:nil];
-            [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+            [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
             [self.imag_bgView addSubview:imgV];
             imgV.centerY = self.imag_bgView.centerY;
         }];
@@ -170,13 +170,13 @@
         [self.PackagesProducts_models enumerateObjectsUsingBlock:^(HHPackagesProductsModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (idx == 0) {
                 UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(h_padding, v_padding,w, w) image:nil];
-                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 [self.imag_bgView addSubview:imgV];
                 imgV.centerX = self.imag_bgView.centerX;
             }else{
             NSInteger index = idx-1;
             UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(index*(w+add_w+h_padding)+(1-index)*h_padding,w+v_padding+add_w,w, w) image:nil];
-            [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+            [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
             [self.imag_bgView addSubview:imgV];
                 if (index == 0) {
                     UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame), v_padding+w, add_w, add_w) text:@"+" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
@@ -195,7 +195,7 @@
                NSInteger row = idx/2;
                NSInteger line = idx%2;
                 UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake((1-line)*h_padding+line*(w+add_w+h_padding),row*(w+add_w+v_padding)+(1-row)*v_padding,w, w) image:nil];
-                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 [self.imag_bgView addSubview:imgV];
             if (idx == 0) {
                 UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame), v_padding+w, add_w, add_w) text:@"+" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
@@ -216,7 +216,7 @@
             if (idx<2) {
                 CGFloat x_padding = (self.imag_bgView.mj_w-add_w-2*w)/2;
                 UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(idx*(w+add_w+x_padding)+(1-idx)*x_padding,v_padding,w, w) image:nil];
-                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 [self.imag_bgView addSubview:imgV];
                 if (idx == 0) {
                     UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame), imgV.mj_y, add_w, add_w) text:@"+" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
@@ -226,7 +226,7 @@
             }else{
                 NSInteger index = idx-2;
                 UIImageView *imgV = [UIImageView lh_imageViewWithFrame:CGRectMake(index*(w+add_w)+h_padding,2*v_padding+w,w, w) image:nil];
-                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image]];
+                [imgV sd_setImageWithURL:[NSURL URLWithString:obj.Image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 [self.imag_bgView addSubview:imgV];
                 if (index == 0||index == 1) {
                     UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame), imgV.mj_y, add_w, add_w) text:@"+" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];

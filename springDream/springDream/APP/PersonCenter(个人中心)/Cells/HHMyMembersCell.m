@@ -37,7 +37,7 @@
 - (void)setBusiness_model:(HHMineModel *)business_model{
     
     _business_model = business_model;
-    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:business_model.HeadLogo]];
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:business_model.HeadLogo] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.name_label.text = business_model.Name;
     self.price_label.text = [NSString stringWithFormat:@"手机号:%@",business_model.Phone?business_model.Phone:@"暂未提供"];
    

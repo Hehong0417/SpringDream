@@ -44,7 +44,7 @@
     if (indexPath.section == 0&&indexPath.row == 0) {
         UIImageView *icon_imagV = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenW-75, 2.5, 50, 50)];
         [icon_imagV lh_setRoundImageViewWithBorderWidth:0 borderColor:nil];
-        [icon_imagV sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
+        [icon_imagV sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
         [cell.contentView addSubview:icon_imagV];
     }
     return cell;

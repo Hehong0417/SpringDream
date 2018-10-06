@@ -95,7 +95,9 @@
 + (instancetype)GetBonusWithpage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
 //团队下级的会员
 + (instancetype)GetSubUsersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
-//我的钱包
+//代理订单
++ (instancetype)GetAgentOrdersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
+
 
 //门店收益
 + (instancetype)GetUserStoreCommissionWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;

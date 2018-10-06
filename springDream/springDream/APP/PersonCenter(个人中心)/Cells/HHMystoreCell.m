@@ -18,7 +18,7 @@
 - (void)setStore_model:(HHMineModel *)store_model{
     
     _store_model = store_model;
-    [self.store_icon sd_setImageWithURL:[NSURL URLWithString:store_model.store_image] placeholderImage:nil];
+    [self.store_icon sd_setImageWithURL:[NSURL URLWithString:store_model.store_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.store_name_label.text = store_model.store_name;
     self.store_address_label.text = store_model.store_address;
     self.call_label.text = store_model.store_phone;

@@ -41,7 +41,7 @@
 
 #define KPartingLineColor RGB(228, 227, 239)
 
-#define KPlaceImageName  @"loadImag_default"
+#define KPlaceImageName  @"placeholderImage"
 
 #define KPlaceHoldColor RGB(204, 204, 204)
 

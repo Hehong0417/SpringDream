@@ -36,14 +36,15 @@
     [super viewDidLoad];
     
     [self.title_arr addObject:@"会员中心"];
-    // 1.添加所有子控制器
-    [self setupChildViewController];
-    
-    [self setupSegmentedControl];
     
     self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
     self.personHead.nav = self.navigationController;
     
+    // 1.添加所有子控制器
+    [self setupChildViewController];
+    
+    [self setupSegmentedControl];
+
     [self getDatas];
 
     [self addHeadRefresh];
@@ -71,9 +72,9 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-
+        [self.title_arr removeAllObjects];
+        [self.title_arr addObject:@"会员中心"];
         [self getDatas];
-
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
@@ -101,20 +102,18 @@
                     if ([data_model.isUserAgent isEqual:@1]) {
                         [self.title_arr addObject:@"代理中心"];
                         if ([data_model.isHasStore isEqual:@1]) {
-                            [self.title_arr addObject:@"门店管理"];
+                            [self.title_arr insertObject:@"门店管理" atIndex:2];
                         }
                     }else{
                         
                     }
                 }
-
                 // 1.添加所有子控制器
                 [self setupChildViewController];
-                
                 [self setupSegmentedControl];
                 
                 self.personHead.name_label.text = self.mineModel.UserName;
-                [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
+                [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 self.userLevelName = api.Data[@"userLevelName"];
                 self.personHead.vip_label.text = self.userLevelName;
                 NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.Points?self.mineModel.Points.floatValue:0.00];
@@ -224,7 +223,7 @@
     
     // 1 计算滚动的位置
     CGFloat offsetX = index * self.view.frame.size.width;
-    self.mainScrollView.contentOffset = CGPointMake(offsetX, 0);
+    self.mainScrollView.contentOffset = CGPointMake(offsetX,0);
     
     // 2.给对应位置添加对应子控制器
     [self showVc:index];
@@ -232,6 +231,23 @@
 // 添加所有子控制器
 - (void)setupChildViewController {
     
+    
+    [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [obj removeFromParentViewController];
+        
+    }];
+    if (self.title_arr.count <=3) {
+        HHPersonCenterSub1 *vc1 = [HHPersonCenterSub1 new];
+        [self addChildViewController:vc1];
+        
+        HHPersonCenterSub2 *vc2 = [HHPersonCenterSub2 new];
+        [self addChildViewController:vc2];
+        
+        HHPersonCenterSub4 *vc4 = [HHPersonCenterSub4 new];
+        [self addChildViewController:vc4];
+        
+    }else {
     HHPersonCenterSub1 *vc1 = [HHPersonCenterSub1 new];
     [self addChildViewController:vc1];
     
@@ -243,6 +259,8 @@
     
     HHPersonCenterSub4 *vc4 = [HHPersonCenterSub4 new];
     [self addChildViewController:vc4];
+}
+    
 }
 
 // 显示控制器的view

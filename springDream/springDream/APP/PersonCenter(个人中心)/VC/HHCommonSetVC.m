@@ -100,7 +100,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     
-    [self.cellHeadImageView sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage]];
+    [self.cellHeadImageView sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     
     return cell;
 }

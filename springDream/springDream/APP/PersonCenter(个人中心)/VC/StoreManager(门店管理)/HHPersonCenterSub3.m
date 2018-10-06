@@ -17,6 +17,7 @@
 #import "HHStoreProductsVC.h"
 #import "HHStoreOrderVC.h"
 #import "HHStoreEarningsVC.h"
+#import "HHGoodCategoryVC.h"
 
 @interface HHPersonCenterSub3 ()<HHStoreStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 
@@ -55,7 +56,8 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHStoreStatusCell class] forCellReuseIdentifier:@"HHStoreStatusCell"];
-    
+    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
+
     
 }
 #pragma mark - 获取数据
@@ -105,7 +107,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -115,7 +117,7 @@
     }else if (section == 1){
         return 1;
     }else{
-        return 3;
+        return 2;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -147,6 +149,25 @@
         [cell.contentView addSubview:ad_imgV];
         grideCell = cell;
         
+    }else if (indexPath.section == 2){
+        
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"title_cell"];
+            }
+            cell.textLabel.text = @"我的服务";
+            cell.textLabel.font = FONT(13);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            grideCell = cell;
+        }else if (indexPath.row == 1) {
+            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
+            cell.btn_image_arr = @[@"store_service_01",@"",@"",@""];
+            cell.btn_title_arr = @[@"高管订货",@"",@"",@""];
+            grideCell = cell;
+        }
     }
     return grideCell;
     
@@ -175,15 +196,18 @@
         }
     }else if (indexPath.section == 1){
         return 75;
-    }
-    return 50;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    }else{
+        
         if (indexPath.row == 0) {
-    
+            return 50;
+        }else{
+            return 95;
         }
     }
+    return 0.01;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
 }
 #pragma mark - HHDistributeStatusCellDelagete
 
@@ -214,6 +238,13 @@
 
 - (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
     
+    if (buttonIndex == 0) {
+        //高管订货
+        HHGoodCategoryVC *vc = [HHGoodCategoryVC new];
+        vc.enter_Type = 1;
+        [self.navigationController pushVC:vc];
+        
+    }
     
 }
 

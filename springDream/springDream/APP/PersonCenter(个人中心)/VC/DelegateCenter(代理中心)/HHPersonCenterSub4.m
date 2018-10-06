@@ -16,8 +16,9 @@
 #import "HHDelegateOrderVC.h"
 #import "HHDistributionGoodsVC.h"
 #import "HHDistributionCommissionVC.h"
+#import "HHDistributeServiceCell_one.h"
 
-@interface HHPersonCenterSub4 ()<HHDelegateStatusCellDelagete>
+@interface HHPersonCenterSub4 ()<HHDelegateStatusCellDelagete,HHDistributeServiceCell_one_delagete>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -53,6 +54,8 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDelegateStatusCell class] forCellReuseIdentifier:@"HHDelegateStatusCell"];
+    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
+
     
 }
 #pragma mark - 获取数据
@@ -85,7 +88,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -95,7 +98,7 @@
     }else if (section == 1){
         return 1;
     }else{
-        return 3;
+        return 2;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,19 +106,19 @@
     UITableViewCell *grideCell;
     if (indexPath.section == 0) {
         if (indexPath.row == 0){
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
+            cell.textLabel.text = @"代理中心";
+            cell.textLabel.font = FONT(13);
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            grideCell = cell;
+        }
+        if (indexPath.row == 1){
             HHDelegateStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDelegateStatusCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.btn_image_arr = @[@"delegate_01",@"distribute_02",@"distribute_04",@"distribute_03"];
             cell.btn_title_arr = @[@"代理商品",@"分销商",@"会员",@"代理订单"];
-            grideCell = cell;
-        }else{
-            HHDelegateStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDelegateStatusCell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-            cell.message_arr = @[@"0",@"0",@"0",@"0"];
-            cell.btn_image_arr = @[@"delegate_10",@"",@"",@""];
-            cell.btn_title_arr = @[@"我的佣金",@"",@"",@""];
             grideCell = cell;
         }
         
@@ -135,8 +138,15 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
             cell.textLabel.text = @"我的服务";
             cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            grideCell = cell;
+        }else if (indexPath.row == 1) {
+             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
+            cell.btn_image_arr = @[@"sub_service_01",@"sub_service_02",@"",@""];
+            cell.btn_title_arr = @[@"代理佣金",@"我的代理",@"",@""];
             grideCell = cell;
         }
     }
@@ -160,12 +170,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
-
-        return 70;
-
+        if (indexPath.row == 0) {
+            return 50;
+        }else{
+            return 70;
+        }
     }else if (indexPath.section == 1){
         return 75;
     }else{
+        
         if (indexPath.row == 0) {
             return 50;
         }else{
@@ -175,9 +188,6 @@
     return 0.01;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-  
-    }
 
 }
 #pragma mark - HHDistributeStatusCellDelagete
@@ -186,7 +196,7 @@
     
     NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 1) {
         if (buttonIndex == 0) {
             
             HHDistributionGoodsVC *vc = [HHDistributionGoodsVC new];
@@ -195,7 +205,7 @@
         }
         if (buttonIndex == 1) {
             HHMydistributorsVC *vc = [HHMydistributorsVC new];
-            vc.title_str = @"我的代理";
+            vc.title_str = @"我的分销商";
             [self.navigationController pushVC:vc];
         }
         if (buttonIndex == 2) {
@@ -207,11 +217,23 @@
             HHDelegateOrderVC *vc = [HHDelegateOrderVC new];
             [self.navigationController pushVC:vc];
         }
-    }else if (indexPath.row == 1){
+    }
+    
+}
+#pragma mark - HHDistributeServiceCell_one_delagete
+
+- (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell{
+    
+    if (buttonIndex == 0) {
+        
         HHDistributionCommissionVC *vc = [HHDistributionCommissionVC new];
         vc.title_str = @"代理佣金";
         [self.navigationController pushVC:vc];
-        
+    }
+    if (buttonIndex == 1) {
+        HHMydistributorsVC *vc = [HHMydistributorsVC new];
+        vc.title_str = @"我的代理";
+        [self.navigationController pushVC:vc];
     }
     
 }

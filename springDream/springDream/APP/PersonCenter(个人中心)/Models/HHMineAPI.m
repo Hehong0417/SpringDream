@@ -317,6 +317,20 @@
     api.parametersAddToken = NO;
     return api;
 }
+//代理订单
++ (instancetype)GetAgentOrdersWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetAgentOrders;
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 //门店收益
 + (instancetype)GetUserStoreCommissionWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
     

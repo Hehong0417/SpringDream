@@ -128,7 +128,7 @@
     self.SG.showsBottomScrollIndicator = NO;
     [self.view addSubview:_SG];
     
-    [self.imagV sd_setImageWithURL:[NSURL URLWithString:self.store_model.store_image]];
+    [self.imagV sd_setImageWithURL:[NSURL URLWithString:self.store_model.store_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.name_label.text = self.store_model.store_name;
     self.address_label.text = self.store_model.store_address;
     self.call_label.text = self.store_model.store_phone;
@@ -371,7 +371,7 @@
 
 -(void)didSelectRowWithstoreModel:(HHMineModel *)storeModel{
     
-    [self.imagV sd_setImageWithURL:[NSURL URLWithString:storeModel.store_image]];
+    [self.imagV sd_setImageWithURL:[NSURL URLWithString:storeModel.store_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.name_label.text = storeModel.store_name;
     self.address_label.text = storeModel.store_address;
     self.call_label.text = storeModel.store_phone;

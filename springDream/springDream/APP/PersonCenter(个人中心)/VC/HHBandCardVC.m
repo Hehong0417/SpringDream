@@ -9,7 +9,7 @@
 #import "HHBandCardVC.h"
 #import "HHTextfieldcell.h"
 
-@interface HHBandCardVC ()
+@interface HHBandCardVC ()<UITextFieldDelegate>
 
 @end
 
@@ -36,6 +36,7 @@
 
     self.tableView.tableFooterView = tableFooterView;
 
+    
 }
 
 
@@ -58,9 +59,11 @@
     NSArray *placeholder_arr = @[@"请输入银行卡号",@"请选择开户行",@"请输入开户名",@"请输入开户网点",@"请输入预留手机号码"];
 
     HHTextfieldcell  *cell = [[HHTextfieldcell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleLabel.text = title_arr[indexPath.row];
     if (indexPath.row == 0) {
         cell.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
+        cell.inputTextField.delegate = self;
     }
     cell.inputTextField.placeholder = placeholder_arr[indexPath.row];
 
@@ -81,11 +84,12 @@
     NSString *isvalid = [self isValidWithBankAccountNo:BankAccountNo_cell.inputTextField.text BankAccountName:BankAccountName_cell.inputTextField.text BankName:BankName_cell.inputTextField.text  AccountOpeningBranch:AccountOpeningBranch_cell.inputTextField.text Tel:Tel_cell.inputTextField.text];
     if (!isvalid) {
         
-        [[[HHUserLoginAPI postBindBankCardInformationWithUserId:@"" BankAccountNo:BankAccountNo_cell.inputTextField.text BankAccountName:BankAccountName_cell.inputTextField.text BankName:BankName_cell.inputTextField.text AccountOpeningBranch:AccountOpeningBranch_cell.inputTextField.text Tel:Tel_cell.inputTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        [[[HHUserLoginAPI postBindBankCardInformationWithUserId:@"0" BankAccountNo:BankAccountNo_cell.inputTextField.text BankAccountName:BankAccountName_cell.inputTextField.text BankName:BankName_cell.inputTextField.text AccountOpeningBranch:AccountOpeningBranch_cell.inputTextField.text Tel:Tel_cell.inputTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
-
-
+                    [SVProgressHUD showSuccessWithStatus:@"绑定成功！"];
+                    
+                    [self.navigationController popVC];
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }
@@ -111,5 +115,16 @@
         return @"请输入预留手机号码！";
     }
     return nil;
+}
+#pragma mark - textfieldDelegate限制手机号为11位
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (toBeString.length > 19 && range.length!=1){
+        textField.text = [toBeString substringToIndex:19];
+        return NO;
+    }
+    return YES;
 }
 @end

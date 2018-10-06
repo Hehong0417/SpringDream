@@ -17,6 +17,10 @@
 @property (nonatomic, copy) NSString *SubjectContent;
 @property (nonatomic, copy) NSString *UploadDateTime;
 @property (nonatomic, copy) NSString *Title;
+@property (nonatomic, copy) NSString *PraiseCount;
+@property (nonatomic, copy) NSNumber *IsPraise;
+@property (nonatomic, copy) NSString *SubjectId;
+
 @property (nonatomic, strong) NSArray <SDContentECSubjectPicModel *>*ContentECSubjectPicModel;
 
 @property (nonatomic, assign, getter = isLiked) BOOL liked;

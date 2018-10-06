@@ -68,7 +68,7 @@
                 self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",api.Data[@"company"]];
                 self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu.length>0?self.model.nu:@""];
                 NSString * image_url =  api.Data[@"productIcon"];
-                [self.logisticsHead.image_url sd_setImageWithURL:[NSURL URLWithString:image_url]];
+                [self.logisticsHead.image_url sd_setImageWithURL:[NSURL URLWithString:image_url] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
                 if ([self.model.ischeck isEqual:@1]) {
                     self.logisticsHead.status_label.text = [NSString stringWithFormat:@"物流状态  已签收"];
                 }else{

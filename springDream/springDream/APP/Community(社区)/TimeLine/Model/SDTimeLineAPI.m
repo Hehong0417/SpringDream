@@ -28,22 +28,28 @@
 + (instancetype)postPriseUnPriseWithsubjectId:(NSString *)subjectId{
     
     SDTimeLineAPI *api = [self new];
-    api.subUrl = API_PriseUnPrise;
     if (subjectId) {
-        [api.parameters setObject:subjectId forKey:@"subjectId"];
+//        [api.parameters setObject:subjectId forKey:@"subjectId"];
+        api.subUrl =  [NSString stringWithFormat:@"%@?subjectId=%@&userId=0",API_PriseUnPrise,subjectId];
     }
+//    [api.parameters setObject:@"0" forKey:@"userId"];
+
     api.parametersAddToken = NO;
     return api;
 }
+
 + (instancetype)postCommentWithsubjectId:(NSString *)subjectId comment:(NSString *)comment{
     
     SDTimeLineAPI *api = [self new];
-    api.subUrl = API_Comment;
-    if (comment) {
-        [api.parameters setObject:comment forKey:@"comment"];
-    }
+//    api.subUrl = API_Comment;
+
+//    if (comment) {
+//        [api.parameters setObject:comment forKey:@"comment"];
+//    }
     if (subjectId) {
-        [api.parameters setObject:subjectId forKey:@"subjectId"];
+//        [api.parameters setObject:subjectId forKey:@"subjectId"];
+        api.subUrl =  [NSString stringWithFormat:@"%@?subjectId=%@&userId=0&comment=%@",API_Comment,subjectId,[comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
     }
     api.parametersAddToken = NO;
     return api;
