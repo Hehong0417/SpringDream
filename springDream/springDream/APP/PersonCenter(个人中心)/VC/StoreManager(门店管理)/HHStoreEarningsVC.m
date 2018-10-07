@@ -34,6 +34,7 @@ static CGFloat _bottomToolBarH = 120;
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:kWhiteColor];
     self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
+    
     self.tabView.backgroundColor = kClearColor;
     self.tabView.estimatedRowHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
@@ -55,9 +56,16 @@ static CGFloat _bottomToolBarH = 120;
     
     self.title = @"门店收益";
     
+    [self setupTextField];
+
+    
     self.distributionCommissionHead = [[[NSBundle mainBundle] loadNibNamed:@"HHDistributionCommissionHead" owner:self options:nil] firstObject];
+    self.distributionCommissionHead.frame = CGRectMake(0, 0, ScreenW, WidthScaleSize_H(100));
     self.distributionCommissionHead.commissionDetail_label.text = @"收益明细";
-    self.distributionCommissionHead.commission_title_label.text = @"当前收益";
+    self.distributionCommissionHead.commission_title_label.text = @"当前门店收益总金额";
+    [self.distributionCommissionHead.commission_balance_button setTitle:@"收益转余额" forState:UIControlStateNormal];
+    self.distributionCommissionHead.commission_bg_view.hidden = YES;
+    self.distributionCommissionHead.commission_detail_bgView.hidden = YES;
     self.distributionCommissionHead.vc = self;
     self.distributionCommissionHead.backgroundColor = kWhiteColor;
     [self.distributionCommissionHead.commission_balance_button addTarget:self action:@selector(commission_balance_buttonAction) forControlEvents:UIControlEventTouchUpInside];
@@ -266,7 +274,7 @@ static CGFloat _bottomToolBarH = 120;
     [self.navigationController pushVC:vc];
     
 }
-//佣金转余额
+//收益转余额
 - (void)commission_balance_buttonAction{
     
     [_textField becomeFirstResponder];
@@ -294,7 +302,7 @@ static CGFloat _bottomToolBarH = 120;
     _textField.font = FONT(14);
     //为textfield添加背景颜色 字体颜色的设置 还有block设置 , 在block中改变它的键盘样式 (当然背景颜色和字体颜色也可以直接在block中写)
     
-    _textField.frame = CGRectMake(40,50, [UIScreen mainScreen].bounds.size.width-80, 40);
+    _textField.frame = CGRectMake(40,55, [UIScreen mainScreen].bounds.size.width-80, 40);
     _textField.backgroundColor = [UIColor whiteColor];
     UIView *left_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     _textField.leftView = left_view;
@@ -341,11 +349,7 @@ static CGFloat _bottomToolBarH = 120;
     [_textField removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-- (void)dealloc
-{
-    [_textField removeFromSuperview];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+
 - (void)all_buttonAction:(UIButton *)button{
     
 //    HHCommissionDetailVC *vc = [HHCommissionDetailVC new];

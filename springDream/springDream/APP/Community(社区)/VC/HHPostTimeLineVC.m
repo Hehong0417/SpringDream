@@ -204,7 +204,7 @@ typedef   void (^completeHandle)();
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     if (indexPath.row == _photosArray.count) {
-        cell.imagev.image = [UIImage imageNamed:@"post1"];
+        cell.imagev.image = [UIImage imageNamed:_photosArray.count<9?@"post1":@""];
         //cell.imagev.backgroundColor = [UIColor redColor];
         cell.deleteButton.hidden = YES;
         
@@ -231,7 +231,7 @@ typedef   void (^completeHandle)();
     
     NSMutableArray *photo_datas = [NSMutableArray array];
     [photos enumerateObjectsUsingBlock:^(UIImage * _Nonnull image, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
         [photo_datas addObject:imageData];
     }];
     [[[HHMineAPI postUploadManyImageWithimageDatas:photo_datas] netWorkClient] uploadFileInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {

@@ -19,5 +19,9 @@
 
 @property(nonatomic,strong)   HHMineModel *business_model;
 @property(nonatomic,strong)   HHMineModel *delegate_business_model;
+//下级会员
+@property(nonatomic,strong)   HHMineModel *junior_member_model;
+//代理会员
+@property(nonatomic,strong)   HHMineModel *delegate_member_model;
 
 @end

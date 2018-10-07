@@ -19,6 +19,7 @@ pod 'IQKeyboardManager'
 pod 'TZImagePickerController'
 pod 'YYText'
 pod 'SDAutoLayout'
+
 # U-Share SDK
 pod 'UMCCommon'
 pod 'UMCSecurityPlugins'

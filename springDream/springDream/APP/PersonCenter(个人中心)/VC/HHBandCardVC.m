@@ -55,7 +55,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSArray *title_arr = @[@"银行卡号",@"开户行",@"开户名",@"开户网点",@"预留手机号码"];
+    NSArray *title_arr = @[@"银行卡号",@"开户行",@"开户名",@"开户网点",@"开户手机号"];
     NSArray *placeholder_arr = @[@"请输入银行卡号",@"请选择开户行",@"请输入开户名",@"请输入开户网点",@"请输入预留手机号码"];
 
     HHTextfieldcell  *cell = [[HHTextfieldcell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];

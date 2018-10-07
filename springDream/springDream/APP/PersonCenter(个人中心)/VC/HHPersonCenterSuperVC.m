@@ -231,7 +231,6 @@
 // 添加所有子控制器
 - (void)setupChildViewController {
     
-    
     [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         [obj removeFromParentViewController];

@@ -360,13 +360,13 @@ static NSArray *lastSele_IdArray_;
         return 1;
     }
     if (section == 2) {
-        return 2;
+        return 0;
     }
     if (section == 3) {
         return  self.productStores_names.count?1:0;
     }
     if (section == 4) {
-        return  2;
+        return  0;
     }
     if (section == 5) {
         return  1;
@@ -376,7 +376,6 @@ static NSArray *lastSele_IdArray_;
     }
     return 1;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -407,7 +406,7 @@ static NSArray *lastSele_IdArray_;
         gridcell = cell;
     }
     if (indexPath.section == 2) {
-        //优惠券
+        //优惠
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -443,7 +442,7 @@ static NSArray *lastSele_IdArray_;
         cell.detailTextLabel.font = FONT(13);
         UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
         [cell.contentView addSubview:h_line];
-        UIImageView *imag = [UIImageView lh_imageViewWithFrame:CGRectMake(15, 8, 42, 42) image:[UIImage imageNamed:@"coupon_section"]];
+        UIImageView *imag = [UIImageView lh_imageViewWithFrame:CGRectMake(15, 8, 42, 42) image:[UIImage imageNamed:@"choose_store"]];
         imag.contentMode = UIViewContentModeCenter;
         [cell.contentView addSubview:imag];
         UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(57, 8, 100, 42) text:@"选择门店" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];

@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *history_commission_label;
 
 @property (weak, nonatomic) IBOutlet UILabel *commissionDetail_label;
+@property (weak, nonatomic) IBOutlet UIView *commission_bg_view;
+@property (weak, nonatomic) IBOutlet UIView *commission_detail_bgView;
 
 
 @property (nonatomic, strong) UIViewController *vc;

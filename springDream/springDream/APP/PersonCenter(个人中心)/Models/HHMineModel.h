@@ -23,6 +23,9 @@
 @property(nonatomic,strong) NSNumber  *isExtraBonus;
 @property(nonatomic,strong) NSString  *CellPhone;
 @property(nonatomic,strong) NSString  *RealName;
+@property(nonatomic,strong) NSString  *UserLevelId;
+@property(nonatomic,strong) NSString  *CardID;
+
 
 
 @property(nonatomic,strong) NSNumber  *isUserAgent;

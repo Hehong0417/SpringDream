@@ -95,14 +95,14 @@
     [_imagV lh_setCornerRadius:0 borderWidth:1 borderColor:KVCBackGroundColor];
     [store_head addSubview:_imagV];
     
-    self.name_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), self.imagV.mj_y, ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(20)) text:@"" textColor:kBlackColor font:FONT(15) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    self.name_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), self.imagV.mj_y, ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(20)) text:@"" textColor:kBlackColor font:MediumFONT(15) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [store_head addSubview:self.name_label];
-    self.address_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.name_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    self.address_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.name_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [store_head addSubview:self.address_label];
-    self.call_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.address_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    self.call_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(self.imagV.frame)+WidthScaleSize_W(10), CGRectGetMaxY(self.address_label.frame), ScreenW-CGRectGetMaxX(self.imagV.frame)-WidthScaleSize_W(40), WidthScaleSize_H(18)) text:@"" textColor:kDarkGrayColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [store_head addSubview:self.call_label];
     
-    UIImageView *arrow_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-WidthScaleSize_H(60), 0, WidthScaleSize_H(50), WidthScaleSize_H(90)) image:[UIImage imageNamed:@"more"]];
+    UIImageView *arrow_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(ScreenW-WidthScaleSize_H(60), 0, WidthScaleSize_H(50), WidthScaleSize_H(90)) image:[UIImage imageNamed:@"exchangeStore"]];
     arrow_imagV.contentMode = UIViewContentModeCenter;
     [store_head addSubview:arrow_imagV];
 

@@ -109,7 +109,7 @@ static CGFloat _bottomToolBarH = 120;
     _textField.font = FONT(14);
     //为textfield添加背景颜色 字体颜色的设置 还有block设置 , 在block中改变它的键盘样式 (当然背景颜色和字体颜色也可以直接在block中写)
     
-    _textField.frame = CGRectMake(40,50, [UIScreen mainScreen].bounds.size.width-80, 40);
+    _textField.frame = CGRectMake(40,55, [UIScreen mainScreen].bounds.size.width-80, 40);
     _textField.backgroundColor = [UIColor whiteColor];
     UIView *left_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     _textField.leftView = left_view;
@@ -164,11 +164,7 @@ static CGFloat _bottomToolBarH = 120;
     [_textField removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-- (void)dealloc
-{
-    [_textField removeFromSuperview];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+
 #pragma mark - 分销佣金
 
 - (void)getDistributionCommissionData{

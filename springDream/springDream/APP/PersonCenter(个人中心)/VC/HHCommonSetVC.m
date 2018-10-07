@@ -22,12 +22,18 @@
 
 @implementation HHCommonSetVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self getDatas];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
      self.title = @"设置";
     
-    [self getDatas];
     
     HJSettingItem *item4_0 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:4]];
     item4_0.detailTitle = [NSString stringWithFormat:@"%@版本",kAppCurrentVersion];
@@ -80,12 +86,16 @@
                 
                 HJSettingItem *item3_0 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
                 if (self.mineModel.RealName) {
-                    item3_0.detailTitle = @"未验证";
-                }else{
                     item3_0.detailTitle = @"已验证";
+                }else{
+                    item3_0.detailTitle = @"未验证";
                 }
                 HJSettingItem *item3_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]];
-                item3_1.detailTitle = @"去添加";
+                if (self.mineModel.CardID) {
+                    item3_1.detailTitle = @"已添加";
+                }else{
+                    item3_1.detailTitle = @"去添加";
+                }
         
                 [self.tableV reloadData];
             }else{

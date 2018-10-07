@@ -26,7 +26,7 @@
         //头像
         self.icon_view = [UIImageView new];
         self.icon_view.backgroundColor = KVCBackGroundColor;
-        self.icon_view.image = [UIImage imageNamed:@"t4_selected"];
+        self.icon_view.image = [UIImage imageNamed:KPlaceImageName];
         [self addSubview:self.icon_view];
         self.icon_view.userInteractionEnabled = YES;
    

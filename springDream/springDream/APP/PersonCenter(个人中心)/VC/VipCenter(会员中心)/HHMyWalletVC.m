@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
+@property (nonatomic, strong)   HHMyWalletHead *wallet_head;
+
 @end
 
 @implementation HHMyWalletVC
@@ -40,8 +42,8 @@
     self.title = @"我的钱包";
 
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyWalletHead *wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
-    self.tabView.tableHeaderView = wallet_head;
+    self.wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
+    self.tabView.tableHeaderView = self.wallet_head;
     
     
     self.page = 1;
@@ -56,7 +58,8 @@
         
         if (!error) {
             if (api.State == 1) {
-                
+                NSNumber *total = api.Data[@"total"];
+                self.wallet_head.total_price_label.text = [NSString stringWithFormat:@"%@",total];
                 [self loadDataFinish:api.Data[@"list"]];
                 
             }else{

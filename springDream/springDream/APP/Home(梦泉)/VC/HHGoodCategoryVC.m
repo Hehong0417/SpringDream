@@ -58,13 +58,10 @@
     [self setupSearchView];
     //获取数据
     [self addHeadRefresh];
-    NSString *back_navName = @"";
-    if (self.enter_Type == 1) {
-     back_navName = @"icon_return_default";
-    }
-    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 30, 45) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:back_navName]];
-    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 0)];
+
+    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 40, 45) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:@""]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
 }
 - (void)backBtnAction{
     
@@ -111,37 +108,40 @@
 
 - (void)getDatas{
     
-    self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.isCategory?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize) IsCommission:nil] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
-        
-        self.collectionView.emptyDataSetDelegate = self;
-        self.collectionView.emptyDataSetSource = self;
-        if (!error) {
-            if (api.State == 1) {
-                
-                if (self.isFooterRefresh==YES) {
-                    [self loadDataFinish:api.Data];
+    if (self.categoryId) {
+        self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.categoryId?self.categoryId:nil name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize) IsCommission:nil] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+            
+            self.collectionView.emptyDataSetDelegate = self;
+            self.collectionView.emptyDataSetSource = self;
+            if (!error) {
+                if (api.State == 1) {
+                    
+                    if (self.isFooterRefresh==YES) {
+                        [self loadDataFinish:api.Data];
+                    }else{
+                        [self addFootRefresh];
+                        [self.datas removeAllObjects];
+                        [self loadDataFinish:api.Data];
+                    }
                 }else{
-                    [self addFootRefresh];
-                    [self.datas removeAllObjects];
-                    [self loadDataFinish:api.Data];
+                    if ([api.Msg isEqualToString:@"cancelled"]) {
+                        
+                    }else{
+                        [SVProgressHUD showInfoWithStatus:api.Msg];
+                    }
                 }
+                
             }else{
-                if ([api.Msg isEqualToString:@"cancelled"]) {
+                if ([error.localizedDescription isEqualToString:@"已取消"]) {
                     
                 }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                    [SVProgressHUD showInfoWithStatus:error.localizedDescription];
                 }
             }
-            
-        }else{
-            if ([error.localizedDescription isEqualToString:@"已取消"]) {
-                
-            }else{
-                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
-            }
-        }
-    }];
-    
+        }];
+        
+    }
+  
 }
 - (void)getSectionData{
     
@@ -312,9 +312,12 @@
 //        }else{
 //
 //        }
-//    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 30, 30) target:self action:@selector(backAction) backgroundColor:kClearColor];
-//    backBtn.highlighted = NO;
-//    [searchView addSubview:backBtn];
+    NSString *back_navName = @"";
+    if (self.enter_Type == 1) {
+        back_navName = @"icon_return_default";
+    }
+    UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(-15, 3, 40, 30) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:back_navName]];
+    [searchView addSubview:backBtn];
     [self.navigationController.navigationBar addSubview:searchView];
 }
 - (void)backAction{

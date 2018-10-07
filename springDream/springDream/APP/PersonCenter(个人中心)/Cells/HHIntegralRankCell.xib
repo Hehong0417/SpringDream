@@ -53,10 +53,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aka-Dt-97o">
-                        <rect key="frame" x="266" y="19" width="93" height="21"/>
+                        <rect key="frame" x="260" y="19" width="99" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="8OK-pB-j2i"/>
-                            <constraint firstAttribute="width" constant="93" id="Idl-HD-O0j"/>
+                            <constraint firstAttribute="width" constant="99" id="Idl-HD-O0j"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
@@ -75,7 +75,7 @@
                     <constraint firstItem="JTw-cC-gnL" firstAttribute="bottom" secondItem="hlG-gw-VI7" secondAttribute="bottom" id="jad-fr-8eO"/>
                     <constraint firstItem="JTw-cC-gnL" firstAttribute="top" secondItem="hlG-gw-VI7" secondAttribute="top" id="rXI-Gb-TZq"/>
                     <constraint firstItem="hlG-gw-VI7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xqm-cH-ct5"/>
-                    <constraint firstItem="Aka-Dt-97o" firstAttribute="leading" secondItem="V2K-6w-OkN" secondAttribute="trailing" constant="14" id="zhJ-8N-kud"/>
+                    <constraint firstItem="Aka-Dt-97o" firstAttribute="leading" secondItem="V2K-6w-OkN" secondAttribute="trailing" constant="8" id="zhJ-8N-kud"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>

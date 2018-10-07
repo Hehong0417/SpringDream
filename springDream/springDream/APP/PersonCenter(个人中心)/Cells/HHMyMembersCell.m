@@ -14,6 +14,7 @@
     [super awakeFromNib];
 
     [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_COMMON_COLOR];
+    self.price_label.font = FONT(13);
 }
 
 - (void)setTitle_str:(NSString *)title_str{
@@ -44,11 +45,25 @@
 }
 - (void)setDelegate_business_model:(HHMineModel *)delegate_business_model{
     _delegate_business_model = delegate_business_model;
-    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:delegate_business_model.Icon]];
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:delegate_business_model.icon]];
     
     self.name_label.text = delegate_business_model.Name;
     self.price_label.text = [NSString stringWithFormat:@"手机号:%@",delegate_business_model.mobile?delegate_business_model.mobile:@"暂未提供"];
     
+}
+- (void)setJunior_member_model:(HHMineModel *)junior_member_model{
+    _junior_member_model = junior_member_model;
+    self.name_label.text = junior_member_model.Name;
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:junior_member_model.HeadLogo] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+    self.price_label.text = [NSString stringWithFormat:@"消费:%@",junior_member_model.BuyTotal?junior_member_model.BuyTotal:@"0.00"];
+}
+- (void)setDelegate_member_model:(HHMineModel *)delegate_member_model{
+    
+    _delegate_member_model = delegate_member_model;
+    self.name_label.text = delegate_member_model.Name;
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:delegate_member_model.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+    self.price_label.text = [NSString stringWithFormat:@"消费:%@",delegate_member_model.BuyTotal?delegate_member_model.BuyTotal:@"0.00"];
+    self.detail_label.text = [NSString stringWithFormat:@"手机号:%@",delegate_member_model.mobile?delegate_member_model.mobile:@"暂未提供"];
 }
 
 @end

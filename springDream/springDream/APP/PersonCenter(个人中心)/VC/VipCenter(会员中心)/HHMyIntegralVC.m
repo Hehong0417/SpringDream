@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
+@property (nonatomic, strong)   HHMyIntegralHead *wallet_head;
+
 @end
 
 @implementation HHMyIntegralVC
@@ -32,9 +34,13 @@
     self.tabView.tableFooterView = [UIView new];
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIButton *rank_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 60, 40) target:self action:@selector(rank_buttonAction) image:nil title:@"排行榜" titleColor:kWhiteColor font:FONT(12)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rank_button];
+    XYQButton *rank_button = [XYQButton ButtonWithFrame:CGRectMake(0, 0, 60, 40) imgaeName:@"rank" titleName:@"排行榜" contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:kWhiteColor fontsize:WidthScaleSize_W(10)] tapAction:^(XYQButton *button) {
+        
+        [self rank_buttonAction];
+    }];
+    UIButton *CustomView = rank_button;
+    [CustomView setContentEdgeInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:CustomView];
     
 }
 - (NSMutableArray *)datas{
@@ -47,6 +53,7 @@
     
     [super viewWillAppear:animated];
     
+    [self.datas removeAllObjects];
     [self GetIntegralList];
 
 }
@@ -56,12 +63,10 @@
     self.title = @"我的积分";
     
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
-    HHMyIntegralHead *wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(110))];
-    wallet_head.nav = self.navigationController;
-    HJUser *user = [HJUser sharedUser];
-    wallet_head.vip_integral_label.text = [NSString stringWithFormat:@"%.2f分",user.mineModel.Points.floatValue];
-    wallet_head.backgroundColor = kWhiteColor;
-    self.tabView.tableHeaderView = wallet_head;
+    self.wallet_head = [[HHMyIntegralHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, WidthScaleSize_H(110))];
+    self.wallet_head.nav = self.navigationController;
+    self.wallet_head.backgroundColor = kWhiteColor;
+    self.tabView.tableHeaderView = self.wallet_head;
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
     
@@ -78,7 +83,9 @@
         
         if (!error) {
             if (api.State == 1) {
-                
+                NSNumber *points = api.Data[@"total"];
+                self.wallet_head.vip_integral_label.text = [NSString stringWithFormat:@"%.2f分",points.floatValue];
+
                 [self loadDataFinish:api.Data[@"list"]];
                 
             }else{

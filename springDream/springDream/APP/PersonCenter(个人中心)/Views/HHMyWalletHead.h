@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HHMyWalletHead : UIView
-@property (nonatomic, strong)   UILabel *total_price_label;
+@property (weak, nonatomic) IBOutlet UILabel *total_price_label;
+@property (weak, nonatomic) IBOutlet UIButton *withdrawButton;
 
 @end

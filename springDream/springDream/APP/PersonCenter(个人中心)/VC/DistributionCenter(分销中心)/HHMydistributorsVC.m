@@ -253,9 +253,9 @@
     }else if ([self.title_str isEqualToString:@"我的代理"]) {
         cell.delegate_business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     }else if ([self.title_str isEqualToString:@"下级会员"]) {
-        cell.business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+        cell.junior_member_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     }else if([self.title_str isEqualToString:@"我的会员"]){
-        cell.delegate_business_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+        cell.delegate_member_model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     }
     return cell;
 }

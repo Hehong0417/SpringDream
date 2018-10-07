@@ -34,9 +34,9 @@
 
     [self.goodsIco sd_setImageWithURL:[NSURL URLWithString:productModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.goodsNameLab.text = productModel.prodcut_name;
-    self.priceLab.text = [NSString stringWithFormat:@"￥%.2f",productModel.product_item_price.floatValue];
+    self.quantityLab.text = [NSString stringWithFormat:@"￥%.2f",productModel.product_item_price.floatValue];
     
-    self.quantityLab.text = [NSString stringWithFormat:@"x%@",productModel.product_item_quantity];
+    self.priceLab.text = [NSString stringWithFormat:@"x%@",productModel.product_item_quantity];
     self.sku_nameLab.text = [NSString stringWithFormat:@"%@",productModel.product_item_sku_name?productModel.product_item_sku_name:@""];
     
 

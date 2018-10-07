@@ -25,8 +25,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HHIntegralRankCell" bundle:nil] forCellReuseIdentifier:@"HHIntegralRankCell"];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    
+    self.page = 1;
     [self GetTopPointsLeaderboard];
+//    [self addHeadRefresh];
+//    [self addFootRefresh];
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -36,7 +38,7 @@
 }
 - (void)GetTopPointsLeaderboard{
     
-    [[[HHMineAPI GetTopPointsLeaderboardWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetTopPointsLeaderboardWithPage:nil pageSize:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         
         if (!error) {
             if (api.State == 1) {
@@ -88,8 +90,8 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.datas removeAllObjects];
         self.page = 1;
+        [self.datas removeAllObjects];
         [self GetTopPointsLeaderboard];
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -101,7 +103,6 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        
         [self GetTopPointsLeaderboard];
     }];
     self.tableView.mj_footer = refreshfooter;

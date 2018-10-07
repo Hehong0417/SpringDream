@@ -40,7 +40,7 @@
 
         if (!error) {
             if (api.State == 1) {
-                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data] placeholderImage:nil options:SDWebImageProgressiveDownload];
                 webpageUrl = api.Data;
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -67,17 +67,11 @@
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
-    //创建Webpage内容对象
+    messageObject.text = @"文字";
     
     UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:@"长按识别图中二维码" descr:@"长按识别图中二维码2" thumImage:nil];
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:webpageUrl]];
     shareObject.shareImage = data;
-    //设置Webpage地址
-    //分享消息对象设置分享内容对象
-    //创建Webpage内容对象
-//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"长按识别图中二维码" descr:@"" thumImage:nil];
-//    //设置Webpage地址
-//    shareObject.webpageUrl = webpageUrl;
 //
     messageObject.shareObject = shareObject;
     

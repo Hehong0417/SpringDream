@@ -19,15 +19,11 @@
     WKWebView *_webView;
     MBProgressHUD *_hud;
 }
+@property (nonatomic, strong) UIProgressView *progressView;
 @end
 
 @implementation HHHomeVC
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,17 +33,23 @@
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
     //    [userContentController addScriptMessageHandler:self name:@"closeMe"];
     
-    
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = userContentController;
     
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) configuration:config];
+    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH-64) configuration:config];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
     
     [_webView.scrollView setShowsVerticalScrollIndicator:NO];
     [_webView.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.view addSubview:_webView];
+
+    [self.view addSubview:self.progressView];
+
+    [_webView addObserver:self
+               forKeyPath:@"estimatedProgress"
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
     
     [self loadData];
     
@@ -56,7 +58,7 @@
 }
 - (void)loadData{
     //
-    NSString  *url = [NSString stringWithFormat:@"%@/Home/Index",API_HOST1];
+    NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
     
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
     [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
@@ -78,6 +80,39 @@
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
     _webView.scrollView.mj_header = refreshHeader;
+}
+- (UIProgressView *)progressView {
+    if (!_progressView) {
+        _progressView = [[UIProgressView alloc] init];
+//        _progressView.progressTintColor = RGB(72, 219, 109);
+        _progressView.progressTintColor = APP_COMMON_COLOR;
+        _progressView.trackTintColor = [UIColor clearColor];
+        _progressView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 2);
+    }
+    return _progressView;
+}
+#pragma mark- KVO监听
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSString *,id> *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        
+        self.progressView.progress = _webView.estimatedProgress;
+        // 加载完成
+        if (_webView.estimatedProgress  >= 1.0f ) {
+            
+            [UIView animateWithDuration:0.25f animations:^{
+                self.progressView.alpha = 0.0f;
+                self.progressView.progress = 0.0f;
+            }];
+            
+        }else{
+            self.progressView.alpha = 1.0f;
+        }
+    }
 }
 
 #pragma mark - webView Delegate
@@ -104,7 +139,7 @@
     NSString *responseUrl = navigationResponse.response.URL.absoluteString;
     NSLog(@"Response %@",navigationResponse.response.URL.absoluteString);
 
-    if ([responseUrl containsString:@"ProductDetail"]) {
+    if ([responseUrl containsString:@"orders/detail/detail"]) {
         HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
         HHGoodDetailVC *vc = [HHGoodDetailVC new];
         vc.goodDetail_backBlock = ^{
@@ -124,7 +159,7 @@
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 
-    }else if ([responseUrl containsString:@"Home/Index"]) {
+    }else if ([responseUrl containsString:@"MiniPrograms/Index"]) {
         //当前页
         decisionHandler(WKNavigationResponsePolicyAllow);
 
@@ -163,6 +198,9 @@
     }else{
         decisionHandler(WKNavigationResponsePolicyCancel);
     }
+}
+- (void)dealloc {
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress" context:nil];
 }
 
 @end

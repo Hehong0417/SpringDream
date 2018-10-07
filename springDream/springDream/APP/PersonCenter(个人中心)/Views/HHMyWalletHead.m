@@ -10,13 +10,11 @@
 
 @implementation HHMyWalletHead
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (void)awakeFromNib{
     
-    if (self = [super initWithFrame:frame]) {
-       
-        
-        
-    }
-    return self;
+    [super awakeFromNib];
+    
+    [self.withdrawButton lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+    
 }
 @end

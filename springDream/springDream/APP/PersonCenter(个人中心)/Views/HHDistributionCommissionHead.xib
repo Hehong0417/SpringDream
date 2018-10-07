@@ -111,9 +111,9 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前分佣总金额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZa-9R-YK1">
-                    <rect key="frame" x="139" y="0.0" width="86" height="51"/>
+                    <rect key="frame" x="117" y="0.0" width="127" height="51"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="86" id="KAj-dT-icq"/>
+                        <constraint firstAttribute="width" constant="127" id="KAj-dT-icq"/>
                         <constraint firstAttribute="height" constant="51" id="dxc-Jh-MvJ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -127,11 +127,11 @@
                 <constraint firstItem="xxE-cX-Fbm" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="KOI-Pn-O2f"/>
                 <constraint firstItem="eHL-Th-vl2" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ZIZ-1b-myh"/>
                 <constraint firstItem="O19-66-Iw5" firstAttribute="top" secondItem="N1j-In-oqp" secondAttribute="top" id="cvF-hw-0I8"/>
-                <constraint firstItem="kZa-9R-YK1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" constant="-5.5" id="eIk-N5-pmh"/>
+                <constraint firstItem="kZa-9R-YK1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" constant="-7" id="eIk-N5-pmh"/>
                 <constraint firstItem="xxE-cX-Fbm" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="emq-Zw-dJE"/>
                 <constraint firstItem="xxE-cX-Fbm" firstAttribute="top" secondItem="U0r-1h-VUX" secondAttribute="bottom" id="fMz-yJ-dSc"/>
                 <constraint firstItem="N1j-In-oqp" firstAttribute="top" secondItem="kZa-9R-YK1" secondAttribute="bottom" id="gAF-7B-hg4"/>
-                <constraint firstItem="kZa-9R-YK1" firstAttribute="trailing" secondItem="N1j-In-oqp" secondAttribute="trailing" constant="42" id="ial-9B-Ncg"/>
+                <constraint firstItem="kZa-9R-YK1" firstAttribute="trailing" secondItem="N1j-In-oqp" secondAttribute="trailing" constant="61" id="ial-9B-Ncg"/>
                 <constraint firstItem="U0r-1h-VUX" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="klP-Nu-AkD"/>
                 <constraint firstItem="kZa-9R-YK1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="swN-eQ-25W"/>
                 <constraint firstItem="xxE-cX-Fbm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="uLR-Kf-h7e"/>
@@ -142,6 +142,8 @@
             <connections>
                 <outlet property="commissionDetail_label" destination="pZX-jI-7rg" id="1Ks-fr-67u"/>
                 <outlet property="commission_balance_button" destination="O19-66-Iw5" id="ooK-YV-kIu"/>
+                <outlet property="commission_bg_view" destination="U0r-1h-VUX" id="iFl-ZC-YTS"/>
+                <outlet property="commission_detail_bgView" destination="xxE-cX-Fbm" id="5ZQ-qu-IVS"/>
                 <outlet property="commission_price_label" destination="N1j-In-oqp" id="qQM-L1-bGH"/>
                 <outlet property="commission_title_label" destination="kZa-9R-YK1" id="74X-1D-OOu"/>
                 <outlet property="history_commission_label" destination="tBa-2m-KFG" id="Nhy-tD-HYf"/>

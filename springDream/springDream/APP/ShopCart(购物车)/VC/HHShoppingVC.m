@@ -10,9 +10,8 @@
 #import "HHCartCell.h"
 #import "HHCartFootView.h"
 #import "HHSubmitOrdersVC.h"
-//#import "HHGoodBaseViewController.h"
 #import "HHtEditCarItem.h"
-#import "HHGoodListVC.h"
+#import "HHGoodCategoryVC.h"
 #import "HHAddAdressVC.h"
 #import "HHSelectSectionItem.h"
 
@@ -45,8 +44,6 @@
 
     self.manage_btn.selected = YES;
     [self manageAction:self.manage_btn];
-    //是否登录
-    [self isLoginOrNot];
     
     //获取数据
     [self getDatas];
@@ -148,12 +145,7 @@
 
   return [[NSAttributedString alloc] initWithString:@"购物车为空～" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
-//- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
-//
-//    return [[NSAttributedString alloc] initWithString:@"再忙也要犒劳下自己" attributes:@{NSFontAttributeName:FONT(12),NSForegroundColorAttributeName:KACLabelColor}];
-//
-//}
-//
+
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
 
     return [[NSAttributedString alloc] initWithString:@"逛一逛" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:kWhiteColor}];
@@ -183,12 +175,9 @@
 }
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
 
-//    HHGoodListVC *vc = [HHGoodListVC new];
-//    vc.type = nil;
-//    vc.categoryId = nil;
-//    vc.name = nil;
-//    vc.orderby = nil;
-//    [self.navigationController pushVC:vc];
+    HHGoodCategoryVC  *vc = [HHGoodCategoryVC new];
+    vc.enter_Type = 1;
+    [self.navigationController pushVC:vc];
 
 }
 #pragma mark - 刷新控件
@@ -203,23 +192,6 @@
     refreshHeader.stateLabel.hidden = YES;
     self.tableView.mj_header = refreshHeader;
     
-}
-
-- (void)isLoginOrNot{
-    //
-    
-//    HJUser *user = [HJUser sharedUser];
-//    if (user.token.length == 0) {
-//        //判断是否登录
-//        HHLoginVC *vc = [[HHLoginVC alloc] initWithNibName:@"HHLoginVC" bundle:nil];
-//        vc.tabBarVC = self.tabBarController;
-//        vc.tabSelectIndex = 2;
-//        HJNavigationController *nav = [[HJNavigationController alloc] initWithRootViewController:vc];
-//        [self presentViewController:nav animated:YES completion:nil];
-//    }else{
-//        //获取数据
-//        [self getDatas];
-//    }
 }
 //获取数据
 - (void)getDatas{
@@ -244,7 +216,7 @@
 //                    self.settleAccountView.sendGift_label.hidden = YES;
 //                    self.settleAccountView.sendGift_widthConstant.constant = 0;
 //                }
-                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥0.00"];
+                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计：¥0.00"];
 
 //                self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"共计¥%.2f",self.model.total?self.model.total.floatValue:0.00];
 
@@ -332,7 +304,7 @@
     [settleView addSubview:self.settleAccountView];
     [self.view addSubview:settleView];
     
-    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥0.00"];
+    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计：¥0.00"];
 
     
     //全选
@@ -563,9 +535,9 @@
                     }];
                 }];
                 if (isSelect == YES) {
-                    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+                    self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计：¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
                 }else{
-                    self.settleAccountView.money_totalLabel.text =  @"合计¥0.00";
+                    self.settleAccountView.money_totalLabel.text =  @"合计：¥0.00";
                 }
                 [self.tableView reloadData];
             }
@@ -657,7 +629,7 @@
         [self.selectItems replaceObjectAtIndex:indexPath.section withObject:new_section_Item];
 
         HHtEditCarItem *editCarItem  = [HHtEditCarItem shopCartGoodsList:weakSelf.model.stores selectionArr:weakSelf.selectItems];
-        self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
+        self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计：¥%.2f",editCarItem.total_Price?editCarItem.total_Price:0.00];
         self.settleAccountView.selectBtn.selected = editCarItem.settleAllSelect;
 
         //

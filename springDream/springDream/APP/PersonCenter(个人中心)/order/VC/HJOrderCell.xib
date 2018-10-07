@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -42,18 +41,18 @@
                             <constraint firstAttribute="width" constant="109" id="D2V-Os-50c"/>
                             <constraint firstAttribute="height" constant="18" id="Pex-tu-Geo"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.078431372549019607" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZV-Dj-G4f">
-                        <rect key="frame" x="309" y="38" width="50" height="20"/>
+                        <rect key="frame" x="244" y="38" width="115" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="Qi7-t9-Akx"/>
+                            <constraint firstAttribute="width" constant="115" id="Qi7-t9-Akx"/>
                             <constraint firstAttribute="height" constant="20" id="Yuc-7R-dvi"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.078431372550000003" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-FC-seV">
@@ -67,9 +66,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVm-tT-q5r">
-                        <rect key="frame" x="98" y="48" width="177" height="20"/>
+                        <rect key="frame" x="98" y="48" width="132" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="177" id="4oh-yR-WMA"/>
+                            <constraint firstAttribute="width" constant="132" id="4oh-yR-WMA"/>
                             <constraint firstAttribute="height" constant="20" id="mns-Fe-Oih"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -101,7 +100,7 @@
                 <outlet property="quantityLab" destination="AZV-Dj-G4f" id="K3o-2v-rjt"/>
                 <outlet property="sku_nameLab" destination="YVm-tT-q5r" id="k6c-d1-rcV"/>
             </connections>
-            <point key="canvasLocation" x="244.5" y="258.5"/>
+            <point key="canvasLocation" x="244.5" y="258"/>
         </tableViewCell>
     </objects>
 </document>

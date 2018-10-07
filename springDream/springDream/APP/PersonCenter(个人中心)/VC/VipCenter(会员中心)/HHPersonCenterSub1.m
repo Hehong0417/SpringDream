@@ -112,7 +112,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
-            cell.textLabel.text = @"我的订单";
+            cell.textLabel.text = @"全部订单";
             cell.textLabel.font = FONT(13);
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -156,7 +156,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate= self;
             cell.btn_image_arr = @[@"sub1_service11",@"sub1_service12",@"service_10",@""];
-            cell.btn_title_arr = @[@"拼团活动",@"降价团活动",@"分享邀请码",@""];
+            cell.btn_title_arr = @[@"拼团活动",@"降价团活动",@"分享名片",@""];
             grideCell = cell;
         }
     }

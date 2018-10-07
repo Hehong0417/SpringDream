@@ -252,7 +252,7 @@
                 }
                 
                 CGFloat money_total = self.model.totalMoney.floatValue;
-                self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计¥%.2f",money_total];
+                self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
                 
                 [self.tableView reloadData];
                 
@@ -469,7 +469,7 @@
         NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:3];
         
         CGFloat money_total =  money_total_str.floatValue - order_model.orderIntegralMoney.floatValue;
-        self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计¥%.2f",money_total];
+        self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
         
     }else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue];
@@ -478,7 +478,7 @@
         NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:3];
         
         CGFloat money_total = money_total_str.floatValue + order_model.orderIntegralMoney.floatValue;
-        self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计¥%.2f",money_total];
+        self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
     }
 
         [self.integralSelecItems replaceObjectAtIndex:section withObject:@(btn.selected)];
@@ -578,13 +578,13 @@
         }else{
             money_total = total_money + lastConponValue;
         }
-        submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计¥%.2f",money_total>0?money_total:0.01];
+        submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total>0?money_total:0.01];
         couponCell.detailTextLabel.text = @"不使用";
 
     }else{
         
         CGFloat money_total = total_money-model.CouponValue.floatValue;
-        submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计¥%.2f",money_total>0?money_total:0.01];
+        submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total>0?money_total:0.01];
         couponCell.detailTextLabel.text = model.DisplayName;
         
         HHCouponItem *coupon_item = [HHCouponItem sharedCouponItem];

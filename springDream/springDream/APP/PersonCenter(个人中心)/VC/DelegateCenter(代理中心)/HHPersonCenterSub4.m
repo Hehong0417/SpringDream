@@ -109,7 +109,7 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"title_cell"];
             cell.textLabel.text = @"代理中心";
             cell.textLabel.font = FONT(13);
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }

@@ -67,7 +67,7 @@
     //设置文字属性
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     textAttrs[NSForegroundColorAttributeName] = kWhiteColor;
-    textAttrs[NSFontAttributeName] = JDNavigationFont;
+    textAttrs[NSFontAttributeName] = FONT(16);
     
     
     //设置导航栏背景
@@ -111,13 +111,13 @@
     
     /**设置文字属性**/
     // 设置普通状态的文字属性
-    [appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:APP_COMMON_COLOR, NSForegroundColorAttributeName,[UIFont systemFontOfSize:18],NSFontAttributeName,nil] forState:UIControlStateNormal];
+    [appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:APP_COMMON_COLOR, NSForegroundColorAttributeName,FONT(16),NSFontAttributeName,nil] forState:UIControlStateNormal];
     
     // 设置高亮状态的文字属性
     //    [appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:SWCommonColor, NSForegroundColorAttributeName,[UIFont systemFontOfSize:15],NSFontAttributeName,nil] forState:UIControlStateHighlighted];
     
     // 设置不可用状态(disable)的文字属性
-    [appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:APP_COMMON_COLOR, NSForegroundColorAttributeName,[UIFont systemFontOfSize:15],NSFontAttributeName,nil] forState:UIControlStateDisabled];
+    [appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:APP_COMMON_COLOR, NSForegroundColorAttributeName,FONT(16),NSFontAttributeName,nil] forState:UIControlStateDisabled];
     /**自定义导航控制器返回按钮设置背景**/
     // 技巧: 为了让某个按钮的背景消失, 可以设置一张完全透明的背景图片
 //    [appearance setBackgroundImage:[UIImage imageWithName:@"navigationbar_button_background"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

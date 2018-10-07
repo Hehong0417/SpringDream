@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "WXApi.h"
 #import "HHLoginVC.h"
+#import "UncaughtExceptionHandler.h"
 
 #define USHARE_DEMO_APPKEY  @"5b90a1808f4a9d121b000037"
 #define Wechat_AppKey  @"wxa40e7d9b1283c27c"
@@ -23,6 +24,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [UncaughtExceptionHandler installUncaughtExceptionHandler:YES showAlert:YES];
+
+    
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
