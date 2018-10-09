@@ -161,7 +161,7 @@
 //订单支付
 + (instancetype)postOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money;
 //创建订单
-+ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId;
++ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId shippingStoreIds:(NSString *)shippingStoreIds;
 //发布评价
 + (instancetype)postOrderEvaluateWithOrderId:(NSString *)orderId level:(NSNumber *)level logisticsScore:(NSNumber *)logisticsScore serviceScore:(NSNumber *)serviceScore productEvaluate:(NSString *)productEvaluate;
 //上传多张图片
@@ -172,4 +172,6 @@
 + (instancetype)postGiveAwayPointsWithgetUserId:(NSString *)getUserId points:(NSString *)points;
 //校验推荐码并绑定上下级关系
 + (instancetype)ValidateRecommendCodeWithCode:(NSString *)code;
+//更新省市区信息
++ (instancetype)UpdateUserInfoOfCityWithRegionId:(NSString *)regionId;
 @end

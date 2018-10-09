@@ -54,6 +54,8 @@
 @property(nonatomic,strong) NSString *total;
 @property(nonatomic,strong) NSNumber *order_mode;
 @property(nonatomic,strong) NSString *order_mode_name;
+@property(nonatomic,strong) NSString *store_name;
+
 @property(nonatomic,strong) NSArray <HHproductsModel*>*items;
 @property(nonatomic,assign) CGFloat footHeight;
 
@@ -86,6 +88,8 @@
 @property(nonatomic,strong) NSString *isCanUseIntegral;
 @property(nonatomic,strong) NSString *orderIntegral;
 @property(nonatomic,strong) NSString *orderIntegralMoney;
+@property(nonatomic,strong) NSString *storeId;
+@property(nonatomic,strong) NSString *storeName;
 
 @end
 

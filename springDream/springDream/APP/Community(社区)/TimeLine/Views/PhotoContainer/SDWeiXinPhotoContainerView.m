@@ -72,6 +72,8 @@
 {
     _picPathStringsArray = picPathStringsArray;
     
+    self.isEvaluation = NO;
+    
     for (long i = _picPathStringsArray.count; i < self.imageViewsArray.count; i++) {
         UIImageView *imageView = [self.imageViewsArray objectAtIndex:i];
         imageView.hidden = YES;
@@ -119,7 +121,59 @@
     self.fixedHeight = @(h);
     self.fixedWidth = @(w);
 }
+- (void)setEvaluationPicPathStringsArray:(NSArray *)evaluationPicPathStringsArray{
+    _evaluationPicPathStringsArray = evaluationPicPathStringsArray;
+    
+    self.isEvaluation = YES;
 
+    for (long i = _evaluationPicPathStringsArray.count; i < self.imageViewsArray.count; i++) {
+        UIImageView *imageView = [self.imageViewsArray objectAtIndex:i];
+        imageView.hidden = YES;
+    }
+    
+    if (_evaluationPicPathStringsArray.count == 0) {
+        self.height = 0;
+        self.fixedHeight = @(0);
+        return;
+    }
+    WEAK_SELF();
+    CGFloat itemW = [self itemWidthForPicPathArray:_evaluationPicPathStringsArray];
+    CGFloat itemH = 0;
+    if (_evaluationPicPathStringsArray.count == 1) {
+        itemH = itemW;
+        
+    } else {
+        itemH = itemW;
+    }
+    long perRowItemCount = [self perRowItemCountForPicPathArray:_evaluationPicPathStringsArray];
+    CGFloat margin = 5;
+    
+    [_evaluationPicPathStringsArray enumerateObjectsUsingBlock:^(NSString * picurl, NSUInteger idx, BOOL * _Nonnull stop) {
+        long columnIndex = idx % perRowItemCount;
+        long rowIndex = idx / perRowItemCount;
+        UIImageView *imageView = [weakSelf.imageViewsArray objectAtIndex:idx];
+        [imageView lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.hidden = NO;
+        if ([picurl hasPrefix:@"http"]) {
+            [imageView sd_setImageWithURL:[NSURL URLWithString:picurl] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+        }else{
+            imageView.image = [UIImage imageNamed:KPlaceImageName];
+        }
+        imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
+    }];
+    
+    CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
+    int columnCount = ceilf(_evaluationPicPathStringsArray.count * 1.0 / perRowItemCount);
+    CGFloat h = columnCount * itemH + (columnCount - 1) * margin;
+    
+    self.width = w;
+    self.height = h;
+    
+    self.fixedHeight = @(h);
+    self.fixedWidth = @(w);
+    
+}
 #pragma mark - private actions
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap
@@ -128,7 +182,11 @@
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     browser.currentImageIndex = imageView.tag;
     browser.sourceImagesContainerView = self;
-    browser.imageCount = self.picPathStringsArray.count;
+    if (self.isEvaluation == YES) {
+        browser.imageCount = self.evaluationPicPathStringsArray.count;
+    }else{
+       browser.imageCount = self.picPathStringsArray.count;
+    }
     browser.delegate = self;
     [browser show];
 }
@@ -160,8 +218,14 @@
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
-    SDContentECSubjectPicModel * picMode = self.picPathStringsArray[index];
-    NSString *imageName = picMode.PicUrl;
+    NSString *imageName = nil;
+    if (self.isEvaluation == YES) {
+      imageName  = self.evaluationPicPathStringsArray[index];
+    }else{
+
+        SDContentECSubjectPicModel * picMode = self.picPathStringsArray[index];
+        imageName = picMode.PicUrl;
+    }
     NSURL *url = [NSURL URLWithString:imageName];
     return url;
 }

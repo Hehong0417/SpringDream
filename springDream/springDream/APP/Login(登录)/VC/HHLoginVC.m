@@ -31,7 +31,7 @@
 
 @implementation HHLoginVC
 
-static BOOL flag=0;
+ BOOL flag=0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,7 +54,7 @@ static BOOL flag=0;
     UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(_phone_imagV.mj_x,CGRectGetMaxY(_phone_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
     [self.view addSubview:h_line];
 
-    
+    flag = NO;
     
     _code_imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(WidthScaleSize_W(25), CGRectGetMaxY(_phone_textfield.frame)+WidthScaleSize_H(20), WidthScaleSize_H(30), WidthScaleSize_H(30)) image:[UIImage imageNamed:@"password"]];
     _code_imagV.contentMode = UIViewContentModeCenter;
@@ -169,7 +169,7 @@ static BOOL flag=0;
 
 - (void)loginAction:(UIButton *)button{
 
-    if (flag) {
+    if (flag == YES) {
         // 短信验证码登录
         NSString *isvalid =  [self isValidWithphoneStr:_phone_textfield.text verifyCodeStr:_code_textfield.text];
         if (!isvalid) {
@@ -178,6 +178,7 @@ static BOOL flag=0;
             [SVProgressHUD showInfoWithStatus:isvalid];
         }
     }else{
+        
         // 密码登录
        NSString *isvalid =  [self isValidWithphoneStr:_phone_textfield.text newPwdStr:_code_textfield.text];
         if (!isvalid) {
@@ -286,6 +287,7 @@ static BOOL flag=0;
 
                 HHPhoneBandVC *vc = [HHPhoneBandVC new];
                 vc.openId = openid;
+                vc.UserImage = resp.iconurl;
                 [self.navigationController pushVC:vc];
                 [hud hideAnimated:YES];
                 

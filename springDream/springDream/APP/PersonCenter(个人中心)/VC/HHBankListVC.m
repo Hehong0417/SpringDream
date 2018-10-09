@@ -54,7 +54,7 @@
     self.title = @"我的银行卡";
     
     UIView *footerView = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 100) backColor:KVCBackGroundColor];
-    UIView *btn_view = [UIView lh_viewWithFrame:CGRectMake(15, 0, ScreenW-30, 44) backColor:APP_NAV_COLOR];
+    UIView *btn_view = [UIView lh_viewWithFrame:CGRectMake(15, 30, ScreenW-30, 44) backColor:APP_NAV_COLOR];
     [footerView addSubview:btn_view];
     UIImageView *imagV = [UIImageView lh_imageViewWithFrame:CGRectMake(30, 0, 44, 44) image:[UIImage imageNamed:@"add_01"]];
     imagV.contentMode = UIViewContentModeCenter;
@@ -71,7 +71,6 @@
         HHBandCardVC *vc = [HHBandCardVC new];
         [self.navigationController pushVC:vc];
     }];
-    
 }
 #pragma mark - 加载数据
 - (void)getDatas{
@@ -87,7 +86,7 @@
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
         
     }];

@@ -641,17 +641,24 @@
     HHCartModel *model = [HHCartModel mj_objectWithKeyValues:self.datas[section]];
     UIView *headView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) backColor:kWhiteColor];
   
-//    UIView *downLine = [UIView lh_viewWithFrame:CGRectMake(CGRectGetMaxX(textLabel.frame)+5, 0,1, 40) backColor:KVCBackGroundColor];
-//    [headView addSubview:downLine];
    //店铺名称
-    UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(8, 0, 200, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
-    [headView addSubview:button];
 
-    //时间
-//    CGSize order_date_size = [model.order_date lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-//    UILabel *orderLabel = [UILabel lh_labelWithFrame:CGRectMake(10, 0,order_date_size.width+1, 40) text:model.order_date textColor:kBlackColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-//    orderLabel.centerY = headView.centerY;
-//    [headView addSubview:orderLabel];
+    UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(8, 0, 40, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:nil titleColor:kBlackColor font:FONT(13)];
+    [headView addSubview:button];
+    //
+    CGSize storeName_size = [model.store_name lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+    
+    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(44, 0, storeName_size.width+10, 40) text:model.store_name textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    [headView addSubview:storeName_label];
+    
+//    if (model.groupName.length>0) {
+//        CGSize mode_size = [model.groupName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+//        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(storeName_label.frame)+5, 0,mode_size.width+10, 20) text:model.groupName textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+//        activityLabel.centerY = headView.centerY;
+//        [activityLabel lh_setCornerRadius:5 borderWidth:1 borderColor:APP_NAV_COLOR];
+//        [headView addSubview:activityLabel];
+//    }
+
     if (![model.order_mode isEqual:@1]) {
       CGSize mode_size = [model.order_mode_name lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
         UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(button.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];

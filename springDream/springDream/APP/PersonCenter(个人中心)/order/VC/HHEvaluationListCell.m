@@ -152,12 +152,13 @@ const CGFloat contentLabelFontSize1 = 15;
 }
 - (void)setModel:(HHEvaluationListModel *)model{
     _model = model;
+    
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.userImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     _nameLable.text = model.userName;
     _timeLabel.text = model.createDate;
     _propertyLabel.text = model.skuName;
     _contentLabel.text = model.content.length>0?model.content:@"此用户没有填写评价";
-    _picContainerView.picPathStringsArray = model.pictures;
+    _picContainerView.evaluationPicPathStringsArray = model.pictures;
     NSInteger grade = model.describeScore.integerValue;
     UIImage *gradeImage = [UIImage imageNamed:@"stoke_star"];
     CGFloat width = gradeImage.size.width/5*grade;

@@ -311,7 +311,7 @@ static NSArray *lastSele_IdArray_;
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }
             }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
             }
         }];
         
@@ -838,6 +838,7 @@ static NSArray *lastSele_IdArray_;
         
         if (!error) {
             if (api.State == 1) {
+                
                 NSArray *arr = api.Data;
                 self.evaluations = arr.mutableCopy;
                 

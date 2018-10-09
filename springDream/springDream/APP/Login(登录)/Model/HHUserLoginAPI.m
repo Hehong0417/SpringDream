@@ -36,7 +36,7 @@
     return api;
 }
 //注册
-+ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode  InviteCode:(NSString *)InviteCode{
++ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode  InviteCode:(NSString *)InviteCode UserImage:(NSString *)UserImage{
     
     HHUserLoginAPI *api = [self new];
     api.subUrl = API_Register;
@@ -58,6 +58,9 @@
     }
     if (InviteCode) {
         [api.parameters setObject:InviteCode forKey:@"InviteCode"];
+    }
+    if (UserImage) {
+        [api.parameters setObject:UserImage forKey:@"UserImage"];
     }
     [api.parameters setObject:@"1" forKey:@"ClientInfo_Id"];
 

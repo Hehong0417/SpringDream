@@ -11,7 +11,6 @@
 //(57)
 //#ifdef DEBUG
 
-//阿里云
 #define API_HOST @"http://mrs-base.elevo.cn/api"
 
 #define API_HOST1 @"http://mrs.elevo.cn"
@@ -100,8 +99,12 @@
 #define API_Comment_Add  API_SUB_URL4(@"ContentECSubject/Add")
 //分销说明
 #define API_GetDistributionContent  API_SUB_URL4(@"Distribution/GetDistributionContent")
-//分销说明
+//银行卡列表
 #define API_GetUserBankAccountList  API_SUB_URL4(@"UserInfo/GetUserBankAccountList")
+//更新省市区信息
+#define API_UpdateUserInfoOfCity  API_SUB_URL4(@"UserInfo/UpdateUserInfoOfCity")
+
+
 
 /**
  *  首页
@@ -121,7 +124,7 @@
 //3.1获取商品分类列表
 #define API_GetProductGroup API_SUB_URL3(@"GetProductGroup")
 //3.4获取商品分类列表(搜索)
-#define API_Product_search API_SUB_URL3(@"SearchProduct")
+#define API_Product_search API_SUB_URL3(@"SearchProductNew")
 //3.5获取单个商品
 #define API_GetProductDetail API_SUB_URL3(@"GetProduct")
 

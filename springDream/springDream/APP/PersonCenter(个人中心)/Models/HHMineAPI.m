@@ -701,7 +701,7 @@
     
 }
 //创建订单
-+ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId{
++ (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId shippingStoreIds:(NSString *)shippingStoreIds{
     HHMineAPI *api = [self new];
     api.subUrl = API_Order_Create;
     if (addr_id) {
@@ -731,6 +731,10 @@
     if (integralTempIds) {
         [api.parameters setObject:integralTempIds forKey:@"integralTempIds"];
     }
+    if (shippingStoreIds) {
+        [api.parameters setObject:shippingStoreIds forKey:@"shippingStoreIds"];
+    }
+    
     api.parametersAddToken = NO;
     return api;
 }
@@ -811,4 +815,16 @@
     api.parametersAddToken = NO;
     return api;
 }
+//更新省市区信息
++ (instancetype)UpdateUserInfoOfCityWithRegionId:(NSString *)regionId{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = [NSString stringWithFormat:@"%@?regionId=%@",API_UpdateUserInfoOfCity,regionId];
+//    if (regionId) {
+//        [api.parameters setObject:regionId forKey:@"regionId"];
+//    }
+    api.parametersAddToken = NO;
+    return api;
+}
+
 @end

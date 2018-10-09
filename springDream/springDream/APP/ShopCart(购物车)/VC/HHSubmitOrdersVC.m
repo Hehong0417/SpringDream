@@ -50,9 +50,16 @@
 @property (nonatomic, strong) NSMutableArray *productStores_ids;
 
 @property(nonatomic,strong) NSMutableArray *integralSelecItems;
+
+@property(nonatomic,strong) NSMutableArray *shippingStoreIdsSelecItems;
+
+
 @property(nonatomic,strong) HHSubmitOrdersHead *SubmitOrdersHead;
 @property(nonatomic,strong) HXCommonPickView *pickView;
 @property (nonatomic, strong) UIButton *currentSelectBtn;
+@property (nonatomic, strong) NSIndexPath *currentSelectIndexPath;
+@property (nonatomic, strong) UIButton *distributton;
+@property (nonatomic, strong) NSString *toStoreId;
 
 @end
 
@@ -104,7 +111,6 @@
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.emptyDataSetSource = self;
     
-
     
     //地址栏
     [self addSubmitOrdersHead];
@@ -163,6 +169,13 @@
     }
     return _integralSelecItems;
 }
+- (NSMutableArray *)shippingStoreIdsSelecItems{
+    if (!_shippingStoreIdsSelecItems) {
+        _shippingStoreIdsSelecItems = [NSMutableArray array];
+    }
+    return _shippingStoreIdsSelecItems;
+}
+
 - (NSMutableArray *)productStores_names{
     
     if (!_productStores_names) {
@@ -189,7 +202,7 @@
                     HHHomeModel *model = [HHHomeModel mj_objectWithKeyValues:dic];
                     if (idx == 0) {
                         self.SubmitOrdersHead.goodStore_name_label.text = model.store_name;
-                        self.storeId = model.store_id;
+                        self.toStoreId = model.store_id;
                     }
                     [self.productStores_names addObject:model.store_name];
                     [self.productStores_ids addObject:model.store_id];
@@ -234,6 +247,7 @@
            
                 [orders_copys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [self.integralSelecItems addObject:@0];
+                    [self.shippingStoreIdsSelecItems addObject:@1];
                 }];
                 if (self.model.coupons.count>0) {
                     [self.datas addObject:@"可用优惠券"];
@@ -247,7 +261,7 @@
                     self.SubmitOrdersHead.frame = CGRectMake(0, 0, SCREEN_WIDTH, 130);
                     self.SubmitOrdersHead.goodStore_view.hidden = NO;
                 }else{
-                    
+                   self.toStoreId = nil;
                    self.SubmitOrdersHead.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
                    self.SubmitOrdersHead.goodStore_view.hidden = YES;
                 }
@@ -307,7 +321,7 @@
             self.pickView.completeBlock = ^(NSString *result) {
                 weakSelf.SubmitOrdersHead.goodStore_name_label.text = result;
                 NSInteger index = [weakSelf.productStores_names indexOfObject:result];
-                weakSelf.storeId = weakSelf.productStores_ids[index];
+                weakSelf.toStoreId = weakSelf.productStores_ids[index];
             };
             [self.pickView showPickViewAnimation:YES];
         }
@@ -540,27 +554,63 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-        UIView *sectionHead =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
+        UIView *sectionHead =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
         sectionHead.backgroundColor = kWhiteColor;
     if (self.datas.count>self.model.orders.count&&section == self.datas.count-1) {
       //优惠券
-        
+      
     }else{
-        UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 220, 35) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
-        UIView *distribution_view = [UIView lh_viewWithFrame:CGRectMake(ScreenW-150, 0, 150, 35) backColor:kWhiteColor];
-        //配送方式
-        NSArray *btnImag = @[@"自提",@"邮寄"];
-        for (NSInteger i =0; i<2; i++) {
-            UIButton *distributton = [UIButton lh_buttonWithFrame:CGRectMake(i*60, 0, 60, 35) target:self action:@selector(distributtonAction:) image:[UIImage imageNamed:@"icon_sign_default"] title:btnImag[i] titleColor:kBlackColor font:FONT(13)];
-            [distributton setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
-            [distribution_view addSubview:distributton];
-        }
-        [sectionHead addSubview:distribution_view];
+        HHordersModel *order_model = self.datas[section];
+
+        UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 40, 40) target:self action:nil image:[UIImage imageNamed:@"logo"] title:nil titleColor:kBlackColor font:FONT(13)];
 
         [sectionHead addSubview:button];
+        
+        CGSize storeName_size = [order_model.storeName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+        
+        UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(40, 0, storeName_size.width+10, 40) text:order_model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+        [sectionHead addSubview:storeName_label];
+
+        
+        //配送方式
+        if (order_model.storeId.integerValue>0) {
+            
+        UIView *distribution_view = [UIView lh_viewWithFrame:CGRectMake(ScreenW-150, 0, 150, 40) backColor:kWhiteColor];
+        
+        NSInteger  shippingStore_way = ((NSNumber *)self.shippingStoreIdsSelecItems[section]).integerValue;
+        
+        NSArray *btnImag = @[@"  自提",@"  邮寄"];
+        for (NSInteger i =0; i<2; i++) {
+         
+            self.distributton = [UIButton lh_buttonWithFrame:CGRectMake(i*60, 0, 60, 40) target:self action:nil image:[UIImage imageNamed:@"icon_sign_default"] title:btnImag[i] titleColor:kBlackColor font:FONT(13)];
+            self.distributton.tag = i+section+10000;
+            [self.distributton setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
+            if (i == shippingStore_way) {
+                self.distributton.selected = YES;
+            }
+            WEAK_SELF();
+            [weakSelf.distributton setTapActionWithBlock:^{
+                
+                [weakSelf selecetDistributton:weakSelf.distributton section:section index:i];
+            }];
+            [distribution_view addSubview:self.distributton];
+        }
+
+        [sectionHead addSubview:distribution_view];
+
+        }
+        
     }
     return sectionHead;
 }
+//选择配送方式
+- (void)selecetDistributton:(UIButton *)button section:(NSInteger)section index:(NSInteger)index{
+    
+    [self.shippingStoreIdsSelecItems replaceObjectAtIndex:section withObject:@(index)];
+    
+    [self.tableView reloadSection:section withRowAnimation:UITableViewRowAnimationNone];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
     return 5;
@@ -570,18 +620,10 @@
         //优惠券
         return 5;
     }else{
-        return 35;
+        return 40;
     }
 }
-//选择配送方式
-- (void)distributtonAction:(UIButton *)button{
-    
-    self.currentSelectBtn.selected = NO;
-    button.selected = YES;
-    self.currentSelectBtn = button;
-    
-    
-}
+
 #pragma mark- payTypeDelegate
 
 - (void)commitActionWithBtn:(UIButton *)btn selectIndex:(NSInteger)selectIndex select_model:(HHcouponsModel *)model total_money:(CGFloat )total_money submitOrderTool:(HHSubmitOrderTool *)submitOrderTool couponCell:(UITableViewCell *)couponCell lastConponValue:(CGFloat)lastConponValue last_total_money:(CGFloat)last_total_money {
@@ -696,19 +738,41 @@
         //积分
         NSString *integralTempIds_str;
         NSMutableArray *integralTempIds_arr = [NSMutableArray array];
-        [self.model.orders enumerateObjectsUsingBlock:^(HHordersModel * order_m, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self.integralSelecItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isEqual:@1]) {
-                    
-                    [integralTempIds_arr addObject:order_m.freightId];
-                }
-            }];
-            
+        [self.integralSelecItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqual:@1]) {
+       
+                [self.model.orders enumerateObjectsUsingBlock:^(HHordersModel * order_m, NSUInteger two_idx, BOOL * _Nonnull stop) {
+                    if (idx == two_idx) {
+                        [integralTempIds_arr addObject:order_m.freightId];
+                    }
+                }];
+            }
         }];
+
         if (integralTempIds_arr.count>0) {
-            integralTempIds_str = [integralTempIds_arr mj_JSONString];
+            integralTempIds_str = [integralTempIds_arr componentsJoinedByString:@","];
         }
-        [[[HHMineAPI postOrder_CreateWithAddrId:self.address_id skuId:self.sku_Id count:self.count mode:self.mode gbId:self.gbId couponId:coupon_id integralTempIds:integralTempIds_str message:nil cartIds:self.cartIds storeId:self.storeId]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
+        //配送方式
+        NSString *shippingStoreIds_str;
+        NSMutableArray *shippingStoreIds_arr = [NSMutableArray array];
+        
+        [self.shippingStoreIdsSelecItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqual:@0]) {
+                [self.model.orders enumerateObjectsUsingBlock:^(HHordersModel * order_m, NSUInteger two_idx, BOOL * _Nonnull stop) {
+                    if (idx == two_idx) {
+                        [shippingStoreIds_arr addObject:order_m.storeId];
+                    }
+                }];
+            }
+        }];
+        
+        if (shippingStoreIds_arr.count>0) {
+            shippingStoreIds_str = [shippingStoreIds_arr componentsJoinedByString:@","];
+        }
+        
+        //
+        [[[HHMineAPI postOrder_CreateWithAddrId:self.address_id skuId:self.sku_Id count:self.count mode:self.mode gbId:self.gbId couponId:coupon_id integralTempIds:integralTempIds_str message:nil cartIds:self.cartIds storeId:self.toStoreId shippingStoreIds:shippingStoreIds_str]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
             self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled  = YES;
             self.submitOrderTool.closePay.userInteractionEnabled = YES;
             if (!error) {

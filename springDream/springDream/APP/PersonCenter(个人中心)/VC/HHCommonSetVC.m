@@ -102,7 +102,7 @@
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
     
@@ -127,12 +127,9 @@
         [self.addressPick showPickViewAnimation:YES];
         WEAK_SELF();
         self.addressPick.completeBlock = ^(NSString *result, NSString *district_id) {
-//            weakSelf.district_id = district_id;
-//            weakSelf.address_Str = result;
-            
-            HJSettingItem *item = [weakSelf settingItemInIndexPath:indexPath];
-            item.detailTitle = result;
-            [weakSelf.tableV reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+
+            [weakSelf saveAddressWithDistrict_id:district_id result:result indexPath:indexPath];
+           
         };
      }
     if (indexPath.section == 1&&indexPath.row == 1) {
@@ -165,6 +162,28 @@
         HHBankListVC *vc = [HHBankListVC new];
         [self.navigationController pushVC:vc];
     }
+    
+}
+- (void)saveAddressWithDistrict_id:(NSString *)district_id result:(NSString *)result indexPath:(NSIndexPath *)indexPath{
+    
+    HJSettingItem *item = [self settingItemInIndexPath:indexPath];
+    item.detailTitle = result;
+    [self.tableV reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+    
+    [[[HHMineAPI UpdateUserInfoOfCityWithRegionId:district_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        if (!error) {
+            if (api.State == 1) {
+                
+              
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }else{
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+        }
+        
+    }];
     
 }
 - (NSArray *)indicatorIndexPaths{

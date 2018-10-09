@@ -11,5 +11,6 @@
 @interface HHPhoneBandVC : UIViewController
 
 @property(nonatomic,strong)NSString *openId;
+@property(nonatomic,strong)NSString *UserImage;
 
 @end

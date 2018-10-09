@@ -34,5 +34,8 @@
 @property (nonatomic, strong) NSArray *picPathStringsArray;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) UITableView *tableview;
+@property (nonatomic, strong) NSArray *evaluationPicPathStringsArray;
+
+@property (nonatomic, assign) NSInteger  isEvaluation;
 
 @end

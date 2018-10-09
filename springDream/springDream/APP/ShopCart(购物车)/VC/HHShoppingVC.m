@@ -407,11 +407,11 @@
                             vc.sendGift = self.model.sendGift;
                             vc.mode = @8;
                         }else{
-                            vc.mode = nil;
+                            vc.mode = @1;
                             vc.enter_type = HHaddress_type_add_cart;
                         }
                     }else{
-                        vc.mode = nil;
+                        vc.mode = @1;
                         vc.enter_type = HHaddress_type_add_cart;
                     }
                     [self.navigationController pushVC:vc];
@@ -423,10 +423,10 @@
                           vc.mode = @8;
                           vc.sendGift = self.model.sendGift;
                         }else{
-                          vc.mode = nil;
+                          vc.mode = @1;
                         }
                     }else{
-                          vc.mode = nil;
+                          vc.mode = @1;
                     }
                     vc.titleStr = @"新增收货地址";
                     [self.navigationController pushVC:vc];
@@ -690,7 +690,7 @@
 //
     CGSize storeName_size = [model.storeName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
 
-    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(52, 0, storeName_size.width+10, 40) text:model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
+    UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(40, 0, storeName_size.width+10, 40) text:model.storeName textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [headView addSubview:storeName_label];
 
     if (model.groupName.length>0) {

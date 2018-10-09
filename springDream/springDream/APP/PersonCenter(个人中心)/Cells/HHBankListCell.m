@@ -17,6 +17,9 @@
     self.contentView.sd_layout
     .spaceToSuperView(UIEdgeInsetsMake(10, 10, 10, 10));
     
+    [self.contentView lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
+    self.contentView.backgroundColor = kWhiteColor;
+    self.backgroundColor = KVCBackGroundColor;
 }
 
 - (void)setModel:(HHMineModel *)model{

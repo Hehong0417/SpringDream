@@ -86,7 +86,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _timeLabel.textColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1];
     
     _titleLabel = [UILabel new];
-    _titleLabel.font = [UIFont boldSystemFontOfSize:13];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:14];
     _titleLabel.textColor = [UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:1];
     
     _contentLabel = [UILabel new];

@@ -121,20 +121,20 @@
 
     NSLog(@"Start:%@",navigation);
 
-    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
 }
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
 
     NSLog(@"Finish:%@",navigation);
-    [_hud hideAnimated:YES];
+//    [_hud hideAnimated:YES];
 
 }
 
 // 在收到响应后，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
 
-    [_hud hideAnimated:YES];
+//    [_hud hideAnimated:YES];
 
     NSString *responseUrl = navigationResponse.response.URL.absoluteString;
     NSLog(@"Response %@",navigationResponse.response.URL.absoluteString);

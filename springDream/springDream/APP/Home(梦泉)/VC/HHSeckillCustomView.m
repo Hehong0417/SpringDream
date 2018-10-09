@@ -81,6 +81,7 @@
     .leftSpaceToView(self, 15)
     .topSpaceToView(self, 10)
     .heightIs(20);
+    //label宽度自适应
     [self.price_label setSingleLineAutoResizeWithMaxWidth:140];
     
     

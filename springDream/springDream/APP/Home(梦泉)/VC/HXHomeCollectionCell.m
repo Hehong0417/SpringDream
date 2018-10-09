@@ -46,12 +46,12 @@
     
     _goodsModel = goodsModel;
     _tag_label.hidden = YES;
-    self.product_nameLabel.text = goodsModel.ProductName;
-    [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.ImageUrl1] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.MinShowPrice.floatValue];
+    self.product_nameLabel.text = goodsModel.product_name;
+    [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.product_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.product_user_price.floatValue];
 
-    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.MarketPrice.floatValue] rangeStr:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.MarketPrice.floatValue] color:KA0LabelColor];
-    if ([goodsModel.IsCollection isEqual:@1]) {
+    self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.product_market_price.floatValue] rangeStr:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.product_market_price.floatValue] color:KA0LabelColor];
+    if ([goodsModel.product_is_collection isEqual:@1]) {
         self.collectButton.selected = YES;
     }else{
         self.collectButton.selected = NO;

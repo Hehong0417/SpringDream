@@ -115,7 +115,6 @@
             self.collectionView.emptyDataSetSource = self;
             if (!error) {
                 if (api.State == 1) {
-                    
                     if (self.isFooterRefresh==YES) {
                         [self loadDataFinish:api.Data];
                     }else{
@@ -383,7 +382,6 @@
                     self.categoryId = category_m.Id;
                     [self refreshCategoryData];
         }
-
     }
 
 }
@@ -391,21 +389,12 @@
     
     if (selectIndex == 0){
         //上新
-        if (self.orderState==3) {
             self.orderState = 4;
-        }else{
-            self.orderState = 3;
-        }
         self.orderby = @(self.orderState);
         [self getDatas];
     }else if (selectIndex == 1){
-        
-        //销量
-        if (self.orderState==7) {
-            self.orderState = 8;
-        }else{
-            self.orderState = 7;
-        }
+
+        self.orderState = 8;
         self.orderby = @(self.orderState);
         [self getDatas];
     }
@@ -475,7 +464,7 @@
     
     HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     HHGoodDetailVC *vc = [HHGoodDetailVC new];
-    vc.Id = goodsModel.Id;
+    vc.Id = goodsModel.product_id;
     [self.navigationController pushVC:vc];
     
     vc.goodDetail_backBlock = ^{

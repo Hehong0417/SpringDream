@@ -42,6 +42,7 @@
 
 #import "SDTimeLineAPI.h"
 #import "SDTimeLineModel.h"
+#import "SDListModel.h"
 
 #define kTimeLineTableViewCellId @"SDTimeLineCell"
 
@@ -195,12 +196,13 @@ static CGFloat textFieldH = 40;
       
         if (!error) {
             if (api.State == 1) {
+                SDListModel *model = [SDListModel mj_objectWithKeyValues:api.Data];
                 if (self.isFooterRefresh==YES) {
-                    [self loadDataFinish:api.Data[@"List"]];
+                    [self loadDataFinish:model.List];
                 }else{
                     [self addRefreshFooter];
                     [self.dataArray removeAllObjects];
-                    [self loadDataFinish:api.Data[@"List"]];
+                    [self loadDataFinish:model.List];
                 }
             }
         }
@@ -272,12 +274,11 @@ static CGFloat textFieldH = 40;
     __weak typeof(self) weakSelf = self;
     if (!cell.moreButtonClickedBlock) {
         [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-            SDTimeLineModel * model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
+            SDTimeLineModel * model = weakSelf.dataArray[indexPath.row];
             model.isOpening = !model.isOpening;
             
             [weakSelf.tabView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
-       
         [cell setDidClickCommentLabelBlock:^(NSString *commentId, CGRect rectInWindow, NSIndexPath *indexPath) {
             
             weakSelf.textField.placeholder = [NSString stringWithFormat:@"  回复：%@", commentId];
@@ -296,14 +297,14 @@ static CGFloat textFieldH = 40;
     [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
     
     ///////////////////////////////////////////////////////////////////////
-    cell.model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
+    cell.model = self.dataArray[indexPath.row];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // >>>>>>>>>>>>>>>>>>>>> * cell自适应 * >>>>>>>>>>>>>>>>>>>>>>>>
-    id model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
+    id model = self.dataArray[indexPath.row];
     return [self.tabView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[SDTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
 }
 
@@ -341,7 +342,7 @@ static CGFloat textFieldH = 40;
     NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
     SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
     
-//    [self shareActionWithText:<#(NSString *)#> pic:<#(NSString *)#>]
+    [self shareActionWithText:model.SubjectContent pic:model.ContentECSubjectPicModel];
     
 }
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell likeButton:(UIButton *)likeButton
@@ -458,29 +459,30 @@ static CGFloat textFieldH = 40;
         [self adjustTableViewToFitKeyboard];
     }
 }
--(void)shareActionWithText:(NSString *)text pic:(NSString *)pic{
-    
+-(void)shareActionWithText:(NSString *)text pic:(NSArray *)pic{
+
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         // 根据获取的platformType确定所选平台进行下一步操作
-        
-        [self shareVedioToPlatformType:platformType pic:pic];
-        
+
+            [self shareVedioToPlatformType:platformType pic:pic Text:text];
     }];
 }
 //分享到不同平台
-- (void)shareVedioToPlatformType:(UMSocialPlatformType)platformType pic:(NSString *)pic
+- (void)shareVedioToPlatformType:(UMSocialPlatformType)platformType pic:(NSArray *)pic Text:(NSString *)text
 {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
-    messageObject.text = @"文字";
-    
-    UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:@"" descr:@"" thumImage:nil];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:pic]];
-    shareObject.shareImage = data;
-    //
-    messageObject.shareObject = shareObject;
-    
+    if (pic.count>0) {
+        UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:@"" descr:@"" thumImage:nil];
+        SDContentECSubjectPicModel *picMode = pic[0];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:picMode.PicUrl]];
+        shareObject.shareImage = data;
+        messageObject.shareObject = shareObject;
+        
+    }else{
+        messageObject.text = text;
+    }
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         

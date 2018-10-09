@@ -435,6 +435,7 @@
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
 		CEDBA264212D70C200CB8002 /* HHdiscountPackageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */; };
 		CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */; };
+		CEEE987E216CD3D900AF2D48 /* SDListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEE987D216CD3D900AF2D48 /* SDListModel.m */; };
 		CEFEAF88214A8B310085B5D1 /* HHPostTimeLineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAF87214A8B310085B5D1 /* HHPostTimeLineVC.m */; };
 /* End PBXBuildFile section */
 
@@ -1241,6 +1242,8 @@
 		CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageCollectionCell.m; sourceTree = "<group>"; };
 		CEDBA261212D70C200CB8002 /* HHdiscountPackageViewTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageViewTabCell.h; sourceTree = "<group>"; };
 		CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageView.m; sourceTree = "<group>"; };
+		CEEE987C216CD3D900AF2D48 /* SDListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDListModel.h; sourceTree = "<group>"; };
+		CEEE987D216CD3D900AF2D48 /* SDListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDListModel.m; sourceTree = "<group>"; };
 		CEFEAF86214A8B310085B5D1 /* HHPostTimeLineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPostTimeLineVC.h; sourceTree = "<group>"; };
 		CEFEAF87214A8B310085B5D1 /* HHPostTimeLineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPostTimeLineVC.m; sourceTree = "<group>"; };
 		EAFEAA26AB5C53CC115A922F /* Pods_springDream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_springDream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2213,6 +2216,8 @@
 				CE5E6F5021607DE900FE875D /* SDTimeLineAPI.m */,
 				CE5E6F522160873900FE875D /* SDTimeLineModel.h */,
 				CE5E6F532160873900FE875D /* SDTimeLineModel.m */,
+				CEEE987C216CD3D900AF2D48 /* SDListModel.h */,
+				CEEE987D216CD3D900AF2D48 /* SDListModel.m */,
 				CE5E6F552160BE0700FE875D /* SDPostTimeLinePicItem.h */,
 				CE5E6F562160BE0700FE875D /* SDPostTimeLinePicItem.m */,
 				CE5E6F582160C6ED00FE875D /* SDPostContentModel.h */,
@@ -3593,6 +3598,7 @@
 				CE5264CC212BBFE600F30D29 /* SDWaitingView.m in Sources */,
 				CE27F06E216B67240014415E /* HHBankListVC.m in Sources */,
 				CE4D09ED212423F200796FEE /* UITableViewCell+LH.m in Sources */,
+				CEEE987E216CD3D900AF2D48 /* SDListModel.m in Sources */,
 				CE4D09F8212423F200796FEE /* NSObject+Swizzling.m in Sources */,
 				CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */,
 				CE4D0A3D212423F200796FEE /* HXTabControlCell.m in Sources */,
