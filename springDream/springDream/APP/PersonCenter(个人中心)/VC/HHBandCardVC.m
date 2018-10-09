@@ -60,8 +60,13 @@
 
     HHTextfieldcell  *cell = [[HHTextfieldcell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleLabel"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.inputTextField.tag = indexPath.row+10000;
     cell.titleLabel.text = title_arr[indexPath.row];
     if (indexPath.row == 0) {
+        cell.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
+        cell.inputTextField.delegate = self;
+    }
+    if (indexPath.row == 4) {
         cell.inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         cell.inputTextField.delegate = self;
     }
@@ -120,11 +125,24 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    if (toBeString.length > 19 && range.length!=1){
-        textField.text = [toBeString substringToIndex:19];
-        return NO;
+
+    if (textField.tag == 10000) {
+        
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 19 && range.length!=1){
+            textField.text = [toBeString substringToIndex:19];
+            return NO;
+        }
     }
+    if (textField.tag == 10004) {
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 11 && range.length!=1){
+            textField.text = [toBeString substringToIndex:11];
+            return NO;
+        }
+    }
+    
+
     return YES;
 }
 @end

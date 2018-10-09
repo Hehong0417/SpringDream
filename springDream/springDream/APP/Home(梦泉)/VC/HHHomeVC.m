@@ -146,6 +146,7 @@
             
         };
         vc.Id = model.Id;
+        
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 

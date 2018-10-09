@@ -55,6 +55,8 @@ static CGFloat textFieldH = 40;
 @property (nonatomic, copy) NSString *commentToUser;
 @property (nonatomic, assign)   NSInteger page;
 @property(nonatomic,assign)   BOOL  isFooterRefresh;
+@property(nonatomic,assign)   BOOL  isprogress;
+
 @property (nonatomic, strong) UITableView *tabView;
 
 @end
@@ -79,11 +81,23 @@ static CGFloat textFieldH = 40;
     self.tabView.tableFooterView = [UIView new];
     
 }
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [self.tabView.mj_header beginRefreshing];
+    
+    [self setupTextField];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.isprogress = YES;
     
     self.title = @"社区";
 
@@ -108,9 +122,7 @@ static CGFloat textFieldH = 40;
     //获取社区数据
     [self getTimeLineData];
     
-    [self setupTextField];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+   
 }
 
 - (void)addRefreshHeader{
@@ -121,6 +133,7 @@ static CGFloat textFieldH = 40;
         [self.dataArray removeAllObjects];
         self.page=1;
         self.isFooterRefresh = NO;
+        self.isprogress = YES;
         [self getTimeLineData];
     }];
     
@@ -133,6 +146,7 @@ static CGFloat textFieldH = 40;
     // 上拉加载
     _refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.isFooterRefresh = YES;
+        self.isprogress = YES;
         self.page++;
         [self getTimeLineData];
         [self.tabView reloadDataWithExistedHeightCache];
@@ -174,11 +188,10 @@ static CGFloat textFieldH = 40;
     _textField.leftViewMode = UITextFieldViewModeAlways;
     [[UIApplication sharedApplication].keyWindow addSubview:_textField];
     
-    [_textField resignFirstResponder];
 }
 - (void)getTimeLineData{
     
-    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.isFooterRefresh||self.isprogress?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
       
         if (!error) {
             if (api.State == 1) {
@@ -259,11 +272,12 @@ static CGFloat textFieldH = 40;
     __weak typeof(self) weakSelf = self;
     if (!cell.moreButtonClickedBlock) {
         [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-            SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
+            SDTimeLineModel * model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
             model.isOpening = !model.isOpening;
+            
             [weakSelf.tabView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
-        
+       
         [cell setDidClickCommentLabelBlock:^(NSString *commentId, CGRect rectInWindow, NSIndexPath *indexPath) {
             
             weakSelf.textField.placeholder = [NSString stringWithFormat:@"  回复：%@", commentId];
@@ -284,11 +298,6 @@ static CGFloat textFieldH = 40;
     ///////////////////////////////////////////////////////////////////////
     cell.model = [SDTimeLineModel mj_objectWithKeyValues:weakSelf.dataArray[indexPath.row]];
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -320,6 +329,7 @@ static CGFloat textFieldH = 40;
 
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell
 {
+    
     [_textField becomeFirstResponder];
     _currentEditingIndexthPath = [self.tabView indexPathForCell:cell];
     
@@ -328,11 +338,15 @@ static CGFloat textFieldH = 40;
 }
 - (void)didClickcShareButtonInCell:(UITableViewCell *)cell{
     
+    NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
+    SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
     
+//    [self shareActionWithText:<#(NSString *)#> pic:<#(NSString *)#>]
     
 }
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell likeButton:(UIButton *)likeButton
 {
+    
     NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
     SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
 
@@ -443,6 +457,40 @@ static CGFloat textFieldH = 40;
         _totalKeybordHeight = h;
         [self adjustTableViewToFitKeyboard];
     }
+}
+-(void)shareActionWithText:(NSString *)text pic:(NSString *)pic{
+    
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
+        
+        [self shareVedioToPlatformType:platformType pic:pic];
+        
+    }];
+}
+//分享到不同平台
+- (void)shareVedioToPlatformType:(UMSocialPlatformType)platformType pic:(NSString *)pic
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    messageObject.text = @"文字";
+    
+    UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:@"" descr:@"" thumImage:nil];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:pic]];
+    shareObject.shareImage = data;
+    //
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+            
+        }
+    }];
 }
 
 @end

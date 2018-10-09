@@ -34,6 +34,10 @@ typedef   void (^completeHandle)();
     self.title = @"发布";
     self.view.backgroundColor = kWhiteColor;
     
+    SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
+    oEvaluateItem.ContentECSubjectPicModel = [NSMutableArray array];
+    [oEvaluateItem write];
+    
     UIButton *commit_button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 45, 40) target:self action:@selector(commit_buttonAction) image:nil title:@"提交" titleColor:kWhiteColor font:FONT(14)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:commit_button];
@@ -92,14 +96,33 @@ typedef   void (^completeHandle)();
         
         contentModel.UserId = @"0";
  
-      NSString *contentmodel =  [contentModel mj_JSONObject];
-
-        [[[SDTimeLineAPI  postComment_AddWithContentECSubjectModel:contentmodel] netWorkClient] postRequestInView:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
-            
-            
-        }];
+        [self getResultOfQRImageWithAFN1:[contentModel mj_JSONObject]];
     }
 }
+- (void)getResultOfQRImageWithAFN1:(NSDictionary *)para{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //这句话加了之后返回的responseObject就是JSONData了，如果不加那就是正常的JSON可以直接转成字典然后操作
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html",@"image/jpeg",@"text/plain", nil];
+    NSString *urlString = @"http://mrs-product.elevo.cn/api/ContentECSubject/Add";
+    HJUser *user = [HJUser sharedUser];
+    NSString *token = user.token;
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorize"];
+
+    [manager POST:urlString parameters:para progress:nil success:
+     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+   
+         [SVProgressHUD showSuccessWithStatus:@"发布成功！"];
+         [self.navigationController popVC];
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         
+         [SVProgressHUD showInfoWithStatus:@"发布失败！"];
+     }];
+}
+
 
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
@@ -122,12 +145,7 @@ typedef   void (^completeHandle)();
 #pragma mark - YYTextViewDelegate
 
 - (void)textViewDidEndEditing:(YYTextView *)textView{
-    
-//    HHPostOrderEvaluateItem *oEvaluateItem = [HHPostOrderEvaluateItem sharedPostOrderEvaluateItem];
-//    HHproductEvaluateModel  *evaluate_m  = oEvaluateItem.productEvaluate[self.section];
-//    evaluate_m.content = textView.text;
-//    [oEvaluateItem write];
-//
+
     NSLog(@"textViewDidEndEditing");
 }
 - (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -242,7 +260,7 @@ typedef   void (^completeHandle)();
                 SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
                 if (oEvaluateItem.ContentECSubjectPicModel>0) {
                     NSMutableArray *ContentECSubjectPicModel_copy = [NSMutableArray array];
-                    [api.Data enumerateObjectsUsingBlock:^(NSString *pUrl, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [api.Path enumerateObjectsUsingBlock:^(NSString *pUrl, NSUInteger idx, BOOL * _Nonnull stop) {
                         ContentECSubjectPicModel  *picModel = [ContentECSubjectPicModel new];
                         picModel.PicUrl = pUrl;
                         picModel.Priority = @"0";

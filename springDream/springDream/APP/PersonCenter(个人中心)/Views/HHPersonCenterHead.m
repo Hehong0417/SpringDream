@@ -33,7 +33,7 @@
         //姓名
         self.name_label = [UILabel new];
         self.name_label.font = FONT(14);
-        self.name_label.text = @"梦泉";
+        self.name_label.text = @"";
         [self addSubview:self.name_label];
         //会员
         self.vip_label = [UILabel new];

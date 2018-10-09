@@ -18,6 +18,10 @@
 		CE21846821252D0B003F354F /* UIView+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846621252D0B003F354F /* UIView+Badge.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
 		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
+		CE27F06B216B4EB40014415E /* HHpreferIntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F06A216B4EB40014415E /* HHpreferIntegralCell.m */; };
+		CE27F06E216B67240014415E /* HHBankListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F06D216B67240014415E /* HHBankListVC.m */; };
+		CE27F075216B7E3C0014415E /* HHBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F073216B7E3C0014415E /* HHBankListCell.m */; };
+		CE27F076216B7E3C0014415E /* HHBankListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE27F074216B7E3C0014415E /* HHBankListCell.xib */; };
 		CE3246232154A7E8006A7527 /* HHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246222154A7E8006A7527 /* HHLoginVC.m */; };
 		CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246252154E439006A7527 /* HHrigsterVC.m */; };
 		CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */; };
@@ -475,6 +479,13 @@
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
 		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE21847321254A6A003F354F /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
+		CE27F069216B4EB40014415E /* HHpreferIntegralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHpreferIntegralCell.h; sourceTree = "<group>"; };
+		CE27F06A216B4EB40014415E /* HHpreferIntegralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHpreferIntegralCell.m; sourceTree = "<group>"; };
+		CE27F06C216B67240014415E /* HHBankListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBankListVC.h; sourceTree = "<group>"; };
+		CE27F06D216B67240014415E /* HHBankListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHBankListVC.m; sourceTree = "<group>"; };
+		CE27F072216B7E3C0014415E /* HHBankListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBankListCell.h; sourceTree = "<group>"; };
+		CE27F073216B7E3C0014415E /* HHBankListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHBankListCell.m; sourceTree = "<group>"; };
+		CE27F074216B7E3C0014415E /* HHBankListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHBankListCell.xib; sourceTree = "<group>"; };
 		CE3246212154A7E8006A7527 /* HHLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHLoginVC.h; sourceTree = "<group>"; };
 		CE3246222154A7E8006A7527 /* HHLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHLoginVC.m; sourceTree = "<group>"; };
 		CE3246242154E439006A7527 /* HHrigsterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHrigsterVC.h; sourceTree = "<group>"; };
@@ -1991,6 +2002,8 @@
 				CE99386E21369B25002B256D /* HHSignListVC.m */,
 				CE494C1821699E7A00039E23 /* HHDistributionInstructionsVC.h */,
 				CE494C1921699E7A00039E23 /* HHDistributionInstructionsVC.m */,
+				CE27F06C216B67240014415E /* HHBankListVC.h */,
+				CE27F06D216B67240014415E /* HHBankListVC.m */,
 				CE9065BD21561EC800A13992 /* VipCenter(会员中心) */,
 				CE9065BE21561EC900A13992 /* DistributionCenter(分销中心) */,
 				CE9065BC21561EC800A13992 /* StoreManager(门店管理) */,
@@ -2161,6 +2174,8 @@
 				CE4081222151F4A300436B42 /* HHSpellGroupCell.m */,
 				CEA09E1A2153B88F00DDB2A0 /* HHpreferentialModelCell.h */,
 				CEA09E1B2153B88F00DDB2A0 /* HHpreferentialModelCell.m */,
+				CE27F069216B4EB40014415E /* HHpreferIntegralCell.h */,
+				CE27F06A216B4EB40014415E /* HHpreferIntegralCell.m */,
 				CEDBA25C212D70C200CB8002 /* recommandCollecton */,
 				CE472640212D317F002BD2A5 /* Const(常量) */,
 				CE47261F212D1ECE002BD2A5 /* CollectionView */,
@@ -2864,6 +2879,9 @@
 				CE9065D521565C2300A13992 /* HHMyMembersCell.h */,
 				CE9065D621565C2300A13992 /* HHMyMembersCell.m */,
 				CE9065D721565C2300A13992 /* HHMyMembersCell.xib */,
+				CE27F072216B7E3C0014415E /* HHBankListCell.h */,
+				CE27F073216B7E3C0014415E /* HHBankListCell.m */,
+				CE27F074216B7E3C0014415E /* HHBankListCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3183,6 +3201,7 @@
 				CE4725C8212D0B18002BD2A5 /* HHCouponCell.xib in Resources */,
 				CE8A67C0212ACA2E00C7C57F /* HHOrderDetailCellOne.xib in Resources */,
 				CE4FFDC52148EEAF00767DF1 /* README.md in Resources */,
+				CE27F076216B7E3C0014415E /* HHBankListCell.xib in Resources */,
 				CE4FFDBA2148EEAF00767DF1 /* LICENSE in Resources */,
 				CE4FFE302148F4E800767DF1 /* 5.jpg in Resources */,
 				CE3B046C214FA58B00FC0AE2 /* HHIntegralRankCell.xib in Resources */,
@@ -3386,6 +3405,7 @@
 				CE32EC4A213FAD540088C652 /* HHGoodDetailFoot.m in Sources */,
 				CE4D0A36212423F200796FEE /* HJStaticGroupTableVC.m in Sources */,
 				CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */,
+				CE27F06B216B4EB40014415E /* HHpreferIntegralCell.m in Sources */,
 				CE5264CB212BBFE600F30D29 /* SDPhotoBrowser.m in Sources */,
 				CE4D08C22124205600796FEE /* AppDelegate.m in Sources */,
 				CE8A66AE212ABAB100C7C57F /* HHShippingAddressCell.m in Sources */,
@@ -3571,6 +3591,7 @@
 				CE8A6501212AAB6D00C7C57F /* HXHomeCollectionCell.m in Sources */,
 				CE8A67C2212ACA2E00C7C57F /* HHSelectPhotosCell.m in Sources */,
 				CE5264CC212BBFE600F30D29 /* SDWaitingView.m in Sources */,
+				CE27F06E216B67240014415E /* HHBankListVC.m in Sources */,
 				CE4D09ED212423F200796FEE /* UITableViewCell+LH.m in Sources */,
 				CE4D09F8212423F200796FEE /* NSObject+Swizzling.m in Sources */,
 				CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */,
@@ -3597,6 +3618,7 @@
 				CE90EAC72159EF4F00F62B8A /* HHMystoreCell.m in Sources */,
 				CE90EACB215A0E4300F62B8A /* HHStoreOrderVC.m in Sources */,
 				CE5E6F572160BE0700FE875D /* SDPostTimeLinePicItem.m in Sources */,
+				CE27F075216B7E3C0014415E /* HHBankListCell.m in Sources */,
 				CE8A67D8212ACA2E00C7C57F /* HHPostEvaluateSectionHead.m in Sources */,
 				CE501E65216887EA002EFBFC /* HHWebVC.m in Sources */,
 				CE9065C52156267F00A13992 /* HHMywalletCell.m in Sources */,
@@ -3818,7 +3840,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
@@ -3833,8 +3855,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "95a84302-cbc7-4411-8237-c5d319cf7784";
+				PROVISIONING_PROFILE_SPECIFIER = MoonCherryDev_PP;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3844,8 +3866,8 @@
 			baseConfigurationReference = 696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
@@ -3860,8 +3882,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3173dacd-c209-4dd5-8ae0-625abeb9be00";
+				PROVISIONING_PROFILE_SPECIFIER = moonCherryDisPP_AHC;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

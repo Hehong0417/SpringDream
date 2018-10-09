@@ -8,7 +8,7 @@
 
 #import "BaseModel.h"
 
-@class HHsku_name_valueModel,HHattributeValueModel,HHproduct_sku_valueModel,HHproduct_skuModel,HHPackagesModel,HHPackagesProductsModel,HHGuess_you_likeModel;
+@class HHsku_name_valueModel,HHattributeValueModel,HHproduct_sku_valueModel,HHproduct_skuModel,HHPackagesModel,HHPackagesProductsModel,HHGuess_you_likeModel,MeetActivityModel;
 
 @interface HHgooodDetailModel : BaseModel
 
@@ -27,6 +27,12 @@
 @property(nonatomic,strong) NSDictionary *SecKill;
 @property(nonatomic,strong) NSDictionary *CutPrice;
 @property(nonatomic,strong) NSNumber *IsCollection;
+
+@property(nonatomic,strong) NSArray <MeetActivityModel *>*Coupons;
+@property(nonatomic,strong) NSArray <MeetActivityModel *>*MeetActivity;
+@property(nonatomic,strong) NSString *GiveIntegral;
+
+
 
 @property(nonatomic,strong) NSString *EvaluateCount;
 
@@ -113,5 +119,16 @@
 @property(nonatomic,strong) NSString *name;
 @property(nonatomic,strong) NSString *pid;
 @property(nonatomic,strong) NSString *sale_price;
+
+@end
+//MeetActivity
+@interface MeetActivityModel : BaseModel
+@property(nonatomic,strong) NSString *Id;
+@property(nonatomic,strong) NSString *Name;
+
+@property(nonatomic,strong) NSString *CouponId;
+@property(nonatomic,strong) NSString *CouponValue;
+@property(nonatomic,strong) NSString *DisplayName;
+@property(nonatomic,strong) NSString *UserCouponId;
 
 @end

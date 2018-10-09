@@ -50,7 +50,6 @@ extern CGFloat maxContentLabelHeight;
     }
 }
 
-
 @end
 
 

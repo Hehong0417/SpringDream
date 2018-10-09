@@ -23,7 +23,18 @@
     textView.text = @"分销说明";
     [self.view addSubview:textView];
     
-    
+    [[[HHMineAPI GetDistributionContent] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
+        if (!error) {
+            if (api.State == 1) {
+                
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:api.Msg];
+            }
+        }
+        
+    }];
     
 }
 

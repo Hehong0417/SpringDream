@@ -55,7 +55,7 @@
     return api;
 }
 //发表评论
-+ (instancetype)postComment_AddWithContentECSubjectModel:(NSString *)ContentECSubjectModel{
++ (instancetype)postComment_AddWithContentECSubjectModel:(NSDictionary *)ContentECSubjectModel{
     
     SDTimeLineAPI *api = [self new];
     api.subUrl = API_Comment_Add;

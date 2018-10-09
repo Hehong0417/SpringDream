@@ -76,6 +76,7 @@
     if (!_manager) {
         _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:API_HOST]];
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", NULL];
+
         // 设置超时时间
         _manager.requestSerializer.timeoutInterval = kTimeoutInterval;
         HJUser *user = [HJUser sharedUser];

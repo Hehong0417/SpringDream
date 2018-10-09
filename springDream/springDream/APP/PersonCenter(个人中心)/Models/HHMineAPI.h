@@ -111,7 +111,10 @@
 + (instancetype)GetRecommendCode;
 //获取余额变更记录
 + (instancetype)GetBalanceChangeListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
-
+//获取分销说明
++ (instancetype)GetDistributionContent;
+//获取银行卡列表
++ (instancetype)GetUserBankAccountList;
 #pragma mark - post
 
 //修改登录密码

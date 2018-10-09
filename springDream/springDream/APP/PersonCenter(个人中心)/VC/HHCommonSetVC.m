@@ -11,8 +11,8 @@
 #import "HHShippingAddressVC.h"
 #import "HHLoginVC.h"
 #import "HHAuthenticationVC.h"
-#import "HHBandCardVC.h"
 #import "HHInviteCodeVC.h"
+#import "HHBankListVC.h"
 
 @interface HHCommonSetVC ()
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -92,9 +92,9 @@
                 }
                 HJSettingItem *item3_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]];
                 if (self.mineModel.CardID) {
-                    item3_1.detailTitle = @"已添加";
+                    item3_1.detailTitle = @"";
                 }else{
-                    item3_1.detailTitle = @"去添加";
+                    item3_1.detailTitle = @"";
                 }
         
                 [self.tableV reloadData];
@@ -151,11 +151,18 @@
         [self.navigationController pushVC:vc];
     }
     if (indexPath.section == 3&&indexPath.row == 0) {
-        HHAuthenticationVC *vc = [HHAuthenticationVC new];
-        [self.navigationController pushVC:vc];
+        if (self.mineModel.RealName) {
+            
+        }else{
+            
+            HHAuthenticationVC *vc = [HHAuthenticationVC new];
+            [self.navigationController pushVC:vc];
+        }
+
     }
     if (indexPath.section == 3&&indexPath.row == 1) {
-        HHBandCardVC *vc = [HHBandCardVC new];
+        
+        HHBankListVC *vc = [HHBankListVC new];
         [self.navigationController pushVC:vc];
     }
     
@@ -173,18 +180,18 @@
         NSIndexPath *indexPath3_0 = [NSIndexPath indexPathForRow:0 inSection:3];
         [indexPaths addObject:indexPath3_0];
     }
-    HJSettingItem *item3_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]];
-    if ([item3_1.detailTitle isEqualToString:@"去添加"]) {
+//    HJSettingItem *item3_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]];
+//    if ([item3_1.detailTitle isEqualToString:@"去添加"]) {
         NSIndexPath *indexPath3_1 = [NSIndexPath indexPathForRow:1 inSection:3];
         [indexPaths addObject:indexPath3_1];
-    }
+//    }
     
     
     return indexPaths;
 }
 - (NSArray *)groupTitles{
     
-    return @[@[@"个人头像",@"手机号",@"微信号",@"会员所在区域"],@[@"修改密码",@"收货地址"],@[@"生成邀请码",@"输入邀请码"],@[@"身份验证",@"添加银行卡"],@[@"版本号",@"清除缓存"]];
+    return @[@[@"个人头像",@"手机号",@"微信号",@"会员所在区域"],@[@"修改密码",@"收货地址"],@[@"生成邀请码",@"输入邀请码"],@[@"身份验证",@"我的银行卡"],@[@"版本号",@"清除缓存"]];
     
 }
 - (NSArray *)groupIcons {

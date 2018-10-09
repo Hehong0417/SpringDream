@@ -403,7 +403,22 @@
     api.parametersAddToken = NO;
     return api;
 }
-
+//获取分销说明
++ (instancetype)GetDistributionContent{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetDistributionContent;
+    api.parametersAddToken = NO;
+    return api;
+}
+//获取银行卡列表
++ (instancetype)GetUserBankAccountList{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_GetUserBankAccountList;
+    api.parametersAddToken = NO;
+    return api;
+}
 #pragma mark - post
 
 //修改登录密码

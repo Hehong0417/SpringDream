@@ -107,7 +107,8 @@
 //收款银行卡列表
 @property(nonatomic,strong) NSString *bank_name;
 @property(nonatomic,strong) NSString *bank_no;
-
+@property(nonatomic,strong) NSString *BankAccountNo;
+@property(nonatomic,strong) NSString *BankName;
 
 //我的钱包
 @property(nonatomic,strong) NSString *ChangeModeString;

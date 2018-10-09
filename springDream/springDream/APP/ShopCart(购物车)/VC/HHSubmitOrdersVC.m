@@ -52,6 +52,7 @@
 @property(nonatomic,strong) NSMutableArray *integralSelecItems;
 @property(nonatomic,strong) HHSubmitOrdersHead *SubmitOrdersHead;
 @property(nonatomic,strong) HXCommonPickView *pickView;
+@property (nonatomic, strong) UIButton *currentSelectBtn;
 
 @end
 
@@ -545,7 +546,17 @@
       //优惠券
         
     }else{
-        UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 220, 35 ) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
+        UIButton *button = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 220, 35) target:self action:nil image:[UIImage imageNamed:@"logo"] title:@" MOON CHERRY 梦泉时尚" titleColor:kBlackColor font:FONT(13)];
+        UIView *distribution_view = [UIView lh_viewWithFrame:CGRectMake(ScreenW-150, 0, 150, 35) backColor:kWhiteColor];
+        //配送方式
+        NSArray *btnImag = @[@"自提",@"邮寄"];
+        for (NSInteger i =0; i<2; i++) {
+            UIButton *distributton = [UIButton lh_buttonWithFrame:CGRectMake(i*60, 0, 60, 35) target:self action:@selector(distributtonAction:) image:[UIImage imageNamed:@"icon_sign_default"] title:btnImag[i] titleColor:kBlackColor font:FONT(13)];
+            [distributton setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
+            [distribution_view addSubview:distributton];
+        }
+        [sectionHead addSubview:distribution_view];
+
         [sectionHead addSubview:button];
     }
     return sectionHead;
@@ -561,6 +572,15 @@
     }else{
         return 35;
     }
+}
+//选择配送方式
+- (void)distributtonAction:(UIButton *)button{
+    
+    self.currentSelectBtn.selected = NO;
+    button.selected = YES;
+    self.currentSelectBtn = button;
+    
+    
 }
 #pragma mark- payTypeDelegate
 
@@ -623,23 +643,23 @@
         self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled = NO;
         self.submitOrderTool.closePay.userInteractionEnabled = NO;
         
-        if (self.enter_type == HHaddress_type_Spell_group) {
-            //活动拼团
-            [self createOrder];
-            
-        }else if (self.enter_type == HHaddress_type_add_cart){
-            if ([self.sendGift isEqual:@1]) {
-                //送礼
-                [self createOrder];
-            }else{
+//        if (self.enter_type == HHaddress_type_Spell_group) {
+//            //活动拼团
+//            [self createOrder];
+//
+//        }else if (self.enter_type == HHaddress_type_add_cart){
+//            if ([self.sendGift isEqual:@1]) {
+//                //送礼
+//                [self createOrder];
+//            }else{
                 //购物车
-                self.mode = @1;
+                self.mode = self.mode;
                 [self createOrder];
-            }
-        }else if (self.enter_type == HHaddress_type_package){
-            //优惠套餐
-            [self createOrder];
-        }
+//            }
+//        }else if (self.enter_type == HHaddress_type_package){
+//            //优惠套餐
+//            [self createOrder];
+//        }
     }else{
         
         UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"你未安装微信，是否安装？" preferredStyle:UIAlertControllerStyleAlert];
@@ -693,6 +713,7 @@
             self.submitOrderTool.closePay.userInteractionEnabled = YES;
             if (!error) {
                 if (api.State == 1) {
+                    
                     self.order_id = api.Data;
                     //亲密付
                     if (self.familiarityPay) {

@@ -98,7 +98,10 @@
 #define API_Comment  API_SUB_URL4(@"ContentECSubject/Comment")
 //新增评论
 #define API_Comment_Add  API_SUB_URL4(@"ContentECSubject/Add")
-
+//分销说明
+#define API_GetDistributionContent  API_SUB_URL4(@"Distribution/GetDistributionContent")
+//分销说明
+#define API_GetUserBankAccountList  API_SUB_URL4(@"UserInfo/GetUserBankAccountList")
 
 /**
  *  首页

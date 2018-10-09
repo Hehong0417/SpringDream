@@ -102,7 +102,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [_moreButton setImage:[UIImage imageNamed:@"top_arrow"] forState:UIControlStateNormal];
     [_moreButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 20)];
     [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, -40)];
-    
+    [_moreButton addTarget:self action:@selector(moreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+
     [_moreButton setTitleColor:[UIColor colorWithRed:251/255.0 green:75/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
     _moreButton.titleLabel.font = [UIFont systemFontOfSize:11];
     
@@ -124,7 +125,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }];
     
     [_peration_view setShareButtonClickedOperation_new:^{
+        
         if ([weakSelf.delegate respondsToSelector:@selector(didClickcShareButtonInCell:)]) {
+            
             [weakSelf.delegate didClickcShareButtonInCell:weakSelf];
         }
         
@@ -219,7 +222,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_commentView setupWithLikeItemsArray:@[] commentItemsArray:model.ContentECSubjectCommentModel];
     
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.UserName] placeholderImage:[UIImage imageWithColor:KVCBackGroundColor]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.UserImage] placeholderImage:[UIImage imageWithColor:KVCBackGroundColor]];
     [_iconView lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
     _nameLable.text = model.UserName;
     _contentLabel.text = model.SubjectContent;
@@ -268,6 +271,13 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _isPraise = isPraise;
     _peration_view.isPraise = isPraise;
 }
+#pragma mark - private actions
 
+- (void)moreButtonClicked
+{
+    if (self.moreButtonClickedBlock) {
+        self.moreButtonClickedBlock(self.indexPath);
+    }
+}
 @end
 

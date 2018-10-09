@@ -18,7 +18,5 @@
 
 @property (nonatomic, strong) HHpreferModel *model;
 
-@property (nonatomic, strong) NSString *act_name;
-
 
 @end

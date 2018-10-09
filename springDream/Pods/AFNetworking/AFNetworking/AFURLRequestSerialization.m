@@ -121,11 +121,11 @@ NSString * AFQueryStringFromParameters(NSDictionary *parameters) {
     for (AFQueryStringPair *pair in AFQueryStringPairsFromDictionary(parameters)) {
         [mutablePairs addObject:[pair URLEncodedStringValue]];
     }
-
     return [mutablePairs componentsJoinedByString:@"&"];
 }
 
 NSArray * AFQueryStringPairsFromDictionary(NSDictionary *dictionary) {
+
     return AFQueryStringPairsFromKeyAndValue(nil, dictionary);
 }
 
@@ -144,9 +144,12 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
             }
         }
     } else if ([value isKindOfClass:[NSArray class]]) {
+        
         NSArray *array = value;
         for (id nestedValue in array) {
+            
             [mutableQueryStringComponents addObjectsFromArray:AFQueryStringPairsFromKeyAndValue([NSString stringWithFormat:@"%@[]", key], nestedValue)];
+            
         }
     } else if ([value isKindOfClass:[NSSet class]]) {
         NSSet *set = value;
@@ -155,6 +158,7 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
         }
     } else {
         [mutableQueryStringComponents addObject:[[AFQueryStringPair alloc] initWithField:key value:value]];
+    
     }
 
     return mutableQueryStringComponents;
@@ -508,6 +512,7 @@ forHTTPHeaderField:(NSString *)field
     }
 
     if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) {
+        
         if (query && query.length > 0) {
             mutableRequest.URL = [NSURL URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? @"&%@" : @"?%@", query]];
         }
@@ -521,7 +526,6 @@ forHTTPHeaderField:(NSString *)field
         }
         [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
     }
-
     return mutableRequest;
 }
 
@@ -1255,6 +1259,7 @@ typedef enum {
     }];
 
     if (parameters) {
+        
         if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
             [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         }

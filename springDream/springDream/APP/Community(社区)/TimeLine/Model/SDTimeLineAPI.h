@@ -16,6 +16,6 @@
 + (instancetype)postPriseUnPriseWithsubjectId:(NSString *)subjectId;
 + (instancetype)postCommentWithsubjectId:(NSString *)subjectId comment:(NSString *)comment;
 //发表评论
-+ (instancetype)postComment_AddWithContentECSubjectModel:(NSString *)ContentECSubjectModel;
++ (instancetype)postComment_AddWithContentECSubjectModel:(NSDictionary *)ContentECSubjectModel;
 
 @end
