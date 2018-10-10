@@ -19,14 +19,14 @@
 
     if (self = [super init]) {
         [self setFrame:kMainScreenBounds];
-        self.backgroundColor = rgba(0, 0, 0, 0.5);
+        self.backgroundColor = rgba(0, 0, 0, 0);
         UIView *contentView = [self alertViewContentView];
         self.contentView = contentView;
         [self addSubview:contentView];
         //点击回收操作
         WEAK_SELF();
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id sender) {
-                       [weakSelf hideWithCompletion:NULL];
+                    [weakSelf hideWithCompletion:NULL];
 
         }];
 
@@ -53,47 +53,27 @@
     return self;   
 }
 
-- (void)defaulInit {
-    UIView *backView = [UIView lh_viewWithFrame:self.bounds backColor:[UIColor colorWithWhite:0.3 alpha:0.3]];
-    [self addSubview:backView];
-    //点击回收操作
-    WEAK_SELF();
-    backView.userInteractionEnabled = YES;
-    [backView setTapActionWithBlock:^{
-        
-        [weakSelf hideWithCompletion:NULL];
-    }];
-    UIView *contentView = [self alertViewContentView];
-    self.contentView = contentView;
-    [self addSubview:contentView];
-}
+//- (void)defaulInit {
+//    UIView *backView = [UIView lh_viewWithFrame:self.bounds backColor:kWhiteColor];
+//    [self addSubview:backView];
+//    //点击回收操作
+//    WEAK_SELF();
+//    backView.userInteractionEnabled = YES;
+//    [backView setTapActionWithBlock:^{
+//
+//        [weakSelf hideWithCompletion:NULL];
+//    }];
+//    UIView *contentView = [self alertViewContentView];
+//    self.contentView = contentView;
+//    [self addSubview:contentView];
+//}
 
 #pragma  mark -  <LHAlertViewContentViewProtocol>
 -(UIView *)alertViewContentView {
     
     return nil;
 }
-/**
- *  显示
- *
- *  @param animated 是否启用动画
- */
-- (void)showAnimated:(BOOL)animated {
-    NSAssert(self.contentView != nil, @"must have conetentView");
-    
-    self.animated = animated;
-    
-    [self av_addSuperViews];
-    
-    if (animated) {
-        self.contentView.lh_top = self.lh_bottom;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.contentView.lh_bottom = self.lh_bottom;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
-}
+
 
 /**
    上移
@@ -102,7 +82,6 @@
 - (void)contentViewUpperShift:(BOOL)animated{
 
     self.animated = animated;
-
     if (animated) {
         [UIView animateWithDuration:0.3 animations:^{
             self.contentView.lh_top = 75.0;
@@ -111,7 +90,27 @@
         }];
     }
 }
-
+/**
+ *  显示
+ *
+ *  @param animated 是否启用动画
+ */
+- (void)showAnimated:(BOOL)animated{
+    NSAssert(self.contentView != nil, @"must have conetentView");
+    
+    self.animated = animated;
+    
+    [self av_addSuperViews];
+    
+    if (animated) {
+        self.contentView.lh_right = self.lh_left;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.contentView.lh_left = self.lh_left;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+}
 /**
  *  隐藏
  *
@@ -120,7 +119,7 @@
 - (void)hideWithCompletion:(void(^)())completionBlock {
     if (self.animated) {
         [UIView animateWithDuration:0.3 animations:^{
-            self.contentView.lh_top = self.lh_bottom;
+            self.contentView.lh_right = self.lh_left;
         } completion:^(BOOL finished) {
             [self av_removeSubviews];
             
@@ -140,21 +139,13 @@
 
 - (void)av_addSuperViews {
     [kKeyWindow addSubview:self];
-//    [kKeyWindow addSubview:self.contentView];
 }
 
 - (void)av_removeSubviews {
     [self.contentView removeFromSuperview];
     [self removeFromSuperview];
-//    self.contentView = nil;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

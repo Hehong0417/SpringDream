@@ -11,7 +11,7 @@
 @implementation HHUserLoginAPI
 
 //登录
-+ (instancetype)postApiLoginWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
++ (instancetype)postApiLoginWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode unionId:(NSString *)unionId{
     
     HHUserLoginAPI *api = [self new];
     api.subUrl = API_Login;
@@ -31,12 +31,15 @@
     if (VerificationCode) {
         [api.parameters setObject:VerificationCode forKey:@"VerificationCode"];
     }
+    if (unionId) {
+        [api.parameters setObject:unionId forKey:@"unionId"];
+    }
     [api.parameters setObject:@"1" forKey:@"ClientInfo_Id"];
 
     return api;
 }
 //注册
-+ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode  InviteCode:(NSString *)InviteCode UserImage:(NSString *)UserImage{
++ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode  InviteCode:(NSString *)InviteCode UserImage:(NSString *)UserImage unionId:(NSString *)unionId{
     
     HHUserLoginAPI *api = [self new];
     api.subUrl = API_Register;
@@ -61,6 +64,9 @@
     }
     if (UserImage) {
         [api.parameters setObject:UserImage forKey:@"UserImage"];
+    }
+    if (unionId) {
+        [api.parameters setObject:unionId forKey:@"unionId"];
     }
     [api.parameters setObject:@"1" forKey:@"ClientInfo_Id"];
 

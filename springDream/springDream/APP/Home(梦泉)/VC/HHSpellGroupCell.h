@@ -15,4 +15,6 @@
 @property(nonatomic,strong) UILabel *personNumber_label;
 @property(nonatomic,strong) UIButton *spellGroup_button;
 
+@property(nonatomic,strong) MeetActivityModel *model;
+
 @end

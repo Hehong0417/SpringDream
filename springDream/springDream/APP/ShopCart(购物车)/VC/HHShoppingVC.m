@@ -115,13 +115,15 @@
         NSMutableArray *select_idx_arr = [self getNewSelect_arr];
         self.settleAccountView.sendGift_label.text = select_idx_arr.count>0?[NSString stringWithFormat:@"移入收藏夹(%ld)",select_idx_arr.count]:@"移入收藏夹";
         self.settleAccountView.settleBtn.text = select_idx_arr.count>0?[NSString stringWithFormat:@"删除已选(%ld)",select_idx_arr.count]:@"删除已选";
+        [self.settleAccountView.settleBtn setFont: FONT(12)];
+
     }else{
       //管理---去结算
         
         self.settleAccountView.sendGift_label.hidden = YES;
         self.settleAccountView.money_totalLabel.hidden = NO;
         self.settleAccountView.settleBtn.text = @"去结算";
-
+        [self.settleAccountView.settleBtn setFont: FONT(14)];
     }
     
 }
@@ -672,7 +674,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 45;
+    return 40;
     
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

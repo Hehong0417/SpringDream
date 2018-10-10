@@ -10,10 +10,13 @@
 
 @implementation SDTimeLineAPI
 
-+ (instancetype)GetContentECSubjectListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize{
++ (instancetype)GetContentECSubjectListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize commentLimit:(NSNumber *)commentLimit{
     
     SDTimeLineAPI *api = [self new];
     api.subUrl = API_ContentECSubject;
+    if (commentLimit) {
+        [api.parameters setObject:commentLimit forKey:@"commentLimit"];
+    }
     if (page) {
         [api.parameters setObject:page forKey:@"page"];
     }
@@ -25,6 +28,25 @@
 
     return api;
 }
++ (instancetype)GetCommentsWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize subjectId:(NSString *)subjectId{
+    
+    SDTimeLineAPI *api = [self new];
+    api.subUrl = API_GetComments;
+    if (subjectId) {
+        [api.parameters setObject:subjectId forKey:@"subjectId"];
+    }
+    if (page) {
+        [api.parameters setObject:page forKey:@"page"];
+    }
+    if (pageSize) {
+        [api.parameters setObject:pageSize forKey:@"pageSize"];
+    }
+    api.parametersAddToken = NO;
+    //    [api.parameters setObject:@"1" forKey:@"status"];
+    
+    return api;
+}
+
 + (instancetype)postPriseUnPriseWithsubjectId:(NSString *)subjectId{
     
     SDTimeLineAPI *api = [self new];

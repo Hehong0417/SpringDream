@@ -19,3 +19,7 @@
 @implementation HHsub_categoryModel
 
 @end
+@implementation HHleft_categoryModel
+
+@end
+

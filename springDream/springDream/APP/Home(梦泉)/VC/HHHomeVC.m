@@ -16,10 +16,13 @@
 
 @interface HHHomeVC ()<WKUIDelegate,WKNavigationDelegate>
 {
-    WKWebView *_webView;
     MBProgressHUD *_hud;
+
 }
 @property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) NSString *htmlString;
+@property (nonatomic, strong) WKWebView *webView;
+
 @end
 
 @implementation HHHomeVC
@@ -28,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     // js配置
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
     //    [userContentController addScriptMessageHandler:self name:@"closeMe"];
@@ -44,12 +47,12 @@
     [_webView.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.view addSubview:_webView];
 
-    [self.view addSubview:self.progressView];
-
-    [_webView addObserver:self
-               forKeyPath:@"estimatedProgress"
-                  options:NSKeyValueObservingOptionNew
-                  context:nil];
+//    [self.view addSubview:self.progressView];
+//
+//    [_webView addObserver:self
+//               forKeyPath:@"estimatedProgress"
+//                  options:NSKeyValueObservingOptionNew
+//                  context:nil];
     
     [self loadData];
     
@@ -59,6 +62,16 @@
 - (void)loadData{
     //
     NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
+    
+    WEAK_SELF();
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+            NSLog(@"load failed!");
+        }else{
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+        }
+    });
     
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
     [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
@@ -81,39 +94,30 @@
     refreshHeader.stateLabel.hidden = YES;
     _webView.scrollView.mj_header = refreshHeader;
 }
-- (UIProgressView *)progressView {
-    if (!_progressView) {
-        _progressView = [[UIProgressView alloc] init];
-//        _progressView.progressTintColor = RGB(72, 219, 109);
-        _progressView.progressTintColor = APP_COMMON_COLOR;
-        _progressView.trackTintColor = [UIColor clearColor];
-        _progressView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 2);
-    }
-    return _progressView;
-}
-#pragma mark- KVO监听
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary<NSString *,id> *)change
-                       context:(void *)context
-{
-    if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        
-        self.progressView.progress = _webView.estimatedProgress;
-        // 加载完成
-        if (_webView.estimatedProgress  >= 1.0f ) {
-            
-            [UIView animateWithDuration:0.25f animations:^{
-                self.progressView.alpha = 0.0f;
-                self.progressView.progress = 0.0f;
-            }];
-            
-        }else{
-            self.progressView.alpha = 1.0f;
-        }
-    }
-}
+//#pragma mark- KVO监听
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(NSDictionary<NSString *,id> *)change
+//                       context:(void *)context
+//{
+//    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+//
+//        self.progressView.progress = _webView.estimatedProgress;
+//        // 加载完成
+//        if (_webView.estimatedProgress  >= 1.0f ) {
+//
+//            [UIView animateWithDuration:0.25f animations:^{
+//                self.progressView.alpha = 0.0f;
+//                self.progressView.progress = 0.0f;
+//            }];
+//
+//        }else{
+//            self.progressView.alpha = 1.0f;
+//        }
+//    }
+//}
 
 #pragma mark - webView Delegate
 

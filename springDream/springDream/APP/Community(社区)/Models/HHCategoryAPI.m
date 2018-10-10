@@ -11,7 +11,7 @@
 @implementation HHCategoryAPI
 
 #pragma mark - get
-//获取商品分类列表
+//获取商品分组列表
 + (instancetype)GetProductGroup{
     
     HHCategoryAPI *api = [self new];
@@ -20,21 +20,21 @@
     return api;
 }
 //获取商品列表
-+ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission{
++ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission groupId:(NSString *)groupId{
     
     HHCategoryAPI *api = [self new];
     api.subUrl = API_Product_search;
-//    if (type) {
-//        [api.parameters setObject:type forKey:@"type"];
-//    }
+    if (categoryId) {
+        [api.parameters setObject:categoryId forKey:@"categoryId"];
+    }
     if (isCommission) {
         [api.parameters setObject:isCommission forKey:@"isCommission"];
     }
     if (storeId) {
        [api.parameters setObject:storeId forKey:@"storeId"];
     }
-    if (categoryId) {
-        [api.parameters setObject:categoryId forKey:@"groupId"];
+    if (groupId) {
+        [api.parameters setObject:groupId forKey:@"groupId"];
     }
     if (name) {
         [api.parameters setObject:name forKey:@"name"];
@@ -52,6 +52,18 @@
     
     return api;
 }
+
+
+//获取商品分类列表
++ (instancetype)GetNewCategoryList{
+    
+    HHCategoryAPI *api = [self new];
+    api.subUrl = API_GetNewCategoryList;
+    api.parametersAddToken = NO;
+    
+    return api;
+}
+
 //猜你喜欢
 + (instancetype)GetAlliancesProductsWithpids:(NSString *)pids{
     

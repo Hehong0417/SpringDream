@@ -16,9 +16,8 @@
     
     [self.selectBtn setImage:[UIImage imageNamed:@"icon_sign_default"] forState:UIControlStateNormal];
     [self.selectBtn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
-    
+    self.money_totalLabel.textColor = APP_NAV_COLOR;
 }
-
 - (IBAction)selectBtnAction:(UIButton *)sender {
     
     self.selectBtn.selected = !self.selectBtn.selected;

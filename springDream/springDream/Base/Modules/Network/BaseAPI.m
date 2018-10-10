@@ -189,7 +189,7 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationTokenExpire object:msg];
     // mb显示不了
-    [self mbShowText:msg];
+//    [self mbShowText:msg];
 }
 
 - (void)showMsgWhileRequestError:(NSString *)msg {

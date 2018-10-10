@@ -12,7 +12,7 @@
 
 #import "DES3Util.h"
 #import "MD5Encryption.h"
-
+#import "HHLoginVC.h"
 
 #define kTimeoutInterval 60.0
 
@@ -359,13 +359,29 @@
         
         // 成功获取数据后，去掉HUD
         [self.baseAPI hideHUDWhileFinish];
-//
+        
+        BaseAPI *bAPI = responseObject;
+       //登录过期
+        if (bAPI.State == -3) {
+            [self tokenFailure];
+            return;
+        }
+        
         APIFinishedBlock reqFinishedBlock = [self requestFinishedBlock];
         reqFinishedBlock(responseObject, nil);
         
         finishedBlock(responseObject, nil);
 
     }
+}
+//登录过期
+- (void)tokenFailure{
+    
+    HJUser *user = [HJUser sharedUser];
+    user.token = nil;
+    [user write];
+    kKeyWindow.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[HHLoginVC new]];
+    [SVProgressHUD showInfoWithStatus:@"登录过期请重新登录！"];
 }
 
 - (void)requestSucces:(id)responseObject successBlock:(APISuccessBlock)successBlock {

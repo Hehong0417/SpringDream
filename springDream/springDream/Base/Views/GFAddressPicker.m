@@ -335,7 +335,6 @@
 
         NSString *id_str  = self.provinceIdsArray[row];
         [self getCityInfomationWithId:id_str];
-
     }
     if (component == 1) {
 

@@ -93,6 +93,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _contentLabel.font = [UIFont systemFontOfSize:contentLabelFontSize];
     _contentLabel.numberOfLines = 0;
     _contentLabel.textColor = [UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:1];
+
     if (maxContentLabelHeight == 0) {
         maxContentLabelHeight = _contentLabel.font.lineHeight * 3;
     }
@@ -229,6 +230,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _picContainerView.picPathStringsArray = model.ContentECSubjectPicModel;
     _peration_view.model = model;
     
+//    [_contentLabel setLineSpace:30];
+
     if (model.shouldShowMoreButton) { // 如果文字高度超过60
         _moreButton.sd_layout.heightIs(20);
         _moreButton.hidden = NO;

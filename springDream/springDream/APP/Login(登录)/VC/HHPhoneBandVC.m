@@ -119,11 +119,11 @@
     NSString *verification_str = _code_textfield.text;
 
     if (!isValid) {
-        [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:self.openId Pwd:_pw_textfield.text VerificationCode:_code_textfield.text InviteCode:_inv_code_textfield.text UserImage:self.UserImage] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+        [[[HHUserLoginAPI postRegsterWithUseWay:@2 Phone:_phone_textfield.text OpenId:self.openId Pwd:_pw_textfield.text VerificationCode:_code_textfield.text InviteCode:_inv_code_textfield.text UserImage:self.UserImage unionId:self.unionId] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
             if (!error) {
                 if (api.State == 1) {
                     
-                    [self loginWithUseWay:@1 Pwd:pw_str  VerificationCode:verification_str];
+                    [self loginWithUseWay:@2 OpenId:self.openId unionId:self.unionId];
                     
                 }else{
                     [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -137,9 +137,9 @@
     }
     
 }
-- (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
+- (void)loginWithUseWay:(NSNumber *)UseWay OpenId:(NSString *)openId unionId:(NSString *)unionId{
     
-    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:nil OpenId:openId Pwd:nil VerificationCode:nil unionId:unionId] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
                 NSString *token = api.Data;

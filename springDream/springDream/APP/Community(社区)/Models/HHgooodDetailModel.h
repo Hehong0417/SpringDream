@@ -32,6 +32,8 @@
 @property(nonatomic,strong) NSArray <MeetActivityModel *>*MeetActivity;
 @property(nonatomic,strong) NSString *GiveIntegral;
 
+@property(nonatomic,strong) NSArray <MeetActivityModel *>*JoinActivity;
+@property(nonatomic,strong) NSString *UserJoinCount;
 
 
 @property(nonatomic,strong) NSString *EvaluateCount;
@@ -130,5 +132,11 @@
 @property(nonatomic,strong) NSString *CouponValue;
 @property(nonatomic,strong) NSString *DisplayName;
 @property(nonatomic,strong) NSString *UserCouponId;
+
+//正在拼团列表
+@property(nonatomic,strong) NSString *ActivityId;
+@property(nonatomic,strong) NSString *UserName;
+@property(nonatomic,strong) NSString *UserImage;
+@property(nonatomic,strong) NSString *LackCount;
 
 @end

@@ -12,13 +12,15 @@
 
 #pragma mark - get
 
-//获取商品分类列表
+//获取商品分组列表
 + (instancetype)GetProductGroup;
 
 //获取商品列表
-+ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission;
++ (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission groupId:(NSString *)groupId;
 
 //猜你喜欢
 + (instancetype)GetAlliancesProductsWithpids:(NSString *)pids;
 
+//获取商品分类列表
++ (instancetype)GetNewCategoryList;
 @end

@@ -45,6 +45,7 @@
 @property (nonatomic, strong)   UILabel *tableFooter;
 @property (nonatomic, strong)  NSMutableArray *datas;
 @property (nonatomic, strong)  NSMutableArray *evaluations;
+@property (nonatomic, strong)  NSMutableArray *JoinActivity_arr;
 @property (nonatomic, strong)  HHgooodDetailModel *gooodDetailModel;
 @property (nonatomic, assign)   BOOL status;
 @property (nonatomic, strong) UIActivityIndicatorView * activityIndicator;
@@ -174,6 +175,12 @@ static NSArray *lastSele_IdArray_;
     }
     return _preferentialArr;
 }
+- (NSMutableArray *)JoinActivity_arr{
+    if (!_JoinActivity_arr) {
+        _JoinActivity_arr = [NSMutableArray array];
+    }
+    return _JoinActivity_arr;
+}
 
 #pragma mark - regsterTableCell
 
@@ -186,7 +193,6 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHSpellGroupCell class] forCellReuseIdentifier:HHSpellGroupCellID];
     [self.tabView registerClass:[HHpreferentialModelCell class] forCellReuseIdentifier:HHpreferentialModelCellID];
     [self.tabView registerClass:[HHpreferIntegralCell class] forCellReuseIdentifier:@"HHpreferIntegralCell"];
-
 
 
 }
@@ -378,7 +384,11 @@ static NSArray *lastSele_IdArray_;
         return  self.productStores_names.count?1:0;
     }
     if (section == 4) {
-        return  0;
+        if (self.JoinActivity_arr.count>0) {
+            return self.JoinActivity_arr.count+1;
+        }else{
+            return  0;
+        }
     }
     if (section == 5) {
         return  1;
@@ -471,7 +481,7 @@ static NSArray *lastSele_IdArray_;
         right_arrow.contentMode = UIViewContentModeCenter;
         [cell.contentView addSubview:right_arrow];
         
-        self.detailText_lab = [UILabel lh_labelWithFrame:CGRectMake(157, 8, ScreenW-157-94, 42) text:@"" textColor:KTitleLabelColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        self.detailText_lab = [UILabel lh_labelWithFrame:CGRectMake(157, 8, ScreenW-157-52, 42) text:@"" textColor:KTitleLabelColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
         [cell.contentView addSubview:self.detailText_lab];
 
         gridcell = cell;
@@ -483,13 +493,14 @@ static NSArray *lastSele_IdArray_;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
             [cell.contentView addSubview:h_line];
-            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:@"1人在拼团，可直接参与" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:[NSString stringWithFormat:@"%@人在拼团，可直接参与",self.gooodDetailModel.UserJoinCount] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
             [cell.contentView addSubview:text_lab];
             gridcell = cell;
 
         }else{
           HHSpellGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:HHSpellGroupCellID];
           cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          cell.model = self.JoinActivity_arr[indexPath.row-1];
           gridcell = cell;
         }
     }
@@ -674,6 +685,10 @@ static NSArray *lastSele_IdArray_;
                
                 self.foot.model = self.gooodDetailModel;
                 
+                //正在拼团列表
+                self.JoinActivity_arr = self.gooodDetailModel.JoinActivity.mutableCopy;
+                
+                
                 [self.preferentialArr removeAllObjects];
                 if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.floatValue>0)) {
                     [self.preferentialArr addObject:@"优惠"];
@@ -822,11 +837,7 @@ static NSArray *lastSele_IdArray_;
                     [self.productStores_ids addObject:model.store_id];
                 }];
                 [self.tabView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
             }
-        }else{
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
     
@@ -843,11 +854,7 @@ static NSArray *lastSele_IdArray_;
                 self.evaluations = arr.mutableCopy;
                 
                 [self.tabView reloadSection:6 withRowAnimation:UITableViewRowAnimationNone];
-            }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
             }
-        }else{
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
         
     }];

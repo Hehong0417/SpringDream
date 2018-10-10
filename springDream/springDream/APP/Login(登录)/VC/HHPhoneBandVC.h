@@ -12,5 +12,7 @@
 
 @property(nonatomic,strong)NSString *openId;
 @property(nonatomic,strong)NSString *UserImage;
+@property(nonatomic,strong)NSString *unionId;
+
 
 @end

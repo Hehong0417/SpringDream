@@ -145,8 +145,6 @@
         right_short_line.hidden = YES;
         _wx_login_button.hidden = YES;
     }
-    
-    
 }
 
 - (void)sendVerifyCode{
@@ -191,16 +189,16 @@
 }
 - (void)loginWithUseWay:(NSNumber *)UseWay Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode{
     
-    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+    [[[HHUserLoginAPI postApiLoginWithUseWay:UseWay Phone:_phone_textfield.text OpenId:nil Pwd:Pwd VerificationCode:VerificationCode unionId:nil] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
+                
                 NSString *token = api.Data;
                 HJUser *user = [HJUser sharedUser];
                 user.token = token;
                 [user write];
                 HJTabBarController *tabBarVC = [[HJTabBarController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVC;
-                
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -272,7 +270,7 @@
 //    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
          NSString *openid = resp.openid;
 //    ***************//
-    [[[HHUserLoginAPI postApiLoginWithUseWay:@2 Phone:nil OpenId:openid Pwd:nil VerificationCode:nil] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+    [[[HHUserLoginAPI postApiLoginWithUseWay:@2 Phone:nil OpenId:openid Pwd:nil VerificationCode:nil unionId:resp.unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
 
         if (!error) {
             if (api.State == 1) {
@@ -288,6 +286,7 @@
                 HHPhoneBandVC *vc = [HHPhoneBandVC new];
                 vc.openId = openid;
                 vc.UserImage = resp.iconurl;
+                vc.unionId = resp.unionId;
                 [self.navigationController pushVC:vc];
                 [hud hideAnimated:YES];
                 

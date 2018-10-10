@@ -13,7 +13,7 @@
 +(NSDictionary *)mj_objectClassInArray{
     
     return @{@"SKUValues": [HHproduct_sku_valueModel class],@"SKUList": [HHproduct_skuModel class],
-             @"AttributeValueList" :[HHattributeValueModel class],@"Packages":[HHPackagesModel class],@"MeetActivity":[MeetActivityModel class],@"Coupons":[MeetActivityModel class]};
+             @"AttributeValueList" :[HHattributeValueModel class],@"Packages":[HHPackagesModel class],@"MeetActivity":[MeetActivityModel class],@"Coupons":[MeetActivityModel class],@"JoinActivity":[MeetActivityModel class]};
 }
 
 @end

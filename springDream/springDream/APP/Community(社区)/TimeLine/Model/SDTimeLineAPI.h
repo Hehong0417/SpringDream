@@ -10,8 +10,9 @@
 
 @interface SDTimeLineAPI : BaseAPI
 
-+ (instancetype)GetContentECSubjectListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize;
++ (instancetype)GetContentECSubjectListWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize commentLimit:(NSNumber *)commentLimit;
 
++ (instancetype)GetCommentsWithPage:(NSNumber *)page pageSize:(NSNumber *)pageSize subjectId:(NSString *)subjectId;
 
 + (instancetype)postPriseUnPriseWithsubjectId:(NSString *)subjectId;
 + (instancetype)postCommentWithsubjectId:(NSString *)subjectId comment:(NSString *)comment;

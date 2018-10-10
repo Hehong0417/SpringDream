@@ -17,12 +17,12 @@
         self.icon_imagV = [UIImageView new];
         self.icon_imagV.image = [UIImage imageNamed:@"icon0"];
         self.name_label = [UILabel new];
-        self.name_label.text = @"颜值浓";
+        self.name_label.text = @"";
         self.name_label.font = FONT(14);
         
         self.personNumber_label = [UILabel new];
         self.personNumber_label.font = FONT(12);
-        self.personNumber_label.text = @"还差1人拼成";
+        self.personNumber_label.text = @"";
         self.personNumber_label.textAlignment = NSTextAlignmentRight;
         
         self.spellGroup_button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,5 +73,13 @@
     
     [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
 
+}
+- (void)setModel:(MeetActivityModel *)model{
+    
+    _model = model;
+    
+    [self.icon_imagV sd_setImageWithURL:[NSURL URLWithString:model.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+    self.name_label.text = model.UserName;
+    self.personNumber_label.text = [NSString stringWithFormat:@"还差%@人拼成",model.LackCount];
 }
 @end

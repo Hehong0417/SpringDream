@@ -25,12 +25,6 @@
 /// 是否启用动画
 @property (assign, nonatomic) BOOL animated;
 
-/**
- *  显示
- *
- *  @param animated 是否启用动画
- */
-- (void)showAnimated:(BOOL)animated;
 
 /**
  * 上移
@@ -39,6 +33,12 @@
  */
 - (void)contentViewUpperShift:(BOOL)animated;
 
+/**
+ *  显示
+ *
+ *  @param animated 是否启用动画
+ */
+- (void)showAnimated:(BOOL)animated;
 /**
  *  隐藏
  *

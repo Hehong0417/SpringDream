@@ -35,6 +35,11 @@
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.lineSpacing = space;
+    
+    // 调整字间距
+    long number = 10;
+    CFNumberRef num = CFNumberCreate(kCFAllocatorDefault,kCFNumberSInt8Type,&number);
+    [text addAttribute:(id)kCTKernAttributeName value:(__bridge id)num range:NSMakeRange(0, self.text.length)];
     [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.text.length)];
     [self setAttributedText: text];
 }

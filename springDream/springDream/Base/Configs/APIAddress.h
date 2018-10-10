@@ -103,7 +103,8 @@
 #define API_GetUserBankAccountList  API_SUB_URL4(@"UserInfo/GetUserBankAccountList")
 //更新省市区信息
 #define API_UpdateUserInfoOfCity  API_SUB_URL4(@"UserInfo/UpdateUserInfoOfCity")
-
+//获取社区评论列表
+#define API_GetComments API_SUB_URL4(@"ContentECSubject/GetComments")
 
 
 /**
@@ -121,12 +122,15 @@
 /**
  *  商品分类
  */
-//3.1获取商品分类列表
+//3.1获取商品分组列表
 #define API_GetProductGroup API_SUB_URL3(@"GetProductGroup")
 //3.4获取商品分类列表(搜索)
 #define API_Product_search API_SUB_URL3(@"SearchProductNew")
 //3.5获取单个商品
 #define API_GetProductDetail API_SUB_URL3(@"GetProduct")
+//3.1获取商品分类列表
+#define API_GetNewCategoryList API_SUB_URL3(@"GetNewCategoryList")
+
 
 /**
  *  购物车

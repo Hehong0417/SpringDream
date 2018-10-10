@@ -35,6 +35,10 @@
 		CE3B046F214FAEA900FC0AE2 /* HHMyServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B046E214FAEA900FC0AE2 /* HHMyServiceVC.m */; };
 		CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */; };
 		CE3B0475214FCD8800FC0AE2 /* HHSendIntegralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */; };
+		CE3EAD7D216DB5AC00103F63 /* HHGoodCategoryLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAD7C216DB5AB00103F63 /* HHGoodCategoryLeftView.m */; };
+		CE3EAD80216DB72600103F63 /* HHGoodCategoryLeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAD7F216DB72600103F63 /* HHGoodCategoryLeftViewCell.m */; };
+		CE3EAD8C216E061B00103F63 /* HHcategoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EAD8A216E061B00103F63 /* HHcategoryCollectionViewCell.m */; };
+		CE3EAD8D216E061B00103F63 /* HHcategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EAD8B216E061B00103F63 /* HHcategoryCollectionViewCell.xib */; };
 		CE4081232151F4A300436B42 /* HHSpellGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4081222151F4A300436B42 /* HHSpellGroupCell.m */; };
 		CE4286CE215B1E3E0080B24A /* HHStoreStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4286CD215B1E3E0080B24A /* HHStoreStatusCell.m */; };
 		CE4286D1215B1EF30080B24A /* HHDelegateStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4286D0215B1EF30080B24A /* HHDelegateStatusCell.m */; };
@@ -512,6 +516,13 @@
 		CE3B0471214FC3F000FC0AE2 /* HHMyServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHMyServiceCell.m; sourceTree = "<group>"; };
 		CE3B0473214FCD8800FC0AE2 /* HHSendIntegralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSendIntegralVC.h; sourceTree = "<group>"; };
 		CE3B0474214FCD8800FC0AE2 /* HHSendIntegralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSendIntegralVC.m; sourceTree = "<group>"; };
+		CE3EAD7B216DB5AB00103F63 /* HHGoodCategoryLeftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHGoodCategoryLeftView.h; sourceTree = "<group>"; };
+		CE3EAD7C216DB5AB00103F63 /* HHGoodCategoryLeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHGoodCategoryLeftView.m; sourceTree = "<group>"; };
+		CE3EAD7E216DB72600103F63 /* HHGoodCategoryLeftViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHGoodCategoryLeftViewCell.h; sourceTree = "<group>"; };
+		CE3EAD7F216DB72600103F63 /* HHGoodCategoryLeftViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodCategoryLeftViewCell.m; sourceTree = "<group>"; };
+		CE3EAD89216E061B00103F63 /* HHcategoryCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHcategoryCollectionViewCell.h; sourceTree = "<group>"; };
+		CE3EAD8A216E061B00103F63 /* HHcategoryCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHcategoryCollectionViewCell.m; sourceTree = "<group>"; };
+		CE3EAD8B216E061B00103F63 /* HHcategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHcategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		CE4081212151F4A300436B42 /* HHSpellGroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSpellGroupCell.h; sourceTree = "<group>"; };
 		CE4081222151F4A300436B42 /* HHSpellGroupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSpellGroupCell.m; sourceTree = "<group>"; };
 		CE4286CC215B1E3E0080B24A /* HHStoreStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHStoreStatusCell.h; sourceTree = "<group>"; };
@@ -1320,6 +1331,15 @@
 		CE32462021549E9C006A7527 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				CE75CE6B214B566300AD126D /* HHGoodCategoryVC.h */,
+				CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */,
+				CE3EAD7B216DB5AB00103F63 /* HHGoodCategoryLeftView.h */,
+				CE3EAD7C216DB5AB00103F63 /* HHGoodCategoryLeftView.m */,
+				CE3EAD7E216DB72600103F63 /* HHGoodCategoryLeftViewCell.h */,
+				CE3EAD7F216DB72600103F63 /* HHGoodCategoryLeftViewCell.m */,
+				CE3EAD89216E061B00103F63 /* HHcategoryCollectionViewCell.h */,
+				CE3EAD8A216E061B00103F63 /* HHcategoryCollectionViewCell.m */,
+				CE3EAD8B216E061B00103F63 /* HHcategoryCollectionViewCell.xib */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2151,8 +2171,6 @@
 				CE8A64FC212AAB6B00C7C57F /* HXHomeCollectionCell.h */,
 				CE8A64FD212AAB6C00C7C57F /* HXHomeCollectionCell.m */,
 				CE8A64FE212AAB6C00C7C57F /* HXHomeCollectionCell.xib */,
-				CE75CE6B214B566300AD126D /* HHGoodCategoryVC.h */,
-				CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */,
 				CE8A64FB212AAB6B00C7C57F /* SearchDetailViewController.h */,
 				CE8A64FF212AAB6C00C7C57F /* SearchDetailViewController.m */,
 				CE8A64FA212AAB6A00C7C57F /* SearchDetailViewController.xib */,
@@ -3176,6 +3194,7 @@
 				CE4FFDF92148F49A00767DF1 /* pic7.jpg in Resources */,
 				CE4FFDF32148F49A00767DF1 /* pic0.jpg in Resources */,
 				CE8A67CC212ACA2E00C7C57F /* HJOrderCell.xib in Resources */,
+				CE3EAD8D216E061B00103F63 /* HHcategoryCollectionViewCell.xib in Resources */,
 				CE8A66B3212ABAB100C7C57F /* HHSubmitOrderTool.xib in Resources */,
 				CE4FFDF82148F49A00767DF1 /* pic6.jpg in Resources */,
 				CE8A64EF212AA29600C7C57F /* HHPhoneLoginVC.xib in Resources */,
@@ -3367,6 +3386,7 @@
 				CE4D0A13212423F200796FEE /* LHAlertView.m in Sources */,
 				CE8A67C4212ACA2E00C7C57F /* HHEvaluationListVC.m in Sources */,
 				CE4D0A1A212423F200796FEE /* SGImageButton.m in Sources */,
+				CE3EAD7D216DB5AC00103F63 /* HHGoodCategoryLeftView.m in Sources */,
 				CE4D0A3E212423F200796FEE /* GFAddressPicker.m in Sources */,
 				CE8A6534212AAC0100C7C57F /* HHCategoryAPI.m in Sources */,
 				CE4D09F2212423F200796FEE /* NSString+NSRangeException.m in Sources */,
@@ -3529,6 +3549,7 @@
 				CE4FFDBC2148EEAF00767DF1 /* NSString+MLLabel.m in Sources */,
 				CE4D0A712124376500796FEE /* HHPersonCenterSub1.m in Sources */,
 				CE4D0A0B212423F200796FEE /* UIStoryboard+Addition.m in Sources */,
+				CE3EAD80216DB72600103F63 /* HHGoodCategoryLeftViewCell.m in Sources */,
 				CE4D0A35212423F200796FEE /* BaseModel.m in Sources */,
 				CE4FFD962148EC7200767DF1 /* SDTimeLineCell.m in Sources */,
 				CE99386F21369B25002B256D /* HHSignListVC.m in Sources */,
@@ -3676,6 +3697,7 @@
 				CE4FFDBB2148EEAF00767DF1 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				CE4FFDC12148EEAF00767DF1 /* NSString+MLExpression.m in Sources */,
 				CE494C1A21699E7A00039E23 /* HHDistributionInstructionsVC.m in Sources */,
+				CE3EAD8C216E061B00103F63 /* HHcategoryCollectionViewCell.m in Sources */,
 				CE4D0A2C212423F200796FEE /* HJLog.m in Sources */,
 				CE9065C1215620F000A13992 /* HHBandCardVC.m in Sources */,
 				CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */,
@@ -3888,7 +3910,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mooncherrymrs001;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3173dacd-c209-4dd5-8ae0-625abeb9be00";
+				PROVISIONING_PROFILE = "8f109e20-26fb-41ea-bd9d-1fa4b000f707";
 				PROVISIONING_PROFILE_SPECIFIER = moonCherryDisPP_AHC;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

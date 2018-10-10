@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, NetworkCodeType) {
     /// 服务繁忙
     NetworkCodeTypeServiceBusy = -1,
     /// Token无效
-    NetworkCodeTypeTokenInvalid = 40000,
+    NetworkCodeTypeTokenInvalid = -3,
 };
 
 

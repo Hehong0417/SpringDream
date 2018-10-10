@@ -38,6 +38,7 @@
 @property(nonatomic,strong) NSString *product_user_price;
 
 
+
 @end
 
 @interface HHsub_categoryModel : BaseModel
@@ -45,5 +46,12 @@
 @property(nonatomic,strong) NSString *category_id;
 @property(nonatomic,strong) NSString *category_name;
 @property(nonatomic,strong) NSString *category_image;
+
+@end
+
+@interface HHleft_categoryModel : BaseModel
+
+@property(nonatomic,strong) NSString *Id;
+@property(nonatomic,strong) NSString *Name;
 
 @end

@@ -15,5 +15,6 @@
 @property(nonatomic,strong)   NSString *name;
 @property(nonatomic,strong)   NSNumber *orderby;
 @property(nonatomic,assign)   HHenter_Type enter_Type;
+@property(nonatomic,strong)   NSString *groupId;
 
 @end

@@ -13,9 +13,9 @@
 #pragma mark - post
 
 //登录
-+ (instancetype)postApiLoginWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode;
++ (instancetype)postApiLoginWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode unionId:(NSString *)unionId;
 //注册
-+ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode InviteCode:(NSString *)InviteCode UserImage:(NSString *)UserImage;
++ (instancetype)postRegsterWithUseWay:(NSNumber *)UseWay Phone:(NSString *)Phone OpenId:(NSString *)OpenId Pwd:(NSString *)Pwd VerificationCode:(NSString *)VerificationCode InviteCode:(NSString *)InviteCode UserImage:(NSString *)UserImage unionId:(NSString *)unionId;
 //银行卡绑定
 + (instancetype)postBindBankCardInformationWithUserId:(NSString *)UserId BankAccountNo:(NSString *)BankAccountNo BankAccountName:(NSString *)BankAccountName BankName :(NSString *)BankName AccountOpeningBranch:(NSString *)AccountOpeningBranch Tel:(NSString *)Tel;
 //身份证绑定

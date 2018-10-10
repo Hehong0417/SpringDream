@@ -38,7 +38,7 @@
         .rightSpaceToView(_shareButton, 10)
         .topSpaceToView(self, 0)
         .bottomSpaceToView(self, 0)
-        .widthIs(45);
+        .widthIs(50);
         [_commentButton setTitleEdgeInsets:UIEdgeInsetsMake(left_edge, -left_edge+5, -left_edge, left_edge)];
         [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(-left_edge+5, left_edge, left_edge, -left_edge)];
         

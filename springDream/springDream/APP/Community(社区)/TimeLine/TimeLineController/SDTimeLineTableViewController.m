@@ -192,7 +192,7 @@ static CGFloat textFieldH = 40;
 }
 - (void)getTimeLineData{
     
-    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.isFooterRefresh||self.isprogress?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20 commentLimit:@5] netWorkClient] getRequestInView:self.isFooterRefresh||self.isprogress?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
       
         if (!error) {
             if (api.State == 1) {
@@ -276,7 +276,6 @@ static CGFloat textFieldH = 40;
         [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
             SDTimeLineModel * model = weakSelf.dataArray[indexPath.row];
             model.isOpening = !model.isOpening;
-            
             [weakSelf.tabView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
         [cell setDidClickCommentLabelBlock:^(NSString *commentId, CGRect rectInWindow, NSIndexPath *indexPath) {
