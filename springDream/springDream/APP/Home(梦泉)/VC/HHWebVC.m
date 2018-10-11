@@ -12,9 +12,10 @@
 
 @interface HHWebVC ()<WKUIDelegate,WKNavigationDelegate>
 {
-    WKWebView *_webView;
     MBProgressHUD *_hud;
 }
+@property (nonatomic, strong) NSString *htmlString;
+@property (nonatomic, strong) WKWebView *webView;
 @end
 
 @implementation HHWebVC
@@ -48,10 +49,13 @@
     //
     NSString  *url = self.url_str;
     
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
-    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
-    
-    [_webView loadRequest:req];
+    WEAK_SELF();
+        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+            NSLog(@"load failed!");
+        }else{
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+        }
     
     if (_webView.scrollView.mj_header.isRefreshing) {
         [_webView.scrollView.mj_header endRefreshing];

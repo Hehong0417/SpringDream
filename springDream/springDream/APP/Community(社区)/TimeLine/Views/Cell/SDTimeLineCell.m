@@ -75,7 +75,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 
 - (void)setup
 {
-    
+    __weak typeof(self) weakSelf = self;
+
     _iconView = [UIImageView new];
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont boldSystemFontOfSize:14];
@@ -115,9 +116,17 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _commentView = [SDTimeLineCellCommentView new];
     
+    
+    [_commentView setDidClickAllButtonBlock:^{
+        if ([weakSelf.delegate respondsToSelector:@selector(didClickcAllButtonInCell:)]) {
+            
+            [weakSelf.delegate didClickcAllButtonInCell:weakSelf];
+        }
+        
+    }];
+    
     _peration_view = [SDTimeLineCellOperationView new];
     
-    __weak typeof(self) weakSelf = self;
 
     [_peration_view setCommentButtonClickedOperation_new:^{
         if ([weakSelf.delegate respondsToSelector:@selector(didClickcCommentButtonInCell:)]) {
@@ -282,5 +291,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         self.moreButtonClickedBlock(self.indexPath);
     }
 }
+
+
 @end
 

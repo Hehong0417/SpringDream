@@ -409,6 +409,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         [self.product_sku_arr enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             if ([obj.Id isEqualToString:seleId_str]) {
+       
                 self.product_price = obj.SalePrice;
                 self.product_stock = obj.Stock;
                 if (self.delegate &&[self.delegate respondsToSelector:@selector(choosedStock:product_price:featureselectionCell:)]) {

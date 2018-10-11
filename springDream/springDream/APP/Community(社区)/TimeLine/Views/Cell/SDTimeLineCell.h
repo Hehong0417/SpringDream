@@ -33,6 +33,7 @@
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell likeButton:(UIButton *)likeButton;
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
 - (void)didClickcShareButtonInCell:(UITableViewCell *)cell;
+- (void)didClickcAllButtonInCell:(UITableViewCell *)cell;
 
 @end
 

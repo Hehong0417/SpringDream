@@ -11,11 +11,12 @@
 
 @interface HHBargainingWebVC ()<WKUIDelegate,WKNavigationDelegate>
 {
-    WKWebView *_webView;
     UIButton *rightBtn;
     NSString *webpageUrl;
     NSString *responseUrl;
 }
+@property (nonatomic, strong) NSString *htmlString;
+@property (nonatomic, strong) WKWebView *webView;
 @end
 
 @implementation HHBargainingWebVC
@@ -45,9 +46,19 @@
     HJUser *user = [HJUser sharedUser];
     webpageUrl = [NSString stringWithFormat:@"%@/ActivityWeb/CutPriceShare?orderId=%@",API_HOST1,self.orderId];
     
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ActivityWeb/CutPriceShare?orderId=%@&token=%@",API_HOST1,self.orderId,user.token]]];
+    NSString *url = [NSString stringWithFormat:@"%@/ActivityWeb/CutPriceShare?orderId=%@&token=%@",API_HOST1,self.orderId,user.token];
+    WEAK_SELF();
+        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+            NSLog(@"load failed!");
+        }else{
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+        }
     
-    [_webView loadRequest:req];   
+//
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ActivityWeb/CutPriceShare?orderId=%@&token=%@",API_HOST1,self.orderId,user.token]]];
+
+//   [_webView loadRequest:req];
     
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;

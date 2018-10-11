@@ -41,7 +41,7 @@
 
 @property(nonatomic,strong) NSIndexPath *indexPath;
 
-@property(nonatomic,assign)  id<HXHomeCollectionCellDelegate> delegate;
+@property(nonatomic,weak)  id<HXHomeCollectionCellDelegate> delegate;
 
 @end
 

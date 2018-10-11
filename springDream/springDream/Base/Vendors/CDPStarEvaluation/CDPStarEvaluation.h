@@ -27,7 +27,7 @@
 
 @property (nonatomic,strong) NSNumber *grade;//星级
 
-@property (nonatomic,assign) id <CDPStarEvaluationDelegate> delegate;
+@property (nonatomic,weak) id <CDPStarEvaluationDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame  onTheView:(UIView *)view;//初始化
 

@@ -52,12 +52,11 @@
         self.starEvaluation2.delegate= self;
         
         UIButton *addAddressBtn = [UIButton lh_buttonWithFrame:CGRectMake(60, CGRectGetMaxY(left_logistics_lab.frame)+20, SCREEN_WIDTH-120, WidthScaleSize_H(35)) target:self action:@selector(pushEvulation:) image:nil];
-        [addAddressBtn setBackgroundColor:kBlackColor];
+        [addAddressBtn setBackgroundColor:APP_COMMON_COLOR];
         [addAddressBtn setTitle:@"发布评价" forState:UIControlStateNormal];
         [addAddressBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
         [addAddressBtn lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
         [self addSubview:addAddressBtn];
-        
     }
     
     return self;

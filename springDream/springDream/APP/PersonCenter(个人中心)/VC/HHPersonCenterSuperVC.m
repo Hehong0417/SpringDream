@@ -14,7 +14,7 @@
 #import "HHPersonCenterSub3.h"
 #import "HHPersonCenterSub4.h"
 
-@interface HHPersonCenterSuperVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UISearchBarDelegate>
+@interface HHPersonCenterSuperVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UIView *tab_head;
 }
@@ -27,6 +27,7 @@
 @property(nonatomic,strong) NSString  *userLevelName;
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -273,5 +274,32 @@
     //    if (vc.isViewLoaded) return;
     [self.mainScrollView addSubview:vc.view];
     vc.view.frame = CGRectMake(offsetX, 0, self.view.frame.size.width, self.view.frame.size.height);
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
 }
 @end

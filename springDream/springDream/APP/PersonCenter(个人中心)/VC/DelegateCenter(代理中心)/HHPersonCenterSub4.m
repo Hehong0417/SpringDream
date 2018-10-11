@@ -16,15 +16,16 @@
 #import "HHDelegateOrderVC.h"
 #import "HHDistributionGoodsVC.h"
 #import "HHDistributionCommissionVC.h"
-#import "HHDistributeServiceCell_one.h"
+#import "HHdelegateServiceCell.h"
 
-@interface HHPersonCenterSub4 ()<HHDelegateStatusCellDelagete,HHDistributeServiceCell_one_delagete>
+@interface HHPersonCenterSub4 ()<HHDelegateStatusCellDelagete,HHdelegateServiceCell_delagete,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
 @property(nonatomic,strong) HHMineModel  *mineModel;
 @property(nonatomic,strong) NSString  *userLevelName;
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -54,7 +55,7 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHDelegateStatusCell class] forCellReuseIdentifier:@"HHDelegateStatusCell"];
-    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
+    [self.tabView registerClass:[HHdelegateServiceCell class] forCellReuseIdentifier:@"HHdelegateServiceCell"];
 
     
 }
@@ -142,7 +143,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else if (indexPath.row == 1) {
-             HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one" ];
+             HHdelegateServiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHdelegateServiceCell" ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.btn_image_arr = @[@"sub_service_01",@"sub_service_02",@"",@""];
@@ -236,5 +237,33 @@
         [self.navigationController pushVC:vc];
     }
     
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
 }
 @end

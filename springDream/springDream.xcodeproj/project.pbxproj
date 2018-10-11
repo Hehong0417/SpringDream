@@ -297,6 +297,11 @@
 		CE5E6F572160BE0700FE875D /* SDPostTimeLinePicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E6F562160BE0700FE875D /* SDPostTimeLinePicItem.m */; };
 		CE5E6F5A2160C6ED00FE875D /* SDPostContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5E6F592160C6ED00FE875D /* SDPostContentModel.m */; };
 		CE62C61B215E35F5004E7C93 /* HHSelectSectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE62C61A215E35F5004E7C93 /* HHSelectSectionItem.m */; };
+		CE6806CE216EEC94008CBF7E /* HHStoreServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806CD216EEC94008CBF7E /* HHStoreServiceCell.m */; };
+		CE6806D1216EEE68008CBF7E /* HHdelegateServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D0216EEE68008CBF7E /* HHdelegateServiceCell.m */; };
+		CE6806D4216EFC43008CBF7E /* HHModifyPassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D3216EFC43008CBF7E /* HHModifyPassWordVC.m */; };
+		CE6806D7216F01DE008CBF7E /* HHTimeLineCommentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D6216F01DE008CBF7E /* HHTimeLineCommentListVC.m */; };
+		CE6806DA216F0278008CBF7E /* HHTimeLineCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D9216F0278008CBF7E /* HHTimeLineCommentCell.m */; };
 		CE734F25214A730B005748B7 /* HHDistributeStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */; };
 		CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */; };
 		CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */; };
@@ -996,6 +1001,16 @@
 		CE5E6F592160C6ED00FE875D /* SDPostContentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDPostContentModel.m; sourceTree = "<group>"; };
 		CE62C619215E35F5004E7C93 /* HHSelectSectionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSelectSectionItem.h; sourceTree = "<group>"; };
 		CE62C61A215E35F5004E7C93 /* HHSelectSectionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSelectSectionItem.m; sourceTree = "<group>"; };
+		CE6806CC216EEC94008CBF7E /* HHStoreServiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHStoreServiceCell.h; sourceTree = "<group>"; };
+		CE6806CD216EEC94008CBF7E /* HHStoreServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHStoreServiceCell.m; sourceTree = "<group>"; };
+		CE6806CF216EEE68008CBF7E /* HHdelegateServiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHdelegateServiceCell.h; sourceTree = "<group>"; };
+		CE6806D0216EEE68008CBF7E /* HHdelegateServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHdelegateServiceCell.m; sourceTree = "<group>"; };
+		CE6806D2216EFC43008CBF7E /* HHModifyPassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHModifyPassWordVC.h; sourceTree = "<group>"; };
+		CE6806D3216EFC43008CBF7E /* HHModifyPassWordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHModifyPassWordVC.m; sourceTree = "<group>"; };
+		CE6806D5216F01DE008CBF7E /* HHTimeLineCommentListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHTimeLineCommentListVC.h; sourceTree = "<group>"; };
+		CE6806D6216F01DE008CBF7E /* HHTimeLineCommentListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHTimeLineCommentListVC.m; sourceTree = "<group>"; };
+		CE6806D8216F0278008CBF7E /* HHTimeLineCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHTimeLineCommentCell.h; sourceTree = "<group>"; };
+		CE6806D9216F0278008CBF7E /* HHTimeLineCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHTimeLineCommentCell.m; sourceTree = "<group>"; };
 		CE734F23214A730B005748B7 /* HHDistributeStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributeStatusCell.h; sourceTree = "<group>"; };
 		CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHDistributeStatusCell.m; sourceTree = "<group>"; };
 		CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDistributeServiceCell_one.h; sourceTree = "<group>"; };
@@ -2067,6 +2082,10 @@
 			children = (
 				CEFEAF86214A8B310085B5D1 /* HHPostTimeLineVC.h */,
 				CEFEAF87214A8B310085B5D1 /* HHPostTimeLineVC.m */,
+				CE6806D5216F01DE008CBF7E /* HHTimeLineCommentListVC.h */,
+				CE6806D6216F01DE008CBF7E /* HHTimeLineCommentListVC.m */,
+				CE6806D8216F0278008CBF7E /* HHTimeLineCommentCell.h */,
+				CE6806D9216F0278008CBF7E /* HHTimeLineCommentCell.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2654,6 +2673,8 @@
 				CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */,
 				CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */,
 				CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */,
+				CE6806D2216EFC43008CBF7E /* HHModifyPassWordVC.h */,
+				CE6806D3216EFC43008CBF7E /* HHModifyPassWordVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2881,6 +2902,10 @@
 				CE734F24214A730B005748B7 /* HHDistributeStatusCell.m */,
 				CE734F26214A7478005748B7 /* HHDistributeServiceCell_one.h */,
 				CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */,
+				CE6806CC216EEC94008CBF7E /* HHStoreServiceCell.h */,
+				CE6806CD216EEC94008CBF7E /* HHStoreServiceCell.m */,
+				CE6806CF216EEE68008CBF7E /* HHdelegateServiceCell.h */,
+				CE6806D0216EEE68008CBF7E /* HHdelegateServiceCell.m */,
 				CE4286CC215B1E3E0080B24A /* HHStoreStatusCell.h */,
 				CE4286CD215B1E3E0080B24A /* HHStoreStatusCell.m */,
 				CE4286CF215B1EF30080B24A /* HHDelegateStatusCell.h */,
@@ -3384,6 +3409,7 @@
 				CE5264DA212BBFE600F30D29 /* XWCoolAnimator.m in Sources */,
 				CE90EAD1215A1BA500F62B8A /* HHStoreEarningsVC.m in Sources */,
 				CE4D0A13212423F200796FEE /* LHAlertView.m in Sources */,
+				CE6806D4216EFC43008CBF7E /* HHModifyPassWordVC.m in Sources */,
 				CE8A67C4212ACA2E00C7C57F /* HHEvaluationListVC.m in Sources */,
 				CE4D0A1A212423F200796FEE /* SGImageButton.m in Sources */,
 				CE3EAD7D216DB5AC00103F63 /* HHGoodCategoryLeftView.m in Sources */,
@@ -3510,6 +3536,7 @@
 				CE4FFD982148EC7200767DF1 /* SDWeiXinPhotoContainerView.m in Sources */,
 				CE4725C6212D0B18002BD2A5 /* HHCouponUnusedVC.m in Sources */,
 				CE8A66A8212ABAB100C7C57F /* HHSendGiftWebVC.m in Sources */,
+				CE6806CE216EEC94008CBF7E /* HHStoreServiceCell.m in Sources */,
 				CE47263A212D1ECE002BD2A5 /* DCFeatureTitleItem.m in Sources */,
 				CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */,
 				CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */,
@@ -3539,6 +3566,7 @@
 				CEA09E192153B76200DDB2A0 /* HHMyCodeVC.m in Sources */,
 				CE8A6522212AAB7A00C7C57F /* SearchTagTableViewCell.m in Sources */,
 				CE5264DD212BBFE600F30D29 /* XWCoolAnimator+XWFold.m in Sources */,
+				CE6806DA216F0278008CBF7E /* HHTimeLineCommentCell.m in Sources */,
 				CE8A654C212AAC6800C7C57F /* HHOrderIdItem.m in Sources */,
 				CE4FFDC22148EEAF00767DF1 /* MLExpressionManager.m in Sources */,
 				CE4D0A2D212423F200796FEE /* HJLogFormatter.m in Sources */,
@@ -3625,6 +3653,7 @@
 				CE4D0A3D212423F200796FEE /* HXTabControlCell.m in Sources */,
 				CE5264DB212BBFE600F30D29 /* XWCoolAnimator+XWLines.m in Sources */,
 				CE4D0A04212423F200796FEE /* UIViewController+Create.m in Sources */,
+				CE6806D1216EEE68008CBF7E /* HHdelegateServiceCell.m in Sources */,
 				CE4D0A38212423F200796FEE /* HXCommonPickView.m in Sources */,
 				CE9065DC21566C4400A13992 /* HHJuniorMembersVC.m in Sources */,
 				CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */,
@@ -3695,6 +3724,7 @@
 				CE8A66AA212ABAB100C7C57F /* HHSubmitOrdersVC.m in Sources */,
 				CE8A6536212AAC0100C7C57F /* HHCategoryModel.m in Sources */,
 				CE4FFDBB2148EEAF00767DF1 /* NSMutableAttributedString+MLLabel.m in Sources */,
+				CE6806D7216F01DE008CBF7E /* HHTimeLineCommentListVC.m in Sources */,
 				CE4FFDC12148EEAF00767DF1 /* NSString+MLExpression.m in Sources */,
 				CE494C1A21699E7A00039E23 /* HHDistributionInstructionsVC.m in Sources */,
 				CE3EAD8C216E061B00103F63 /* HHcategoryCollectionViewCell.m in Sources */,

@@ -63,14 +63,14 @@
 + (instancetype)postCommentWithsubjectId:(NSString *)subjectId comment:(NSString *)comment{
     
     SDTimeLineAPI *api = [self new];
-//    api.subUrl = API_Comment;
+    api.subUrl = API_Comment;
 
-//    if (comment) {
-//        [api.parameters setObject:comment forKey:@"comment"];
-//    }
+    if (comment) {
+        [api.parameters setObject:comment forKey:@"comment"];
+    }
     if (subjectId) {
-//        [api.parameters setObject:subjectId forKey:@"subjectId"];
-        api.subUrl =  [NSString stringWithFormat:@"%@?subjectId=%@&userId=0&comment=%@",API_Comment,subjectId,[comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [api.parameters setObject:subjectId forKey:@"subjectId"];
+//        api.subUrl =  [NSString stringWithFormat:@"%@?subjectId=%@&userId=0&comment=%@",API_Comment,subjectId,[comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     }
     api.parametersAddToken = NO;

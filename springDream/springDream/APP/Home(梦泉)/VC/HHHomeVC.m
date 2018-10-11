@@ -14,7 +14,7 @@
 #import "HHGoodCategoryVC.h"
 #import "HHWebVC.h"
 
-@interface HHHomeVC ()<WKUIDelegate,WKNavigationDelegate>
+@interface HHHomeVC ()<WKUIDelegate,WKNavigationDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD *_hud;
 
@@ -22,11 +22,11 @@
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) NSString *htmlString;
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
 @implementation HHHomeVC
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,19 +64,12 @@
     NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
     
     WEAK_SELF();
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
         if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
             NSLog(@"load failed!");
         }else{
             [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
         }
-    });
-    
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
-    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
-    
-    [_webView loadRequest:req];
     
     if (_webView.scrollView.mj_header.isRefreshing) {
         [_webView.scrollView.mj_header endRefreshing];
@@ -207,6 +200,32 @@
 - (void)dealloc {
     [_webView removeObserver:self forKeyPath:@"estimatedProgress" context:nil];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
+}
 @end
 

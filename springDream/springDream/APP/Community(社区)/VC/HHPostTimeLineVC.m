@@ -112,11 +112,17 @@ typedef   void (^completeHandle)();
     NSString *token = user.token;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorize"];
 
+    
     [manager POST:urlString parameters:para progress:nil success:
      ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-   
+      
          [SVProgressHUD showSuccessWithStatus:@"发布成功！"];
          [self.navigationController popVC];
+         
+         if (self.delegate&&[self.delegate respondsToSelector:@selector(postTimeLineComplete)]) {
+             [self.delegate postTimeLineComplete];
+         }
+         
      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
          
          [SVProgressHUD showInfoWithStatus:@"发布失败！"];

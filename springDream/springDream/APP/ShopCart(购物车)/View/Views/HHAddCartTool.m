@@ -15,17 +15,13 @@
     
     if (self = [super initWithFrame:frame]) {
         
-//        [self addSubview:self.cartIconBg];
+        self.backgroundColor = kWhiteColor;
         [self addSubview:self.collectBtn];
         [self addSubview:self.cartIconBtn];
-
-//        UIView *line = [UIView lh_viewWithFrame:CGRectMake(self.cartIconImgV.mj_x, 0, 1, self.homeIconImgV.mj_h) backColor:RGB(220, 220, 220)];
-//        [self.cartIconBg addSubview:line];
         
         [self addSubview:self.addCartBtn];
 
         [self addSubview:self.buyBtn];
-
 
     }
     
@@ -139,10 +135,6 @@
     if (!_buyBtn) {
         
         _buyBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH/3*2, 0, SCREEN_WIDTH/3, 50) target:self action:@selector(buyCartBtnAction:) image:nil title:@"立即付款" titleColor:kWhiteColor font:FONT(15)];
-//        [_buyBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 75, 5, 10)];
-//        [_buyBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 40)];
-//        [_buyBtn setImage:[UIImage imageNamed:@"triangle2"] forState:UIControlStateSelected];
-//        [_buyBtn setImage:[UIImage imageNamed:@"triangle1"] forState:UIControlStateNormal];
         [_buyBtn setBackgroundColor:APP_COMMON_COLOR];
 
     }

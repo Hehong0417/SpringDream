@@ -28,6 +28,6 @@
 
 @property(nonatomic,strong)  NSArray *btn_title_arr;
 
-@property(nonatomic,assign) id<HHDelegateStatusCellDelagete>delegate;
+@property(nonatomic,weak) id<HHDelegateStatusCellDelagete>delegate;
 
 @end

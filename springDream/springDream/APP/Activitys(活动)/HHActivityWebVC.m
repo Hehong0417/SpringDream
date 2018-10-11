@@ -11,18 +11,15 @@
 
 @interface HHActivityWebVC ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
 {
-    WKWebView *_webView;
     UIButton *rightBtn;
     NSString *webpageUrl;
 }
+@property (nonatomic, strong) NSString *htmlString;
+@property (nonatomic, strong) WKWebView *webView;
+
 @end
 
 @implementation HHActivityWebVC
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,8 +42,18 @@
     HJUser *user = [HJUser sharedUser];
     webpageUrl = [NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@",API_HOST1,self.gbId];
     
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,user.token]]];
-    [_webView loadRequest:req];
+    NSString *url = [NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,user.token];
+    WEAK_SELF();
+            weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+            NSLog(@"load failed!");
+        }else{
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+        }
+    
+    
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,user.token]]];
+//    [_webView loadRequest:req];
     
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;

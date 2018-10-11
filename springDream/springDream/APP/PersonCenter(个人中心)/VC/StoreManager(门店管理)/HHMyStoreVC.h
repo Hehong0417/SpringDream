@@ -15,7 +15,7 @@
 @end
 @interface HHMyStoreVC : UITableViewController
 
-@property(nonatomic,assign) id<HHMyStoreVCDelagete>delegate;
+@property(nonatomic,weak) id<HHMyStoreVCDelagete>delegate;
 
 
 @end

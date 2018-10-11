@@ -17,7 +17,7 @@
 @interface HHModelsView : UIView
 
 
-@property(nonatomic,assign) id<HHModelsViewDelegate>delegate;
+@property(nonatomic,weak) id<HHModelsViewDelegate>delegate;
 
 
 @property(nonatomic,assign) NSArray *message_count;

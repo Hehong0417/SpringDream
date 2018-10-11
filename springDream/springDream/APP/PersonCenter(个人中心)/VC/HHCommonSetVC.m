@@ -13,6 +13,7 @@
 #import "HHAuthenticationVC.h"
 #import "HHInviteCodeVC.h"
 #import "HHBankListVC.h"
+#import "HHModifyPassWordVC.h"
 
 @interface HHCommonSetVC ()
 @property(nonatomic,strong) HHMineModel  *mineModel;
@@ -42,9 +43,6 @@
     CGFloat M = size/1024/1024;
     HJSettingItem *item4_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:4]];
     item4_1.detailTitle = [NSString stringWithFormat:@"%.2fM",M];
-    
-    
-    
     
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:kClearColor];
     
@@ -132,6 +130,12 @@
            
         };
      }
+    if (indexPath.section == 1&&indexPath.row == 0) {
+        
+//        HHModifyPassWordVC *vc = [HHModifyPassWordVC new];
+//        [self.navigationController pushVC:vc];
+    }
+
     if (indexPath.section == 1&&indexPath.row == 1) {
         
         HHShippingAddressVC *vc = [HHShippingAddressVC new];
@@ -173,8 +177,6 @@
     [[[HHMineAPI UpdateUserInfoOfCityWithRegionId:district_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
-                
-              
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];

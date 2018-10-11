@@ -20,6 +20,6 @@
 @property (nonatomic, strong) NSString *order_id;
 @property (nonatomic, strong) HHproducts_item_Model *item_model;
 
-@property(nonatomic,copy) id<NewApplyRefundDelegate> delegate;
+@property(nonatomic,weak) id<NewApplyRefundDelegate> delegate;
 
 @end

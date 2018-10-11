@@ -12,7 +12,7 @@
 #import "LHVerifyCodeButton.h"
 #import "HHPhoneBandVC.h"
 
-@interface HHLoginVC ()<UITextFieldDelegate>
+@interface HHLoginVC ()<UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
     UIImageView *_logo_imagV;
     UIImageView *_phone_imagV;
@@ -26,6 +26,7 @@
 }
 @property(nonatomic,strong)LHVerifyCodeButton *verifyCodeBtn;
 @property(nonatomic,strong) UILabel *msg_code_label;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -329,5 +330,33 @@
     }
     
     return YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
 }
 @end

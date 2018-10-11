@@ -15,7 +15,7 @@
 #import "HHGoodListVC.h"
 #import "HHGoodCategoryLeftView.h"
 
-@interface HHGoodCategoryVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHGoodCategoryLeftViewDelegate>
+@interface HHGoodCategoryVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SGSegmentedControlDelegate,SearchViewDelegate,SearchDetailViewControllerDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHGoodCategoryLeftViewDelegate,UIGestureRecognizerDelegate>
 {
     SearchView *searchView;
     XYQButton *category_btn;
@@ -34,6 +34,7 @@
 @property(nonatomic,strong)     SGSegmentedControl *category_SG;
 @property(nonatomic,strong)   NSMutableArray *category_arr;
 @property(nonatomic,strong)   NSMutableArray *GoodCategoryLeftDatas;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -517,7 +518,6 @@
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsVerticalScrollIndicator = NO;
-        
     }
     return _collectionView;
 }
@@ -534,5 +534,33 @@
     
     [super viewWillDisappear:animated];
         searchView.hidden = YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
 }
 @end

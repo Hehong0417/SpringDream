@@ -85,4 +85,6 @@
 
 @property (strong , nonatomic)PPNumberButton *numberButton;
 
+@property (assign , nonatomic)BOOL isSkill;
+
 @end

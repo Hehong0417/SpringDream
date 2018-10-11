@@ -55,6 +55,8 @@
 @property (nonatomic, copy) NSString *secondUserName;
 @property (nonatomic, copy) NSString *SubjectId;
 
+@property (nonatomic, copy) NSString *UserImage;
+
 @property (nonatomic, copy) NSAttributedString *attributedContent;
 
 @end

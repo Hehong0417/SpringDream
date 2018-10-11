@@ -18,7 +18,7 @@
 @end
 @interface HHPayTypeVC : UITableViewController
 
-@property(nonatomic,copy) id<payTypeDelegate> delegate;
+@property(nonatomic,weak) id<payTypeDelegate> delegate;
 @property(nonatomic,copy) NSString *title_str;//标题
 @property(nonatomic,copy) NSString *subtitle_str;//副标题
 @property(nonatomic,copy) NSString *btn_title;

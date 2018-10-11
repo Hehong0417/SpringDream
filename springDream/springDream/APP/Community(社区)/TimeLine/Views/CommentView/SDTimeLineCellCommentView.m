@@ -67,11 +67,8 @@
     _bgImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:_bgImageView];
     
-//    _likeLabel = [MLLinkLabel new];
-//    _likeLabel.font = [UIFont systemFontOfSize:14];
-//    _likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : TimeLineCellHighlightedColor};
-//    _likeLabel.isAttributedContent = YES;
-//    [self addSubview:_likeLabel];
+    _allComment_btn = [UIButton lh_buttonWithFrame:CGRectZero target:self action:@selector(allComment_btnAction) title:@"查看全部" titleColor:APP_NAV_COLOR font:FONT(11) backgroundColor:kClearColor];
+    [self addSubview:_allComment_btn];
     
     _likeLableBottomLine = [UIView new];
     [self addSubview:_likeLableBottomLine];
@@ -107,32 +104,6 @@
         label.attributedText = model.attributedContent;
     }
 }
-
-//- (void)setLikeItemsArray:(NSArray *)likeItemsArray
-//{
-//    _likeItemsArray = likeItemsArray;
-//
-//    NSTextAttachment *attach = [NSTextAttachment new];
-//    attach.image = [UIImage imageNamed:@"Like"];
-//    attach.bounds = CGRectMake(0, -3, 16, 16);
-//    NSAttributedString *likeIcon = [NSAttributedString attributedStringWithAttachment:attach];
-//
-//    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
-//
-//    for (int i = 0; i < likeItemsArray.count; i++) {
-//        SDTimeLineCellLikeItemModel *model = likeItemsArray[i];
-//        if (i > 0) {
-//            [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"，"]];
-//        }
-//        if (!model.attributedContent) {
-//            model.attributedContent = [self generateAttributedStringWithLikeItemModel:model];
-//        }
-//        [attributedText appendAttributedString:model.attributedContent];
-//    }
-//
-//    _likeLabel.attributedText = [attributedText copy];
-//}
-
 - (NSMutableArray *)commentLabelsArray
 {
     if (!_commentLabelsArray) {
@@ -152,6 +123,8 @@
             [label sd_clearAutoLayoutSettings];
             label.hidden = YES; //重用时先隐藏所以评论label，然后根据评论个数显示label
         }];
+        [_allComment_btn sd_clearAutoLayoutSettings];
+        _allComment_btn.hidden = YES;
     }
 //    if (!commentItemsArray.count && !likeItemsArray.count)
     if (!commentItemsArray.count) {
@@ -167,22 +140,7 @@
     
     UIView *lastTopView = nil;
     
-//    if (likeItemsArray.count) {
-//        _likeLabel.sd_resetLayout
-//        .leftSpaceToView(self, margin)
-//        .rightSpaceToView(self, margin)
-//        .topSpaceToView(lastTopView, 10)
-//        .autoHeightRatio(0);
-//
-//        lastTopView = _likeLabel;
-//    } else {
-//        _likeLabel.attributedText = nil;
-//        _likeLabel.sd_resetLayout
-//        .heightIs(0);
-//    }
-    
-//    if (self.commentItemsArray.count && self.likeItemsArray.count)
-    if (self.commentItemsArray.count) {
+     if (self.commentItemsArray.count) {
         _likeLableBottomLine.sd_resetLayout
         .leftSpaceToView(self, 0)
         .rightSpaceToView(self, 0)
@@ -193,6 +151,7 @@
     } else {
         _likeLableBottomLine.sd_resetLayout.heightIs(0);
     }
+
     
     for (int i = 0; i < self.commentItemsArray.count; i++) {
         UILabel *label = (UILabel *)self.commentLabelsArray[i];
@@ -206,6 +165,19 @@
         
         label.isAttributedContent = YES;
         lastTopView = label;
+    }
+    
+    if (self.commentItemsArray.count>=5) {
+        _allComment_btn.sd_layout
+        .leftSpaceToView(self, 0)
+        .rightSpaceToView(self, 0)
+        .topSpaceToView(lastTopView, 0)
+        .heightIs(20);
+        lastTopView = _allComment_btn;
+        _allComment_btn.hidden = NO;
+    }else{
+        [_allComment_btn sd_clearAutoLayoutSettings];
+        _allComment_btn.hidden = YES;
     }
     
     [self setupAutoHeightWithBottomView:lastTopView bottomMargin:6];
@@ -248,6 +220,13 @@
 //    return attString;
 //}
 
+- (void)allComment_btnAction{
+    
+    if (self.didClickAllButtonBlock) {
+        self.didClickAllButtonBlock();
+    }
+    
+}
 
 #pragma mark - MLLinkLabelDelegate
 

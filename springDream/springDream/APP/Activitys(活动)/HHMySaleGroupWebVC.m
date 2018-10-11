@@ -15,7 +15,6 @@
 
 @interface HHMySaleGroupWebVC ()<WKUIDelegate,WKNavigationDelegate>
 {
-    WKWebView *_webView;
     UIButton *rightBtn;
     NSString *url;
     NSString *webpageUrl;
@@ -23,6 +22,8 @@
     MBProgressHUD *_hud;
 
 }
+@property (nonatomic, strong) NSString *htmlString;
+@property (nonatomic, strong) WKWebView *webView;
 @end
 
 @implementation HHMySaleGroupWebVC
@@ -81,10 +82,18 @@
     HJUser *user = [HJUser sharedUser];
     url = [NSString stringWithFormat:@"%@/Personal/CutGroup?token=%@&cid=12",API_HOST1,user.token];
     
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
-    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
+    WEAK_SELF();
+        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+            NSLog(@"load failed!");
+        }else{
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+        }
     
-    [_webView loadRequest:req];
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
+//    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
+//
+//    [_webView loadRequest:req];
 
     if (_webView.scrollView.mj_header.isRefreshing) {
         [_webView.scrollView.mj_header endRefreshing];

@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong)   NSMutableArray *datas;
 
-@property (nonatomic, assign)   id <HHGoodCategoryLeftViewDelegate> delegate;
+@property (nonatomic, weak)   id <HHGoodCategoryLeftViewDelegate> delegate;
 
 /**
  *  显示

@@ -37,4 +37,7 @@
 
 @property (nonatomic, copy) void (^didClickCommentLabelBlock)(NSString *commentId, CGRect rectInWindow);
 
+@property (nonatomic, copy) void (^didClickAllButtonBlock)();
+@property (nonatomic, strong) UIButton *allComment_btn;
+
 @end

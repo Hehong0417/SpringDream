@@ -23,6 +23,6 @@
 
 @property (nonatomic, strong)   UIButton *currentSelectBtn;
 
-@property (nonatomic, assign)   id<HHEvaluateListHeadDelegate> delegate;
+@property (nonatomic, weak)   id<HHEvaluateListHeadDelegate> delegate;
 
 @end

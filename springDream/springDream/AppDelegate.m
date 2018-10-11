@@ -10,7 +10,6 @@
 #import "WXApi.h"
 #import "HHLoginVC.h"
 #import "UncaughtExceptionHandler.h"
-
 #define USHARE_DEMO_APPKEY  @"5b90a1808f4a9d121b000037"
 #define Wechat_AppKey  @"wxa40e7d9b1283c27c"
 #define Wechat_appSecret  @"538eaa42ff2f80f87f631f59c9126f4f"
@@ -26,7 +25,6 @@
 
     [UncaughtExceptionHandler installUncaughtExceptionHandler:YES showAlert:YES];
 
-    
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -40,8 +38,8 @@
     [self IQKeyboardManagerConfig];
     
     [WXApi registerApp:Wechat_AppKey];
-    
-
+        
+  
     //配置友盟
     [self UMSocialConfig];
     [self.window makeKeyAndVisible];

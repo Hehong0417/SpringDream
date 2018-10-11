@@ -27,6 +27,6 @@
 
 @property(nonatomic,strong)  NSArray *btn_title_arr;
 
-@property(nonatomic,assign) id<HHStoreStatusCellDelagete>delegate;
+@property(nonatomic,weak) id<HHStoreStatusCellDelagete>delegate;
 
 @end

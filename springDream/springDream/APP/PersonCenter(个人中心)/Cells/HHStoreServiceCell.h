@@ -1,23 +1,23 @@
 //
-//  HHDistributeServiceCell_one.h
+//  HHStoreServiceCell.h
 //  springDream
 //
-//  Created by User on 2018/9/13.
+//  Created by User on 2018/10/11.
 //  Copyright © 2018年 User. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "HHModelsView.h"
 
-@protocol HHDistributeServiceCell_one_delagete<NSObject>
+@protocol HHStoreServiceCell_delagete<NSObject>
 
 - (void)serviceModelButtonDidSelectWithButtonIndex:(NSInteger)buttonIndex cell:(UITableViewCell *)cell;
 
 @end
 
-@interface HHDistributeServiceCell_one : UITableViewCell<HHModelsViewDelegate>
+@interface HHStoreServiceCell : UITableViewCell<HHModelsViewDelegate>
 
-@property(nonatomic,weak) id<HHDistributeServiceCell_one_delagete>delegate;
+@property(nonatomic,weak) id<HHStoreServiceCell_delagete>delegate;
 
 @property(nonatomic,strong)  NSArray *btn_image_arr;
 

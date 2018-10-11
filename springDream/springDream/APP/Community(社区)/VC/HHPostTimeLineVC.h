@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HHPostTimeLineVCDelegate<NSObject>
+
+- (void)postTimeLineComplete;
+
+@end
+
 @interface HHPostTimeLineVC : UIViewController
 
 @property (nonatomic ,strong) NSMutableArray *photosArray;
 @property (nonatomic ,strong) NSMutableArray *assestArray;
 @property (nonatomic ,assign) NSInteger section;
+
+@property(nonatomic, assign) id<HHPostTimeLineVCDelegate> delegate;
 
 @end

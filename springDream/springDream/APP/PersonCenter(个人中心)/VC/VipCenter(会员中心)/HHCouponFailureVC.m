@@ -183,7 +183,6 @@
     cell.model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     NSArray *image_arr = @[@"falure1",@"falure2",@"falure3"];
     cell.bg_imagV.image = [UIImage imageNamed:image_arr[indexPath.row%3]];
-    cell.useBtn.hidden = YES;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

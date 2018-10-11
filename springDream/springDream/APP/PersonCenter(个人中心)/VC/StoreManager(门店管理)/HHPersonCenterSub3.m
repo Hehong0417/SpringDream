@@ -12,14 +12,14 @@
 #import "HHOrderVC.h"
 #import "HHvipInfoVC.h"
 #import "HHMyServiceVC.h"
-#import "HHDistributeServiceCell_one.h"
 #import "HHMyStoreVC.h"
 #import "HHStoreProductsVC.h"
 #import "HHStoreOrderVC.h"
 #import "HHStoreEarningsVC.h"
 #import "HHGoodCategoryVC.h"
+#import "HHStoreServiceCell.h"
 
-@interface HHPersonCenterSub3 ()<HHStoreStatusCellDelagete,HHDistributeServiceCell_one_delagete>
+@interface HHPersonCenterSub3 ()<HHStoreStatusCellDelagete,HHStoreServiceCell_delagete,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong) HHPersonCenterHead *personHead;
 @property(nonatomic,strong) UITableView *tabView;
@@ -28,6 +28,7 @@
 @property(nonatomic,strong) NSArray  *message_arr;
 @property(nonatomic,strong) HHMineModel  *orderStatusCount_model;
 @property(nonatomic,strong) HHMineModel  *store_model;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -56,7 +57,7 @@
     
     [self.tabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"title_cell"];
     [self.tabView registerClass:[HHStoreStatusCell class] forCellReuseIdentifier:@"HHStoreStatusCell"];
-    [self.tabView registerClass:[HHDistributeServiceCell_one class] forCellReuseIdentifier:@"HHDistributeServiceCell_one"];
+    [self.tabView registerClass:[HHStoreServiceCell class] forCellReuseIdentifier:@"HHStoreServiceCell"];
 
     
 }
@@ -161,7 +162,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             grideCell = cell;
         }else if (indexPath.row == 1) {
-            HHDistributeServiceCell_one *cell = [tableView dequeueReusableCellWithIdentifier:@"HHDistributeServiceCell_one"];
+            HHStoreServiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHStoreServiceCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             cell.btn_image_arr = @[@"store_service_01",@"",@"",@""];
@@ -248,5 +249,31 @@
     
 }
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
+}
 @end

@@ -74,6 +74,8 @@
 @property (nonatomic, strong) NSString *store_id;
 @property (nonatomic, strong) UILabel *detailText_lab;
 
+@property (nonatomic, assign) BOOL IsSecKill;
+
 
 @end
 
@@ -229,9 +231,6 @@ static NSArray *lastSele_IdArray_;
     };
    
     self.addCartTool.buyBlock = ^(UIButton *btn) {
-        
-         //立即购买
-//         [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
 
         [weakSelf buyProductHandleData];
         
@@ -422,6 +421,7 @@ static NSArray *lastSele_IdArray_;
         cell.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
         cell.product_sku_arr = self.gooodDetailModel.SKUList;
         cell.product_id = self.gooodDetailModel.Id;
+        cell.isSkill = self.IsSecKill;
         [cell.collectionView reloadData];
         [cell.collectionView layoutIfNeeded];
         self.collectionHeight = cell.collectionView.contentSize.height;
@@ -594,6 +594,7 @@ static NSArray *lastSele_IdArray_;
 
     return 95;
 }
+
 - (CGFloat)cellContentViewWith
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -625,7 +626,7 @@ static NSArray *lastSele_IdArray_;
         [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.productStores_names];
         WEAK_SELF();
         _pickView.completeBlock = ^(NSString *result) {
-            self.detailText_lab.text = result;
+            weakSelf.detailText_lab.text = result;
             NSInteger index = [weakSelf.productStores_names indexOfObject:result];
             weakSelf.store_id = weakSelf.productStores_ids[index];
         };
@@ -637,8 +638,12 @@ static NSArray *lastSele_IdArray_;
 - (void)choosedStock:(NSString *)product_stock product_price:(NSString *)product_price featureselectionCell:(id)featureselectionCell{
     
     HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[self.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.floatValue];
-    cell.stock_label.text = [NSString stringWithFormat:@"库存：%@",product_stock];
+    if (self.IsSecKill == YES) {
+        cell.product_min_priceLabel.text = @"";
+    }else{
+        cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.floatValue];
+    }
+    cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",product_stock];
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = product_stock;
     [detail_item write];
@@ -685,9 +690,10 @@ static NSArray *lastSele_IdArray_;
                
                 self.foot.model = self.gooodDetailModel;
                 
+                self.addCartTool.addCartBtn.hidden = YES;
+
                 //正在拼团列表
                 self.JoinActivity_arr = self.gooodDetailModel.JoinActivity.mutableCopy;
-                
                 
                 [self.preferentialArr removeAllObjects];
                 if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.floatValue>0)) {
@@ -743,12 +749,15 @@ static NSArray *lastSele_IdArray_;
                 weakSelf.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
                 [weakSelf.tableHeader addSubview:weakSelf.seckill_view];
                 
+                weakSelf.IsSecKill = NO;
                 weakSelf.seckill_view.hidden = YES;
                 self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
 
+                
                 // 秒杀
                 HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
                 if ([SecKill_m.IsSecKill isEqual:@1]) {
+                    weakSelf.IsSecKill = YES;
                     weakSelf.seckill_view.hidden = NO;
                     weakSelf.seckill_view.activity_m = SecKill_m;
                     weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.floatValue];
@@ -764,7 +773,8 @@ static NSArray *lastSele_IdArray_;
                         weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
                     }
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
-
+                  
+                    self.addCartTool.addCartBtn.hidden = YES;
                 }
                 //拼团
                 HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];

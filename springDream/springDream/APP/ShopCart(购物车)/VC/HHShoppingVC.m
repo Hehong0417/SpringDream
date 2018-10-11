@@ -15,7 +15,7 @@
 #import "HHAddAdressVC.h"
 #import "HHSelectSectionItem.h"
 
-@interface HHShoppingVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface HHShoppingVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UIGestureRecognizerDelegate>
 {
     NSInteger  count;
     NSInteger  subcount;
@@ -30,6 +30,8 @@
 @property (nonatomic, strong)   NSString *s_integral_total;
 @property (nonatomic, strong)   NSMutableArray *selectItems;
 @property (nonatomic, strong)   UIButton *manage_btn;
+@property (nonatomic, assign) BOOL isCanBack;
+
 @end
 @implementation HHShoppingVC
 
@@ -90,7 +92,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHCartCell" bundle:nil] forCellReuseIdentifier:@"HHCartCell"];
     
-//    //顶部提示条
+     //顶部提示条
 //    [self addTipHeadView];
 
     //底部结算条
@@ -814,6 +816,34 @@
         }
     }];
     
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
 }
 
 @end

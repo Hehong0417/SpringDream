@@ -43,12 +43,14 @@
 #import "SDTimeLineAPI.h"
 #import "SDTimeLineModel.h"
 #import "SDListModel.h"
+#import "HHTimeLineCommentListVC.h"
+
 
 #define kTimeLineTableViewCellId @"SDTimeLineCell"
 
 static CGFloat textFieldH = 40;
 
-@interface SDTimeLineTableViewController () <SDTimeLineCellDelegate, UITextFieldDelegate>
+@interface SDTimeLineTableViewController () <SDTimeLineCellDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,HHPostTimeLineVCDelegate>
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, assign) BOOL isReplayingComment;
@@ -56,9 +58,9 @@ static CGFloat textFieldH = 40;
 @property (nonatomic, copy) NSString *commentToUser;
 @property (nonatomic, assign)   NSInteger page;
 @property(nonatomic,assign)   BOOL  isFooterRefresh;
-@property(nonatomic,assign)   BOOL  isprogress;
 
 @property (nonatomic, strong) UITableView *tabView;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end
 
@@ -86,8 +88,6 @@ static CGFloat textFieldH = 40;
     
     [super viewWillAppear:animated];
     
-    [self.tabView.mj_header beginRefreshing];
-    
     [self setupTextField];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -97,8 +97,6 @@ static CGFloat textFieldH = 40;
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    self.isprogress = YES;
     
     self.title = @"社区";
 
@@ -119,22 +117,17 @@ static CGFloat textFieldH = 40;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self addRefreshHeader];
-
     //获取社区数据
     [self getTimeLineData];
-    
-   
+
 }
 
 - (void)addRefreshHeader{
     
     //下拉刷新
     _refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//      [self refreshDatas];
-        [self.dataArray removeAllObjects];
         self.page=1;
         self.isFooterRefresh = NO;
-        self.isprogress = YES;
         [self getTimeLineData];
     }];
     
@@ -147,17 +140,11 @@ static CGFloat textFieldH = 40;
     // 上拉加载
     _refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.isFooterRefresh = YES;
-        self.isprogress = YES;
         self.page++;
         [self getTimeLineData];
         [self.tabView reloadDataWithExistedHeightCache];
     }];
     self.tabView.mj_footer = _refreshfooter;
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -192,7 +179,7 @@ static CGFloat textFieldH = 40;
 }
 - (void)getTimeLineData{
     
-    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20 commentLimit:@5] netWorkClient] getRequestInView:self.isFooterRefresh||self.isprogress?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20 commentLimit:@5] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
       
         if (!error) {
             if (api.State == 1) {
@@ -259,7 +246,9 @@ static CGFloat textFieldH = 40;
 - (void)post_buttonAction{
     
     HHPostTimeLineVC *vc = [HHPostTimeLineVC new];
+    vc.delegate = self;
     [self.navigationController pushVC:vc];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -368,7 +357,15 @@ static CGFloat textFieldH = 40;
         }
     }];
 };
-
+- (void)didClickcAllButtonInCell:(UITableViewCell *)cell{
+    
+    NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
+    SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
+    HHTimeLineCommentListVC *vc = [HHTimeLineCommentListVC new];
+    vc.subjectId = model.SubjectId;
+    [self.navigationController pushVC:vc];
+    
+}
 
 - (void)adjustTableViewToFitKeyboard
 {
@@ -391,7 +388,14 @@ static CGFloat textFieldH = 40;
     
     [self.tabView setContentOffset:offset animated:YES];
 }
+#pragma mark - HHPostTimeLineVCDelegate
 
+- (void)postTimeLineComplete{
+    
+    self.isFooterRefresh = NO;
+    self.page = 1;
+    [self getTimeLineData];
+}
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -434,8 +438,6 @@ static CGFloat textFieldH = 40;
     }
     return NO;
 }
-
-
 
 - (void)keyboardNotification:(NSNotification *)notification
 {
@@ -493,5 +495,31 @@ static CGFloat textFieldH = 40;
         }
     }];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resetSideBack];
+}
+#pragma mark -- 禁用边缘返回
+-(void)forbiddenSideBack{
+    self.isCanBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+#pragma mark --恢复边缘返回
+- (void)resetSideBack {
+    self.isCanBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanBack;
+}
 @end
