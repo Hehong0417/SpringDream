@@ -421,7 +421,6 @@ static NSArray *lastSele_IdArray_;
         cell.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
         cell.product_sku_arr = self.gooodDetailModel.SKUList;
         cell.product_id = self.gooodDetailModel.Id;
-        cell.isSkill = self.IsSecKill;
         [cell.collectionView reloadData];
         [cell.collectionView layoutIfNeeded];
         self.collectionHeight = cell.collectionView.contentSize.height;
@@ -753,7 +752,8 @@ static NSArray *lastSele_IdArray_;
                 weakSelf.seckill_view.hidden = YES;
                 self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
 
-                
+                self.addCartTool.addCartBtn.hidden = NO;
+
                 // 秒杀
                 HHActivityModel *SecKill_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.SecKill];
                 if ([SecKill_m.IsSecKill isEqual:@1]) {
@@ -772,6 +772,7 @@ static NSArray *lastSele_IdArray_;
                         weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
                         weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
                     }
+                    
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
                   
                     self.addCartTool.addCartBtn.hidden = YES;

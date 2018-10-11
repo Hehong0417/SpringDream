@@ -56,6 +56,8 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"HHcategoryCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HHcategoryCollectionViewCell"];
     
+    [self getSectionData];
+
     [self setupSGSegmentedControl];
     
     [self setupSearchView];
@@ -526,9 +528,6 @@
 
     [super viewWillAppear:animated];
     searchView.hidden = NO;
-
-    [self getSectionData];
-
 }
 - (void)viewWillDisappear:(BOOL)animated {
     

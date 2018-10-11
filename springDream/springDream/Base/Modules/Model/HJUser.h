@@ -33,6 +33,7 @@ singleton_h(User)
 @property(nonatomic,strong) NSString *token;
 @property(nonatomic,strong) NSString *userName;
 @property(nonatomic,strong) NSIndexPath *category_selectIndexPath;
+@property(nonatomic,assign) NSInteger group_selectIndex;
 
 //体验店编号
 @property(nonatomic,strong) NSString *shop_userid;
