@@ -25,6 +25,9 @@
 @property(nonatomic,strong) NSString  *RealName;
 @property(nonatomic,strong) NSString  *UserLevelId;
 @property(nonatomic,strong) NSString  *CardID;
+@property(nonatomic,strong) NSString  *OpenId;
+@property(nonatomic,strong) NSString  *userRegin;
+
 
 
 

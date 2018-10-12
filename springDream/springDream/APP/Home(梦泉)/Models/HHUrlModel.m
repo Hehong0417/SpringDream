@@ -10,9 +10,4 @@
 
 @implementation HHUrlModel
 
-//+(NSDictionary *)mj_replacedKeyFromPropertyName{
-//
-//    return @{@"Id":@"id"};
-//}
-
 @end

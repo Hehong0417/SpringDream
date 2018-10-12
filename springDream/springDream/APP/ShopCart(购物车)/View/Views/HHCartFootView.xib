@@ -64,7 +64,6 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合计：¥0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM0-Zp-DRc">
                     <rect key="frame" x="80" y="2" width="103" height="47"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="47" id="1sP-ph-1Du"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="103" id="Zof-qb-nY9"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -87,6 +86,7 @@
                 <constraint firstItem="8VG-0W-GQx" firstAttribute="leading" secondItem="X9J-RV-ipW" secondAttribute="trailing" id="h69-JB-fbm"/>
                 <constraint firstItem="JTd-NP-hfL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="jVi-qQ-bH1"/>
                 <constraint firstItem="u9u-2t-E3E" firstAttribute="leading" secondItem="b5y-je-jtR" secondAttribute="trailing" id="miG-fP-MAm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SM0-Zp-DRc" secondAttribute="bottom" constant="1" id="nda-Lp-pcg"/>
                 <constraint firstItem="8VG-0W-GQx" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="oE2-ZT-hJB"/>
                 <constraint firstItem="X9J-RV-ipW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="1" id="phq-Ka-gMA"/>
                 <constraint firstItem="u9u-2t-E3E" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="uDR-TV-xLa"/>

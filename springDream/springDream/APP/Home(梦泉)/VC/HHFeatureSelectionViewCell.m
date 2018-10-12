@@ -168,7 +168,7 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
     UILabel *numLabel = [UILabel new];
     numLabel.text = @"[数量]";
-    numLabel.font = BoldFONT(13);
+    numLabel.font = BoldFONT(14);
     numLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:numLabel];
     numLabel.frame = CGRectMake(25, 10, 80, 30);

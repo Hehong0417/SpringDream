@@ -14,6 +14,10 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.usernameLabel.font = FONT(16);
+    self.mobileLabel.font = FONT(16);
+    self.full_addressLabel.font = FONT(13);
+    
 }
 
 - (void)setShippingAddressModel:(HHMineModel *)shippingAddressModel{

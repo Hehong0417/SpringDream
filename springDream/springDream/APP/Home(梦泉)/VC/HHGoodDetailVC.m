@@ -94,6 +94,13 @@ static NSArray *lastSele_IdArray_;
 
 @implementation HHGoodDetailVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.addCartTool.hidden = NO;
+}
+
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
@@ -109,6 +116,8 @@ static NSArray *lastSele_IdArray_;
     
     self.title = @"商品详情";
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     self.preferModel = [HHpreferModel new];
     self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15"];
     self.preferModel.act_name = @"满减活动";
@@ -120,7 +129,6 @@ static NSArray *lastSele_IdArray_;
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = @"1";
     [detail_item write];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //初始化
     [self setUpInit];
     //注册cell
@@ -227,7 +235,6 @@ static NSArray *lastSele_IdArray_;
                 //加入购物车
                 [weakSelf  addCartHandleData];
             }
-        
     };
    
     self.addCartTool.buyBlock = ^(UIButton *btn) {

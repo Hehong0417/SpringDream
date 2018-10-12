@@ -24,6 +24,14 @@
 //发送短信验证码
 + (instancetype)postSmsSendCodeWithmobile:(NSString *)mobile;
 
+//1.15绑定微信
++ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId;
+//1.16修改密码
++ (instancetype)postUpdatePasswordWithOldPassword:(NSString *)OldPassword Password:(NSString *)Password;
+//1.17手机验证码修改密码
++ (instancetype)postUpdatePasswordToPhoneWithPhone:(NSString *)Phone Password:(NSString *)Password VerificationCode:(NSString *)VerificationCode;
+
+
 //手机号登录
 + (instancetype)postIOSAuthenticationLoginWithphone:(NSString *)phone psw:(NSString *)psw;
 

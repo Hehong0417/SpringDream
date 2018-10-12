@@ -95,7 +95,7 @@
     self.left_title_label.font = FONT(14);
     self.left_detail_label.font = FONT(12);
     self.date_time_label.font = FONT(14);
-    self.integral_label.font = FONT(12);
+    self.integral_label.font = FONT(10);
     self.left_title_label.textColor = kDarkGrayColor;
     self.left_detail_label.textColor = kDarkGrayColor;
     self.date_time_label.textColor = kDarkGrayColor;

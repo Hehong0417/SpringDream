@@ -71,11 +71,12 @@
 
     CGFloat tableHeight;
     if (self.cartType == HHcartType_goodDetail) {
-        tableHeight = SCREEN_HEIGHT-Status_HEIGHT-44;
+        tableHeight = SCREEN_HEIGHT-Status_HEIGHT-44-SafeAreaBottomHeight;
         backBtn.hidden = NO;
         
     }else{
-        tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44 - 50;
+        tableHeight = SCREEN_HEIGHT - Status_HEIGHT-44-50-SafeAreaBottomHeight;
+        
         backBtn.hidden = YES;
 
     }
@@ -242,9 +243,9 @@
     if (data.stores.count ==0) {
         tipLabel.hidden = YES;
         if (self.cartType == HHcartType_goodDetail) {
-            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-Status_HEIGHT-44);
+            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-STATUS_NAV_HEIGHT - SafeAreaBottomHeight);
         }else{
-            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-49-Status_HEIGHT-44);
+            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-49-STATUS_NAV_HEIGHT-SafeAreaBottomHeight);
         }
         self.settleAccountView.hidden = YES;
     }else{
@@ -252,9 +253,9 @@
         tipLabel.hidden = NO;
 
         if (self.cartType == HHcartType_goodDetail) {
-            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-50-Status_HEIGHT-44);
+            self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-50-STATUS_NAV_HEIGHT-SafeAreaBottomHeight);
         }else{
-           self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-49-50-Status_HEIGHT-44);
+           self.tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH-49-50-STATUS_NAV_HEIGHT-SafeAreaBottomHeight);
         }
     }
     self.settleAccountView.selectBtn.selected = NO;
@@ -297,27 +298,24 @@
 //    self.settleAccountView.sendGift_widthConstant.constant = 0;
     CGFloat settleView_y;
     if (self.cartType == HHcartType_goodDetail) {
-        settleView_y = SCREEN_HEIGHT- 49-Status_HEIGHT -44;
+        settleView_y = SCREEN_HEIGHT-STATUS_NAV_HEIGHT-49-SafeAreaBottomHeight;
     }else{
-        settleView_y = SCREEN_HEIGHT-49-50-Status_HEIGHT-44;
+        settleView_y = SCREEN_HEIGHT-STATUS_NAV_HEIGHT-49-50-SafeAreaBottomHeight;
     }
     UIView *settleView = [[UIView alloc] initWithFrame:CGRectMake(0, settleView_y, SCREEN_WIDTH, 50)];
     self.settleAccountView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
     self.settleAccountView.settleBtn.userInteractionEnabled = YES;
-
     [settleView addSubview:self.settleAccountView];
     [self.view addSubview:settleView];
     
     self.settleAccountView.money_totalLabel.text =  [NSString stringWithFormat:@"合计：¥0.00"];
 
-    
     //全选
     WEAK_SELF();
     self.settleAccountView.allChooseBlock = ^(NSNumber *allSelected) {
         [weakSelf caculateSettleGoodsListBaseLeftSelectArrIsAllSelected:allSelected.boolValue];
         
     };
-    
   
     //提交订单&删除已选
     [self.settleAccountView.settleBtn setTapActionWithBlock:^{

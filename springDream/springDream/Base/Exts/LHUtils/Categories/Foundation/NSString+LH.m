@@ -906,7 +906,9 @@
             NSArray *keyValueArr = [obj componentsSeparatedByString:@"="];
             NSString *key = [keyValueArr firstObject];
             NSString *value = [keyValueArr lastObject];
-            
+            if ([key isEqualToString:@"id"]) {
+                key = @"Id";
+            }
             [parameterDict setObject:value forKey:key];
         }];
         

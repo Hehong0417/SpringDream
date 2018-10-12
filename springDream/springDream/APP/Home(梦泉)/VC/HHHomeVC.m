@@ -53,7 +53,6 @@
 //               forKeyPath:@"estimatedProgress"
 //                  options:NSKeyValueObservingOptionNew
 //                  context:nil];
-    
     [self loadData];
     
     [self addHeadRefresh];
@@ -61,14 +60,12 @@
 }
 - (void)loadData{
     //
-    NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
-    
-    WEAK_SELF();
-        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
-        if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
+        NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
+        self.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        if(self.htmlString == nil ||self.htmlString.length == 0){
             NSLog(@"load failed!");
         }else{
-            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+            [self.webView loadHTMLString:self.htmlString baseURL:[NSURL URLWithString:url]];
         }
     
     if (_webView.scrollView.mj_header.isRefreshing) {
@@ -147,6 +144,17 @@
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 
+    }else if ([responseUrl containsString:@"ProductWeb/ProductDetail"]) {
+        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
+        HHGoodDetailVC *vc = [HHGoodDetailVC new];
+        vc.goodDetail_backBlock = ^{
+            
+        };
+        vc.Id = model.Id;
+        
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
     }else if ([responseUrl containsString:@"Search"]) {
         HHGoodCategoryVC *vc = [HHGoodCategoryVC new];
 //        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];

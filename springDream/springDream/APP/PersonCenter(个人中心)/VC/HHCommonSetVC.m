@@ -16,6 +16,9 @@
 #import "HHModifyPassWordVC.h"
 
 @interface HHCommonSetVC ()
+{
+    MBProgressHUD  *hud;
+}
 @property(nonatomic,strong) HHMineModel  *mineModel;
 @property (nonatomic, strong)    GFAddressPicker *addressPick;
 
@@ -27,14 +30,12 @@
     [super viewWillAppear:animated];
     
     [self getDatas];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
      self.title = @"设置";
-    
     
     HJSettingItem *item4_0 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:4]];
     item4_0.detailTitle = [NSString stringWithFormat:@"%@版本",kAppCurrentVersion];
@@ -78,9 +79,14 @@
                 HJSettingItem *item0_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 item0_1.detailTitle = self.mineModel.CellPhone;
                 HJSettingItem *item0_2 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-                item0_2.detailTitle = @"去绑定";
+                if (self.mineModel.OpenId) {
+                    item0_2.detailTitle = @"已绑定";
+                }else{
+                    item0_2.detailTitle = @"去绑定";
+                }
+                HHMineModel *model = [HHMineModel mj_objectWithKeyValues:api.Data];
                 HJSettingItem *item0_3 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-                item0_3.detailTitle = @"";
+                item0_3.detailTitle = model.userRegin?model.userRegin:@"";
                 
                 HJSettingItem *item3_0 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
                 if (self.mineModel.RealName) {
@@ -94,7 +100,6 @@
                 }else{
                     item3_1.detailTitle = @"";
                 }
-        
                 [self.tableV reloadData];
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -118,6 +123,12 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.section == 0&&indexPath.row == 2) {
+        //绑定微信
+        if (self.mineModel.OpenId.length==0) {
+          [self getAuthWithUserInfoFromWechat];
+        }
+    }
     if (indexPath.section == 0&&indexPath.row == 3) {
         //选择地址
         self.addressPick = [[GFAddressPicker alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -130,12 +141,12 @@
            
         };
      }
+
     if (indexPath.section == 1&&indexPath.row == 0) {
         
-//        HHModifyPassWordVC *vc = [HHModifyPassWordVC new];
-//        [self.navigationController pushVC:vc];
+        HHModifyPassWordVC *vc = [HHModifyPassWordVC new];
+        [self.navigationController pushVC:vc];
     }
-
     if (indexPath.section == 1&&indexPath.row == 1) {
         
         HHShippingAddressVC *vc = [HHShippingAddressVC new];
@@ -229,5 +240,59 @@
     
     return [NSIndexPath indexPathForRow:0 inSection:0];
 }
+#pragma mark - 微信授权，获取微信信息
 
+- (void)getAuthWithUserInfoFromWechat
+{
+    
+    [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+    
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+        
+        if (error) {
+            NSLog(@"error--%@",error);
+            
+        } else {
+            
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.color = KA0LabelColor;
+            hud.detailsLabelText = @"授权中，请稍后...";
+            hud.detailsLabelColor = kWhiteColor;
+            hud.detailsLabelFont = FONT(14);
+            hud.activityIndicatorColor = kWhiteColor;
+            [hud showAnimated:YES];
+            
+            UMSocialUserInfoResponse *resp = result;
+            // 授权信息 resp.uid,resp.unionId,resp.openid,resp.accessToken,resp.refreshToken
+            // 用户信息 resp.name,resp.iconurl,resp.gender
+            
+            //  NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
+            NSString *openid = resp.openid;
+            //    ***************//
+            
+            [[[HHUserLoginAPI postBindWeiXinWithOpenId:openid UnionId:resp.unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+                [hud hideAnimated:YES];
+                if (!error) {
+                    if (api.State == 1) {
+                        HJSettingItem *item0_2 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+                        item0_2.detailTitle = @"已绑定";
+                        [self.tableV reloadRow:2 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
+                        
+                    }else{
+                        [SVProgressHUD showInfoWithStatus:@"绑定失败！"];
+                    }
+                }else{
+                    if ([error.localizedDescription isEqualToString:@"似乎已断开与互联网的连接。"]||[error.localizedDescription  containsString:@"请求超时"]) {
+                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                        [SVProgressHUD showInfoWithStatus:@"网络竟然崩溃了～"];
+                    }
+                }
+                
+            }];
+            //    *********************//
+            
+        }
+        
+    }];
+}
 @end

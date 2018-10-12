@@ -331,7 +331,7 @@
     
     self.submitOrderTool  = [[[NSBundle mainBundle] loadNibNamed:@"HHSubmitOrderTool" owner:nil options:nil] lastObject];
     self.submitOrderTool.closePay_constant_w.constant = 0;
-    UIView *toolView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-Status_HEIGHT-44-50, SCREEN_WIDTH, 50)];
+    UIView *toolView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-STATUS_NAV_HEIGHT-50-SafeAreaBottomHeight, SCREEN_WIDTH, 50)];
     self.submitOrderTool.frame = CGRectMake(0,0, SCREEN_WIDTH, 50);
     
     

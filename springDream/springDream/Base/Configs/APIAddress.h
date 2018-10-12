@@ -78,6 +78,13 @@
 //#define API_IntegralList API_SUB_URL4(@"Personal/IntegralList")
 //1.14获取余额变更记录
 #define API_BalanceChangeList API_SUB_URL4(@"Balance/BalanceChangeList")
+//1.15绑定微信
+#define API_BindWeiXin API_SUB_URL4(@"UserInfo/BindWeiXin")
+//1.16修改密码
+#define API_UpdatePassword API_SUB_URL4(@"UserInfo/UpdatePassword")
+//1.17手机验证码修改密码
+#define API_UpdatePasswordToPhone API_SUB_URL4(@"UserInfo/UpdatePasswordToPhone")
+
 
 //1.4手机号登录
 #define API_IOSAuthenticationLogin   API_SUB_URL(@"WeiXin/IOSAuthenticationLogin")
@@ -164,6 +171,9 @@
 #define API_UploadManyImage API_SUB_URL(@"FileUpload/UploadManyImage")
 //3.6商品评价列表
 #define API_GetProductEvaluate API_SUB_URL2(@"Order/GetProductEvaluate")
+//3.11领取优惠券
+#define API_ReceiveCoupon API_SUB_URL2(@"orderApi/Activity/ReceiveCoupon ")
+
 //3.6门店列表
 #define API_GetProductStore API_SUB_URL(@"Store/GetProductStore")
 //3.7商品收藏

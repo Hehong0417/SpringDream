@@ -38,7 +38,7 @@
 - (void)setUpUI
 {
     _headerLabel = [[UILabel alloc] init];
-    _headerLabel.font  = BoldFONT(13);
+    _headerLabel.font  = BoldFONT(14);
     [self addSubview:_headerLabel];
     
     _bottomView = [UIView new];

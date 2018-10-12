@@ -82,6 +82,7 @@
     
 }
 - (void)cartIconBtnAction{
+    self.hidden = YES;
     HHShoppingVC *shop_vc = [HHShoppingVC new];
     shop_vc.cartType = HHcartType_goodDetail;
     [self.nav pushVC:shop_vc];

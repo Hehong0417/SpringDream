@@ -7,7 +7,7 @@
 //
 
 #import "HHModifyPassWordVC.h"
-#import "LHVerifyCodeButton.h"
+#import "HHLoginVC.h"
 
 @interface HHModifyPassWordVC ()<UITextFieldDelegate>
 {
@@ -18,7 +18,6 @@
     UITextField *_cpw_textfield;
     UIButton *_protocol_btn;
 }
-@property(nonatomic,strong)LHVerifyCodeButton *verifyCodeBtn;
 
 @end
 
@@ -36,7 +35,7 @@
     [self.view addSubview:_code_imagV];
     
     _code_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_code_imagV.frame)+10, _code_imagV.mj_y, ScreenW-CGRectGetMaxX(_code_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"请输入原始密码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
-    _code_textfield.keyboardType = UIKeyboardTypeNumberPad;
+    _code_textfield.keyboardType = UIKeyboardTypeASCIICapable;
     _code_textfield.secureTextEntry = YES;
     _code_textfield.delegate = self;
     [self.view addSubview:_code_textfield];
@@ -73,8 +72,7 @@
     [self.view addSubview:h_line_3];
     
     
-    
-    _rigster_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_3.frame)+WidthScaleSize_H(35), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(rigsterAction:) title:@"注册" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
+    _rigster_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_3.frame)+WidthScaleSize_H(35), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(rigsterAction:) title:@"确认" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
     [_rigster_button lh_setCornerRadius:3 borderWidth:0 borderColor:nil];
     [self.view addSubview:_rigster_button];
     
@@ -83,19 +81,26 @@
 - (void)rigsterAction:(UIButton *)button{
     
     NSString *isValid =  [self isValidWithPwdStr:_code_textfield.text newPwdStr:_pw_textfield.text commitPwdStr:_cpw_textfield.text];
-    NSString *pw_str = _pw_textfield.text;
-    NSString *verification_str = _code_textfield.text;
+    NSString *pw_str = _code_textfield.text;
+    NSString *commitPwdStr = _cpw_textfield.text;
+
     if (!isValid) {
-//         [[[HHUserLoginAPI postRegsterWithUseWay:@1 Phone:_phone_textfield.text OpenId:nil Pwd:_pw_textfield.text VerificationCode:_code_textfield.text InviteCode:_inv_code_textfield.text UserImage:nil unionId:nil] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
-//            if (!error) {
-//                if (api.State == 1) {
-//
-//
-//                }else{
-//                    [SVProgressHUD showInfoWithStatus:api.Msg];
-//                }
-//            }
-//        }];
+        
+         [[[HHUserLoginAPI postUpdatePasswordWithOldPassword:pw_str Password:commitPwdStr] netWorkClient] postRequestInView:self.view finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+                    [SVProgressHUD showSuccessWithStatus:@"修改密码成功，请重新登录！"];
+                    HJUser *user = [HJUser sharedUser];
+                    user.token = nil;
+                    [user write];
+                    kKeyWindow.rootViewController = [[HJNavigationController alloc] initWithRootViewController:[HHLoginVC new]];
+
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }];
         
     }else{
         [SVProgressHUD setMinimumDismissTimeInterval:1.0];

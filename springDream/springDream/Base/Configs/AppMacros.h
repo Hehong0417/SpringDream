@@ -16,6 +16,8 @@
 #define HeavyFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightHeavy]
 #define BlackFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightBlack]
 
+
+
 //NSString
 #define STRING_OR_EMPTY(A)  ({ __typeof__(A) __a = (A); __a ? __a : @""; })
 
@@ -55,6 +57,8 @@
 #define Status_HEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
 #define ScreenW  ([UIScreen mainScreen].bounds.size.width)
 #define ScreenH ([UIScreen mainScreen].bounds.size.height)
+#define kWJHeightCoefficient (ScreenH == 812.0 ? 667.0/667.0 : ScreenH/667.0)
+#define SafeAreaBottomHeight (ScreenH == 812.0 ? 34 : 0)
 
 
 #define WidthScaleSize_H(x) ((x/667.0)*SCREEN_HEIGHT)
@@ -80,7 +84,6 @@
 #define Status_HEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
 #define NAVBAR_HEIGHT 44.0
 #define STATUS_NAV_HEIGHT (Status_HEIGHT+NAVBAR_HEIGHT)
- 
 
 // -------------------- Debug Function --------------------------
 #ifdef DEBUG

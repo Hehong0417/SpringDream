@@ -53,7 +53,7 @@
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) backColor:kClearColor];
-    self.tabView = [UITableView lh_tableViewWithFrame:CGRectMake(0, -20, ScreenW, ScreenH-29) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
+    self.tabView = [UITableView lh_tableViewWithFrame:CGRectMake(0, -Status_HEIGHT, ScreenW, ScreenH-29) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = KVCBackGroundColor;
     self.tabView.estimatedRowHeight = 0;
     self.tabView.estimatedSectionFooterHeight = 0;
@@ -106,7 +106,7 @@
                             [self.title_arr insertObject:@"门店管理" atIndex:2];
                         }
                     }else{
-                        
+
                     }
                 }
                 // 1.添加所有子控制器
@@ -114,7 +114,7 @@
                 [self setupSegmentedControl];
                 
                 self.personHead.name_label.text = self.mineModel.UserName;
-                [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
+                [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:@"user_Icon"]];
                 self.userLevelName = api.Data[@"userLevelName"];
                 self.personHead.vip_label.text = self.userLevelName;
                 NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.Points?self.mineModel.Points.floatValue:0.00];
@@ -146,7 +146,6 @@
 
     return 1;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

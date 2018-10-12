@@ -11,6 +11,7 @@
 #import "WXApi.h"
 #import "LHVerifyCodeButton.h"
 #import "HHPhoneBandVC.h"
+#import "HHForgetPasswordVC.h"
 
 @interface HHLoginVC ()<UITextFieldDelegate,UIGestureRecognizerDelegate>
 {
@@ -20,13 +21,13 @@
     UIButton *_login_button;
     UIButton *_wx_login_button;
     UITextField *_phone_textfield;
-    UITextField *_code_textfield;
     UILabel *_new_account_Label;
     MBProgressHUD  *hud;
 }
 @property(nonatomic,strong)LHVerifyCodeButton *verifyCodeBtn;
 @property(nonatomic,strong) UILabel *msg_code_label;
 @property (nonatomic, assign) BOOL isCanBack;
+@property(nonatomic,strong) UITextField *code_textfield;
 
 @end
 
@@ -70,7 +71,7 @@
     
     UIView *h_line_1 = [UIView lh_viewWithFrame:CGRectMake(_code_imagV.mj_x,CGRectGetMaxY(_code_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
     [self.view addSubview:h_line_1];
-    
+
     self.verifyCodeBtn = [[LHVerifyCodeButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(h_line.frame)-WidthScaleSize_W(15)-WidthScaleSize_W(100), CGRectGetMaxY(h_line.frame)+WidthScaleSize_H(10), WidthScaleSize_W(100), WidthScaleSize_H(30))];
     [self.verifyCodeBtn addTarget:self action:@selector(sendVerifyCode) forControlEvents:UIControlEventTouchUpInside];
     [self.verifyCodeBtn lh_setBackgroundColor:APP_NAV_COLOR forState:UIControlStateNormal];
@@ -81,8 +82,15 @@
     self.verifyCodeBtn.titleLabel.font = FONT(13);
     [self.view addSubview:self.verifyCodeBtn];
     
-    
-    _login_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_1.frame)+WidthScaleSize_H(35), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(loginAction:) title:@"登录" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
+    UILabel *forPwd_label = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(h_line_1.frame)-150, CGRectGetMaxY(h_line_1.frame), 150, WidthScaleSize_H(30)) text:@"忘记密码？" textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kClearColor];
+    forPwd_label.userInteractionEnabled = YES;
+    [forPwd_label setTapActionWithBlock:^{
+        HHForgetPasswordVC *vc = [HHForgetPasswordVC new];
+        [self.navigationController pushVC:vc];
+    }];
+    [self.view addSubview:forPwd_label];
+
+    _login_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_1.frame)+WidthScaleSize_H(55), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(loginAction:) title:@"登录" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];
     [_login_button lh_setCornerRadius:3 borderWidth:0 borderColor:nil];
     [self.view addSubview:_login_button];
 
@@ -124,11 +132,11 @@
         if (flag) {
             weakSelf.msg_code_label.text = @"密码登录";
             weakSelf.verifyCodeBtn.hidden = NO;
-            _code_textfield.placeholder = @"输入验证码";
+            weakSelf.code_textfield.placeholder = @"输入验证码";
         }else{
             weakSelf.msg_code_label.text = @"短信验证码登录";
             weakSelf.verifyCodeBtn.hidden = YES;
-            _code_textfield.placeholder = @"输入密码";
+            weakSelf.code_textfield.placeholder = @"输入密码";
 
         }
     }];
@@ -255,17 +263,9 @@
                 [hud showAnimated:YES];
     
                 UMSocialUserInfoResponse *resp = result;
-                // 授权信息
-                NSLog(@"Wechat uid: %@", resp.uid);
-                NSLog(@"Wechat unionId: %@", resp.unionId);
-                NSLog(@"Wechat openid: %@", resp.openid);
-                NSLog(@"Wechat accessToken: %@", resp.accessToken);
-                NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
-                NSLog(@"Wechat expiration: %@", resp.expiration);
-                // 用户信息
-                NSLog(@"Wechat name: %@", resp.name);
-                NSLog(@"Wechat iconurl: %@", resp.iconurl);
-                NSLog(@"Wechat gender: %@", resp.gender);
+                // 授权信息 resp.uid,resp.unionId,resp.openid,resp.accessToken,resp.refreshToken
+                // 用户信息 resp.name,resp.iconurl,resp.gender
+              
     
 //    账户是否存在 ？登录:注册
 //    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
@@ -328,7 +328,6 @@
             return NO;
         }
     }
-    
     return YES;
 }
 

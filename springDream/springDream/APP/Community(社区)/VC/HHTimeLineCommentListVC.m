@@ -44,6 +44,10 @@
     self.title = @"评论列表";
     [self.tabView registerClass:[HHTimeLineCommentCell class] forCellReuseIdentifier:@"HHTimeLineCommentCell"];
     
+    [self addHeadRefresh];
+    [self addFootRefresh];
+
+    
     [self getDatas];
 }
 - (void)getDatas{
@@ -54,6 +58,7 @@
             if (api.State == 1) {
                 NSArray *arr = api.Data[@"List"];
                 NSArray *commentItem_arr = [SDTimeLineCellCommentItemModel mj_objectArrayWithKeyValuesArray:arr];
+                [self addFootRefresh];
                 [self loadDataFinish:commentItem_arr];
             }
         }

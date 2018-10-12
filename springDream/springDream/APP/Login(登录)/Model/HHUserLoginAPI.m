@@ -132,6 +132,58 @@
     return api;
     
 }
+//1.15绑定微信
++ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId{
+    
+    HHUserLoginAPI *api = [self new];
+    api.subUrl = API_BindWeiXin;
+    api.parametersAddToken = NO;
+    if (OpenId) {
+        [api.parameters setObject:OpenId forKey:@"OpenId"];
+    }
+    if (UnionId) {
+        [api.parameters setObject:UnionId forKey:@"UnionId"];
+    }
+    
+    return api;
+}
+
+//1.16修改密码
++ (instancetype)postUpdatePasswordWithOldPassword:(NSString *)OldPassword Password:(NSString *)Password{
+    
+    HHUserLoginAPI *api = [self new];
+    api.subUrl = API_UpdatePassword;
+    api.parametersAddToken = NO;
+    if (OldPassword) {
+        [api.parameters setObject:OldPassword forKey:@"OldPassword"];
+    }
+    if (Password) {
+        [api.parameters setObject:Password forKey:@"Password"];
+    }
+    
+    return api;
+}
+//1.17手机验证码修改密码
++ (instancetype)postUpdatePasswordToPhoneWithPhone:(NSString *)Phone Password:(NSString *)Password VerificationCode:(NSString *)VerificationCode{
+    
+    HHUserLoginAPI *api = [self new];
+    api.subUrl = API_UpdatePasswordToPhone;
+    api.parametersAddToken = NO;
+
+    if (Phone) {
+        [api.parameters setObject:Phone forKey:@"Phone"];
+    }
+    if (Password) {
+        [api.parameters setObject:Password forKey:@"Password"];
+    }
+    if (VerificationCode) {
+        [api.parameters setObject:VerificationCode forKey:@"VerificationCode"];
+    }
+    [api.parameters setObject:@"1" forKey:@"ClientInfo_Id"];
+
+    return api;
+}
+
 
 //手机号登录
 + (instancetype)postIOSAuthenticationLoginWithphone:(NSString *)phone psw:(NSString *)psw{

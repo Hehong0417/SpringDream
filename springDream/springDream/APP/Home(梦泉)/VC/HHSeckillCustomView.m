@@ -107,9 +107,9 @@
     
     imag2.sd_layout
     .leftSpaceToView(imag1, 0)
-    .topSpaceToView(self.skill_bg_view, 0)
+    .topSpaceToView(self.skill_bg_view, 3)
     .rightSpaceToView(self.skill_bg_view, 0)
-    .bottomSpaceToView(self.skill_bg_view, 0);
+    .bottomSpaceToView(self.skill_bg_view, -3);
 
     group_imag.sd_layout
     .leftSpaceToView(self.skill_bg_view, 3)

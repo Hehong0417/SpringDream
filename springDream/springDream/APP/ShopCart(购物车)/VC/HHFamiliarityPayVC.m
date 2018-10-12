@@ -155,9 +155,7 @@
                     [SVProgressHUD showInfoWithStatus:api.Msg];
                 }
             }else {
-                
                 [SVProgressHUD showInfoWithStatus:api.Msg];
-                
             }
         }];
         decisionHandler(WKNavigationResponsePolicyCancel);
@@ -171,7 +169,6 @@
         rightBtn.hidden = YES;
         decisionHandler(WKNavigationResponsePolicyAllow);
     }
-    
 }
 #pragma mark-微信支付
 

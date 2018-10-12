@@ -12,6 +12,7 @@
 		CE045011214A59EF00093AE7 /* HHPersonCenterSub2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE045010214A59EF00093AE7 /* HHPersonCenterSub2.m */; };
 		CE045014214A59FD00093AE7 /* HHPersonCenterSub3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE045013214A59FD00093AE7 /* HHPersonCenterSub3.m */; };
 		CE045017214A5A1600093AE7 /* HHPersonCenterSub4.m in Sources */ = {isa = PBXBuildFile; fileRef = CE045016214A5A1600093AE7 /* HHPersonCenterSub4.m */; };
+		CE14DCBB2170889F00950A1C /* HHForgetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE14DCBA2170889F00950A1C /* HHForgetPasswordVC.m */; };
 		CE21845421251531003F354F /* HHModelsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21845321251531003F354F /* HHModelsView.m */; };
 		CE21845821252371003F354F /* HHOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21845721252371003F354F /* HHOrderStatusCell.m */; };
 		CE2184642125269C003F354F /* HXRecordVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2184632125269C003F354F /* HXRecordVideoVC.m */; };
@@ -476,6 +477,8 @@
 		CE045013214A59FD00093AE7 /* HHPersonCenterSub3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterSub3.m; sourceTree = "<group>"; };
 		CE045015214A5A1600093AE7 /* HHPersonCenterSub4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPersonCenterSub4.h; sourceTree = "<group>"; };
 		CE045016214A5A1600093AE7 /* HHPersonCenterSub4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterSub4.m; sourceTree = "<group>"; };
+		CE14DCB92170889F00950A1C /* HHForgetPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHForgetPasswordVC.h; sourceTree = "<group>"; };
+		CE14DCBA2170889F00950A1C /* HHForgetPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHForgetPasswordVC.m; sourceTree = "<group>"; };
 		CE21845221251531003F354F /* HHModelsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHModelsView.h; sourceTree = "<group>"; };
 		CE21845321251531003F354F /* HHModelsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHModelsView.m; sourceTree = "<group>"; };
 		CE21845521251B44003F354F /* springDream.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = springDream.pch; sourceTree = "<group>"; };
@@ -2675,6 +2678,8 @@
 				CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */,
 				CE6806D2216EFC43008CBF7E /* HHModifyPassWordVC.h */,
 				CE6806D3216EFC43008CBF7E /* HHModifyPassWordVC.m */,
+				CE14DCB92170889F00950A1C /* HHForgetPasswordVC.h */,
+				CE14DCBA2170889F00950A1C /* HHForgetPasswordVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3717,6 +3722,7 @@
 				CE4D0A0A212423F200796FEE /* HXTakePhotosHandle.m in Sources */,
 				CE4D0A2E212423F200796FEE /* BaseAPI.m in Sources */,
 				CE8A67CA212ACA2E00C7C57F /* HHOrderItemModel.m in Sources */,
+				CE14DCBB2170889F00950A1C /* HHForgetPasswordVC.m in Sources */,
 				CE4D0A09212423F200796FEE /* UILabel+FormattedText.m in Sources */,
 				CE4D0A3F212423F200796FEE /* HHAddressModel.m in Sources */,
 				CE4D09FD212423F200796FEE /* NSString+LH.m in Sources */,
@@ -3902,7 +3908,7 @@
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3929,7 +3935,7 @@
 				DEVELOPMENT_TEAM = 3QRDC7P6K7;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/springDream/springDream.pch";
 				INFOPLIST_FILE = springDream/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

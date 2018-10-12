@@ -87,9 +87,7 @@
     
     NSLog(@"Finish:%@",navigation);
     [_hud hideAnimated:YES];
-    
 }
-
 // 在收到响应后，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
     
