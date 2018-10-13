@@ -8,6 +8,7 @@
 
 #import "HHActivityWebVC.h"
 #import <WebKit/WebKit.h>
+#import "HHSubmitOrdersVC.h"
 
 @interface HHActivityWebVC ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
 {
@@ -42,7 +43,10 @@
     HJUser *user = [HJUser sharedUser];
     webpageUrl = [NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@",API_HOST1,self.gbId];
     
-    NSString *url = [NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,user.token];
+    NSString *token = [user.token stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,token];
+    
     WEAK_SELF();
             weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
         if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
@@ -51,17 +55,13 @@
             [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
         }
     
-    
-//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/SpellGroup/Index?gbId=%@&token=%@",API_HOST1,self.gbId,user.token]]];
-//    [_webView loadRequest:req];
-    
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [backBtn bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
     [backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     
     
-    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"icon-share"]];
+    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"share_white"]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 }
 - (void)backBtnAction{
@@ -129,7 +129,26 @@
     
     NSLog(@"Response %@",navigationResponse.response.URL.absoluteString);
     
-    decisionHandler(WKNavigationResponsePolicyAllow);
+    if([navigationResponse.response.URL.absoluteString containsString:@"ShopCarWeb/PreviewOrder"]){
+        rightBtn.hidden = YES;
+        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[navigationResponse.response.URL.absoluteString lh_parametersKeyValue]];
+        HHSubmitOrdersVC *vc = [HHSubmitOrdersVC  new];
+        vc.mode = model.mode;
+        vc.enter_type = HHaddress_type_Spell_group;
+        vc.sku_Id = model.skuId;
+        vc.gbId = model.gbId;
+        vc.count = @"1";
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
+    }else if ([navigationResponse.response.URL.absoluteString containsString:@"HttpError"]){
+        
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
+    }  else{
+        decisionHandler(WKNavigationResponsePolicyAllow);
+    }
+    
 }
 #pragma mark-WKScriptMessageHandler
 

@@ -77,4 +77,20 @@
     
     return api;
 }
+
+//领取优惠券
++ (instancetype)postReceiveCouponWithcoupId:(NSString *)coupId{
+    
+    HHCategoryAPI *api = [self new];
+    api.subUrl = API_ReceiveCoupon;
+    if (coupId) {
+        [api.parameters setObject:coupId forKey:@"coupId"];
+    }
+    
+    api.parametersAddToken = NO;
+    
+    return api;
+    
+}
+
 @end

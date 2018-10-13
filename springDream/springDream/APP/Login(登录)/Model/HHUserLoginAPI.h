@@ -25,7 +25,7 @@
 + (instancetype)postSmsSendCodeWithmobile:(NSString *)mobile;
 
 //1.15绑定微信
-+ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId;
++ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId UserImage:(NSString *)UserImage;
 //1.16修改密码
 + (instancetype)postUpdatePasswordWithOldPassword:(NSString *)OldPassword Password:(NSString *)Password;
 //1.17手机验证码修改密码

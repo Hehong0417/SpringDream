@@ -52,7 +52,7 @@
     
     [self loadData];
     
-    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"icon-share"]];
+    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"share_white"]];
     rightBtn.hidden = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
@@ -65,7 +65,7 @@
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        if ([responseUrl containsString:@"http://dm-client.elevo.cn/Personal/CutGroup"]) {
+        if ([responseUrl containsString:@"Personal/CutGroup"]) {
             [self loadData];
         }else{
             if (_webView.scrollView.mj_header.isRefreshing) {
@@ -80,7 +80,10 @@
 - (void)loadData{
     
     HJUser *user = [HJUser sharedUser];
-    url = [NSString stringWithFormat:@"%@/Personal/CutGroup?token=%@&cid=12",API_HOST1,user.token];
+    
+    NSString *token = [user.token stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+
+    url = [NSString stringWithFormat:@"%@/Personal/CutGroup?token=%@&cid=12",API_HOST1,token];
     
     WEAK_SELF();
         weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
@@ -89,11 +92,6 @@
         }else{
             [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
         }
-    
-//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
-//    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
-//
-//    [_webView loadRequest:req];
 
     if (_webView.scrollView.mj_header.isRefreshing) {
         [_webView.scrollView.mj_header endRefreshing];

@@ -133,7 +133,7 @@
     
 }
 //1.15绑定微信
-+ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId{
++ (instancetype)postBindWeiXinWithOpenId:(NSString *)OpenId UnionId:(NSString *)UnionId UserImage:(NSString *)UserImage{
     
     HHUserLoginAPI *api = [self new];
     api.subUrl = API_BindWeiXin;
@@ -144,7 +144,12 @@
     if (UnionId) {
         [api.parameters setObject:UnionId forKey:@"UnionId"];
     }
-    
+    if (UnionId) {
+        [api.parameters setObject:UnionId forKey:@"UnionId"];
+    }
+    if (UserImage) {
+        [api.parameters setObject:UserImage forKey:@"UserImage"];
+    }
     return api;
 }
 

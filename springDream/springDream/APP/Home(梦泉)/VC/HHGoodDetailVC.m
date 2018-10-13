@@ -21,9 +21,6 @@
 #import "HHActivityModel.h"
 #import "MLMenuView.h"
 #import "HHFeatureSelectionViewCell.h"
-
-//#import "DCFeatureChoseTopCell.h"
-// Vendors
 #import "UIViewController+XWTransition.h"
 #import "HHdiscountPackageViewTabCell.h"
 #import "HHGoodDetailFoot.h"
@@ -32,11 +29,15 @@
 #import "HHpreferentialModelCell.h"
 #import "HHpreferModel.h"
 #import "HHpreferIntegralCell.h"
-
+#import "HHCouponListVC.h"
+#import "HHActivityWebVC.h"
+#import <AVKit/AVKit.h>   //包含类 AVPlayerViewController
+#import <AVFoundation/AVFoundation.h>  //包含类 AVPlayer
 
 @interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
 {
     HXCommonPickView *_pickView;
+    AVPlayerViewController *aVPlayerViewController;
 }
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong)   SDCycleScrollView *cycleScrollView;
@@ -57,7 +58,6 @@
 @property (nonatomic, strong) UIView *countTimeView;
 @property (nonatomic, strong) UIView *tableHeader;
 @property (nonatomic, strong) UILabel *title_label;
-@property (nonatomic, strong) CZCountDownView *countDown;
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, assign) CGFloat collectionHeight;
 @property (nonatomic, strong) HHSeckillCustomView *seckill_view;
@@ -85,7 +85,6 @@ static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
 static NSString *HHSpellGroupCellID = @"HHSpellGroupCell";
 static NSString *HHpreferentialModelCellID = @"HHpreferentialModelCell";
-
 
 //cell
 static NSString *lastNum_;
@@ -123,7 +122,6 @@ static NSArray *lastSele_IdArray_;
     self.preferModel.act_name = @"满减活动";
     
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-        
     }];
     
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
@@ -195,7 +193,6 @@ static NSArray *lastSele_IdArray_;
 #pragma mark - regsterTableCell
 
 - (void)regsterTableCell{
-    
     [self.tabView registerNib:[UINib nibWithNibName:HHDetailGoodReferralCellID bundle:nil] forCellReuseIdentifier:HHDetailGoodReferralCellID];
     [self.tabView registerClass:[HHFeatureSelectionViewCell class] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
@@ -203,7 +200,6 @@ static NSArray *lastSele_IdArray_;
     [self.tabView registerClass:[HHSpellGroupCell class] forCellReuseIdentifier:HHSpellGroupCellID];
     [self.tabView registerClass:[HHpreferentialModelCell class] forCellReuseIdentifier:HHpreferentialModelCellID];
     [self.tabView registerClass:[HHpreferIntegralCell class] forCellReuseIdentifier:@"HHpreferIntegralCell"];
-
 
 }
 #pragma mark - 加入购物车、立即购买
@@ -230,17 +226,22 @@ static NSArray *lastSele_IdArray_;
             HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:weakSelf.gooodDetailModel.GroupBuy];
             if ([GroupBy_m.IsJoin isEqual:@1]) {
                 //我要开团
-                [weakSelf lh_showHudInView:weakSelf.view labText:@"此功能正在开发中"];
+                [weakSelf buyProductHandleData];
+
             }else{
                 //加入购物车
                 [weakSelf  addCartHandleData];
             }
     };
-   
     self.addCartTool.buyBlock = ^(UIButton *btn) {
-
-        [weakSelf buyProductHandleData];
-        
+        HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:weakSelf.gooodDetailModel.GroupBuy];
+        if ([GroupBy_m.IsJoin isEqual:@1]) {
+            //单独购买
+            weakSelf.Mode = @1;
+            [weakSelf buyProductHandleData];
+        }else{
+            [weakSelf buyProductHandleData];
+        }
     };
     
 }
@@ -267,13 +268,10 @@ static NSArray *lastSele_IdArray_;
             quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
         }
         if (sku_id_Str.length>0) {
-            //立即购买
-            //      是否存在收货地址
+            //立即购买 是否存在收货地址
             [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
         }
-        //-----//
     }
-    
 }
 
 #pragma mark - 处理加入购物车数据
@@ -343,7 +341,12 @@ static NSArray *lastSele_IdArray_;
                 if ([api.Data isEqual:@1]) {
                     
                     HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                    vc.enter_type = HHaddress_type_Spell_group;
+                    if ([self.Mode isEqual:@1]) {
+                        vc.enter_type = HHaddress_type_another;
+                    }else{
+                        vc.enter_type = HHaddress_type_Spell_group;
+                    }
+                    
                     vc.sku_Id = sku_id_Str;
                     vc.count = quantity;
                     vc.storeId = self.store_id;
@@ -499,13 +502,15 @@ static NSArray *lastSele_IdArray_;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, 8) backColor:KVCBackGroundColor];
             [cell.contentView addSubview:h_line];
-            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:[NSString stringWithFormat:@"%@人在拼团，可直接参与",self.gooodDetailModel.UserJoinCount] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+            HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
+            UILabel *text_lab = [UILabel lh_labelWithFrame:CGRectMake(20, 8, 200, 42) text:[NSString stringWithFormat:@"%@人在拼团，可直接参与",GroupBy_m.UserJoinCount] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
             [cell.contentView addSubview:text_lab];
             gridcell = cell;
 
         }else{
           HHSpellGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:HHSpellGroupCellID];
           cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          [cell.spellGroup_button  addTarget:self action:@selector(spellGroup_buttonAction:) forControlEvents:UIControlEventTouchUpInside];
           cell.model = self.JoinActivity_arr[indexPath.row-1];
           gridcell = cell;
         }
@@ -620,6 +625,11 @@ static NSArray *lastSele_IdArray_;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.section == 2&&indexPath.row == 0) {
+        HHCouponListVC *vc = [HHCouponListVC new];
+        vc.datas = self.gooodDetailModel.Coupons;
+        [self.navigationController pushVC:vc];
+    }
     if (indexPath.section == 6) {
         if (indexPath.row == 0) {
             //评价列表
@@ -685,6 +695,7 @@ static NSArray *lastSele_IdArray_;
                 self.gooodDetailModel = [HHgooodDetailModel mj_objectWithKeyValues:api.Data];
                 
                 self.cycleScrollView.imageURLStringsGroup = self.gooodDetailModel.ImageUrls;
+                self.cycleScrollView.isShowPlay = YES;
                 self.discribeArr =  self.gooodDetailModel.AttributeValueList.mutableCopy;
                 
                 self.addCartTool.product_id = self.gooodDetailModel.Id;
@@ -698,8 +709,6 @@ static NSArray *lastSele_IdArray_;
                 
                 self.addCartTool.addCartBtn.hidden = YES;
 
-                //正在拼团列表
-                self.JoinActivity_arr = self.gooodDetailModel.JoinActivity.mutableCopy;
                 
                 [self.preferentialArr removeAllObjects];
                 if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.floatValue>0)) {
@@ -734,12 +743,10 @@ static NSArray *lastSele_IdArray_;
                     [self.preferentialArr addObject:model];
                 }
                 
-                
                 HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
                 detail_item.product_stock = self.gooodDetailModel.Stock;
                 [detail_item write];
                 
-                [self.tabView reloadData];
                 
                 [self.activityIndicator stopAnimating];
                 [hudView removeFromSuperview];
@@ -752,6 +759,7 @@ static NSArray *lastSele_IdArray_;
                 weakSelf.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
                 [weakSelf.tableHeader addSubview:self.cycleScrollView];
                 
+                weakSelf.seckill_view.frame = CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65);
                 weakSelf.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
                 [weakSelf.tableHeader addSubview:weakSelf.seckill_view];
                 
@@ -779,7 +787,6 @@ static NSArray *lastSele_IdArray_;
                         weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
                         weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
                     }
-                    
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
                   
                     self.addCartTool.addCartBtn.hidden = YES;
@@ -805,17 +812,13 @@ static NSArray *lastSele_IdArray_;
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
                     weakSelf.seckill_view.countDown.hidden = YES;
                     weakSelf.seckill_view.limit_time_label.text = @"";
-
-//                    if (SecKill_m.StartSecond.integerValue>0) {
-//                        weakSelf.seckill_view.limit_time_label.text = @"距离活动开始";
-//                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.StartSecond.integerValue;
-//                    }else{
-//                        weakSelf.seckill_view.limit_time_label.text = @"距离活动结束";
-//                        weakSelf.seckill_view.countDown.timestamp = SecKill_m.EndSecond.integerValue;
-//                    }
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
-
                 }
+                //正在拼团列表
+                self.JoinActivity_arr = GroupBy_m.JoinActivity.mutableCopy;
+                
+                [self.tabView reloadData];
+
                 self.tabView.tableHeaderView = self.tableHeader;
 
             }else{
@@ -837,7 +840,6 @@ static NSArray *lastSele_IdArray_;
     
    //评价
     [self getEvaluateList];
-    
     //门店
     [self GetProductStore];
 }
@@ -877,6 +879,18 @@ static NSArray *lastSele_IdArray_;
         
     }];
 }
+//去拼团
+- (void)spellGroup_buttonAction:(UIButton *)button{
+    
+    HHSpellGroupCell *cell = (HHSpellGroupCell *)[[button superview] superview];
+    
+    NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
+    HHActivityWebVC *vc = [HHActivityWebVC new];
+    HHJoinActivityModel  *model = self.JoinActivity_arr[indexPath.row-1];
+    vc.gbId = model.ActivityId;
+    [self.navigationController pushVC:vc];
+    
+}
 #pragma mark -网络监测
 
 - (void)setMonitor{
@@ -910,12 +924,24 @@ static NSArray *lastSele_IdArray_;
     self.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
     [self.tableHeader addSubview:self.cycleScrollView];
 
-    self.seckill_view = [[HHSeckillCustomView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.cycleScrollView.frame), ScreenW-10, 65)];
-    self.seckill_view.hidden = YES;
-    [self.tableHeader addSubview:self.seckill_view];
-
     self.tabView.tableHeaderView = self.tableHeader;
+}
+
+#pragma mark - SDCycleScrollViewDelegate
+
+/** 点击图片回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
+    if (index == 0) {
+        aVPlayerViewController = [[AVPlayerViewController alloc]init];
+        
+        aVPlayerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:@"http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"]];
+        
+        [aVPlayerViewController.player play];
+        
+        [self presentViewController:aVPlayerViewController animated:YES completion:nil];
+
+    }
 }
 #pragma mark - 懒加载
 

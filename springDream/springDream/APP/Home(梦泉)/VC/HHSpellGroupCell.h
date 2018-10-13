@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HHActivityModel.h"
 
 @interface HHSpellGroupCell : UITableViewCell
 
@@ -14,7 +15,6 @@
 @property(nonatomic,strong) UILabel *name_label;
 @property(nonatomic,strong) UILabel *personNumber_label;
 @property(nonatomic,strong) UIButton *spellGroup_button;
-
-@property(nonatomic,strong) MeetActivityModel *model;
+@property(nonatomic,strong) HHJoinActivityModel *model;
 
 @end

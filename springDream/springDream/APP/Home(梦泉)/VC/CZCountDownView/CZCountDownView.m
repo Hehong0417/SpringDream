@@ -197,6 +197,13 @@
     }
     return _secondsLabel;
 }
-
+/**
+ *  销毁定时器
+ */
+- (void)destroyCountDown{
+    
+    [timer invalidate];
+    timer = nil;
+}
 
 @end

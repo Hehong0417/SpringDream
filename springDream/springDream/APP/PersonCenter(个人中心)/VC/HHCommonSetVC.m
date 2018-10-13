@@ -270,7 +270,7 @@
             NSString *openid = resp.openid;
             //    ***************//
             
-            [[[HHUserLoginAPI postBindWeiXinWithOpenId:openid UnionId:resp.unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+            [[[HHUserLoginAPI postBindWeiXinWithOpenId:openid UnionId:resp.unionId UserImage:resp.iconurl] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
                 [hud hideAnimated:YES];
                 if (!error) {
                     if (api.State == 1) {

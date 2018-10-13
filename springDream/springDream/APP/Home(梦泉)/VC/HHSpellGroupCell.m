@@ -38,7 +38,6 @@
         [self.contentView addSubview:self.personNumber_label];
         [self.contentView addSubview:self.spellGroup_button];
 
-        
         [self addConstaint];
     }
     
@@ -74,7 +73,7 @@
     [self.icon_imagV lh_setRoundImageViewWithBorderWidth:1 borderColor:APP_NAV_COLOR];
 
 }
-- (void)setModel:(MeetActivityModel *)model{
+- (void)setModel:(HHJoinActivityModel *)model{
     
     _model = model;
     

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HHgooodDetailModel.h"
 
 @interface HHCouponCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *bg_view;
@@ -21,5 +22,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dataTimeLabel_w;
 
 @property(nonatomic,strong) HHMineModel *model;
+
+@property(nonatomic,strong) MeetActivityModel *activity_model;
 
 @end

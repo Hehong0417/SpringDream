@@ -27,4 +27,10 @@ typedef void(^TimerStopBlock)();
  */
 + (instancetype)countDown; // 工程中倒计时不是唯一的
 
+/**
+ *  销毁定时器
+ */
+- (void)destroyCountDown;
+
+
 @end

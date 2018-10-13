@@ -397,6 +397,7 @@
 		CE8A67DD212ACA2E00C7C57F /* HHCellCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BB212ACA2D00C7C57F /* HHCellCommentView.m */; };
 		CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */; };
 		CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */; };
+		CE8D114B21718FAF00FC1015 /* HHCouponListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8D114A21718FAF00FC1015 /* HHCouponListVC.m */; };
 		CE90659C2155E1C700A13992 /* HHCommonSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659B2155E1C700A13992 /* HHCommonSetVC.m */; };
 		CE90659F2156141600A13992 /* HHAuthenticationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659E2156141600A13992 /* HHAuthenticationVC.m */; };
 		CE9065B3215615DB00A13992 /* BXTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9065AD215615DB00A13992 /* BXTextField.m */; };
@@ -1182,6 +1183,8 @@
 		CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHOrderTwoCell.m; sourceTree = "<group>"; };
 		CE8A67DF212ACA3F00C7C57F /* HHMyOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HHMyOrderItem.h; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.h; sourceTree = "<group>"; };
 		CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HHMyOrderItem.m; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.m; sourceTree = "<group>"; };
+		CE8D114921718FAF00FC1015 /* HHCouponListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCouponListVC.h; sourceTree = "<group>"; };
+		CE8D114A21718FAF00FC1015 /* HHCouponListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHCouponListVC.m; sourceTree = "<group>"; };
 		CE90659A2155E1C700A13992 /* HHCommonSetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCommonSetVC.h; sourceTree = "<group>"; };
 		CE90659B2155E1C700A13992 /* HHCommonSetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHCommonSetVC.m; sourceTree = "<group>"; };
 		CE90659D2156141600A13992 /* HHAuthenticationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHAuthenticationVC.h; sourceTree = "<group>"; };
@@ -2198,6 +2201,8 @@
 				CE8A64FA212AAB6A00C7C57F /* SearchDetailViewController.xib */,
 				CE5264E6212C0F0A00F30D29 /* HHGoodDetailVC.h */,
 				CE5264E7212C0F0A00F30D29 /* HHGoodDetailVC.m */,
+				CE8D114921718FAF00FC1015 /* HHCouponListVC.h */,
+				CE8D114A21718FAF00FC1015 /* HHCouponListVC.m */,
 				CEA09E2E2153C8B200DDB2A0 /* HHpreferModel.h */,
 				CEA09E2F2153C8B200DDB2A0 /* HHpreferModel.m */,
 				CE32EC48213FAD540088C652 /* HHGoodDetailFoot.h */,
@@ -3535,6 +3540,7 @@
 				CE501E6B2168AD1E002EFBFC /* HHMyActivityWebVC.m in Sources */,
 				CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */,
 				CE4D09E9212423F200796FEE /* UITextField+LH.m in Sources */,
+				CE8D114B21718FAF00FC1015 /* HHCouponListVC.m in Sources */,
 				CE4D09F3212423F200796FEE /* NSMutableAttributedString+NSRangeException.m in Sources */,
 				CE8A64F0212AA29600C7C57F /* HHPhoneLoginVC.m in Sources */,
 				CE9065B4215615DB00A13992 /* UITextField+BXExtension.m in Sources */,

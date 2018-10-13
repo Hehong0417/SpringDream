@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *package_lab;
 @property (weak, nonatomic) IBOutlet UILabel *stock_label;
 @property (weak, nonatomic) IBOutlet UILabel *sale_count_label;
+@property (weak, nonatomic) IBOutlet UILabel *rewardShow_label;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stock_top_constraint;
 
 @property (nonatomic, strong)  HHgooodDetailModel *gooodDetailModel;
 

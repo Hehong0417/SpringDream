@@ -330,7 +330,7 @@
     }else{
         back_navName = @"category_up";
         back_select_name = @"category_down";
-        category_btn = [XYQButton ButtonWithFrame:CGRectMake(-15, 0, 40, 35) imgaeName:back_navName titleName:@"分类" contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:kWhiteColor fontsize:WidthScaleSize_H(7)] tapAction:^(XYQButton *button) {
+        category_btn = [XYQButton ButtonWithFrame:CGRectMake(-15, 0, 40, 35) imgaeName:back_navName titleName:@"分类" contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:kWhiteColor fontsize:WidthScaleSize_W(7)] tapAction:^(XYQButton *button) {
             
             [self showGoodCategoryLeftViewWithStatus:button.selected];
             

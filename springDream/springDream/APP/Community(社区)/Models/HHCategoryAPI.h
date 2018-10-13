@@ -23,4 +23,10 @@
 
 //获取商品分类列表
 + (instancetype)GetNewCategoryList;
+
+
+//领取优惠券
++ (instancetype)postReceiveCouponWithcoupId:(NSString *)coupId;
+
+
 @end

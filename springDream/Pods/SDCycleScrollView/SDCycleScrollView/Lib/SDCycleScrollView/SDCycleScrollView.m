@@ -52,6 +52,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 @property (nonatomic, strong) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
+@property (nonatomic, assign) BOOL isShowVideoButton;
+
 @end
 
 @implementation SDCycleScrollView
@@ -362,6 +364,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)setIsShowPlay:(BOOL)isShowPlay{
+    
+    _isShowPlay = isShowPlay;
+    
+    self.isShowVideoButton =  isShowPlay;
+    
+    [self.mainView reloadData];
+}
+
 #pragma mark - actions
 
 - (void)setupTimer
@@ -569,7 +580,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
+
+    if (self.isShowVideoButton == YES ) {
+        NSInteger index =  [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+        if (index == 0) {
+          cell.playButton_imageV.hidden = NO;
+        }else{
+            cell.playButton_imageV.hidden = YES;
+        }
+    }
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
@@ -601,7 +620,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }
-    
+
     if (!cell.hasConfigured) {
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
         cell.titleLabelHeight = self.titleLabelHeight;

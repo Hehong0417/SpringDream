@@ -88,6 +88,7 @@
         HHForgetPasswordVC *vc = [HHForgetPasswordVC new];
         [self.navigationController pushVC:vc];
     }];
+    
     [self.view addSubview:forPwd_label];
 
     _login_button = [UIButton lh_buttonWithFrame:CGRectMake(WidthScaleSize_W(20), CGRectGetMaxY(h_line_1.frame)+WidthScaleSize_H(55), ScreenW-WidthScaleSize_W(40), WidthScaleSize_H(44)) target:self action:@selector(loginAction:) title:@"登录" titleColor:kWhiteColor font:FONT(16) backgroundColor:APP_NAV_COLOR];

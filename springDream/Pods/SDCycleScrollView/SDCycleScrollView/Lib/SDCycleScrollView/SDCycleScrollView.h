@@ -105,7 +105,8 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
-
+/** 是否显示播放按钮 */
+@property (nonatomic, assign) BOOL isShowPlay;
 
 
 
@@ -195,6 +196,7 @@ typedef enum {
 
 /** 轮播文字label对齐方式 */
 @property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
+
 
 /** 滚动手势禁用（文字轮播较实用） */
 - (void)disableScrollGesture;

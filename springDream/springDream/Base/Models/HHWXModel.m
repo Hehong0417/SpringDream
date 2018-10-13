@@ -11,7 +11,6 @@
 
 + (void)payReqWithModel:(HHWXModel *)model{
     
-    
     //微信支付
     PayReq * req = [[PayReq alloc] init];
     req.partnerId           = model.partnerId;

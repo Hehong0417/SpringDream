@@ -62,7 +62,7 @@
         self.v_line = [UIView lh_viewWithFrame:CGRectZero backColor:RGB(190, 35, 29)];
         [self addSubview:self.v_line];
         
-        self.countDown = [CZCountDownView new];
+        self.countDown = [CZCountDownView countDown];
         self.countDown.backgroundImageName = @"";
         self.countDown.timerStopBlock = ^{
             NSLog(@"时间停止");
@@ -70,8 +70,6 @@
         [self addSubview:self.countDown];
         
         [self addConstraint];
-        
-        self.countDown.timestamp = 30*60*60;
     }
     return self;
 }

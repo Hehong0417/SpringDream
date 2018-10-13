@@ -56,11 +56,9 @@
     [backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     
     
-    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"icon-share"]];
+    rightBtn = [UIButton lh_buttonWithFrame:CGRectMake(SCREEN_WIDTH - 60, 20, 60, 44) target:self action:@selector(shareAction) image:[UIImage imageNamed:@"share_white"]];
     rightBtn.hidden = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    
-    
     
     [self addHeadRefresh];
     
@@ -70,7 +68,7 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        if ([responseUrl containsString:@"http://dm-client.elevo.cn/SpellGroup/SpellGroupList"]&&![responseUrl containsString:@"http://dm-client.elevo.cn/SpellGroup/SpellGroupList?status"]) {
+        if ([responseUrl containsString:@"SpellGroup/SpellGroupList"]&&![responseUrl containsString:@"SpellGroup/SpellGroupList?status"]) {
             [self loadData];
         }else{
             if (_webView.scrollView.mj_header.isRefreshing) {
@@ -85,20 +83,17 @@
 - (void)loadData{
     
     HJUser *user = [HJUser sharedUser];
-    url = [NSString stringWithFormat:@"%@/SpellGroup/SpellGroupList?token=%@",API_HOST1,user.token];
+    NSString *token = [user.token stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+
+   NSString  *urlStr = [NSString stringWithFormat:@"%@/SpellGroup/SpellGroupList?token=%@",API_HOST1,token];
     
     WEAK_SELF();
-        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+        weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:nil];
         if(weakSelf.htmlString == nil ||weakSelf.htmlString.length == 0){
             NSLog(@"load failed!");
         }else{
-            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:url]];
+            [weakSelf.webView loadHTMLString:weakSelf.htmlString baseURL:[NSURL URLWithString:urlStr]];
         }
-    
-    
-//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
-//    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:req];
-//    [_webView loadRequest:req];
     
     if (_webView.scrollView.mj_header.isRefreshing) {
         [_webView.scrollView.mj_header endRefreshing];
@@ -229,7 +224,6 @@
         
     }else if ([navigationResponse.response.URL.absoluteString containsString:@"HttpError"]){
         
-        [SVProgressHUD showInfoWithStatus:@"商品已下架"];
         decisionHandler(WKNavigationResponsePolicyCancel);
         
     }  else{

@@ -44,6 +44,8 @@
     if (self = [super initWithFrame:frame]) {
         [self setupImageView];
         [self setupTitleLabel];
+        
+        [self setPlayButtonImag];
     }
     
     return self;
@@ -73,7 +75,14 @@
     _imageView = imageView;
     [self.contentView addSubview:imageView];
 }
-
+- (void)setPlayButtonImag{
+    
+    UIImageView *imagV = [[UIImageView alloc] init];
+    _playButton_imageV = imagV;
+     imagV.image = [UIImage imageNamed:@"play"];
+     imagV.contentMode = UIViewContentModeCenter;
+    [self.contentView addSubview:imagV];
+}
 - (void)setupTitleLabel
 {
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -105,6 +114,7 @@
         _titleLabel.frame = self.bounds;
     } else {
         _imageView.frame = self.bounds;
+        _playButton_imageV.frame = self.bounds;
         CGFloat titleLabelW = self.sd_width;
         CGFloat titleLabelH = _titleLabelHeight;
         CGFloat titleLabelX = 0;

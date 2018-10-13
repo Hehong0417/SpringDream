@@ -166,7 +166,11 @@
                       }else if (self.addressType == HHAddress_settlementType_productDetail){
 
                           HHSubmitOrdersVC *vc = [HHSubmitOrdersVC new];
-                          vc.enter_type = HHaddress_type_add_productDetail;
+                          if ([self.mode isEqual:@1]) {
+                              vc.enter_type = HHaddress_type_add_productDetail;
+                          }else{
+                              vc.enter_type = HHaddress_type_Spell_group;
+                          }
                           vc.mode = self.mode;
                           vc.sku_Id = self.sku_ids;
                           vc.cartIds = self.cartIds;

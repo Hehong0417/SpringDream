@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HHDetailGoodReferralCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="梦泉时尚薰衣草梦泉梦泉时尚薰" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jE1-Ek-UAZ">
@@ -49,7 +50,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="销量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18l-sC-jOx">
-                        <rect key="frame" x="140" y="50" width="100" height="23"/>
+                        <rect key="frame" x="140" y="62" width="100" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="ZAP-gV-gfB"/>
                             <constraint firstAttribute="width" constant="100" id="tdd-F8-1oz"/>
@@ -59,7 +60,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运费：(包邮)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXp-SM-Dnm">
-                        <rect key="frame" x="248" y="50" width="102" height="23"/>
+                        <rect key="frame" x="248" y="62" width="102" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="102" id="dUF-Jx-9fa"/>
                             <constraint firstAttribute="height" constant="23" id="ycH-YD-QUO"/>
@@ -69,7 +70,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="库存" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhk-re-aNd">
-                        <rect key="frame" x="25" y="50" width="110" height="23"/>
+                        <rect key="frame" x="25" y="62" width="110" height="23"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="Yef-E1-TGi"/>
                             <constraint firstAttribute="width" constant="110" id="p4H-x5-OW7"/>
@@ -78,10 +79,24 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGL-tE-63y">
+                        <rect key="frame" x="25" y="55" width="50" height="1"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Db7-Wi-wfA"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="hcO-Nc-WF3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="zGL-tE-63y" firstAttribute="top" secondItem="Nnw-4y-EUE" secondAttribute="bottom" constant="6" id="5P5-r1-AwI"/>
                     <constraint firstItem="cXp-SM-Dnm" firstAttribute="top" secondItem="Fhk-re-aNd" secondAttribute="top" id="DjP-3G-FxG"/>
+                    <constraint firstItem="zGL-tE-63y" firstAttribute="leading" secondItem="Nnw-4y-EUE" secondAttribute="leading" id="Jjm-EO-MDd"/>
                     <constraint firstItem="2ir-bN-FD1" firstAttribute="centerY" secondItem="Nnw-4y-EUE" secondAttribute="centerY" constant="1.5" id="McV-31-kIF"/>
+                    <constraint firstItem="Fhk-re-aNd" firstAttribute="top" secondItem="zGL-tE-63y" secondAttribute="bottom" constant="6" id="NEj-sv-AZo"/>
                     <constraint firstItem="cXp-SM-Dnm" firstAttribute="trailing" secondItem="jE1-Ek-UAZ" secondAttribute="trailing" id="OLc-pv-QoB"/>
                     <constraint firstItem="jE1-Ek-UAZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="QnF-yw-qaS"/>
                     <constraint firstItem="Fhk-re-aNd" firstAttribute="leading" secondItem="Nnw-4y-EUE" secondAttribute="leading" id="Ubt-Pl-hgW"/>
@@ -93,7 +108,6 @@
                     <constraint firstItem="Nnw-4y-EUE" firstAttribute="top" secondItem="jE1-Ek-UAZ" secondAttribute="bottom" constant="9" id="h2e-G7-IEO"/>
                     <constraint firstItem="18l-sC-jOx" firstAttribute="top" secondItem="Fhk-re-aNd" secondAttribute="top" id="j28-5k-spR"/>
                     <constraint firstItem="cXp-SM-Dnm" firstAttribute="top" secondItem="18l-sC-jOx" secondAttribute="top" id="jin-J9-Hy1"/>
-                    <constraint firstItem="Fhk-re-aNd" firstAttribute="top" secondItem="Nnw-4y-EUE" secondAttribute="bottom" constant="1" id="sP1-I5-rcB"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
@@ -102,6 +116,7 @@
                 <outlet property="product_min_priceLabel" destination="Nnw-4y-EUE" id="fG3-4c-fdi"/>
                 <outlet property="product_nameLabel" destination="jE1-Ek-UAZ" id="Bsm-s5-QB1"/>
                 <outlet property="product_s_intergralLabel" destination="2ir-bN-FD1" id="9yQ-al-SpA"/>
+                <outlet property="rewardShow_label" destination="zGL-tE-63y" id="e55-mf-Xs1"/>
                 <outlet property="sale_count_label" destination="18l-sC-jOx" id="kSh-4x-39y"/>
                 <outlet property="stock_label" destination="Fhk-re-aNd" id="IRm-VK-elG"/>
             </connections>

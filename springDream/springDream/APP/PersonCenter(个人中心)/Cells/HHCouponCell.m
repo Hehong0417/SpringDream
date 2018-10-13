@@ -45,5 +45,11 @@
     self.dateTimeLabel.text = [NSString stringWithFormat:@"使用期限:%@至%@",StartTime,EndTime];
 }
 
+- (void)setActivity_model:(MeetActivityModel *)activity_model{
+    
+    _activity_model = activity_model;
+    
+    
+}
 
 @end

@@ -147,7 +147,6 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else if (self.enter_type == HHaddress_type_package){
         [self.navigationController popViewControllerAnimated:YES];
-
     }
 }
 - (NSMutableArray *)datas{
@@ -695,7 +694,6 @@
 //                [self createOrder];
 //            }else{
                 //购物车
-                self.mode = self.mode;
                 [self createOrder];
 //            }
 //        }else if (self.enter_type == HHaddress_type_package){
@@ -772,6 +770,10 @@
         }
         
         //
+        if ([self.model.isSeniorExecutiveGroup isEqual:@0]) {
+            self.toStoreId = @"0";
+        }
+        
         [[[HHMineAPI postOrder_CreateWithAddrId:self.address_id skuId:self.sku_Id count:self.count mode:self.mode gbId:self.gbId couponId:coupon_id integralTempIds:integralTempIds_str message:nil cartIds:self.cartIds storeId:self.toStoreId shippingStoreIds:shippingStoreIds_str]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
             self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled  = YES;
             self.submitOrderTool.closePay.userInteractionEnabled = YES;
