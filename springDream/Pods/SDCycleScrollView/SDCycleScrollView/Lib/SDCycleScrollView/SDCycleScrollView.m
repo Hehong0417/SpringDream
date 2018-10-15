@@ -582,12 +582,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
 
     if (self.isShowVideoButton == YES ) {
+        cell.playButton_imageV.hidden = NO;
         NSInteger index =  [self pageControlIndexWithCurrentCellIndex:indexPath.item];
         if (index == 0) {
           cell.playButton_imageV.hidden = NO;
         }else{
-            cell.playButton_imageV.hidden = YES;
+          cell.playButton_imageV.hidden = YES;
         }
+    }else{
+           cell.playButton_imageV.hidden = YES;
     }
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     

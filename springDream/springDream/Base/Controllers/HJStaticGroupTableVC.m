@@ -456,11 +456,11 @@ static const CGFloat kNormalCellHeight = 44;
 
 - (FontAttributes *)titleLabelFontAttributes {
     
-    return [FontAttributes fontAttributesWithFontColor:[UIColor blackColor] fontsize:WidthScaleSize_H(14)];
+    return [FontAttributes fontAttributesWithFontColor:[UIColor blackColor] fontsize:AdapationLabelFont(14)];
 }
 - (FontAttributes *)detailLabelFontAttributes {
     
-    return [FontAttributes fontAttributesWithFontColor:KLightTitleColor fontsize:WidthScaleSize_H(14)];
+    return [FontAttributes fontAttributesWithFontColor:KLightTitleColor fontsize:AdapationLabelFont(14)];
 }
 
 - (CGFloat)firstGroupSpacing {

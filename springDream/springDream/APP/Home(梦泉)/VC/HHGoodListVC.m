@@ -425,7 +425,8 @@
 
     [super viewWillAppear:animated];
     searchView.hidden = NO;
-
+    self.page = 1;
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     

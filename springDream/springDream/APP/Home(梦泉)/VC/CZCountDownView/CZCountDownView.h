@@ -11,6 +11,10 @@
 typedef void(^TimerStopBlock)();
 
 @interface CZCountDownView : UIView
+
+// 定时器
+@property (nonatomic,strong)NSTimer *timer;
+
 // 时间戳
 @property (nonatomic,assign)NSInteger timestamp;
 // 背景
@@ -32,5 +36,6 @@ typedef void(^TimerStopBlock)();
  */
 - (void)destroyCountDown;
 
+- (void)getDetailTimeWithTimestamp:(NSInteger)timestamp;
 
 @end

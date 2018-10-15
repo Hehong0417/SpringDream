@@ -75,7 +75,7 @@
 @property (nonatomic, strong) UILabel *detailText_lab;
 
 @property (nonatomic, assign) BOOL IsSecKill;
-
+@property (nonatomic, assign) BOOL IsGroupBuy;
 
 @end
 
@@ -226,6 +226,8 @@ static NSArray *lastSele_IdArray_;
             HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:weakSelf.gooodDetailModel.GroupBuy];
             if ([GroupBy_m.IsJoin isEqual:@1]) {
                 //我要开团
+                weakSelf.Mode = GroupBy_m.Mode;
+
                 [weakSelf buyProductHandleData];
 
             }else{
@@ -346,7 +348,6 @@ static NSArray *lastSele_IdArray_;
                     }else{
                         vc.enter_type = HHaddress_type_Spell_group;
                     }
-                    
                     vc.sku_Id = sku_id_Str;
                     vc.count = quantity;
                     vc.storeId = self.store_id;
@@ -429,7 +430,7 @@ static NSArray *lastSele_IdArray_;
         cell.lastNum = @"1";
         cell.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
         cell.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
-        cell.product_sku_arr = self.gooodDetailModel.SKUList;
+        cell.product_sku_arr = self.gooodDetailModel.AllSkuList;
         cell.product_id = self.gooodDetailModel.Id;
         [cell.collectionView reloadData];
         [cell.collectionView layoutIfNeeded];
@@ -639,14 +640,53 @@ static NSArray *lastSele_IdArray_;
         }
     }
     if (indexPath.section == 3) {
+        //选择门店
         [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.productStores_names];
         WEAK_SELF();
         _pickView.completeBlock = ^(NSString *result) {
             weakSelf.detailText_lab.text = result;
             NSInteger index = [weakSelf.productStores_names indexOfObject:result];
             weakSelf.store_id = weakSelf.productStores_ids[index];
+            
+            [weakSelf updateStockWithStoreId:weakSelf.store_id];
+            
         };
         [_pickView showPickViewAnimation:YES];
+    }
+}
+- (void)updateStockWithStoreId:(NSString *)storeId{
+    
+    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    if (cell.seleArray.count != cell.featureAttr.count) {
+        NSMutableArray *no_select_arr = [NSMutableArray array];
+        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[NSIndexPath class]]) {
+            }else{
+                [no_select_arr addObject:cell.featureAttr[idx]];
+            }
+        }];
+        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [no_select_ValueName_arr addObject:model.ValueName];
+        }];
+        
+        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        
+    }else{
+    
+    WEAK_SELF();
+    __block BOOL isNoStock = NO;
+    [weakSelf.gooodDetailModel.AllSkuList enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([weakSelf.store_id isEqualToString:obj.StoreId]) {
+            HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[weakSelf.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",obj.Stock];
+            isNoStock = YES;
+        }
+    }];
+        
     }
 }
 #pragma mark - HHFeatureSelectionViewCellDelegate
@@ -654,11 +694,12 @@ static NSArray *lastSele_IdArray_;
 - (void)choosedStock:(NSString *)product_stock product_price:(NSString *)product_price featureselectionCell:(id)featureselectionCell{
     
     HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[self.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if (self.IsSecKill == YES) {
+    if ((self.IsSecKill == YES) ||(self.IsGroupBuy == YES)) {
         cell.product_min_priceLabel.text = @"";
     }else{
         cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.floatValue];
     }
+    
     cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",product_stock];
     HHGoodDetailItem *detail_item = [HHGoodDetailItem sharedGoodDetailItem];
     detail_item.product_stock = product_stock;
@@ -695,7 +736,11 @@ static NSArray *lastSele_IdArray_;
                 self.gooodDetailModel = [HHgooodDetailModel mj_objectWithKeyValues:api.Data];
                 
                 self.cycleScrollView.imageURLStringsGroup = self.gooodDetailModel.ImageUrls;
-                self.cycleScrollView.isShowPlay = YES;
+                if (self.gooodDetailModel.VideoUrl.length>0) {
+                    self.cycleScrollView.isShowPlay = YES;
+                }else{
+                    self.cycleScrollView.isShowPlay = NO;
+                }
                 self.discribeArr =  self.gooodDetailModel.AttributeValueList.mutableCopy;
                 
                 self.addCartTool.product_id = self.gooodDetailModel.Id;
@@ -707,8 +752,6 @@ static NSArray *lastSele_IdArray_;
                
                 self.foot.model = self.gooodDetailModel;
                 
-                self.addCartTool.addCartBtn.hidden = YES;
-
                 
                 [self.preferentialArr removeAllObjects];
                 if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.floatValue>0)) {
@@ -764,7 +807,9 @@ static NSArray *lastSele_IdArray_;
                 [weakSelf.tableHeader addSubview:weakSelf.seckill_view];
                 
                 weakSelf.IsSecKill = NO;
+                weakSelf.IsGroupBuy = NO;
                 weakSelf.seckill_view.hidden = YES;
+        
                 self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH);
 
                 self.addCartTool.addCartBtn.hidden = NO;
@@ -789,11 +834,12 @@ static NSArray *lastSele_IdArray_;
                     }
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
                   
-                    self.addCartTool.addCartBtn.hidden = YES;
+//                    self.addCartTool.addCartBtn.hidden = YES;
                 }
                 //拼团
                 HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:self.gooodDetailModel.GroupBuy];
                 if ([GroupBy_m.IsJoin isEqual:@1]) {
+                    weakSelf.IsGroupBuy = YES;
                     self.Mode = GroupBy_m.Mode;
                     weakSelf.addCartTool.addCartBtn.titleLabel.numberOfLines = 2;
                     weakSelf.addCartTool.addCartBtn.titleLabel.font = FONT(13);
@@ -865,7 +911,7 @@ static NSArray *lastSele_IdArray_;
 //评价
 - (void)getEvaluateList{
     
-    [[[HHHomeAPI GetProductEvaluateWithId:self.Id page:@1 pageSize:@1 hasImage:nil level:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+    [[[HHHomeAPI GetProductEvaluateWithId:self.Id page:@1 pageSize:@1 hasImage:nil level:nil] netWorkClient] getRequestInView:nil finishedBlock:^(HHHomeAPI *api, NSError *error) {
         
         if (!error) {
             if (api.State == 1) {
@@ -932,16 +978,22 @@ static NSArray *lastSele_IdArray_;
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-    if (index == 0) {
-        aVPlayerViewController = [[AVPlayerViewController alloc]init];
-        
-        aVPlayerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:@"http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"]];
-        
-        [aVPlayerViewController.player play];
-        
-        [self presentViewController:aVPlayerViewController animated:YES completion:nil];
-
+    if (self.gooodDetailModel.VideoUrl.length>0) {
+        if (index == 0) {
+            aVPlayerViewController = [[AVPlayerViewController alloc]init];
+            
+            if (self.gooodDetailModel.VideoUrl.length) {
+                aVPlayerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:self.gooodDetailModel.VideoUrl]];
+            }else{
+                aVPlayerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:@"http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"]];
+            }
+            
+            [aVPlayerViewController.player play];
+            
+            [self presentViewController:aVPlayerViewController animated:YES completion:nil];
+        }
     }
+
 }
 #pragma mark - 懒加载
 
@@ -985,5 +1037,9 @@ static NSArray *lastSele_IdArray_;
     return _addCartTool;
     
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+     [self.foot.wkWebView  loadHTMLString:@"about:blank" baseURL:[NSURL URLWithString:@"about:blank"]];
+}
 @end

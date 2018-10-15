@@ -14,9 +14,9 @@
     [super awakeFromNib];
     
     [self.goodImageV lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
-    self.product_nameLabel.font = BoldFONT(12);
+    self.product_nameLabel.font = BoldFONT(13);
     self.product_s_intergralLabel.font = FONT(10);
-    self.product_min_priceLabel.font = SemiboldFONT(14);
+    self.product_min_priceLabel.font = SemiboldFONT(15);
     
 }
 

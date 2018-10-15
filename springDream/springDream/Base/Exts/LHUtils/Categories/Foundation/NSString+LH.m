@@ -909,6 +909,9 @@
             if ([key isEqualToString:@"id"]) {
                 key = @"Id";
             }
+            if ([key isEqualToString:@"name"]) {
+                key = @"Name";
+            }
             [parameterDict setObject:value forKey:key];
         }];
         

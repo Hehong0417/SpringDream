@@ -16,7 +16,7 @@
 
         
         [self.contentView addSubview:self.order_code_label];
-        [self.contentView addSubview:self.pay_code_label];
+//        [self.contentView addSubview:self.pay_code_label];
         [self.contentView addSubview:self.create_time_label];
         [self.contentView addSubview:self.deal_time_label];
         [self.contentView addSubview:self.copy_btn];
@@ -51,7 +51,7 @@
 - (UILabel *)create_time_label{
     
     if (!_create_time_label) {
-        _create_time_label = [UILabel lh_labelWithFrame:CGRectMake(10, CGRectGetMaxY(self.pay_code_label.frame), 250, 25) text:@"" textColor:KTitleLabelColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
+        _create_time_label = [UILabel lh_labelWithFrame:CGRectMake(10, CGRectGetMaxY(self.order_code_label.frame)+5, 250, 25) text:@"" textColor:KTitleLabelColor font:FONT(12) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
     }
     return _create_time_label;
 }
@@ -66,11 +66,8 @@
     
     _model = model;
     self.order_code_label.text = [NSString stringWithFormat:@"订单编号：%@",model.orderid?model.orderid:@""];
-    self.pay_code_label.text = [NSString stringWithFormat:@"支付宝交易号：%@",model.payDate?model.payDate:@""];
     self.create_time_label.text = [NSString stringWithFormat:@"创建时间：%@",model.orderDate?model.orderDate:@""];
     self.deal_time_label.text = [NSString stringWithFormat:@"成交时间：%@",model.payDate?model.payDate:@""];
-
-    
 }
 - (void)copyBtnAction{
     

@@ -125,7 +125,7 @@
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
     

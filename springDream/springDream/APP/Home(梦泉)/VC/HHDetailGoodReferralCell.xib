@@ -29,6 +29,16 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxt-pU-CKt">
+                        <rect key="frame" x="25" y="38" width="79" height="4"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="Z8j-8t-bAF"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="4" id="dIa-bY-Iqj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-4y-EUE">
                         <rect key="frame" x="25" y="45" width="79" height="4"/>
                         <constraints>
@@ -101,11 +111,13 @@
                     <constraint firstItem="jE1-Ek-UAZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="QnF-yw-qaS"/>
                     <constraint firstItem="Fhk-re-aNd" firstAttribute="leading" secondItem="Nnw-4y-EUE" secondAttribute="leading" id="Ubt-Pl-hgW"/>
                     <constraint firstItem="2ir-bN-FD1" firstAttribute="leading" secondItem="Nnw-4y-EUE" secondAttribute="trailing" constant="1" id="Vco-Ce-4rI"/>
+                    <constraint firstItem="Nnw-4y-EUE" firstAttribute="top" secondItem="Lxt-pU-CKt" secondAttribute="bottom" constant="3" id="Vka-P2-vK1"/>
                     <constraint firstItem="cXp-SM-Dnm" firstAttribute="leading" secondItem="18l-sC-jOx" secondAttribute="trailing" constant="8" id="ajU-34-XJD"/>
+                    <constraint firstItem="Lxt-pU-CKt" firstAttribute="top" secondItem="jE1-Ek-UAZ" secondAttribute="bottom" constant="2" id="czc-zD-LvO"/>
                     <constraint firstItem="jE1-Ek-UAZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="eDm-eG-1oJ"/>
                     <constraint firstAttribute="trailing" secondItem="jE1-Ek-UAZ" secondAttribute="trailing" constant="25" id="edp-h4-hR2"/>
                     <constraint firstItem="Nnw-4y-EUE" firstAttribute="leading" secondItem="jE1-Ek-UAZ" secondAttribute="leading" id="eyS-3v-g4J"/>
-                    <constraint firstItem="Nnw-4y-EUE" firstAttribute="top" secondItem="jE1-Ek-UAZ" secondAttribute="bottom" constant="9" id="h2e-G7-IEO"/>
+                    <constraint firstItem="Lxt-pU-CKt" firstAttribute="leading" secondItem="jE1-Ek-UAZ" secondAttribute="leading" id="fk2-Cm-2F4"/>
                     <constraint firstItem="18l-sC-jOx" firstAttribute="top" secondItem="Fhk-re-aNd" secondAttribute="top" id="j28-5k-spR"/>
                     <constraint firstItem="cXp-SM-Dnm" firstAttribute="top" secondItem="18l-sC-jOx" secondAttribute="top" id="jin-J9-Hy1"/>
                 </constraints>
@@ -119,6 +131,7 @@
                 <outlet property="rewardShow_label" destination="zGL-tE-63y" id="e55-mf-Xs1"/>
                 <outlet property="sale_count_label" destination="18l-sC-jOx" id="kSh-4x-39y"/>
                 <outlet property="stock_label" destination="Fhk-re-aNd" id="IRm-VK-elG"/>
+                <outlet property="subtitle_label" destination="Lxt-pU-CKt" id="pok-7x-JBX"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="53"/>
         </tableViewCell>

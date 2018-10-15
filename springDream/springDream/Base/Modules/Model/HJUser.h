@@ -36,7 +36,7 @@ singleton_h(User)
 @property(nonatomic,assign) NSInteger group_selectIndex;
 
 //体验店编号
-@property(nonatomic,strong) NSString *shop_userid;
+@property(nonatomic,strong) NSString *categoryId;
 
 @property(nonatomic,strong) NSString *pids;
 

@@ -40,7 +40,7 @@
     }else{
         self.product_nameLabel.text = gooodDetailModel.ProductName;
     }
-
+    self.subtitle_label.text = gooodDetailModel.subtitle?gooodDetailModel.subtitle:@"";
     self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice.floatValue:0.00];
     NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice.floatValue:0.00]];
     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
@@ -62,12 +62,11 @@
     }
     
     if ([gooodDetailModel.IsRewardShow isEqual:@1]) {
-        
         self.rewardShow_label.hidden = NO;
-        self.rewardShow_label.text = [NSString stringWithFormat:@"     自购省%@元，分享省%@元    ",gooodDetailModel.BuyCheapMoney,gooodDetailModel.ShareMakeMoney];
-        NSString *ewardShow_text =  [NSString stringWithFormat:@"  自购省%@元，分享省%@元  ",gooodDetailModel.BuyCheapMoney,gooodDetailModel.ShareMakeMoney];
-        CGSize mode_size = [ewardShow_text lh_sizeWithFont:[UIFont systemFontOfSize:13]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0,0, mode_size.width, 20) text:ewardShow_text textColor:APP_NAV_COLOR font:FONT(12) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
+        self.rewardShow_label.text = [NSString stringWithFormat:@"自购省%@元，分享省%@元",gooodDetailModel.BuyCheapMoney,gooodDetailModel.ShareMakeMoney];
+        NSString *ewardShow_text =  [NSString stringWithFormat:@"自购省%@元，分享省%@元",gooodDetailModel.BuyCheapMoney,gooodDetailModel.ShareMakeMoney];
+        CGSize mode_size = [ewardShow_text lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT,AdapationLabelFont(20))];
+        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0,0, mode_size.width+AdapationLabelFont(20), AdapationLabelFont(20)) text:ewardShow_text textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kWhiteColor];
         [label lh_setCornerRadius:5 borderWidth:1 borderColor:APP_NAV_COLOR];
         [self.rewardShow_label addSubview:label];
     }else{

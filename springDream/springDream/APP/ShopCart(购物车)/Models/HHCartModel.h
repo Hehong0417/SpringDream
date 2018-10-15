@@ -142,6 +142,9 @@
 @property(nonatomic,strong) NSString *product_item_status;
 @property(nonatomic,strong) NSString *icon;
 @property(nonatomic,strong) NSString *prodcut_name;
+@property(nonatomic,strong) NSString *product_item_act_name;
+
+
 @end
 
 

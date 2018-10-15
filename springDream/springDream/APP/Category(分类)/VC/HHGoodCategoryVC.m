@@ -50,6 +50,10 @@
     
     self.isCategory = YES;
     
+    if ([HJUser sharedUser].categoryId) {
+        self.categoryId = [HJUser sharedUser].categoryId;
+    }
+    
     //collectionView
     self.collectionView.backgroundColor = KVCBackGroundColor;
     [self.view addSubview:self.collectionView];
@@ -66,7 +70,6 @@
 
     UIButton *backBtn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 40, 45) target:self action:@selector(backBtnAction) image:[UIImage imageNamed:@""]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    
     
     HJUser *user = [HJUser sharedUser];
     user.category_selectIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];

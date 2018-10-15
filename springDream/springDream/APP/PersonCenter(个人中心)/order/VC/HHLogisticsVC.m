@@ -64,16 +64,16 @@
         if (!error) {
             if (api.State == 1) {
                 self.isWlan = YES;
+                
                 self.model = [HHMineModel mj_objectWithKeyValues:api.Data[@"express"]];
-                self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",api.Data[@"company"]];
-                self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",self.model.nu.length>0?self.model.nu:@""];
-                NSString * image_url =  api.Data[@"productIcon"];
+                HHMineModel *exp_model = [HHMineModel mj_objectWithKeyValues:api.Data];
+                
+                self.logisticsHead.com_label.text =  [NSString stringWithFormat:@"物流公司  %@",exp_model.company];
+                self.logisticsHead.orderNumber_label.text = [NSString stringWithFormat:@"运单编号  %@",exp_model.orderNumber.length>0?exp_model.orderNumber:@""];
+                NSString * image_url =  exp_model.productIcon;
                 [self.logisticsHead.image_url sd_setImageWithURL:[NSURL URLWithString:image_url] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-                if ([self.model.ischeck isEqual:@1]) {
-                    self.logisticsHead.status_label.text = [NSString stringWithFormat:@"物流状态  已签收"];
-                }else{
-                    self.logisticsHead.status_label.text = [NSString stringWithFormat:@"物流状态  运输中"];
-                }
+                self.logisticsHead.status_label.text = [NSString stringWithFormat:@"物流状态  %@",self.model.stateName];
+                
                 [self.tableView reloadData];
                 
             }else{

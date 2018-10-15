@@ -33,6 +33,7 @@
 @property(nonatomic,strong) NSString *BuyCheapMoney;
 @property(nonatomic,strong) NSString *ShareMakeMoney;
 @property(nonatomic,strong) NSString *VideoUrl;
+@property(nonatomic,strong) NSString *subtitle;
 
 
 @property(nonatomic,strong) NSArray <MeetActivityModel *>*Coupons;
@@ -55,6 +56,8 @@
 
 //规格查询数组
 @property(nonatomic,strong) NSArray <HHproduct_skuModel *>*SKUList;
+
+@property(nonatomic,strong) NSArray <HHproduct_skuModel *>*AllSkuList;
 
 
 @property(nonatomic,strong) NSString *tip;
@@ -91,6 +94,13 @@
 @property(nonatomic,strong) NSString *CostPrice;
 @property(nonatomic,strong) NSString *Weight;
 @property(nonatomic,strong) NSString *imgUrl;
+
+//AllSkuList
+@property(nonatomic,strong) NSString *Pid;
+@property(nonatomic,strong) NSString *Price;
+@property(nonatomic,strong) NSString *Sku;
+//@property(nonatomic,strong) NSString *Stock;
+@property(nonatomic,strong) NSString *StoreId;
 
 @end
 

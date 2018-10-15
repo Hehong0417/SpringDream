@@ -5,16 +5,21 @@
 //rgb converter（hex->dec）
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define FONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x)]
-#define BoldFONT(x) [UIFont boldSystemFontOfSize:WidthScaleSize_H(x)]
-#define ThinFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightThin]
-#define UltraLightFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightUltraLight]
-#define LightFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightLight]
-#define RegularFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightRegular]
-#define MediumFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightMedium]
-#define SemiboldFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightSemibold]
-#define HeavyFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightHeavy]
-#define BlackFONT(x) [UIFont systemFontOfSize:WidthScaleSize_H(x) weight:UIFontWeightBlack]
+
+#define IOS_VERSION_10_OR_LATER (([[[UIDevice currentDevice]systemVersion]floatValue]>=10.0)? (YES):(NO))
+#define AdapationLabelFont(n) (IOS_VERSION_10_OR_LATER?((n-1)*([[UIScreen mainScreen]bounds].size.width/375.0f)):((n)*([[UIScreen mainScreen]bounds].size.width/375.0f)))
+
+
+#define FONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x)]
+#define BoldFONT(x) [UIFont boldSystemFontOfSize:AdapationLabelFont(x)]
+#define ThinFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightThin]
+#define UltraLightFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightUltraLight]
+#define LightFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightLight]
+#define RegularFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightRegular]
+#define MediumFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightMedium]
+#define SemiboldFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightSemibold]
+#define HeavyFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightHeavy]
+#define BlackFONT(x) [UIFont systemFontOfSize:AdapationLabelFont(x) weight:UIFontWeightBlack]
 
 
 

@@ -30,14 +30,14 @@
         
         CGFloat imageX = i*(imagW+margin)+margin;
         CGFloat imageY = top_padding;
-        XYQButton *model_btn  = [XYQButton ButtonWithFrame:CGRectMake(imageX, imageY, imagW, imagH) imgaeName:btn_image_arr[i] titleName:btn_title_arr[i] contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:APP_COMMON_COLOR fontsize:11] title_img_padding:title_image_padding tapAction:^(XYQButton *button) {
+        XYQButton *model_btn  = [XYQButton ButtonWithFrame:CGRectMake(imageX, imageY, imagW, imagH) imgaeName:btn_image_arr[i] titleName:btn_title_arr[i] contentType:TopImageBottomTitle buttonFontAttributes:[FontAttributes fontAttributesWithFontColor:APP_COMMON_COLOR fontsize:13] title_img_padding:title_image_padding tapAction:^(XYQButton *button) {
             [models_view modelButtonSelectWithIndex:i];
         }];
         model_btn.tag = i+10000;
         if (message_arr.count>0) {
             NSString *message_count = message_arr[i];
             if (message_count.integerValue>0) {
-                [model_btn  yee_MakeBadgeText:message_count textColor:[UIColor redColor] backColor:[UIColor whiteColor] Font:[UIFont systemFontOfSize:11]];
+                [model_btn  yee_MakeBadgeText:message_count textColor:[UIColor redColor] backColor:[UIColor whiteColor] Font:[UIFont systemFontOfSize:13]];
             }
         }
         [model_btn setTitleColor:title_color forState:UIControlStateNormal];
@@ -56,7 +56,7 @@
         XYQButton *model_btn = [self viewWithTag:i+10000];
         NSString *message_num = message_count[i];
         if (message_num.integerValue>0) {
-            [model_btn  yee_MakeBadgeText:message_num textColor:[UIColor redColor] backColor:[UIColor whiteColor] Font:[UIFont systemFontOfSize:11]];
+            [model_btn  yee_MakeBadgeText:message_num textColor:[UIColor redColor] backColor:[UIColor whiteColor] Font:[UIFont systemFontOfSize:13]];
         }
     }
     

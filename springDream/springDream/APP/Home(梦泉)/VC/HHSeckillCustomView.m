@@ -62,10 +62,14 @@
         self.v_line = [UIView lh_viewWithFrame:CGRectZero backColor:RGB(190, 35, 29)];
         [self addSubview:self.v_line];
         
+      
+        WEAK_SELF();
         self.countDown = [CZCountDownView countDown];
         self.countDown.backgroundImageName = @"";
         self.countDown.timerStopBlock = ^{
             NSLog(@"时间停止");
+            [weakSelf.countDown.timer invalidate];
+            [weakSelf.countDown getDetailTimeWithTimestamp:0];
         };
         [self addSubview:self.countDown];
         
@@ -80,7 +84,7 @@
     .topSpaceToView(self, 10)
     .heightIs(20);
     //label宽度自适应
-    [self.price_label setSingleLineAutoResizeWithMaxWidth:140];
+    [self.price_label setSingleLineAutoResizeWithMaxWidth:150];
     
     
     self.pre_price_label.sd_layout
@@ -125,8 +129,9 @@
     self.limit_purchase_label.sd_layout
     .leftSpaceToView(self.skill_bg_view, 8)
     .heightIs(14)
-    .maxWidthIs(130)
     .bottomEqualToView(self.skill_bg_view);
+    [self.limit_purchase_label setSingleLineAutoResizeWithMaxWidth:200];
+    
     
     CGFloat  x = (ScreenW-10)*205/365;
     self.v_line.sd_layout
@@ -160,8 +165,12 @@
         imag2.hidden = NO;
         group_label.hidden = YES;
         group_imag.hidden = YES;
-        
-        self.limit_purchase_label.text = [NSString stringWithFormat:@"每人限购%@件！",activity_m.LimitCount];
+
+        if ([activity_m.LimitCount isEqualToString:@"0"]) {
+            self.limit_purchase_label.text = @"";
+        }else{
+            self.limit_purchase_label.text = [NSString stringWithFormat:@"每人限购%@件！",activity_m.LimitCount];
+        }
     }
     if ([_activity_m.IsJoin isEqual:@1]) {
         imag1.hidden = YES;

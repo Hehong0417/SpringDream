@@ -20,7 +20,7 @@
     self.height_constant.constant = ScreenH* 60/667;
     self.money_valueLabel.font = FONT(45);
     
-    self.dateTimeLabel.font = FONT(6);
+    self.dateTimeLabel.font = FONT(10);
     self.dateTimeLabel_topConstant.constant = ScreenH*40/667;
     self.dataTimeLabel_w.constant = ScreenW* 67/375;
 }

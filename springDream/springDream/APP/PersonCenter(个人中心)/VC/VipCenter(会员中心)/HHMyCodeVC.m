@@ -40,8 +40,9 @@
 
         if (!error) {
             if (api.State == 1) {
-                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data] placeholderImage:nil options:SDWebImageProgressiveDownload];
-                webpageUrl = api.Data;
+                
+//                [_imagV sd_setImageWithURL:[NSURL URLWithString:api.Data] placeholderImage:nil options:SDWebImageProgressiveDownload];
+//                webpageUrl = api.Data;
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }

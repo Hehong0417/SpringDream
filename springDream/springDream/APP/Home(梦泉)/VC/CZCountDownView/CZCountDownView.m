@@ -11,10 +11,7 @@
 #define labelCount 4
 #define separateLabelCount 4
 #define padding 5
-@interface CZCountDownView (){
-    // 定时器
-    NSTimer *timer;
-}
+@interface CZCountDownView ()
 @property (nonatomic,strong)NSMutableArray *timeLabelArrM;
 @property (nonatomic,strong)NSMutableArray *separateLabelArrM;
 // day
@@ -74,8 +71,8 @@
 - (void)setTimestamp:(NSInteger)timestamp{
     _timestamp = timestamp;
     if (_timestamp != 0) {
-        timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        self.timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -83,8 +80,8 @@
     _timestamp--;
     [self getDetailTimeWithTimestamp:_timestamp];
     if (_timestamp == 0) {
-        [timer invalidate];
-        timer = nil;
+        [self.timer invalidate];
+        self.timer = nil;
         // 执行block回调
         self.timerStopBlock();
     }
@@ -116,8 +113,8 @@
 //    CGFloat viewH = self.frame.size.height;
     // 单个label的宽高
 //    CGFloat labelW = viewW / labelCount;
-    CGFloat labelW = WidthScaleSize_H(17);
-    CGFloat labelH = WidthScaleSize_H(17);
+    CGFloat labelW = WidthScaleSize_W(17);
+    CGFloat labelH = WidthScaleSize_W(17);
     self.dayLabel.frame = CGRectMake(0, 0, labelW, labelH);
     self.hourLabel.frame = CGRectMake(labelW+20, 0, labelW, labelH);
     self.minuesLabel.frame = CGRectMake(2 *(labelW+20) , 0, labelW, labelH);
@@ -202,8 +199,8 @@
  */
 - (void)destroyCountDown{
     
-    [timer invalidate];
-    timer = nil;
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 @end

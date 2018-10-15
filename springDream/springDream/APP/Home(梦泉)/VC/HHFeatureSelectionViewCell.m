@@ -408,9 +408,9 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
         
         [self.product_sku_arr enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if ([obj.Id isEqualToString:seleId_str]) {
+            if ([obj.Sku isEqualToString:seleId_str]) {
        
-                self.product_price = obj.SalePrice;
+                self.product_price = obj.Price;
                 self.product_stock = obj.Stock;
                 if (self.delegate &&[self.delegate respondsToSelector:@selector(choosedStock:product_price:featureselectionCell:)]) {
                     [self.delegate choosedStock:self.product_stock product_price:self.product_price featureselectionCell:self];
@@ -509,8 +509,8 @@ static NSString *const DCFeatureItemCellID = @"DCFeatureItemCell";
     NSMutableArray * valuesArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < array.count; i++) {
         HHproduct_skuModel * model = array[i];
-        NSDictionary * dic = @{@"SalePrice":model.SalePrice?model.SalePrice:@"0",@"Stock":model.Stock?model.Stock:@"0",@"imgUrl":model.imgUrl?model.imgUrl:@"0"};
-        [keysArray addObject:model.Id];
+        NSDictionary * dic = @{@"SalePrice":model.Price?model.Price:@"0",@"Stock":model.Stock?model.Stock:@"0",@"imgUrl":model.imgUrl?model.imgUrl:@"0"};
+        [keysArray addObject:model.Sku];
         [valuesArray addObject:dic];
     }
     

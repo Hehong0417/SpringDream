@@ -599,13 +599,6 @@
     UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(44, 0, storeName_size.width+10, 40) text:model.store_name textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [headView addSubview:storeName_label];
     
-    //时间
-    if (![model.order_mode isEqual:@1]) {
-        CGSize mode_size = [model.order_mode_name lh_sizeWithFont:[UIFont systemFontOfSize:14]  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(storeName_label.frame)+5, 0,mode_size.width+10, 20) text:model.order_mode_name textColor:kWhiteColor font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor colorWithHexString:@"#F7BC4B"]];
-        activityLabel.centerY = headView.centerY;
-        [headView addSubview:activityLabel];
-    }
     UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-95, 0, 80, 40) text:model.status_name textColor:APP_COMMON_COLOR font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
     [headView addSubview:textLabel];
     

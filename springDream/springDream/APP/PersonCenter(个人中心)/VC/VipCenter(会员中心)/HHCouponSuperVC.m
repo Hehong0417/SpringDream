@@ -28,7 +28,7 @@
     
     self.view.backgroundColor = kWhiteColor;
     
-    self.title_arr = [NSMutableArray arrayWithArray:@[@"未使用",@"已使用",@"已失效"]];
+    self.title_arr = [NSMutableArray arrayWithArray:@[@"未使用",@"已使用",@"已过期"]];
     
     // 1.添加所有子控制器
     [self setupChildViewController];

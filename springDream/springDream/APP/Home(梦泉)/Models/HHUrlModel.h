@@ -21,5 +21,6 @@
 @property (nonatomic, strong)   NSString *money;
 @property (nonatomic, strong)   NSString *Name;
 @property (nonatomic, strong)   NSString *gbId;
+@property (nonatomic, strong)   NSString *categoryId;
 
 @end

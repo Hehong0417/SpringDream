@@ -155,16 +155,27 @@
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
         
-    }else if ([responseUrl containsString:@"Search"]) {
-        HHGoodCategoryVC *vc = [HHGoodCategoryVC new];
-//        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
-//        vc.enter_Type = HHenter_itself_Type;
-//        NSString *string3 = [model.Name stringByRemovingPercentEncoding];
-//        vc.name = string3;
-        vc.enter_Type = 1;
+    }else if ([responseUrl containsString:@"ProductWeb/Search?name"]) {
+        //搜素
+        HHGoodListVC *vc = [HHGoodListVC new];
+
+        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
+        NSString *string3 = [model.Name stringByRemovingPercentEncoding];
+        vc.name = string3;
+        vc.enter_Type = HHenter_category_Type;
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
 
+    }else if ([responseUrl containsString:@"Search?categoryId"]) {
+        //分类
+        HJUser *user = [HJUser sharedUser];
+        HHUrlModel *model = [HHUrlModel mj_objectWithKeyValues:[responseUrl lh_parametersKeyValue]];
+        user.categoryId = model.categoryId;
+        [user write];
+        self.navigationController.tabBarController.selectedIndex = 1;
+        
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
     }else if ([responseUrl containsString:@"MiniPrograms/Index"]) {
         //当前页
         decisionHandler(WKNavigationResponsePolicyAllow);

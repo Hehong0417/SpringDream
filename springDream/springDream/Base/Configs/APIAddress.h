@@ -248,7 +248,7 @@
 //4.40猜你喜欢
 #define API_GetAlliancesProducts  API_SUB_URL3(@"GetAlliancesProducts")
 //4.41我的二维码
-#define API_Mycode API_SUB_URL(@"UserInfo/GetQRCode")
+#define API_Mycode API_SUB_URL4(@"User/GetBusinessCard")
 //4.43优惠券
 #define API_GetMyCouponList API_SUB_URL2(@"Activity/GetMyCouponList")
 //4.44获取代理信息

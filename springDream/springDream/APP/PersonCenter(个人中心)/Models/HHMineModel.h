@@ -148,6 +148,12 @@
 
 //物流信息
 @property(nonatomic,strong) NSArray *data;
+@property(nonatomic,strong) NSString *stateName;
+@property(nonatomic,strong) NSString *message;
+@property(nonatomic,strong) NSString *orderNumber;
+@property(nonatomic,strong) NSString *productIcon;
+@property(nonatomic,strong) NSString *company;
+
 
 //快递公司
 @property(nonatomic,strong) NSString *comcontact;
