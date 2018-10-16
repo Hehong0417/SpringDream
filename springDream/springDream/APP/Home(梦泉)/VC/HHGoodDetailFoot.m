@@ -42,7 +42,11 @@ static CGFloat staticheight = 0;
     _model = model;
     NSLog(@"Description:%@",model.Description);
     if (model.Description.length>0) {
-        NSString *content = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}</style></head>%@",SCREEN_WIDTH-16,model.Description];
+//        NSMutableString *nsm_str = [[NSMutableString alloc] initWithString:model.Description];
+//        NSString *oc_str = @"iframe style=""width:100%; height:220px"" src";
+//        NSString *Description =   [nsm_str stringByReplacingOccurrencesOfString:@"iframe src" withString:oc_str];
+        
+        NSString *content = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}iframe{ width:%f;height:220px}</style></head>%@",SCREEN_WIDTH-16,SCREEN_WIDTH-16,model.Description];
 
         [self.wkWebView loadHTMLString:content baseURL:nil];
     }
