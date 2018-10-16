@@ -29,11 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
     //js配置
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    //    config.userContentController = userContentController;
+    //config.userContentController = userContentController;
     
     _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) configuration:config];
     _webView.UIDelegate = self;

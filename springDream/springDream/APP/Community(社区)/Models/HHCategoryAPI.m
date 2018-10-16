@@ -63,6 +63,17 @@
     
     return api;
 }
+//获取可领取优惠券列表
++ (instancetype)GetProductCouponWithpid:(NSString *)pid{
+    
+    HHCategoryAPI *api = [self new];
+    api.subUrl = API_GetProductCoupon;
+    if (pid) {
+        [api.parameters setObject:pid forKey:@"pid"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 
 //猜你喜欢
 + (instancetype)GetAlliancesProductsWithpids:(NSString *)pids{
@@ -84,7 +95,7 @@
     HHCategoryAPI *api = [self new];
     api.subUrl = API_ReceiveCoupon;
     if (coupId) {
-        [api.parameters setObject:coupId forKey:@"coupId"];
+        [api.parameters setObject:coupId forKey:@""];
     }
     
     api.parametersAddToken = NO;

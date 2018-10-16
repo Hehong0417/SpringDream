@@ -21,6 +21,7 @@
 #import "HHPayTypeVC.h"
 #import "HHCouponItem.h"
 #import "HHOrderIdItem.h"
+#import "HHSubmitTitleCell.h"
 
 @interface HHSubmitOrdersVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHShippingAddressVCProtocol,payTypeDelegate>
 {
@@ -106,6 +107,7 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HHSubmitOrderCell" bundle:nil] forCellReuseIdentifier:@"HHSubmitOrderCell"];
+    [self.tableView registerClass:[HHSubmitTitleCell class] forCellReuseIdentifier:@"HHSubmitTitleCell"];
     
     
     self.tableView.emptyDataSetDelegate = self;
@@ -273,6 +275,8 @@
                 //
                 HHCouponItem *couponItem = [HHCouponItem sharedCouponItem];
                 couponItem.order_total_money = self.model.totalMoney.floatValue;
+                couponItem.lastSelectIndex = 0;
+                couponItem.last_total_money = money_total;
                 NSMutableArray *arr = [NSMutableArray array];
                 [self.model.coupons enumerateObjectsUsingBlock:^(HHcouponsModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [arr addObject:@0];
@@ -410,32 +414,40 @@
             cell.productsModel = model;
             return cell;
         }else{
-            UITableViewCell *cell1 =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-            cell1.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell1.textLabel.textColor = KTitleLabelColor;
-            cell1.detailTextLabel.textColor = kBlackColor;
-            cell1.textLabel.font = FONT(13);
-            cell1.detailTextLabel.font = FONT(14);
-            cell1.textLabel.text = order_model.addtion_arr[indexPath.row-order_model.products.count];
+            UITableViewCell *gridCell = nil;
             if (indexPath.row == order_model.products.count) {
-                cell1.detailTextLabel.attributedText = order_model.addtion_value_arr[indexPath.row-order_model.products.count];
+                HHSubmitTitleCell *subTitleCell = [tableView dequeueReusableCellWithIdentifier:@"HHSubmitTitleCell"];
+                subTitleCell.detail_label.attributedText = order_model.addtion_value_arr[indexPath.row-order_model.products.count];
+                gridCell = subTitleCell;
+                
             }else{
+                UITableViewCell *cell1 =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+                cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell1.textLabel.textColor = KTitleLabelColor;
+                cell1.detailTextLabel.textColor = kBlackColor;
+                cell1.textLabel.font = FONT(13);
+                cell1.detailTextLabel.font = FONT(14);
+                
+                cell1.textLabel.text = order_model.addtion_arr[indexPath.row-order_model.products.count];
                 cell1.detailTextLabel.text = order_model.addtion_value_arr[indexPath.row-order_model.products.count];
-            }
-            if (order_model.isCanUseIntegral.integerValue == 1&&indexPath.row == order_model.products.count+order_model.addtion_value_arr.count-1) {
-                //可用积分
-                UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 35, 35) target:self action:@selector(IntegralSelectAction:) image:[UIImage imageNamed:@"icon_sign_default"]];
-                [btn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
-                btn.tag = indexPath.section+10000;
-                cell1.accessoryView = btn;
-                btn.selected = ((NSNumber *)self.integralSelecItems[indexPath.section]).boolValue;
-                if (btn.selected) {
-                    NSInteger  row = indexPath.row-1;
-                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:indexPath.section]];
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+                if (order_model.isCanUseIntegral.integerValue == 1&&indexPath.row == order_model.products.count+order_model.addtion_value_arr.count-1) {
+                    //可用积分
+                    UIButton *btn = [UIButton lh_buttonWithFrame:CGRectMake(0, 0, 35, 35) target:self action:@selector(IntegralSelectAction:) image:[UIImage imageNamed:@"icon_sign_default"]];
+                    [btn setImage:[UIImage imageNamed:@"icon_sign_selected"] forState:UIControlStateSelected];
+                    btn.tag = indexPath.section+10000;
+                    cell1.accessoryView = btn;
+                    btn.selected = ((NSNumber *)self.integralSelecItems[indexPath.section]).boolValue;
+                    if (btn.selected) {
+                        NSInteger  row = indexPath.row-1;
+                        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:indexPath.section]];
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+                    }
                 }
+                gridCell = cell1;
+
             }
-            return cell1;
+            
+            return gridCell;
         }
     }
     return nil;
@@ -444,8 +456,10 @@
 - (void)IntegralSelectAction:(UIButton *)btn{
     
     NSInteger section = btn.tag-10000;
-    UITableViewCell *btn_cell = (UITableViewCell *)btn.superview;
-    NSInteger  row = [self.tableView indexPathForCell:btn_cell].row-1;
+    
+    HHordersModel *order_model = self.datas[section];
+    
+    NSInteger  row = order_model.products.count;
     
     if (section == self.datas.count-1&&self.datas.count>self.model.orders.count) {
         
@@ -463,40 +477,59 @@
     }];
         if (btn.selected) {
             btn.selected = NO;
+            [self updatePriceSubMitToolWithbtn:btn section:section row:row];
+
         }else{
           if (totol_Integral>self.model.totalIntegral.floatValue) {
             [SVProgressHUD showInfoWithStatus:@"积分不足"];
+              btn.selected = NO;
           }else{
             btn.selected = YES;
+              [self updatePriceSubMitToolWithbtn:btn section:section row:row];
           }
+            
         }
         NSLog(@"totol_Integral:%.2f",totol_Integral);
 
+   
+    }
+}
+- (void)updatePriceSubMitToolWithbtn:(UIButton *)btn section:(NSInteger)section row:(NSInteger)row{
+    
     //订单总计
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
+    HHSubmitTitleCell *subTitleCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
     HHordersModel *order_model = self.datas[section];
     if (btn.selected) {
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+        NSString *protocolStr = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+        NSString *contentStr = [NSString stringWithFormat:@"共%ld件商品,合计:%@",order_model.products.count,protocolStr];
+        NSMutableAttributedString *attr = [NSString lh_attriStrWithprotocolStr:protocolStr content:contentStr protocolStrColor:APP_NAV_COLOR contentColor:kDarkGrayColor commonFont:FONT(14)];
+        subTitleCell.detail_label.attributedText = attr;
         
         //总计
-        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:3];
+        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
         
         CGFloat money_total =  money_total_str.floatValue - order_model.orderIntegralMoney.floatValue;
         self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
         
     }else{
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue];
-        
+        NSString *protocolStr = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue];
+        NSString *contentStr = [NSString stringWithFormat:@"共%ld件商品,合计:%@",order_model.products.count,protocolStr];
+        NSMutableAttributedString *attr = [NSString lh_attriStrWithprotocolStr:protocolStr content:contentStr protocolStrColor:APP_NAV_COLOR contentColor:kDarkGrayColor commonFont:FONT(14)];
+        subTitleCell.detail_label.attributedText = attr;
         //总计
-        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:3];
+        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
         
         CGFloat money_total = money_total_str.floatValue + order_model.orderIntegralMoney.floatValue;
         self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
     }
-
-        [self.integralSelecItems replaceObjectAtIndex:section withObject:@(btn.selected)];
-    }
+    
+    HHCouponItem *couponItem = [HHCouponItem sharedCouponItem];
+    NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
+    couponItem.order_total_money = money_total_str.floatValue;
+    [couponItem write];
+    
+    [self.integralSelecItems replaceObjectAtIndex:section withObject:@(btn.selected)];
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -541,7 +574,7 @@
         coupon_m.DisplayName = @"不使用";
         [self.coupons_copys insertObject:coupon_m atIndex:0];
         vc.coupons = self.coupons_copys;
-        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:3];
+        NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
         vc.total_money = money_total_str;
         vc.submitOrderTool = self.submitOrderTool;
         vc.title_str = @"优惠详情";
@@ -639,6 +672,7 @@
         }else{
             money_total = total_money + lastConponValue;
         }
+        
         submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total>0?money_total:0.01];
         couponCell.detailTextLabel.text = @"不使用";
 
@@ -789,7 +823,6 @@
                     }else if ([self.mode isEqual:@4096]){
                         HHBargainingWebVC *vc = [HHBargainingWebVC new];
                         vc.orderId = self.order_id;
-                        
                         [self.navigationController pushVC:vc];
                     } else{
                         //保存创建的订单号

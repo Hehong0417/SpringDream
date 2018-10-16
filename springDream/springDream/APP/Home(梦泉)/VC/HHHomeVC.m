@@ -122,7 +122,7 @@
 
     NSLog(@"Finish:%@",navigation);
 //    [_hud hideAnimated:YES];
-
+      [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
 }
 
 // 在收到响应后，决定是否跳转

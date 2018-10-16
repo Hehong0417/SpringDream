@@ -51,6 +51,7 @@
     _phone_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(_phone_imagV.frame)+10, _phone_imagV.mj_y, ScreenW-CGRectGetMaxX(_phone_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"输入手机号" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _phone_textfield.keyboardType = UIKeyboardTypeNumberPad;
     _phone_textfield.delegate = self;
+    _phone_textfield.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_phone_textfield];
     
     UIView *h_line = [UIView lh_viewWithFrame:CGRectMake(_phone_imagV.mj_x,CGRectGetMaxY(_phone_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];
@@ -66,6 +67,7 @@
     _code_textfield.keyboardType = UIKeyboardTypeASCIICapable;
     _code_textfield.secureTextEntry = YES;
     _code_textfield.delegate = self;
+    _code_textfield.clearButtonMode = UITextFieldViewModeWhileEditing;
 
     [self.view addSubview:_code_textfield];
     
@@ -264,10 +266,10 @@
                 [hud showAnimated:YES];
     
                 UMSocialUserInfoResponse *resp = result;
+                
                 // 授权信息 resp.uid,resp.unionId,resp.openid,resp.accessToken,resp.refreshToken
                 // 用户信息 resp.name,resp.iconurl,resp.gender
               
-    
 //    账户是否存在 ？登录:注册
 //    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
          NSString *openid = resp.openid;

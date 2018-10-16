@@ -10,7 +10,6 @@
 
 @interface HHCouponListVC : UITableViewController
 
-@property (nonatomic, strong)   NSArray <MeetActivityModel *>*datas;
-
+@property (nonatomic, strong)   NSString *pid;
 
 @end

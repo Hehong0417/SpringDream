@@ -172,7 +172,10 @@
 //3.6商品评价列表
 #define API_GetProductEvaluate API_SUB_URL2(@"Order/GetProductEvaluate")
 //3.11领取优惠券
-#define API_ReceiveCoupon API_SUB_URL2(@"orderApi/Activity/ReceiveCoupon ")
+#define API_ReceiveCoupon API_SUB_URL2(@"Activity/ReceiveCoupon")
+//3.12可领取优惠券
+#define API_GetProductCoupon API_SUB_URL2(@"Activity/GetProductCoupon")
+
 
 //3.6门店列表
 #define API_GetProductStore API_SUB_URL(@"Store/GetProductStore")
@@ -248,7 +251,7 @@
 //4.40猜你喜欢
 #define API_GetAlliancesProducts  API_SUB_URL3(@"GetAlliancesProducts")
 //4.41我的二维码
-#define API_Mycode API_SUB_URL4(@"User/GetBusinessCard")
+#define API_Mycode API_SUB_URL(@"UserInfo/GetUserQRCode")
 //4.43优惠券
 #define API_GetMyCouponList API_SUB_URL2(@"Activity/GetMyCouponList")
 //4.44获取代理信息
@@ -297,7 +300,6 @@
 #define API_GetUserStoreCommission API_SUB_URL(@"Store/GetUserStoreCommission")
 //4.24 门店zo收益
 #define API_GetUserStoreCommissionStatictis API_SUB_URL(@"Store/GetUserStoreCommissionStatictis")
-
 
 /**
  *  支付

@@ -29,8 +29,6 @@
 @property(nonatomic,strong) NSString  *userRegin;
 
 
-
-
 @property(nonatomic,strong) NSNumber  *isUserAgent;
 @property(nonatomic,strong) NSNumber  *isUserDistribution;
 @property(nonatomic,strong) NSNumber  *isHasStore;
@@ -50,6 +48,14 @@
 @property(nonatomic,strong) NSString *StartTime;
 @property(nonatomic,strong) NSString *EndTime;
 @property(nonatomic,strong) NSString *CouponsName;
+@property(nonatomic,strong) NSString *ConditionValue;
+
+@property(nonatomic,strong) NSString *begin_time;
+@property(nonatomic,strong) NSString *condition;
+@property(nonatomic,strong) NSString *end_time;
+@property(nonatomic,strong) NSString *value;
+@property(nonatomic,strong) NSString *cid;
+
 
 //粉丝列表
 @property(nonatomic,strong) NSString *AgentName;

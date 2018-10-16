@@ -21,8 +21,10 @@
 - (void)setProductsModel:(HHproductsModel *)productsModel{
     _productsModel = productsModel;
     
+    NSString *product_item_act_name = productsModel.product_item_act_name.length>0?[NSString stringWithFormat:@"【%@】",productsModel.product_item_act_name]:@"";
+    self.namelabel.text = [NSString stringWithFormat:@"%@%@",productsModel.pname,product_item_act_name];
+    
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",productsModel.price];
-    self.namelabel.text = [NSString stringWithFormat:@"%@",productsModel.pname];
     self.quantityLabel.text = [NSString stringWithFormat:@"x%@",productsModel.quantity];
     [self.iconImageV sd_setImageWithURL:[NSURL URLWithString:productsModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.sku_nameLabel.text = productsModel.skuName;

@@ -88,7 +88,7 @@
     
     _cpw_textfield = [UITextField lh_textFieldWithFrame:CGRectMake(CGRectGetMaxX(c_pw_imagV.frame)+10, c_pw_imagV.mj_y, ScreenW-CGRectGetMaxX(c_pw_imagV.frame)-10-WidthScaleSize_W(25), WidthScaleSize_H(30)) placeholder:@"确认密码" font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     _cpw_textfield.keyboardType = UIKeyboardTypeASCIICapable;
-
+    _cpw_textfield.secureTextEntry = YES;
     [self.view addSubview:_cpw_textfield];
     
     UIView *h_line_3 = [UIView lh_viewWithFrame:CGRectMake(c_pw_imagV.mj_x,CGRectGetMaxY(c_pw_imagV.frame)+WidthScaleSize_H(8), ScreenW-WidthScaleSize_W(50), 1) backColor:KVCBackGroundColor];

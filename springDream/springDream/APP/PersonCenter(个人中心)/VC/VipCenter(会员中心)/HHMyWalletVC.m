@@ -44,7 +44,7 @@
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     self.wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
     self.tabView.tableHeaderView = self.wallet_head;
-    
+    [self.wallet_head.withdrawButton addTarget:self action:@selector(withdrawButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.page = 1;
     
@@ -181,6 +181,12 @@
     }
     //刷新界面
     [self.tabView reloadData];
+    
+}
+//提现
+- (void)withdrawButtonAction{
+    
+    
     
 }
 #pragma mark - Table view data source

@@ -18,6 +18,9 @@
 //获取商品列表
 + (instancetype)GetProductListWithType:(NSNumber *)type storeId:(NSString *)storeId categoryId:(NSString *)categoryId name:(NSString *)name orderby:(NSNumber *)orderby page:(NSNumber *)page pageSize:(NSNumber *)pageSize  IsCommission:(NSNumber *)isCommission groupId:(NSString *)groupId;
 
+//获取可领取优惠券列表
++ (instancetype)GetProductCouponWithpid:(NSString *)pid;
+
 //猜你喜欢
 + (instancetype)GetAlliancesProductsWithpids:(NSString *)pids;
 

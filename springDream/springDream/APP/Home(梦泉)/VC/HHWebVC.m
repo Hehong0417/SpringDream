@@ -106,9 +106,13 @@
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
         
-    }else if ([responseUrl containsString:self.url_str]) {
+    }else if ([responseUrl containsString:@"ActivityWeb/CouponDetail"]) {
         //当前页
         decisionHandler(WKNavigationResponsePolicyAllow);
+        
+    }else if ([responseUrl containsString:self.url_str]){
+        
+        decisionHandler(WKNavigationResponsePolicyCancel);
         
     }else{
         decisionHandler(WKNavigationResponsePolicyCancel);

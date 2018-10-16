@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong)   UITableView *tableV;
 @property (nonatomic, assign)   NSInteger page;
+@property (nonatomic, strong)   NSMutableArray *datas;
+
 @end
 
 @implementation HHCouponListVC
@@ -21,7 +23,7 @@
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) backColor:kWhiteColor];
     
-    self.tableV  =  [UITableView lh_tableViewWithFrame:CGRectMake(0, 20, ScreenW, ScreenH-50) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
+    self.tableV  =  [UITableView lh_tableViewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH-50) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
     [self.view addSubview:self.tableV];
 }
 - (void)viewDidLoad {
@@ -36,10 +38,35 @@
     
     self.tableV.emptyDataSetDelegate = self;
     self.tableV.emptyDataSetSource = self;
+    self.tableV.estimatedSectionHeaderHeight = 0;
+    self.tableV.estimatedSectionFooterHeight = 0;
+    self.tableV.estimatedRowHeight = 0;
     self.tableV.backgroundColor = KVCBackGroundColor;
 
+    [self GetProductCoupon];
 }
-
+- (void)GetProductCoupon{
+    
+    [[[HHCategoryAPI GetProductCouponWithpid:self.pid] netWorkClient] getRequestInView:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+        if (!error) {
+            
+            if (api.State == 1) {
+                NSArray *data_arr = api.Data;
+                self.datas = [HHMineModel mj_objectArrayWithKeyValuesArray:data_arr];
+                
+                [self.tableV reloadData];
+            }
+        }
+        
+    }];
+    
+}
+- (NSMutableArray *)datas{
+    if (!_datas) {
+        _datas = [NSMutableArray array];
+    }
+    return _datas;
+}
 #pragma mark - DZNEmptyDataSetDelegate
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
@@ -72,32 +99,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.datas.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     HHCouponCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHCouponCell" forIndexPath:indexPath];
-    cell.activity_model = self.datas[indexPath.row];
+    cell.get_model = self.datas[indexPath.section];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSArray *image_arr = @[@"unused1",@"unused2",@"unused3"];
-    cell.bg_imagV.image = [UIImage imageNamed:image_arr[indexPath.row%3]];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-     MeetActivityModel *activity_model = self.datas[indexPath.row];
-    [[[HHCategoryAPI postReceiveCouponWithcoupId:activity_model.CouponId] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+     HHMineModel *activity_model = self.datas[indexPath.section];
+    [[[HHCategoryAPI postReceiveCouponWithcoupId:activity_model.cid] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
-                [SVProgressHUD showSuccessWithStatus:@"领取成功！"];
+                [SVProgressHUD showSuccessWithStatus:@"领取成功,可在“我的优惠券”进行查看！"];
+                
             }else{
-                [SVProgressHUD showInfoWithStatus:@"领取失败！"];
+                [SVProgressHUD showInfoWithStatus:api.Msg];
             }
         }else{
             [SVProgressHUD showInfoWithStatus:@"领取失败！"];
@@ -107,7 +133,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return WidthScaleSize_H(100);
+    return AdapationLabelFont(100);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
@@ -115,6 +141,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 0.01;
+    return 8;
 }
 @end

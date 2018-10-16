@@ -446,6 +446,7 @@
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
 		CEDBA264212D70C200CB8002 /* HHdiscountPackageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */; };
 		CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */; };
+		CEECFB2C2175C6EB00B5A6AD /* HHSubmitTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECFB2B2175C6EB00B5A6AD /* HHSubmitTitleCell.m */; };
 		CEEE987E216CD3D900AF2D48 /* SDListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEE987D216CD3D900AF2D48 /* SDListModel.m */; };
 		CEFEAF88214A8B310085B5D1 /* HHPostTimeLineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAF87214A8B310085B5D1 /* HHPostTimeLineVC.m */; };
 /* End PBXBuildFile section */
@@ -1274,6 +1275,8 @@
 		CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageCollectionCell.m; sourceTree = "<group>"; };
 		CEDBA261212D70C200CB8002 /* HHdiscountPackageViewTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageViewTabCell.h; sourceTree = "<group>"; };
 		CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageView.m; sourceTree = "<group>"; };
+		CEECFB2A2175C6EB00B5A6AD /* HHSubmitTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSubmitTitleCell.h; sourceTree = "<group>"; };
+		CEECFB2B2175C6EB00B5A6AD /* HHSubmitTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSubmitTitleCell.m; sourceTree = "<group>"; };
 		CEEE987C216CD3D900AF2D48 /* SDListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDListModel.h; sourceTree = "<group>"; };
 		CEEE987D216CD3D900AF2D48 /* SDListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDListModel.m; sourceTree = "<group>"; };
 		CEFEAF86214A8B310085B5D1 /* HHPostTimeLineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPostTimeLineVC.h; sourceTree = "<group>"; };
@@ -2152,6 +2155,8 @@
 				CE8A6681212ABA9C00C7C57F /* HHShippingAddressVC.m */,
 				CE8A6685212ABA9E00C7C57F /* HHSubmitOrdersVC.h */,
 				CE8A668A212ABAA100C7C57F /* HHSubmitOrdersVC.m */,
+				CEECFB2A2175C6EB00B5A6AD /* HHSubmitTitleCell.h */,
+				CEECFB2B2175C6EB00B5A6AD /* HHSubmitTitleCell.m */,
 				CE526419212BBD5900F30D29 /* HHPayTypeVC.h */,
 				CE526418212BBD5900F30D29 /* HHPayTypeVC.m */,
 			);
@@ -3653,6 +3658,7 @@
 				CE5264DF212BBFE600F30D29 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				CE4286CE215B1E3E0080B24A /* HHStoreStatusCell.m in Sources */,
 				CE8A6521212AAB7A00C7C57F /* SearchDetailView.m in Sources */,
+				CEECFB2C2175C6EB00B5A6AD /* HHSubmitTitleCell.m in Sources */,
 				CE8A6501212AAB6D00C7C57F /* HXHomeCollectionCell.m in Sources */,
 				CE8A67C2212ACA2E00C7C57F /* HHSelectPhotosCell.m in Sources */,
 				CE5264CC212BBFE600F30D29 /* SDWaitingView.m in Sources */,

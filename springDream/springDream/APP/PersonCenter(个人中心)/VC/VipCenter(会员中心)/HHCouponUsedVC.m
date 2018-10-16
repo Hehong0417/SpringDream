@@ -22,7 +22,7 @@
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) backColor:kWhiteColor];
     
-    self.tableV  =  [UITableView lh_tableViewWithFrame:CGRectMake(0, 20, ScreenW, ScreenH-50) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
+    self.tableV  =  [UITableView lh_tableViewWithFrame:CGRectMake(0, 50, ScreenW, ScreenH-50) tableViewStyle:UITableViewStyleGrouped delegate:self dataSourec:self];
     
     [self.view addSubview:self.tableV];
 }
@@ -39,6 +39,9 @@
     self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableV.emptyDataSetDelegate = self;
     self.tableV.emptyDataSetSource = self;
+    self.tableV.estimatedRowHeight = 0;
+    self.tableV.estimatedSectionFooterHeight = 0;
+    self.tableV.estimatedSectionHeaderHeight = 0;
     self.tableV.backgroundColor = KVCBackGroundColor;
     self.page = 1;
     [self getDatas];
@@ -103,8 +106,8 @@
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
     refreshHeader.stateLabel.hidden = YES;
-    self.tableView.mj_header = refreshHeader;
-    self.tableView.backgroundColor = KVCBackGroundColor;
+    self.tableV.mj_header = refreshHeader;
+    self.tableV.backgroundColor = KVCBackGroundColor;
 
 }
 - (void)addFootRefresh{
@@ -114,7 +117,7 @@
         
         [self getDatas];
     }];
-    self.tableView.mj_footer = refreshfooter;
+    self.tableV.mj_footer = refreshfooter;
     
 }
 /**
@@ -125,7 +128,7 @@
     [self.datas addObjectsFromArray:arr];
     
     if (self.datas.count == 0) {
-        self.tableView.mj_footer.hidden = YES;
+        self.tableV.mj_footer.hidden = YES;
     }
     
     if (arr.count < 10) {
@@ -146,19 +149,19 @@
     
     if (noMoreData) {
         
-        [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+        [self.tableV.mj_footer setState:MJRefreshStateNoMoreData];
     }else{
         
-        [self.tableView.mj_footer setState:MJRefreshStateIdle];
+        [self.tableV.mj_footer setState:MJRefreshStateIdle];
         
     }
     
-    if (self.tableView.mj_header.isRefreshing) {
-        [self.tableView.mj_header endRefreshing];
+    if (self.tableV.mj_header.isRefreshing) {
+        [self.tableV.mj_header endRefreshing];
     }
     
-    if (self.tableView.mj_footer.isRefreshing) {
-        [self.tableView.mj_footer endRefreshing];
+    if (self.tableV.mj_footer.isRefreshing) {
+        [self.tableV.mj_footer endRefreshing];
     }
     //刷新界面
     [self.tableV reloadData];
@@ -168,12 +171,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 1;
+     return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.datas.count;
+    return 1;
 }
 
 
@@ -181,14 +184,12 @@
     
     HHCouponCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHCouponCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
-    NSArray *image_arr = @[@"used1",@"used2",@"used3"];
-    cell.bg_imagV.image = [UIImage imageNamed:image_arr[indexPath.row%3]];
+    cell.model = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return WidthScaleSize_H(100);
+    return AdapationLabelFont(100);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
@@ -196,7 +197,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 0.01;
+    return 8;
 }
 
 @end

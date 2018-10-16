@@ -63,7 +63,7 @@
 #define ScreenW  ([UIScreen mainScreen].bounds.size.width)
 #define ScreenH ([UIScreen mainScreen].bounds.size.height)
 #define kWJHeightCoefficient (ScreenH == 812.0 ? 667.0/667.0 : ScreenH/667.0)
-#define SafeAreaBottomHeight (ScreenH == 812.0 ? 34 : 0)
+#define SafeAreaBottomHeight (ScreenH == 812.0 ? 34.0 : 0.0)
 
 
 #define WidthScaleSize_H(x) ((x/667.0)*SCREEN_HEIGHT)

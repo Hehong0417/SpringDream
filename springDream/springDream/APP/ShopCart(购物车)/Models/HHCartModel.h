@@ -105,6 +105,8 @@
 @property(nonatomic,strong) NSString *prodcut_name;
 @property(nonatomic,strong) NSString *item_status;
 @property(nonatomic,strong) NSArray <HHproducts_item_Model*>*product_item;
+@property(nonatomic,strong) NSString *product_item_act_name;
+
 
 //购物车
 @property(nonatomic,strong) NSString *pid;
