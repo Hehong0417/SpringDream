@@ -38,7 +38,7 @@
 }
 - (void)GetTopPointsLeaderboard{
     
-    [[[HHMineAPI GetTopPointsLeaderboardWithPage:nil pageSize:nil] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetTopPointsLeaderboardWithPage:nil pageSize:nil] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         
         if (!error) {
             if (api.State == 1) {

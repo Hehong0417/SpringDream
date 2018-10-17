@@ -82,10 +82,10 @@
     
 }
 - (void)cartIconBtnAction{
-    self.hidden = YES;
-    HHShoppingVC *shop_vc = [HHShoppingVC new];
-    shop_vc.cartType = HHcartType_goodDetail;
-    [self.nav pushVC:shop_vc];
+    
+    if (self.pushCartBlock) {
+        self.pushCartBlock();
+    }
 }
 //购物车图标底图
 - (UIView *)cartIconBg{

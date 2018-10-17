@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ABEFC30E27D522FC9AF6DD7A /* Pods_springDream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFEAA26AB5C53CC115A922F /* Pods_springDream.framework */; };
+		CE0344662177029900F960FA /* HHWithDrawVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0344652177029900F960FA /* HHWithDrawVC.m */; };
+		CE034469217732EF00F960FA /* HHLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE034468217732EF00F960FA /* HHLoadingView.m */; };
 		CE04500E214A547800093AE7 /* HHPersonCenterSuperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04500D214A547800093AE7 /* HHPersonCenterSuperVC.m */; };
 		CE045011214A59EF00093AE7 /* HHPersonCenterSub2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE045010214A59EF00093AE7 /* HHPersonCenterSub2.m */; };
 		CE045014214A59FD00093AE7 /* HHPersonCenterSub3.m in Sources */ = {isa = PBXBuildFile; fileRef = CE045013214A59FD00093AE7 /* HHPersonCenterSub3.m */; };
@@ -471,6 +473,10 @@
 /* Begin PBXFileReference section */
 		673EA96008E519DB35883BC1 /* Pods-springDream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-springDream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-springDream/Pods-springDream.debug.xcconfig"; sourceTree = "<group>"; };
 		696722E908463AE99CB59292 /* Pods-springDream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-springDream.release.xcconfig"; path = "Pods/Target Support Files/Pods-springDream/Pods-springDream.release.xcconfig"; sourceTree = "<group>"; };
+		CE0344642177029900F960FA /* HHWithDrawVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHWithDrawVC.h; sourceTree = "<group>"; };
+		CE0344652177029900F960FA /* HHWithDrawVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHWithDrawVC.m; sourceTree = "<group>"; };
+		CE034467217732EF00F960FA /* HHLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHLoadingView.h; sourceTree = "<group>"; };
+		CE034468217732EF00F960FA /* HHLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHLoadingView.m; sourceTree = "<group>"; };
 		CE04500C214A547800093AE7 /* HHPersonCenterSuperVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPersonCenterSuperVC.h; sourceTree = "<group>"; };
 		CE04500D214A547800093AE7 /* HHPersonCenterSuperVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterSuperVC.m; sourceTree = "<group>"; };
 		CE04500F214A59EF00093AE7 /* HHPersonCenterSub2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPersonCenterSub2.h; sourceTree = "<group>"; };
@@ -1945,6 +1951,8 @@
 			children = (
 				CE4D09C5212423F100796FEE /* HJUser.h */,
 				CE4D09C3212423F100796FEE /* HJUser.m */,
+				CE034467217732EF00F960FA /* HHLoadingView.h */,
+				CE034468217732EF00F960FA /* HHLoadingView.m */,
 				CE4D09C4212423F100796FEE /* BaseModel.m */,
 				CE4D09C6212423F100796FEE /* BaseModel.h */,
 			);
@@ -3017,6 +3025,8 @@
 				CE4725CA212D0BD2002BD2A5 /* HHMyCollectionVC.m */,
 				CE9938552136412E002B256D /* HHMyWalletVC.h */,
 				CE9938562136412E002B256D /* HHMyWalletVC.m */,
+				CE0344642177029900F960FA /* HHWithDrawVC.h */,
+				CE0344652177029900F960FA /* HHWithDrawVC.m */,
 				CE99385B213649FC002B256D /* HHMyIntegralVC.h */,
 				CE99385C213649FC002B256D /* HHMyIntegralVC.m */,
 				CE3B045F214F964000FC0AE2 /* HHIntegralRankVC.h */,
@@ -3623,6 +3633,7 @@
 				CE8A67C8212ACA2E00C7C57F /* HHEvaluationListCell.m in Sources */,
 				CE4D09E5212423F200796FEE /* UIImageView+LH.m in Sources */,
 				CE4D09FA212423F200796FEE /* NSDate+LH.m in Sources */,
+				CE034469217732EF00F960FA /* HHLoadingView.m in Sources */,
 				CE4286D1215B1EF30080B24A /* HHDelegateStatusCell.m in Sources */,
 				CE8A67C1212ACA2E00C7C57F /* HHPostEvaluationVC.m in Sources */,
 				CEFEAF88214A8B310085B5D1 /* HHPostTimeLineVC.m in Sources */,
@@ -3753,6 +3764,7 @@
 				CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */,
 				CE8A67D7212ACA2E00C7C57F /* HHEvaluationHeadView.m in Sources */,
 				CE4D0A0E212423F200796FEE /* CDPStarEvaluation.m in Sources */,
+				CE0344662177029900F960FA /* HHWithDrawVC.m in Sources */,
 				CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

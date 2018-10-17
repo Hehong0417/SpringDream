@@ -95,19 +95,11 @@ static NSArray *lastSele_IdArray_;
 
 @implementation HHGoodDetailVC
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    
-    self.addCartTool.hidden = NO;
-}
-
 - (void)loadView{
     
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
     self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT-50) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
-    
     [self.view addSubview:self.tabView];
      self.tabView.tableFooterView = [UIView new];
 }
@@ -118,7 +110,8 @@ static NSArray *lastSele_IdArray_;
     self.title = @"商品详情";
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
+    
     self.preferModel = [HHpreferModel new];
     self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15"];
     self.preferModel.act_name = @"满减活动";
@@ -133,11 +126,10 @@ static NSArray *lastSele_IdArray_;
     [self setUpInit];
     //注册cell
     [self regsterTableCell];
-    
+    [self addCartOrBuyAction];
+
     //获取数据
     [self getDatas];
-    
-    [self addCartOrBuyAction];
    
     //抓取返回按钮
     UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
@@ -155,6 +147,9 @@ static NSArray *lastSele_IdArray_;
     };
     
     _pickView = [[HXCommonPickView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+    
+    self.tabView.hidden = YES;
+    self.addCartTool.hidden = YES;
 }
 - (void)backBtnAction{
     
@@ -260,6 +255,12 @@ static NSArray *lastSele_IdArray_;
         }
     };
     
+    self.addCartTool.pushCartBlock = ^{
+        
+        HHShoppingVC *shop_vc = [HHShoppingVC new];
+        shop_vc.cartType = HHcartType_goodDetail;
+        [self.navigationController pushVC:shop_vc];
+    };
 }
 #pragma mark - 处理立即购买数据
 
@@ -737,27 +738,16 @@ static NSArray *lastSele_IdArray_;
 
 - (void)getDatas{
     
-    UIView *hudView = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) backColor:kWhiteColor];
-    [self.tableView addSubview:hudView];
-    
-    HHNotWlanView *notAlanView = [[HHNotWlanView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
-    [hudView addSubview:notAlanView];
-    notAlanView.hidden = YES;
-    
-    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
-    self.activityIndicator.frame= CGRectMake(0, 0, 30, 30);
-    self.activityIndicator.center = self.tableView.center;
-    self.activityIndicator.color = KACLabelColor;
-    self.activityIndicator.hidesWhenStopped = YES;
-    [hudView addSubview:self.activityIndicator];
-    [self.activityIndicator startAnimating];
     self.addCartTool.userInteractionEnabled = NO;
     WEAK_SELF();
     self.Mode = @1;
     //商品详情
-    [[[HHHomeAPI GetProductDetailWithId:self.Id] netWorkClient] getRequestInView:nil finishedBlock:^(HHHomeAPI *api, NSError *error) {
+    [[[HHHomeAPI GetProductDetailWithId:self.Id] netWorkClient] getRequestInView:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
+                
+                self.tabView.hidden = NO;
+                self.addCartTool.hidden = NO;
                 
                 self.gooodDetailModel = nil;
                 self.gooodDetailModel = [HHgooodDetailModel mj_objectWithKeyValues:api.Data];
@@ -818,11 +808,8 @@ static NSArray *lastSele_IdArray_;
                 [detail_item write];
                 
                 
-                [self.activityIndicator stopAnimating];
-                [hudView removeFromSuperview];
                 self.addCartTool.userInteractionEnabled = YES;
                 
-                [self.activityIndicator removeFromSuperview];
                 [self tableView:self.tabView viewForHeaderInSection:1];
 
                 
@@ -912,10 +899,7 @@ static NSArray *lastSele_IdArray_;
         }else{
             [self.activityIndicator stopAnimating];
             if ([error.localizedDescription isEqualToString:@"似乎已断开与互联网的连接。"]||[error.localizedDescription  containsString:@"请求超时"]||[error.localizedDescription isEqualToString:@"The Internet connection appears to be offline."]) {
-                notAlanView.hidden = NO;
             }else{
-                notAlanView.hidden = YES;
-                [hudView removeFromSuperview];
                 [SVProgressHUD showInfoWithStatus:error.localizedDescription];
             }
         }

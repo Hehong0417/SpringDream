@@ -35,6 +35,7 @@
 @property(nonatomic,strong)   NSMutableArray *category_arr;
 @property(nonatomic,strong)   NSMutableArray *GoodCategoryLeftDatas;
 @property (nonatomic, assign) BOOL isCanBack;
+@property (nonatomic, assign) BOOL isLoading;
 
 @end
 
@@ -146,7 +147,7 @@
 - (void)getDatas{
     
     if (self.groupId||self.categoryId) {
-        self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.categoryId name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize) IsCommission:nil groupId:self.groupId] netWorkClient] getRequestInView:(self.isFooterRefresh||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
+        self.task =  [[[HHCategoryAPI GetProductListWithType:self.type storeId:nil categoryId:self.categoryId name:self.name orderby:self.orderby page:@(self.page) pageSize:@(self.pageSize) IsCommission:nil groupId:self.groupId] netWorkClient] getRequestInView:(self.isLoading||self.isGoodDetailBack)?nil:self.view finishedBlock:^(HHCategoryAPI *api, NSError *error) {
             
             self.collectionView.emptyDataSetDelegate = self;
             self.collectionView.emptyDataSetSource = self;
@@ -248,6 +249,7 @@
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
         self.isFooterRefresh = NO;
+        self.isLoading = YES;
         [self getDatas];
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -260,6 +262,7 @@
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
         self.isFooterRefresh = YES;
+        self.isLoading = YES;
         [self getDatas];
     }];
     self.collectionView.mj_footer = refreshfooter;
@@ -384,6 +387,7 @@
     self.page = 1;
     self.categoryId = categoryId;
     self.isFooterRefresh = NO;
+    self.isLoading = NO;
     self.groupId = nil;
     [self getDatas];
 }
@@ -415,11 +419,15 @@
     self.page = 1;
     if (segmentedControl == self.SG) {
         self.isFooterRefresh = NO;
+        self.isLoading = NO;
+        self.isGoodDetailBack = NO;
         [self.task cancel];
         [self refreshSortData:index];
         
     }else  if (segmentedControl == self.category_SG){
         self.isFooterRefresh = NO;
+        self.isLoading = NO;
+        self.isGoodDetailBack = NO;
         [self.task cancel];
         if (self.category_arr.count>0) {
                     HHCategoryModel  *category_m = [HHCategoryModel mj_objectWithKeyValues:self.category_arr[index]];
@@ -531,6 +539,8 @@
 
     [super viewWillAppear:animated];
     searchView.hidden = NO;
+    self.isLoading = NO;
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     

@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, strong) NSMutableArray *datas;
-
+@property (nonatomic, assign)   NSInteger isLoaded;
 @end
 
 @implementation HHMyStoreVC
@@ -43,8 +43,8 @@
 }
 - (void)getDatas{
     
-    [[[HHMineAPI GetUserStore] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-       
+    [[[HHMineAPI GetUserStore] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 NSArray *arr = api.Data;
@@ -66,11 +66,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"record_icon_no":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"你还没有相关的记录喔":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {

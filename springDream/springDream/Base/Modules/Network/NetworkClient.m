@@ -252,34 +252,6 @@
 //
 //        [self addUserIdAndToken];
 //    }
-//
-//    //添加sign字段
-//    NSString *paramesStr = [self urlStringAppendingSign];
-//    //NSLog(@"paramesStr=%@",paramesStr);
-//    
-//    NSArray *paramesArr = [paramesStr componentsSeparatedByString:@"|"];
-//    NSMutableArray *paramesMArr = [NSMutableArray arrayWithArray:paramesArr];
-//    [paramesMArr removeLastObject];
-//    //排序
-//    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
-//    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-//    NSArray *myDataArray = [NSArray arrayWithArray:paramesMArr];
-//    NSArray *resultArray = [myDataArray sortedArrayUsingDescriptors:descriptors];
-//    
-//   // NSLog(@"resultArray=%@\n", resultArray);
-//    
-//    NSString *pwd = [paramesArr lastObject];
-//    NSString *desRedyStr = [[resultArray componentsJoinedByString:@"|"] stringByAppendingFormat:@"|%@",pwd];
-//    //
-//   // NSLog(@"desRedyStr=%@\n", desRedyStr);
-//    
-//    NSString *des3Str = [DES3Util encrypt:desRedyStr];
-//    //NSLog(@"des3Str=%@\n\n",des3Str);
-//    NSString *signMd5Str = [MD5Encryption md5by32:des3Str];
-//   // NSLog(@"signMd5Str=%@\n\n",signMd5Str);
-//    //
-//    [self.parameters setValue:signMd5Str forKey:@"sign"];
-    
     // 添加 HUD
     if (containerView) {
         UIView *tmpContainerView = containerView;
@@ -337,7 +309,7 @@
     if ([error.localizedDescription isEqualToString:@"似乎已断开与互联网的连接。"]||[error.localizedDescription  containsString:@"请求超时"]) {
         
         [self.baseAPI showMsgWhileRequestError:@"网络不给力，请稍后重试"];
- 
+
     }else if ([error.localizedDescription isEqualToString:@"已取消"]) {
 
         [self.baseAPI hideHUDWhileFinish];
@@ -356,7 +328,6 @@
         if (!responseObject) {
             return;
         }
-        
         // 成功获取数据后，去掉HUD
         [self.baseAPI hideHUDWhileFinish];
         

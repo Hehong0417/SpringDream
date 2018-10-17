@@ -17,6 +17,9 @@
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
 
+//代理中心的分销商，分销中心的分销商
+@property(nonatomic,assign)   BOOL  isDelegateDistributors;
+
 - (void)getUserFewFans;
 
 @end

@@ -31,6 +31,7 @@
 @property (nonatomic, strong)   NSMutableArray *selectItems;
 @property (nonatomic, strong)   UIButton *manage_btn;
 @property (nonatomic, assign) BOOL isCanBack;
+@property (nonatomic, assign) BOOL isRefresh;
 
 @end
 @implementation HHShoppingVC
@@ -144,28 +145,31 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"cart_none"];
+    return [UIImage imageNamed:@"no_carts"];
 }
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
-
-  return [[NSAttributedString alloc] initWithString:@"购物车为空～" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
-}
+//- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+//
+//    NSAttributedString *attrStr = [NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"购物车还没有商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)];
+//
+//  return attrStr;
+//}
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
 
-    return [[NSAttributedString alloc] initWithString:@"逛一逛" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:kWhiteColor}];
-
+    NSAttributedString *attrStr = [NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"购物车还没有商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)];
+    
+    return attrStr;
 }
 
-- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
-{
-    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
-    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -130, 0.0, -130);
-
-    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:20 size:CGSizeMake(ScreenW-240, 35)];
-
-    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
-}
+//- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+//{
+//    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+//    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -130, 0.0, -130);
+//
+//    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:20 size:CGSizeMake(ScreenW-240, 35)];
+//
+//    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+//}
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
 
     CGFloat offset = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -190,7 +194,6 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-
         [self getDatas];
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -201,8 +204,8 @@
 //获取数据
 - (void)getDatas{
     
-    [[[HHCartAPI GetCartProducts] netWorkClient] getRequestInView:nil finishedBlock:^(HHCartAPI *api, NSError *error) {
-
+    [[[HHCartAPI GetCartProducts] netWorkClient] getRequestInView:self.isRefresh?nil:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+        self.isRefresh = YES;
         self.tableView.emptyDataSetDelegate = self;
         self.tableView.emptyDataSetSource = self;
         

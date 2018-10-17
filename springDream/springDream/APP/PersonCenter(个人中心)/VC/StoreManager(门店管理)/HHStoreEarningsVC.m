@@ -106,7 +106,7 @@ static CGFloat _bottomToolBarH = 120;
 //门店收益
 - (void)GetUserStoreCommission{
 
-    [[[HHMineAPI GetUserStoreCommissionWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetUserStoreCommissionWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         if (!error) {
             if (api.State == 1) {
                 
@@ -289,7 +289,7 @@ static CGFloat _bottomToolBarH = 120;
     UILabel *title_label = [UILabel lh_labelAdaptionWithFrame:CGRectMake(35, 20, ScreenW-70, 30) text:@"转账金额" textColor:kDarkGrayColor font:FONT(14) textAlignment:NSTextAlignmentLeft];
     [_bottomToolBar addSubview:title_label];
     
-    UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(ScreenW-60, 20, 50, 30) target:self action:@selector(commit_btnAction) image:nil title:@"确定" titleColor:kDarkGrayColor font:FONT(14)];
+    UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(ScreenW-60, 20, 50, 30) target:self action:@selector(commit_btnAction:) image:nil title:@"确定" titleColor:kDarkGrayColor font:FONT(14)];
     [_bottomToolBar addSubview:commit_btn];
     
     
@@ -312,18 +312,19 @@ static CGFloat _bottomToolBarH = 120;
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomToolBar];
     
 }
-- (void)commit_btnAction{
+- (void)commit_btnAction:(UIButton *)button{
     
     [_textField resignFirstResponder];
     
-    [self BonusToBalanceWithbonusType:@2];
+    [self BonusToBalanceWithbonusType:@2 button:button];
 }
-- (void)BonusToBalanceWithbonusType:(NSNumber *)bonusType{
+- (void)BonusToBalanceWithbonusType:(NSNumber *)bonusType button:(UIButton *)button{
     if (_textField.text.length==0) {
         [SVProgressHUD showInfoWithStatus:@"请输入转账金额！"];
     }else{
-        
+        button.enabled = NO;
         [[[HHMineAPI postBonusToBalanceWithmoney:_textField.text bonusType:bonusType] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+            button.enabled = YES;
             if (!error) {
                 if (api.State == 1) {
                     [SVProgressHUD setMinimumDismissTimeInterval:1.0];

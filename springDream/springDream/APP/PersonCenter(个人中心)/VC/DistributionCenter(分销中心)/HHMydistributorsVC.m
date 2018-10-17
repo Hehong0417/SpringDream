@@ -11,6 +11,9 @@
 
 @interface HHMydistributorsVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
+@property(nonatomic,assign)   BOOL  isLoaded;
+@property(nonatomic,assign)   BOOL  isFooterRefresh;
+
 @end
 
 @implementation HHMydistributorsVC
@@ -30,7 +33,9 @@
     self.tableView.emptyDataSetDelegate = self;
     
     self.page = 1;
-    if ([self.title_str isEqualToString:@"我的分销商"]) {
+    if ([self.title_str isEqualToString:@"我的分销商"]&&(self.isDelegateDistributors == YES)) {
+        [self getDistributionBusiness];
+    }else if ([self.title_str isEqualToString:@"我的分销商"]&&(self.isDelegateDistributors == NO)){
         [self getDistributionBusiness];
     }else if ([self.title_str isEqualToString:@"我的代理"]) {
         [self getDelegateBusiness];
@@ -44,7 +49,7 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.datas removeAllObjects];
+        self.isFooterRefresh = NO;
         self.page = 1;
         if ([self.title_str isEqualToString:@"我的分销商"]) {
             [self getDistributionBusiness];
@@ -65,6 +70,7 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
+        self.isFooterRefresh = YES;
         if ([self.title_str isEqualToString:@"我的分销商"]) {
             [self getDistributionBusiness];
         }else if ([self.title_str isEqualToString:@"我的代理"]) {
@@ -81,12 +87,18 @@
 //分销商
 - (void)getDistributionBusiness{
     
-    [[[HHMineAPI GetDistributionBusinessWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetDistributionBusinessWithpage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
-                
-                [self addFootRefresh];
-                [self loadDataFinish:api.Data];
+                if (self.isFooterRefresh == YES) {
+
+                    [self loadDataFinish:api.Data];
+                }else{
+                    [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self loadDataFinish:api.Data];
+                }
 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -100,12 +112,19 @@
 //代理商
 - (void)getDelegateBusiness{
     
-    [[ [HHMineAPI GetSubAgentsWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[ [HHMineAPI GetSubAgentsWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 
-                [self addFootRefresh];
-                [self loadDataFinish:api.Data];
+                if (self.isFooterRefresh == YES) {
+                    
+                    [self loadDataFinish:api.Data];
+                }else{
+                    [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self loadDataFinish:api.Data];
+                }
 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -118,12 +137,19 @@
 //下级会员
 - (void)getUserFewFans{
     
-    [[[HHMineAPI GetUserFewFansWithFew:self.few page:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetUserFewFansWithFew:self.few page:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 
-                [self addFootRefresh];
-                [self loadDataFinish:api.Data];
+                if (self.isFooterRefresh == YES) {
+                    
+                    [self loadDataFinish:api.Data];
+                }else{
+                    [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self loadDataFinish:api.Data];
+                }
 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -138,12 +164,18 @@
 //我的会员
 - (void)GetSubUsers{
     
-    [[ [HHMineAPI GetSubUsersWithPage:@(self.page)  pageSize:@20]netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[ [HHMineAPI GetSubUsersWithPage:@(self.page)  pageSize:@20]netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
-                [self addFootRefresh];
-                [self loadDataFinish:api.Data];
-                
+                if (self.isFooterRefresh == YES) {
+                    
+                    [self loadDataFinish:api.Data];
+                }else{
+                    [self.datas removeAllObjects];
+                    [self addFootRefresh];
+                    [self loadDataFinish:api.Data];
+                }
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -204,11 +236,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"record_icon_no":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"你还没有相关的记录喔":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {

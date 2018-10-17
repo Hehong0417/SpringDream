@@ -227,6 +227,7 @@
         //分销商
         HHMydistributorsVC *vc = [HHMydistributorsVC new];
         vc.title_str = @"我的分销商";
+        vc.isDelegateDistributors = NO;
         [self.navigationController pushVC:vc];
         
     }else if (buttonIndex == 2){

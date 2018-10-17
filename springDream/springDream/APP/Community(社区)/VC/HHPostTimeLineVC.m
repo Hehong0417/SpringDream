@@ -116,7 +116,7 @@ typedef   void (^completeHandle)();
     [manager POST:urlString parameters:para progress:nil success:
      ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
       
-         [SVProgressHUD showSuccessWithStatus:@"发布成功！"];
+         [SVProgressHUD showSuccessWithStatus:@"发布成功，后台正在审核，请耐心等待～"];
          [self.navigationController popVC];
          
          if (self.delegate&&[self.delegate respondsToSelector:@selector(postTimeLineComplete)]) {

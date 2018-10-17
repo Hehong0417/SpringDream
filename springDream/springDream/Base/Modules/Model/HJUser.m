@@ -36,7 +36,6 @@ singleton_m(User)
 {
     id copy = [[[self class] alloc] init];
     
-    
     return copy;
 }
 

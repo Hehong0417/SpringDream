@@ -55,7 +55,9 @@
     }else if (_send_integral_textfield.text.length==0) {
         [SVProgressHUD showInfoWithStatus:@"请先输入赠送的积分数！"];
     }else{
+        button.enabled = NO;
         [[[HHMineAPI postGiveAwayPointsWithgetUserId:_send_Id_textField.text points:_send_integral_textfield.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        button.enabled = YES;
             if (!error) {
                 if (api.State == 1) {
                     

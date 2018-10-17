@@ -17,6 +17,8 @@
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   HHMyIntegralHead *wallet_head;
+@property (nonatomic, assign)   NSInteger isFooterRefresh;
+@property (nonatomic, assign)   NSInteger isLoaded;
 
 @end
 
@@ -73,20 +75,25 @@
     self.page = 1;
     
     [self addHeadRefresh];
-    [self addFootRefresh];
     
 }
 
 - (void)GetIntegralList{
     
-    [[[HHMineAPI GetIntegralListWithPage:@1 pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-        
+    [[[HHMineAPI GetIntegralListWithPage:@1 pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
+                
                 NSNumber *points = api.Data[@"total"];
                 self.wallet_head.vip_integral_label.text = [NSString stringWithFormat:@"%.2f分",points.floatValue];
-
-                [self loadDataFinish:api.Data[@"list"]];
+                if (self.isFooterRefresh == YES) {
+                    [self loadDataFinish:api.Data[@"list"]];
+                }else{
+                    [self addFootRefresh];
+                    [self.datas removeAllObjects];
+                    [self loadDataFinish:api.Data[@"list"]];
+                }
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -102,11 +109,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"no_integral":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"你的积分还没有产生明细哦～":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
@@ -132,8 +139,8 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.datas removeAllObjects];
         self.page = 1;
+        self.isFooterRefresh = NO;
         [self GetIntegralList];
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -145,7 +152,7 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        
+        self.isFooterRefresh = YES;
         [self GetIntegralList];
     }];
     self.tabView.mj_footer = refreshfooter;

@@ -24,8 +24,9 @@ static CGFloat _bottomToolBarH = 120;
 @property (nonatomic, strong)   UIButton *all_button;
 
 @property (nonatomic, strong) UIView *bottomToolBar;
-
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, assign) BOOL isLoaded;
+
 @end
 
 @implementation HHDistributionCommissionVC
@@ -55,7 +56,7 @@ static CGFloat _bottomToolBarH = 120;
     self.distributionCommissionHead = [[[NSBundle mainBundle] loadNibNamed:@"HHDistributionCommissionHead" owner:self options:nil] firstObject];
     self.distributionCommissionHead.vc = self;
     self.distributionCommissionHead.backgroundColor = kWhiteColor;
-    [self.distributionCommissionHead.commission_balance_button addTarget:self action:@selector(commission_balance_buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.distributionCommissionHead.commission_balance_button addTarget:self action:@selector(commission_balance_buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.tabView.tableHeaderView = self.distributionCommissionHead;
     self.tabView.emptyDataSetSource = self;
     self.tabView.emptyDataSetDelegate = self;
@@ -82,7 +83,7 @@ static CGFloat _bottomToolBarH = 120;
     return _datas;
 }
 //佣金转余额
-- (void)commission_balance_buttonAction{
+- (void)commission_balance_buttonAction:(UIButton *)button{
     
     [_textField becomeFirstResponder];
 }
@@ -96,7 +97,7 @@ static CGFloat _bottomToolBarH = 120;
     UILabel *title_label = [UILabel lh_labelAdaptionWithFrame:CGRectMake(35, 20, ScreenW-70, 30) text:@"转账金额" textColor:kDarkGrayColor font:FONT(14) textAlignment:NSTextAlignmentLeft];
     [_bottomToolBar addSubview:title_label];
 
-    UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(ScreenW-60, 20, 50, 30) target:self action:@selector(commit_btnAction) image:nil title:@"确定" titleColor:kDarkGrayColor font:FONT(14)];
+    UIButton *commit_btn = [UIButton lh_buttonWithFrame:CGRectMake(ScreenW-60, 20, 50, 30) target:self action:@selector(commit_btnAction:) image:nil title:@"确定" titleColor:kDarkGrayColor font:FONT(14)];
     [_bottomToolBar addSubview:commit_btn];
 
     
@@ -119,22 +120,23 @@ static CGFloat _bottomToolBarH = 120;
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomToolBar];
     
 }
-- (void)commit_btnAction{
+- (void)commit_btnAction:(UIButton *)button{
     
     [_textField resignFirstResponder];
     
     if ([self.title_str isEqualToString:@"分销佣金"]) {
-        [self BonusToBalanceWithbonusType:@0];
+        [self BonusToBalanceWithbonusType:@0 button:button];
     }else if ([self.title_str isEqualToString:@"代理佣金"]){
-        [self BonusToBalanceWithbonusType:@1];
+        [self BonusToBalanceWithbonusType:@1 button:button];
     }
 }
-- (void)BonusToBalanceWithbonusType:(NSNumber *)bonusType{
+- (void)BonusToBalanceWithbonusType:(NSNumber *)bonusType button:(UIButton *)button{
     if (_textField.text.length==0) {
         [SVProgressHUD showInfoWithStatus:@"请输入转账金额！"];
     }else{
-    
+        button.enabled = NO;
     [[[HHMineAPI postBonusToBalanceWithmoney:_textField.text bonusType:bonusType] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        button.enabled = YES;
         if (!error) {
             if (api.State == 1) {
                 [SVProgressHUD setMinimumDismissTimeInterval:1.0];
@@ -195,7 +197,8 @@ static CGFloat _bottomToolBarH = 120;
 }
 - (void)GetFansSale{
     
-    [[[HHMineAPI GetFansSaleWithpage:@(self.page) pageSize:@10] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetFansSaleWithpage:@(self.page) pageSize:@10] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 NSArray *arr = api.Data[@"List"];
@@ -217,7 +220,8 @@ static CGFloat _bottomToolBarH = 120;
 
 - (void)getDelegateCommissionData{
     
-    [[[HHMineAPI GetBonusWithpage:@(self.page)  pageSize:@10] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetBonusWithpage:@(self.page)  pageSize:@10] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 HHMineModel *model = [HHMineModel mj_objectWithKeyValues:api.Data];
@@ -243,11 +247,11 @@ static CGFloat _bottomToolBarH = 120;
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"record_icon_no":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"你还没有相关的记录喔":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {

@@ -156,7 +156,7 @@
 {
     if (self.isLoading) {
         if (self.isWlan) {
-            return [UIImage imageNamed:@"record_icon_no"];
+            return [UIImage imageNamed:@"no_order"];
         }else{
             return [UIImage imageNamed:@"img_network_disable"];
         }
@@ -170,7 +170,7 @@
     NSString *titleStr;
     if (self.isLoading) {
         if (self.isWlan) {
-        titleStr = @"没有相应的订单记录喔";
+        titleStr = @"没有相应的订单记录喔～";
         }else{
         titleStr = @"";
         }

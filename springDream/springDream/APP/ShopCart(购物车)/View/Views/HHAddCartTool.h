@@ -27,6 +27,8 @@
 
 @property (nonatomic, copy)   idBlock  buyBlock;
 
+@property (nonatomic, copy)   voidBlock  pushCartBlock;
+
 @property (nonatomic, strong)   UINavigationController *nav;
 
 @property (nonatomic, strong)   NSString *product_id;

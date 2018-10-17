@@ -12,5 +12,4 @@
 
 @property(nonatomic,strong)   NSString *title_str;
 
-
 @end

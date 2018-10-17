@@ -51,6 +51,7 @@
 #import "YYText.h"
 #import "SDAutoLayout.h"
 
+#import "HHLoadingView.h"
 
 //api
 #import "HHCartModel.h"

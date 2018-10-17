@@ -9,6 +9,7 @@
 #import "HHMyCollectionVC.h"
 #import "HXHomeCollectionCell.h"
 #import "HHGoodDetailVC.h"
+#import "HHGoodCategoryVC.h"
 
 @interface HHMyCollectionVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HXHomeCollectionCellDelegate>
 
@@ -21,7 +22,7 @@
 @property(nonatomic,assign)   BOOL  isFooterRefresh;
 @property(nonatomic,strong)   NSURLSessionDataTask *task;
 @property(nonatomic,assign)   BOOL  isCategory;
-
+@property (nonatomic, assign)   NSInteger isLoaded;
 @end
 
 @implementation HHMyCollectionVC
@@ -39,6 +40,9 @@
     
     //collectionView
     self.collectionView.backgroundColor = KVCBackGroundColor;
+    
+    self.collectionView.hidden = YES;
+    
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"HXHomeCollectionCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"HXHomeCollectionCell"];
@@ -63,6 +67,9 @@
 - (void)getDatas{
     
     [[[HHHomeAPI GetProductCollectionWithpage:@(self.page) pageSize:@(self.pageSize)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHHomeAPI *api, NSError *error) {
+        self.isLoaded = YES;
+        self.collectionView.hidden = NO;
+
         if (!error) {
             
             if (api.State == 1) {
@@ -101,13 +108,18 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"no_collect":@""];
 }
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+//- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+//
+//    NSAttributedString *attrStr = self.isLoaded?[NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"收藏夹还没商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)]:[[NSAttributedString alloc] initWithString:@""];
+//    return  attrStr;
+//}
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有收藏相关的宝贝喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    NSAttributedString *attrStr = self.isLoaded?[NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"收藏夹还没商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)]:[[NSAttributedString alloc] initWithString:@""];
+    return  attrStr;
 }
-
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
     
     CGFloat offset = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -115,16 +127,22 @@
     return -offset;
     
 }
-
-- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
-{
-    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
-    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
     
-    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+    HHGoodCategoryVC  *vc = [HHGoodCategoryVC new];
+    vc.enter_Type = 1;
+    [self.navigationController pushVC:vc];
     
-    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
 }
+//- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+//{
+//    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+//    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -30, 0.0, -30);
+//
+//    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:5 size:CGSizeMake(ScreenW-60, 40)];
+//
+//    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+//}
 - (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
     return 20;
 }

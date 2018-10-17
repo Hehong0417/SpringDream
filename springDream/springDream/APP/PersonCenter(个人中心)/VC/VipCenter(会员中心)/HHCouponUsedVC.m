@@ -14,6 +14,8 @@
 @property (nonatomic, strong)   UITableView *tableV;
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
+@property (nonatomic, assign)   NSInteger isFooterRefresh;
+@property (nonatomic, assign)   NSInteger isLoaded;
 @end
 
 @implementation HHCouponUsedVC
@@ -46,18 +48,22 @@
     self.page = 1;
     [self getDatas];
     
-    
     [self addHeadRefresh];
-    [self addFootRefresh];
 }
 #pragma mark - 加载数据
 - (void)getDatas{
     
     [[[HHMineAPI GetMyCouponListWithPage:@(self.page) status:@(1)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
-                
-                [self loadDataFinish:api.Data];
+                if (self.isFooterRefresh == YES) {
+                    [self loadDataFinish:api.Data];
+                }else{
+                    [self addFootRefresh];
+                    [self.datas removeAllObjects];
+                    [self loadDataFinish:api.Data];
+                }
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -73,11 +79,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"chosecopon_icon_no"];
+    return [UIImage imageNamed:self.isLoaded?@"no_coupon":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你没有相关的优惠券喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"你没有相关的优惠券喔":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 //- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
 //
@@ -100,8 +106,8 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.datas removeAllObjects];
         self.page = 1;
+        self.isFooterRefresh = NO;
         [self getDatas];
     }];
     refreshHeader.lastUpdatedTimeLabel.hidden = YES;
@@ -114,7 +120,7 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        
+        self.isFooterRefresh = YES;
         [self getDatas];
     }];
     self.tableV.mj_footer = refreshfooter;

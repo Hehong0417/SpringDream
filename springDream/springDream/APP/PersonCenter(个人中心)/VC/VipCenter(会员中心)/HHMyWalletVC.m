@@ -9,6 +9,7 @@
 #import "HHMyWalletVC.h"
 #import "HHMywalletCell.h"
 #import "HHMyWalletHead.h"
+#import "HHWithDrawVC.h"
 
 @interface HHMyWalletVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
@@ -16,6 +17,8 @@
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   HHMyWalletHead *wallet_head;
+@property (nonatomic, assign)   BOOL isFooterRefresh;
+@property (nonatomic, assign)   BOOL isloaded;
 
 @end
 
@@ -44,23 +47,28 @@
     [self.tabView registerNib:[UINib nibWithNibName:@"HHMywalletCell" bundle:nil] forCellReuseIdentifier:@"HHMywalletCell"];
     self.wallet_head = [[[NSBundle mainBundle] loadNibNamed:@"HHMyWalletHead" owner:self options:nil] firstObject];
     self.tabView.tableHeaderView = self.wallet_head;
-    [self.wallet_head.withdrawButton addTarget:self action:@selector(withdrawButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.wallet_head.withdrawButton addTarget:self action:@selector(withdrawButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.page = 1;
     
     [self addHeadRefresh];
-    [self addFootRefresh];
     
 }
 - (void)GetBalanceChangeList{
     
-    [[[HHMineAPI GetBalanceChangeListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-        
+    [[[HHMineAPI GetBalanceChangeListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isloaded = YES;
         if (!error) {
             if (api.State == 1) {
                 NSNumber *total = api.Data[@"total"];
                 self.wallet_head.total_price_label.text = [NSString stringWithFormat:@"%@",total];
-                [self loadDataFinish:api.Data[@"list"]];
+                if (self.isFooterRefresh==YES) {
+                    [self loadDataFinish:api.Data[@"list"]];
+                }else{
+                    [self addFootRefresh];
+                    [self.datas removeAllObjects];
+                    [self loadDataFinish:api.Data[@"list"]];
+                }
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
@@ -90,11 +98,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"record_icon_no"];
+    return [UIImage imageNamed:self.isloaded?@"record_icon_no":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"你还没有相关的记录喔" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isloaded?@"你还没有相关的记录喔":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
@@ -121,7 +129,7 @@
 - (void)addHeadRefresh{
     
     MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.datas removeAllObjects];
+        self.isFooterRefresh = NO;
         self.page = 1;
         [self GetBalanceChangeList];
     }];
@@ -134,7 +142,7 @@
     
     MJRefreshAutoNormalFooter *refreshfooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page++;
-        
+        self.isFooterRefresh = YES;
         [self GetBalanceChangeList];
     }];
     self.tabView.mj_footer = refreshfooter;
@@ -186,7 +194,9 @@
 //提现
 - (void)withdrawButtonAction{
     
-    
+    HHWithDrawVC *vc = [HHWithDrawVC new];
+    vc.total_money = self.wallet_head.total_price_label.text;
+    [self.navigationController pushVC:vc];
     
 }
 #pragma mark - Table view data source

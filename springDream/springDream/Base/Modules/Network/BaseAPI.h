@@ -44,6 +44,8 @@
 
 @property (nonatomic, strong) UIView *containerView;
 
+@property (nonatomic, strong) HHLoadingView *loadingHUD;
+
 /**
  *  Default YES...
  */

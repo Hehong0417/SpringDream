@@ -83,7 +83,12 @@
     
     return hud;
 }
-
+- (HHLoadingView *)loadingHUD{
+    
+    HHLoadingView *loadingHUD = objc_getAssociatedObject(self, _cmd);
+    
+    return loadingHUD;
+}
 - (BOOL)isShowErrorMsg {
     NSNumber *isShowErrorMsg = objc_getAssociatedObject(self, _cmd);
     
@@ -112,7 +117,11 @@
     
     objc_setAssociatedObject(self, @selector(HUD), HUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+- (void)setLoadingHUD:(HHLoadingView *)loadingHUD{
+    
+    objc_setAssociatedObject(self, @selector(loadingHUD), loadingHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
+}
 - (void)setShowErrorMsg:(BOOL)showErrorMsg {
     objc_setAssociatedObject(self, @selector(isShowErrorMsg), @(showErrorMsg), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -130,14 +139,17 @@
 
 - (void)mbShowIndeterminate {
     
-    self.HUD = [MBProgressHUD showHUDAddedTo:self.containerView animated:YES];
-    self.HUD.color = KA0LabelColor;
-    self.HUD.bezelView.frame = CGRectMake(0, 0, 25, 25);
-    self.HUD.detailsLabelText = @"加载中...";
-    self.HUD.detailsLabelColor = kWhiteColor;
-    self.HUD.detailsLabelFont = FONT(12);
-    self.HUD.activityIndicatorColor = kWhiteColor;
-    [self.HUD show:YES];
+    self.loadingHUD = [HHLoadingView showToView:self.containerView animated:YES];
+    self.loadingHUD.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.00];
+
+//    self.HUD = [MBProgressHUD showHUDAddedTo:self.containerView animated:YES];
+//    self.HUD.color = KA0LabelColor;
+//    self.HUD.bezelView.frame = CGRectMake(0, 0, 25, 25);
+//    self.HUD.detailsLabelText = @"加载中...";
+//    self.HUD.detailsLabelColor = kWhiteColor;
+//    self.HUD.detailsLabelFont = FONT(12);
+//    self.HUD.activityIndicatorColor = kWhiteColor;
+//    [self.HUD show:YES];
     
 }
 
@@ -164,12 +176,16 @@
 }
 
 - (void)hideHUDWhileFinish {
-    [self hideHUDWhileFinishAfterDelay:0];
+    
+    [self.loadingHUD hideAnimated:YES];
+    [self.HUD hideAnimated:YES];
 }
 
 - (void)hideHUDWhileFinishAfterDelay:(NSTimeInterval)delay {
     
     [self.HUD hide:YES afterDelay:delay];
+    
+    [self.loadingHUD hideAnimated:YES];
     
 #ifdef kNCLoaclResponse
     NSLog(@"加载本地数据文件 -----  __%@__   -----", self.class);

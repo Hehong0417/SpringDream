@@ -36,7 +36,7 @@
 
 - (void)getDatas{
     
-    [[[HHMineAPI GetMyCode] netWorkClient] getRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+    [[[HHMineAPI GetMyCode] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
 
         if (!error) {
             if (api.State == 1) {
