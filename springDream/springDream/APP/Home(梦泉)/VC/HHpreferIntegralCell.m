@@ -19,8 +19,8 @@
     _model = model;
     _full_redu_title_lab.text = model.act_name;
     NSString *integral = model.items[0];
-    NSString *content = [NSString stringWithFormat:@"购买得%.2f积分",integral.floatValue];
-    NSString *protocolStr =[NSString stringWithFormat:@"%.2f",integral.floatValue];
+    NSString *content = [NSString stringWithFormat:@"购买得%.2f积分",integral.doubleValue];
+    NSString *protocolStr =[NSString stringWithFormat:@"%.2f",integral.doubleValue];
     _integral_title_lab.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_NAV_COLOR contentColor:KTitleLabelColor commonFont:FONT(12)];
     [self.contentView layoutIfNeeded];
 }

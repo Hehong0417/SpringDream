@@ -15,6 +15,7 @@
 #define USHARE_DEMO_APPKEY  @"5a5f10bfa40fa34719000128"
 #define Wechat_AppKey  @"wx33876b8653ae654a"
 #define Wechat_appSecret  @"202317c588688ebc058099ab101603fa"
+
 //梦泉
 //#define USHARE_DEMO_APPKEY  @"5b90a1808f4a9d121b000037"
 //#define Wechat_AppKey  @"wxa40e7d9b1283c27c"

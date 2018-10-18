@@ -58,7 +58,7 @@
     HHPackagesModel *model = self.Packages[indexPath.row];
     cell.backgroundColor = kWhiteColor;
     cell.PackagesProducts_models = model.Products;
-    cell.priceLabel.text =  [NSString stringWithFormat:@"最多可省¥%.2f",model.BeEconomicalMoney.floatValue];
+    cell.priceLabel.text =  [NSString stringWithFormat:@"最多可省¥%.2f",model.BeEconomicalMoney.doubleValue];
     return cell;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

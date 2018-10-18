@@ -7,16 +7,17 @@
 //
 
 #import "HHWithDrawVC.h"
-#import "HHTextfieldcell.h"
-#import "HXCommonPickView.h"
+#import "HHBankListCell.h"
+#import "HHWithdrawCell.h"
+#import "HHBankListVC.h"
+
 
 @interface HHWithDrawVC ()
-{
-    HXCommonPickView *_pickView;
-}
+
 @property (nonatomic, strong)   NSMutableArray *bankNames;
 @property (nonatomic, strong)   NSMutableArray *bankIds;
 @property (nonatomic, strong)   NSMutableArray *datas;
+@property (nonatomic, strong)   HHMineModel *cardModel;
 
 @end
 
@@ -29,19 +30,25 @@
     
     [self getDatas];
     
+    
+    
     UIView *footView = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120) backColor:kClearColor];
 
-    UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 60, 45) target:self action:@selector(saveAction) backgroundImage:nil title:@"提现"  titleColor:kWhiteColor font:FONT(14)];
+    UIButton *finishBtn = [UIButton lh_buttonWithFrame:CGRectMake(30, 50, SCREEN_WIDTH - 60, 45) target:self action:@selector(saveAction:) backgroundImage:nil title:@"确认提现"  titleColor:kWhiteColor font:FONT(14)];
     finishBtn.backgroundColor = APP_NAV_COLOR;
     [finishBtn lh_setRadii:5 borderWidth:0 borderColor:nil];
     
     [footView addSubview:finishBtn];
     
-    self.tableV.tableFooterView = footView;
+    self.tableView.tableFooterView = footView;
     
-    _pickView = [[HXCommonPickView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
 
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"HHBankListCell" bundle:nil] forCellReuseIdentifier:@"HHBankListCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HHWithdrawCell" bundle:nil] forCellReuseIdentifier:@"HHWithdrawCell"];
+
+    self.view.backgroundColor = KVCBackGroundColor;
 }
 - (NSMutableArray *)bankNames{
     if (!_bankNames) {
@@ -70,12 +77,10 @@
                
                 NSArray *arr = api.Data;
                 [self.datas addObjectsFromArray:[HHMineModel mj_objectArrayWithKeyValuesArray:arr]];
-                [self.datas enumerateObjectsUsingBlock:^(HHMineModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                    NSString *subBankName = model.bank_no.length>4?[model.bank_no substringFromIndex:model.bank_no.length-4]:model.bank_no;
-                    [self.bankNames addObject:[NSString stringWithFormat:@"%@ 尾号%@",model.bank_name,subBankName]];
-                    
-                }];
-                
+                if (self.datas.count>0) {
+                    self.cardModel = self.datas[0];
+                    [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+                }
             }else{
                 [SVProgressHUD showInfoWithStatus:api.Msg];
             }
@@ -87,58 +92,92 @@
     
 }
 
-- (NSArray *)groupTitles{
+- (void)saveAction:(UIButton *)button{
     
-    return @[@[@"选择银行卡",@"提现金额"]];
+    HHWithdrawCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     
-}
-- (NSArray *)groupIcons {
-    
-    return @[@[@"",@""]];
-    
-}
-- (NSArray *)groupDetials {
-    
-    return @[@[@"",@" "]];
-    
-}
-- (void)saveAction{
-    
-    
+    if (self.cardModel.Id.length == 0) {
+        [SVProgressHUD showInfoWithStatus:@"请选择银行卡"];
+    }else if(cell.moneyTextField.text.length == 0){
+        [SVProgressHUD showInfoWithStatus:@"请输入提现金额"];
+    }else{
+        [[[HHMineAPI postIntegralCashWithBank_id:self.cardModel.Id money:cell.moneyTextField.text] netWorkClient] postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+            if (!error) {
+                if (api.State == 1) {
+                    [SVProgressHUD showSuccessWithStatus:@"提现成功！"];
+                    [self.navigationController popVC];
+                    
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }else{
+                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+            }
+            
+        }];
+    }
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 1) {
-        UITextField *moneyTF = [UITextField lh_textFieldWithFrame:CGRectMake(SCREEN_WIDTH - 150, 0, 135, 44) placeholder:@"" font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
-        moneyTF.placeholder = [NSString stringWithFormat:@"可用余额：%@",self.total_money];
-        [cell.contentView addSubview:moneyTF];
+    UITableViewCell *gridCell = nil;
+    
+    if (indexPath.section == 0) {
+        
+        HHBankListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHBankListCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = kWhiteColor;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.model = self.cardModel;
+        gridCell = cell;
+    }else{
+        HHWithdrawCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHWithdrawCell"];
+        [cell.allMoneyBtn addTarget:self action:@selector(allButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        gridCell = cell;
     }
     
-    return cell;
+    return gridCell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
-        if (self.datas.count>0) {
-            
-                    [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.bankNames];
-                    WEAK_SELF();
-                    _pickView.completeBlock = ^(NSString *result) {
-                        HJSettingItem *item0 = [weakSelf settingItemInIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                        item0.detailTitle = result;
-                    };
-                    [_pickView showPickViewAnimation:YES];
-            
-        }else{
-            
-            [SVProgressHUD showSuccessWithStatus:@"请先添加银行卡！"];
-        }
-
-        
+    if (indexPath.section == 0) {
+        HHBankListVC *vc = [HHBankListVC new];
+        [self.navigationController pushVC:vc];
+        WEAK_SELF();
+        vc.cardModelBlock = ^(HHMineModel *obj) {
+            self.cardModel = obj;
+            [weakSelf.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+        };
     }
     
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 10;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 2;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        return  AdapationLabelFont(70);
+    }else{
+        return AdapationLabelFont(100);
+    }
+    
+}
+- (void)allButtonAction:(UIButton *)button{
+    
+    HHWithdrawCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    cell.moneyTextField.text = self.total_money;
+    
+}
 @end

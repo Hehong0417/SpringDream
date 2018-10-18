@@ -24,7 +24,7 @@
     NSString *product_item_act_name = productsModel.product_item_act_name.length>0?[NSString stringWithFormat:@"【%@】",productsModel.product_item_act_name]:@"";
     self.namelabel.text = [NSString stringWithFormat:@"%@%@",productsModel.pname,product_item_act_name];
     
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",productsModel.price];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",productsModel.price.doubleValue];
     self.quantityLabel.text = [NSString stringWithFormat:@"x%@",productsModel.quantity];
     [self.iconImageV sd_setImageWithURL:[NSURL URLWithString:productsModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     self.sku_nameLabel.text = productsModel.skuName;
@@ -33,7 +33,7 @@
 - (void)setOrderProductsModel:(HHproductsModel *)orderProductsModel{
     _orderProductsModel = orderProductsModel;
     
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",orderProductsModel.price];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",orderProductsModel.price.doubleValue];
     self.namelabel.text = [NSString stringWithFormat:@"%@",orderProductsModel.prodcut_name];
     self.quantityLabel.text = [NSString stringWithFormat:@"x%@",orderProductsModel.quantity];
     [self.iconImageV sd_setImageWithURL:[NSURL URLWithString:orderProductsModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];

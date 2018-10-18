@@ -10,4 +10,6 @@
 
 @interface HHOrderDetailVC : UIViewController
 @property (nonatomic, strong)   NSString *orderid;
+@property (nonatomic, assign)   NSInteger isCreateOrderEnter;
+
 @end

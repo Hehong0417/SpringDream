@@ -68,7 +68,7 @@
 
 
     NSString *priceStr = self.moneyArr[indexPath.row];
-    cell.moneyLab.text = [NSString stringWithFormat:@"￥%.2f",priceStr.floatValue] ;
+    cell.moneyLab.text = [NSString stringWithFormat:@"￥%.2f",priceStr.doubleValue] ;
     return cell;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

@@ -160,6 +160,7 @@
                               vc.enter_type = HHaddress_type_add_cart;
                               vc.mode = nil;
                           }
+                          vc.count = self.count;
                           vc.sendGift = self.sendGift;
                           [self.navigationController pushVC:vc];
 
@@ -174,6 +175,7 @@
                           vc.mode = self.mode;
                           vc.sku_Id = self.sku_ids;
                           vc.cartIds = self.cartIds;
+                          vc.count = self.count;
                           [self.navigationController pushVC:vc];
                       }
 

@@ -137,19 +137,24 @@
 
 #pragma mark - MBProgressHUD
 
-- (void)mbShowIndeterminate {
+
+- (void)mbShowIndeterminate{
+    
+        self.HUD = [MBProgressHUD showHUDAddedTo:self.containerView animated:YES];
+        self.HUD.color = KA0LabelColor;
+        self.HUD.bezelView.frame = CGRectMake(0, 0, 25, 25);
+        self.HUD.detailsLabelText = @"加载中...";
+        self.HUD.detailsLabelColor = kWhiteColor;
+        self.HUD.detailsLabelFont = FONT(12);
+        self.HUD.activityIndicatorColor = kWhiteColor;
+        [self.HUD show:YES];
+    
+}
+
+- (void)loadingHUDIndeterminate {
     
     self.loadingHUD = [HHLoadingView showToView:self.containerView animated:YES];
     self.loadingHUD.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.00];
-
-//    self.HUD = [MBProgressHUD showHUDAddedTo:self.containerView animated:YES];
-//    self.HUD.color = KA0LabelColor;
-//    self.HUD.bezelView.frame = CGRectMake(0, 0, 25, 25);
-//    self.HUD.detailsLabelText = @"加载中...";
-//    self.HUD.detailsLabelColor = kWhiteColor;
-//    self.HUD.detailsLabelFont = FONT(12);
-//    self.HUD.activityIndicatorColor = kWhiteColor;
-//    [self.HUD show:YES];
     
 }
 
@@ -169,10 +174,14 @@
 }
 #pragma mark - HUD
 
-- (void)showHUDWhileRequest:(UIView *)containerView {
+- (void)showHUDWhileRequest:(UIView *)containerView requestType:(NSString *)requestType{
     
     self.containerView = containerView;
-    [self mbShowIndeterminate];
+    if ([requestType isEqualToString:@"POST"]) {
+        [self mbShowIndeterminate];
+    }else{
+        [self loadingHUDIndeterminate];
+    }
 }
 
 - (void)hideHUDWhileFinish {

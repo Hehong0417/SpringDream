@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HJStaticGroupTableVC.h"
 
-@interface HHWithDrawVC : HJStaticGroupTableVC
+@interface HHWithDrawVC : UITableViewController
 
 @property (nonatomic, strong) NSString *total_money;
 

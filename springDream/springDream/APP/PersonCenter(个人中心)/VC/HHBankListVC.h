@@ -10,4 +10,6 @@
 
 @interface HHBankListVC : UITableViewController
 
+@property (nonatomic, copy) idBlock cardModelBlock;
+
 @end

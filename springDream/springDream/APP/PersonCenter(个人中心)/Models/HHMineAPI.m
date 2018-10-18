@@ -826,5 +826,19 @@
     api.parametersAddToken = NO;
     return api;
 }
+//申请提现
++ (instancetype)postIntegralCashWithBank_id:(NSString *)bank_id money:(NSString *)money{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_Integral_Cash;
+        if (bank_id) {
+            [api.parameters setObject:bank_id forKey:@"bank_id"];
+        }
+    if (money) {
+        [api.parameters setObject:money forKey:@"money"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+}
 
 @end

@@ -107,7 +107,7 @@ typedef   void (^completeHandle)();
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html",@"image/jpeg",@"text/plain", nil];
-    NSString *urlString = @"http://mrs-product.elevo.cn/api/ContentECSubject/Add";
+    NSString *urlString = [NSString stringWithFormat:@"%@/ContentECSubject/Add",API_HOST4];
     HJUser *user = [HJUser sharedUser];
     NSString *token = user.token;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorize"];

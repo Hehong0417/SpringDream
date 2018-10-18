@@ -145,7 +145,7 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"no_carts"];
+    return [UIImage imageNamed:self.isRefresh?@"no_carts":@""];
 }
 //- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
 //
@@ -158,7 +158,7 @@
 
     NSAttributedString *attrStr = [NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"购物车还没有商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)];
     
-    return attrStr;
+    return self.isRefresh?attrStr:[[NSAttributedString alloc]initWithString:@""];
 }
 
 //- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state

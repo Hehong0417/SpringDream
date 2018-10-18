@@ -17,6 +17,7 @@
 @property (nonatomic, assign)   NSInteger page;
 @property (nonatomic, strong)   NSMutableArray *datas;
 @property(nonatomic,assign)   BOOL  isFooterRefresh;
+@property(nonatomic,assign)   BOOL  isLoaded;
 
 @end
 
@@ -81,11 +82,11 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"no_address"];
+    return [UIImage imageNamed:self.isLoaded?@"no_order":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc] initWithString:@"收货地址为空" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
+    return [[NSAttributedString alloc] initWithString:self.isLoaded?@"收货地址为空":@"" attributes:@{NSFontAttributeName:FONT(14),NSForegroundColorAttributeName:KACLabelColor}];
 }
 //- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView{
 //
@@ -179,6 +180,7 @@
 - (void)getDatas{
     
     [[[HHMineAPI GetAddressListWithpage:@(self.page)] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 [self addFootRefresh];
@@ -265,9 +267,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HHMineModel *shippingAddressModel = [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.section]];
-//    if (self.enter_type == HHenter_type_submitOrder) {
-//        [self.navigationController popVC];
-//    }
+    if (self.enter_type == HHenter_type_submitOrder) {
+        [self.navigationController popVC];
+    }
     if ([self.delegate respondsToSelector:@selector(shippingAddressTableView_didSelectRowWithaddressModel:)
          ]) {
         [self.delegate shippingAddressTableView_didSelectRowWithaddressModel:shippingAddressModel];

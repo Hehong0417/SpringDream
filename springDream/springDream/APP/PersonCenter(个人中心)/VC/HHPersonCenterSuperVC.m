@@ -115,10 +115,11 @@
                 
                 self.personHead.name_label.text = self.mineModel.UserName;
                 [self.personHead.icon_view sd_setImageWithURL:[NSURL URLWithString:self.mineModel.UserImage] placeholderImage:[UIImage imageNamed:@"user_Icon"]];
+                
                 self.userLevelName = api.Data[@"userLevelName"];
                 self.personHead.vip_label.text = self.userLevelName;
-                NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.Points?self.mineModel.Points.floatValue:0.00];
-                NSString *content = [NSString stringWithFormat:@"积分:%.2f",self.mineModel.Points?self.mineModel.Points.floatValue:0.00];
+                NSString *protocolStr = [NSString stringWithFormat:@"%.2f",self.mineModel.Points?self.mineModel.Points.doubleValue:0.00];
+                NSString *content = [NSString stringWithFormat:@"积分:%.2f",self.mineModel.Points?self.mineModel.Points.doubleValue:0.00];
                 self.personHead.consumption_amount_label.attributedText = [NSString lh_attriStrWithprotocolStr:protocolStr content:content protocolStrColor:APP_COMMON_COLOR contentColor:RGB(102, 102, 102) commonFont:FONT(14)];
                 [self.tabView reloadData];
             }else{

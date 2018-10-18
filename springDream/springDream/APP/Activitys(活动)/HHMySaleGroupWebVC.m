@@ -83,7 +83,7 @@
     
     NSString *token = [user.token stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
 
-    url = [NSString stringWithFormat:@"%@/Personal/CutGroup?token=%@&cid=12",API_HOST1,token];
+    url = [NSString stringWithFormat:@"%@/Personal/CutGroup?token=%@",API_HOST1,token];
     
     WEAK_SELF();
         weakSelf.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];

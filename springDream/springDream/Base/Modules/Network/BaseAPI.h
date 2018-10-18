@@ -62,7 +62,7 @@
 @property (nonatomic, assign, getter=isParametersAddToken) BOOL parametersAddToken;
 
 
-- (void)showHUDWhileRequest:(UIView *)containerView;
+- (void)showHUDWhileRequest:(UIView *)containerView requestType:(NSString *)requestType;
 
 - (void)hideHUDWhileFinish;
 

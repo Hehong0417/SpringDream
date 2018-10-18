@@ -22,6 +22,7 @@
 #import "HHCouponItem.h"
 #import "HHOrderIdItem.h"
 #import "HHSubmitTitleCell.h"
+#import "HHOrderDetailVC.h"
 
 @interface HHSubmitOrdersVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,HHShippingAddressVCProtocol,payTypeDelegate>
 {
@@ -267,14 +268,14 @@
                    self.SubmitOrdersHead.goodStore_view.hidden = YES;
                 }
                 
-                CGFloat money_total = self.model.totalMoney.floatValue;
+                CGFloat money_total = self.model.totalMoney.doubleValue;
                 self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
                 
                 [self.tableView reloadData];
                 
                 //
                 HHCouponItem *couponItem = [HHCouponItem sharedCouponItem];
-                couponItem.order_total_money = self.model.totalMoney.floatValue;
+                couponItem.order_total_money = self.model.totalMoney.doubleValue;
                 couponItem.lastSelectIndex = 0;
                 couponItem.last_total_money = money_total;
                 NSMutableArray *arr = [NSMutableArray array];
@@ -440,7 +441,7 @@
                     if (btn.selected) {
                         NSInteger  row = indexPath.row-1;
                         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:indexPath.section]];
-                        cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.doubleValue -  order_model.orderIntegralMoney.doubleValue];
                     }
                 }
                 gridCell = cell1;
@@ -470,7 +471,7 @@
         
         [self.integralSelecItems enumerateObjectsUsingBlock:^(NSNumber  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isEqual:@1]) {
-                totol_Integral = totol_Integral+order_model.orderIntegral.floatValue;
+                totol_Integral = totol_Integral+order_model.orderIntegral.doubleValue;
             }
             *stop = 0;
         }];
@@ -480,7 +481,7 @@
             [self updatePriceSubMitToolWithbtn:btn section:section row:row];
 
         }else{
-          if (totol_Integral>self.model.totalIntegral.floatValue) {
+          if (totol_Integral>self.model.totalIntegral.doubleValue) {
             [SVProgressHUD showInfoWithStatus:@"积分不足"];
               btn.selected = NO;
           }else{
@@ -500,7 +501,7 @@
     HHSubmitTitleCell *subTitleCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
     HHordersModel *order_model = self.datas[section];
     if (btn.selected) {
-        NSString *protocolStr = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.floatValue -  order_model.orderIntegralMoney.floatValue];
+        NSString *protocolStr = [NSString stringWithFormat:@"¥%.2f",order_model.showMoney.doubleValue -  order_model.orderIntegralMoney.doubleValue];
         NSString *contentStr = [NSString stringWithFormat:@"共%ld件商品,合计:%@",order_model.products.count,protocolStr];
         NSMutableAttributedString *attr = [NSString lh_attriStrWithprotocolStr:protocolStr content:contentStr protocolStrColor:APP_NAV_COLOR contentColor:kDarkGrayColor commonFont:FONT(14)];
         subTitleCell.detail_label.attributedText = attr;
@@ -508,7 +509,7 @@
         //总计
         NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
         
-        CGFloat money_total =  money_total_str.floatValue - order_model.orderIntegralMoney.floatValue;
+        CGFloat money_total =  money_total_str.doubleValue - order_model.orderIntegralMoney.doubleValue;
         self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
         
     }else{
@@ -519,13 +520,13 @@
         //总计
         NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
         
-        CGFloat money_total = money_total_str.floatValue + order_model.orderIntegralMoney.floatValue;
+        CGFloat money_total = money_total_str.doubleValue + order_model.orderIntegralMoney.doubleValue;
         self.submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total];
     }
     
     HHCouponItem *couponItem = [HHCouponItem sharedCouponItem];
     NSString *money_total_str = [self.submitOrderTool.money_totalLabel.text substringFromIndex:4];
-    couponItem.order_total_money = money_total_str.floatValue;
+    couponItem.order_total_money = money_total_str.doubleValue;
     [couponItem write];
     
     [self.integralSelecItems replaceObjectAtIndex:section withObject:@(btn.selected)];
@@ -678,7 +679,7 @@
 
     }else{
         
-        CGFloat money_total = total_money-model.CouponValue.floatValue;
+        CGFloat money_total = total_money-model.CouponValue.doubleValue;
         submitOrderTool.money_totalLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",money_total>0?money_total:0.01];
         couponCell.detailTextLabel.text = model.DisplayName;
         
@@ -924,19 +925,30 @@
         
     }else {
         //购物车
-        HHPaySucessVC *vc = [HHPaySucessVC new];
-        vc.pids = OrderIdItem.cartIds;
+//        HHPaySucessVC *vc = [HHPaySucessVC new];
+//        vc.pids = OrderIdItem.cartIds;
+//        [self.navigationController pushVC:vc];
+        HHOrderDetailVC *vc = [HHOrderDetailVC new];
+        vc.orderid = self.order_id;
+        vc.isCreateOrderEnter = YES;
         [self.navigationController pushVC:vc];
+
     }
 }
 
 - (void)wxPayFailcount {
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SVProgressHUD setMinimumDismissTimeInterval:1.0];
-        [SVProgressHUD showErrorWithStatus:@"支付失败～"];
-
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+//        [SVProgressHUD showErrorWithStatus:@"支付失败～"];
+//
+//    });
+    HHOrderDetailVC *vc = [HHOrderDetailVC new];
+    vc.orderid = self.order_id;
+    vc.isCreateOrderEnter = YES;
+    [self.navigationController pushVC:vc];
+    
+    
 }
 
 - (id)copyWithZone:(NSZone *)zone

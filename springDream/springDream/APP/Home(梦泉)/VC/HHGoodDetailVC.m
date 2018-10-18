@@ -375,6 +375,7 @@ static NSArray *lastSele_IdArray_;
                     vc.mode = self.Mode;
                     vc.sku_ids = sku_id_Str;
                     vc.storeId = self.store_id;
+                    vc.count = quantity;
                     [self.navigationController pushVC:vc];
                 }
             }else{
@@ -469,7 +470,7 @@ static NSArray *lastSele_IdArray_;
             [cell.contentView addSubview:right_arrow];
             cell.separatorInset = UIEdgeInsetsMake(0, ScreenW, 0, 0);
             gridcell = cell;
-        }else if((indexPath.row == self.preferentialArr.count-1)&&self.gooodDetailModel.GiveIntegral.floatValue>0){
+        }else if((indexPath.row == self.preferentialArr.count-1)&&self.gooodDetailModel.GiveIntegral.doubleValue>0){
             //积分
             HHpreferIntegralCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HHpreferIntegralCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -725,7 +726,7 @@ static NSArray *lastSele_IdArray_;
     if ((self.IsSecKill == YES) ||(self.IsGroupBuy == YES)) {
         cell.product_min_priceLabel.text = @"";
     }else{
-        cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.floatValue];
+        cell.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",product_price.doubleValue];
     }
     
     cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",product_stock];
@@ -771,7 +772,7 @@ static NSArray *lastSele_IdArray_;
                 
                 
                 [self.preferentialArr removeAllObjects];
-                if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.floatValue>0)) {
+                if ((self.gooodDetailModel.Coupons.count>0)||(self.gooodDetailModel.MeetActivity.count>0)||(self.gooodDetailModel.GiveIntegral.doubleValue>0)) {
                     [self.preferentialArr addObject:@"优惠"];
                 }
                 //店铺优惠券
@@ -842,8 +843,8 @@ static NSArray *lastSele_IdArray_;
                     weakSelf.IsSecKill = YES;
                     weakSelf.seckill_view.hidden = NO;
                     weakSelf.seckill_view.activity_m = SecKill_m;
-                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.floatValue];
-                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.floatValue:0.00]];
+                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.doubleValue];
+                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.doubleValue:0.00]];
                     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
                     weakSelf.seckill_view.pre_price_label.attributedText = newPrice;
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);
@@ -867,16 +868,16 @@ static NSArray *lastSele_IdArray_;
                     self.Mode = GroupBy_m.Mode;
                     weakSelf.addCartTool.addCartBtn.titleLabel.numberOfLines = 2;
                     weakSelf.addCartTool.addCartBtn.titleLabel.font = FONT(13);
-                    [weakSelf.addCartTool.addCartBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n我要开团",GroupBy_m.Price?GroupBy_m.Price.floatValue:0.00] forState:UIControlStateNormal];
+                    [weakSelf.addCartTool.addCartBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n我要开团",GroupBy_m.Price?GroupBy_m.Price.doubleValue:0.00] forState:UIControlStateNormal];
                     [weakSelf.addCartTool.addCartBtn setBackgroundColor:RGB(253,74,76)];
                     weakSelf.addCartTool.buyBtn.titleLabel.numberOfLines = 2;
                     weakSelf.addCartTool.buyBtn.titleLabel.font = FONT(13);
-                    [weakSelf.addCartTool.buyBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n单独购买",self.gooodDetailModel.BuyPrice?self.gooodDetailModel.BuyPrice.floatValue:0.00] forState:UIControlStateNormal];
+                    [weakSelf.addCartTool.buyBtn setTitle:[NSString stringWithFormat:@"¥%0.2f\n单独购买",self.gooodDetailModel.BuyPrice?self.gooodDetailModel.BuyPrice.doubleValue:0.00] forState:UIControlStateNormal];
                     
                     weakSelf.seckill_view.hidden = NO;
                     weakSelf.seckill_view.activity_m = GroupBy_m;
-                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",GroupBy_m.Price.floatValue];
-                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.floatValue:0.00]];
+                    weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",GroupBy_m.Price.doubleValue];
+                    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.doubleValue:0.00]];
                     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
                     weakSelf.seckill_view.pre_price_label.attributedText = newPrice;
                     self.tableHeader.frame = CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65);

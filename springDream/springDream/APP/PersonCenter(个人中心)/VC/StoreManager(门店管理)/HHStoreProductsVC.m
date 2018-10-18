@@ -359,7 +359,7 @@
     
     HHCategoryModel *goodsModel = [HHCategoryModel mj_objectWithKeyValues:self.datas[indexPath.row]];
     HHGoodDetailVC *vc = [HHGoodDetailVC new];
-    vc.Id = goodsModel.Id;
+    vc.Id = goodsModel.product_id;
     [self.navigationController pushVC:vc];
     vc.goodDetail_backBlock = ^{
         self.isGoodDetailBack = YES;

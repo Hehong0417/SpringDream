@@ -40,4 +40,6 @@ typedef enum : NSUInteger {
 
 @property(nonatomic,strong) NSString *storeId;
 
+@property(nonatomic,strong) NSString *count;
+
 @end

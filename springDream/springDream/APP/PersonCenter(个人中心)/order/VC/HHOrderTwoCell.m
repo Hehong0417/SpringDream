@@ -19,7 +19,7 @@
     _orderTotalModel = orderTotalModel;
     self.express_nameLabel.textColor = APP_COMMON_COLOR;
     
-    self.express_nameLabel.text = [NSString stringWithFormat:@"¥%.2f",orderTotalModel.total.floatValue];
+    self.express_nameLabel.text = [NSString stringWithFormat:@"¥%.2f",orderTotalModel.total.doubleValue];
     self.express_orderLabel.text = [NSString stringWithFormat:@"共%ld件商品 合计:",orderTotalModel.items.count];
 }
 

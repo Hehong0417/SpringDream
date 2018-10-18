@@ -201,7 +201,7 @@
 }
 #pragma mark - NetWork
 - (void)getDatasWithIndex:(NSNumber *)index{
-    
+
     [[[HHMineAPI GetOrderListWithstatus:index page:@(self.page)] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         self.isLoading = YES;
         
@@ -230,6 +230,7 @@
         }
     }];
 }
+
 #pragma mark - 刷新数据处理
 /**
  *  加载数据完成
@@ -314,8 +315,7 @@
 #pragma mark --- ApplyRefundDelegate
 
 - (void)backActionWithBtn:(UIButton *)btn{
-    [self.items_arr removeAllObjects];
-    [self.datas removeAllObjects];
+    self.isHeaderRefresh = YES;
     if (self.sg_selectIndex == 0) {
         [self getDatasWithIndex:@(self.sg_selectIndex)];
     }else if(self.sg_selectIndex == 4){
@@ -449,11 +449,11 @@
         }else if([status isEqualToString:@"9"]){
             // 已退款
             down_y = 0;
-            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:NO];
+            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:YES];
         }else if([status isEqualToString:@"10"]){
             // 已退货
             down_y = 0;
-            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:NO];
+            [self setOneBtn:oneBtn WithOneBtnState:YES twoBtn:twoBtn twoBtnState:YES];
         }
     }
     UIView *downLine = [UIView lh_viewWithFrame:CGRectMake(0, down_y, SCREEN_WIDTH, 5) backColor:KVCBackGroundColor];
@@ -588,6 +588,7 @@
     btn.enabled = NO;
     //----->微信支付
     [[[HHMineAPI postOrder_AppPayAddrId:nil orderId:orderid money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        
         btn.enabled = YES;
         if (!error) {
             if (api.State == 1) {
@@ -603,6 +604,7 @@
             [SVProgressHUD showInfoWithStatus:api.Msg];
         }
     }];
+//    181018105538139
 }
 - (void)twoAction:(UIButton *)btn{
     

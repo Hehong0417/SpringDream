@@ -42,6 +42,7 @@
     
     NSInteger size = [[SDImageCache sharedImageCache] getSize];
     CGFloat M = size/1024/1024;
+    
     HJSettingItem *item4_1 = [self settingItemInIndexPath:[NSIndexPath indexPathForRow:1 inSection:4]];
     item4_1.detailTitle = [NSString stringWithFormat:@"%.2fM",M];
     
@@ -150,6 +151,7 @@
     if (indexPath.section == 1&&indexPath.row == 1) {
         
         HHShippingAddressVC *vc = [HHShippingAddressVC new];
+        vc.enter_type = HHenter_type_mine;
         [self.navigationController pushVC:vc];
     }
     if (indexPath.section == 2&&indexPath.row == 0) {

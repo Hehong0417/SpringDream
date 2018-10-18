@@ -20,13 +20,20 @@
     [self.contentView lh_setCornerRadius:5 borderWidth:0 borderColor:nil];
     self.contentView.backgroundColor = kWhiteColor;
     self.backgroundColor = KVCBackGroundColor;
+    
+    self.bank_name_label.font = FONT(16);
+    self.bank_numer_label.font = FONT(16);
 }
 
 - (void)setModel:(HHMineModel *)model{
     _model = model;
     
     self.bank_name_label.text = model.BankName;
-    self.bank_numer_label.text = model.BankAccountNo;
+    if (model.BankAccountNo.length>4) {
+        NSString *bank_no = [model.BankAccountNo substringFromIndex:model.BankAccountNo.length-4];
+        self.bank_numer_label.text = [NSString stringWithFormat:@"**** **** **** %@",bank_no];
+    }
+
     
 }
 

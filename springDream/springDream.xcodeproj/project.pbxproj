@@ -448,6 +448,8 @@
 		CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA25D212D70C200CB8002 /* HHdiscountPackageViewTabCell.m */; };
 		CEDBA264212D70C200CB8002 /* HHdiscountPackageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */; };
 		CEDBA265212D70C200CB8002 /* HHdiscountPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */; };
+		CEE30CED2178AA210054C55B /* HHWithdrawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE30CEB2178AA210054C55B /* HHWithdrawCell.m */; };
+		CEE30CEE2178AA210054C55B /* HHWithdrawCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE30CEC2178AA210054C55B /* HHWithdrawCell.xib */; };
 		CEECFB2C2175C6EB00B5A6AD /* HHSubmitTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECFB2B2175C6EB00B5A6AD /* HHSubmitTitleCell.m */; };
 		CEEE987E216CD3D900AF2D48 /* SDListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEE987D216CD3D900AF2D48 /* SDListModel.m */; };
 		CEFEAF88214A8B310085B5D1 /* HHPostTimeLineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAF87214A8B310085B5D1 /* HHPostTimeLineVC.m */; };
@@ -1281,6 +1283,9 @@
 		CEDBA260212D70C200CB8002 /* HHdiscountPackageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageCollectionCell.m; sourceTree = "<group>"; };
 		CEDBA261212D70C200CB8002 /* HHdiscountPackageViewTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHdiscountPackageViewTabCell.h; sourceTree = "<group>"; };
 		CEDBA262212D70C200CB8002 /* HHdiscountPackageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHdiscountPackageView.m; sourceTree = "<group>"; };
+		CEE30CEA2178AA210054C55B /* HHWithdrawCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHWithdrawCell.h; sourceTree = "<group>"; };
+		CEE30CEB2178AA210054C55B /* HHWithdrawCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHWithdrawCell.m; sourceTree = "<group>"; };
+		CEE30CEC2178AA210054C55B /* HHWithdrawCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHWithdrawCell.xib; sourceTree = "<group>"; };
 		CEECFB2A2175C6EB00B5A6AD /* HHSubmitTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHSubmitTitleCell.h; sourceTree = "<group>"; };
 		CEECFB2B2175C6EB00B5A6AD /* HHSubmitTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHSubmitTitleCell.m; sourceTree = "<group>"; };
 		CEEE987C216CD3D900AF2D48 /* SDListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDListModel.h; sourceTree = "<group>"; };
@@ -2953,6 +2958,9 @@
 				CE27F072216B7E3C0014415E /* HHBankListCell.h */,
 				CE27F073216B7E3C0014415E /* HHBankListCell.m */,
 				CE27F074216B7E3C0014415E /* HHBankListCell.xib */,
+				CEE30CEA2178AA210054C55B /* HHWithdrawCell.h */,
+				CEE30CEB2178AA210054C55B /* HHWithdrawCell.m */,
+				CEE30CEC2178AA210054C55B /* HHWithdrawCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3259,6 +3267,7 @@
 				CE4FFE1D2148F4E800767DF1 /* 15.jpg in Resources */,
 				CE4FFDF12148F49A00767DF1 /* picon.jpg in Resources */,
 				CE4FFE292148F4E800767DF1 /* icon3.jpg in Resources */,
+				CEE30CEE2178AA210054C55B /* HHWithdrawCell.xib in Resources */,
 				CE4FFE1F2148F4E800767DF1 /* 16.jpg in Resources */,
 				CE8A67DB212ACA2E00C7C57F /* HHOrderTwoCell.xib in Resources */,
 				CE4FFE322148F4E800767DF1 /* 6.jpg in Resources */,
@@ -3420,6 +3429,7 @@
 				CE4D09EC212423F200796FEE /* UITextView+LH.m in Sources */,
 				CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */,
 				CE4FFDD82148F03900767DF1 /* SDRefreshFooterView.m in Sources */,
+				CEE30CED2178AA210054C55B /* HHWithdrawCell.m in Sources */,
 				CE47263D212D1ECE002BD2A5 /* DCCollectionHeaderLayout.m in Sources */,
 				CE8A652D212AABD100C7C57F /* HHUrlModel.m in Sources */,
 				CE4725B7212D017E002BD2A5 /* MLMenuView.m in Sources */,

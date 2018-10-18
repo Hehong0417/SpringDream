@@ -98,35 +98,35 @@
             if (_isSelect == YES) {
                 //选择不使用
                 HHcouponsModel *model = self.coupons[coupon_item.lastSelectIndex];
-                couponValue = model.CouponValue.floatValue;
+                couponValue = model.CouponValue.doubleValue;
                 _selectIndex = 0;
-                if (coupon_item.last_total_money<=model.CouponValue.floatValue) {
+                if (coupon_item.last_total_money<=model.CouponValue.doubleValue) {
                     //
                     total_money = coupon_item.order_total_money;
                 }else{
-                    total_money =  self.total_money.floatValue;
+                    total_money =  self.total_money.doubleValue;
                 }
             }else{
                 //未选择选项，默认上次
                 HHcouponsModel *model = self.coupons[coupon_item.lastSelectIndex];
-                couponValue = model.CouponValue.floatValue;
+                couponValue = model.CouponValue.doubleValue;
                 _selectIndex = coupon_item.lastSelectIndex;
-                if (coupon_item.last_total_money<=model.CouponValue.floatValue) {
+                if (coupon_item.last_total_money<=model.CouponValue.doubleValue) {
                     total_money = coupon_item.last_total_money;
                 }else{
-                    total_money =  self.total_money.floatValue + couponValue;
+                    total_money =  self.total_money.doubleValue + couponValue;
                 }
             }
         }else{
             //选择了其他的选项
             HHcouponsModel *model = self.coupons[coupon_item.lastSelectIndex];
-            couponValue = model.CouponValue.floatValue;
-            if (coupon_item.last_total_money<=model.CouponValue.floatValue) {
+            couponValue = model.CouponValue.doubleValue;
+            if (coupon_item.last_total_money<=model.CouponValue.doubleValue) {
                 //    如果上次的支付金额<上一次优惠券  那么改变选择之后 总价格为最开始价格
                 total_money = coupon_item.order_total_money;
             }else{
                //    1.加上上一次选择的优惠劵值
-                total_money =  self.total_money.floatValue + couponValue;
+                total_money =  self.total_money.doubleValue + couponValue;
             }
         }
         [self.delegate commitActionWithBtn:btn selectIndex:_selectIndex select_model:self.coupons[_selectIndex] total_money:total_money submitOrderTool:self.submitOrderTool couponCell:self.couponCell lastConponValue:couponValue last_total_money:coupon_item.last_total_money];
@@ -143,7 +143,7 @@
             }
             *stop = 0;
         }];
-        couponItem.last_total_money = self.total_money.floatValue;
+        couponItem.last_total_money = self.total_money.doubleValue;
         [couponItem write];
     }
 }

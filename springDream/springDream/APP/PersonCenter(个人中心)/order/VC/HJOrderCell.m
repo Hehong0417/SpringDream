@@ -35,7 +35,7 @@
     [self.goodsIco sd_setImageWithURL:[NSURL URLWithString:productModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     NSString *product_item_act_name = productModel.product_item_act_name.length>0?[NSString stringWithFormat:@"【%@】",productModel.product_item_act_name]:@"";
     self.goodsNameLab.text = [NSString stringWithFormat:@"%@%@",productModel.prodcut_name,product_item_act_name];
-    self.quantityLab.text = [NSString stringWithFormat:@"￥%.2f",productModel.product_item_price.floatValue];
+    self.quantityLab.text = [NSString stringWithFormat:@"￥%.2f",productModel.product_item_price.doubleValue];
     
     self.priceLab.text = [NSString stringWithFormat:@"x%@",productModel.product_item_quantity];
     self.sku_nameLab.text = [NSString stringWithFormat:@"%@",productModel.product_item_sku_name?productModel.product_item_sku_name:@""];

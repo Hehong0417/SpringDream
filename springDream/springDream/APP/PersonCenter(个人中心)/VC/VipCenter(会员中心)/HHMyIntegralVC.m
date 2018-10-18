@@ -86,7 +86,7 @@
             if (api.State == 1) {
                 
                 NSNumber *points = api.Data[@"total"];
-                self.wallet_head.vip_integral_label.text = [NSString stringWithFormat:@"%.2f分",points.floatValue];
+                self.wallet_head.vip_integral_label.text = [NSString stringWithFormat:@"%.2f分",points.doubleValue];
                 if (self.isFooterRefresh == YES) {
                     [self loadDataFinish:api.Data[@"list"]];
                 }else{

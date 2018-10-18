@@ -174,4 +174,7 @@
 + (instancetype)ValidateRecommendCodeWithCode:(NSString *)code;
 //更新省市区信息
 + (instancetype)UpdateUserInfoOfCityWithRegionId:(NSString *)regionId;
+//申请提现
++ (instancetype)postIntegralCashWithBank_id:(NSString *)bank_id money:(NSString *)money;
+
 @end

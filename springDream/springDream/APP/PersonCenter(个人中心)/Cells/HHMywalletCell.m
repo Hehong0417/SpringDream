@@ -33,7 +33,7 @@
     self.left_title_label.text = [NSString stringWithFormat:@"订单号:%@",commission_model.OrderInfo_Id];
     self.left_detail_label.text = [NSString stringWithFormat:@"收益时间:%@",commission_model.TradeTime];
     self.date_time_label.text = [NSString stringWithFormat:@"+%@",commission_model.CommTotal];
-    self.integral_label.text = [NSString stringWithFormat:@"%.2f",commission_model.UserCommission.floatValue];
+    self.integral_label.text = [NSString stringWithFormat:@"%.2f",commission_model.UserCommission.doubleValue];
 
 
 }
@@ -52,7 +52,7 @@
     self.left_title_label.text = [NSString stringWithFormat:@"订单号:%@",delegate_commission_model.oid];
     self.left_detail_label.text = [NSString stringWithFormat:@"收益时间:%@",delegate_commission_model.time];
     self.date_time_label.text = [NSString stringWithFormat:@"%@",delegate_commission_model.bonus_value];
-    self.integral_label.text = [NSString stringWithFormat:@"%.2f",delegate_commission_model.bonus_result.floatValue];
+    self.integral_label.text = [NSString stringWithFormat:@"%.2f",delegate_commission_model.bonus_result.doubleValue];
 }
 - (void)setStore_commission_model:(HHMineModel *)store_commission_model{
     _store_commission_model = store_commission_model;
@@ -87,7 +87,7 @@
     self.left_title_label.text = [NSString stringWithFormat:@"%@",integral_model.integraType];
     self.left_detail_label.text = [NSString stringWithFormat:@"单据:%@",integral_model.oid.length>0?integral_model.oid:@"无"];
     self.date_time_label.text = [NSString stringWithFormat:@"%@",integral_model.datetime];
-    self.integral_label.text = [NSString stringWithFormat:@"积分:%.2f",integral_model.integra.floatValue];
+    self.integral_label.text = [NSString stringWithFormat:@"积分:%.2f",integral_model.integra.doubleValue];
 }
 - (void)setWallet_model:(HHMineModel *)wallet_model{
     _wallet_model = wallet_model;

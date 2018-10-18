@@ -271,10 +271,13 @@
                 // 用户信息 resp.name,resp.iconurl,resp.gender
               
 //    账户是否存在 ？登录:注册
-//    NSString *openid = @"o8dxQ1s0Cr9bkYry3FNYVw0WUQcc";
+//        NSString *openid = @"ommBc1QYjBNlOoQVH3ZZ6wkw4T9Q";
+//        NSString *unionId = @"ohnWFwfAn3U9G2SaaFzVxGOcxx3k";
+
          NSString *openid = resp.openid;
+         NSString *unionId = resp.unionId;
 //    ***************//
-    [[[HHUserLoginAPI postApiLoginWithUseWay:@2 Phone:nil OpenId:openid Pwd:nil VerificationCode:nil unionId:resp.unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
+    [[[HHUserLoginAPI postApiLoginWithUseWay:@2 Phone:nil OpenId:openid Pwd:nil VerificationCode:nil unionId:unionId] netWorkClient] postRequestInView:nil finishedBlock:^(HHUserLoginAPI *api, NSError *error) {
 
         if (!error) {
             if (api.State == 1) {
@@ -285,8 +288,17 @@
                 [user write];
                 kKeyWindow.rootViewController = [[HJTabBarController alloc] init];
 
-            }else if (api.State == -1) {
+            }else if ([api.Msg containsString:@"未注册"]) {
 
+                HHPhoneBandVC *vc = [HHPhoneBandVC new];
+                vc.openId = openid;
+                vc.UserImage = resp.iconurl;
+                vc.unionId = resp.unionId;
+                [self.navigationController pushVC:vc];
+                [hud hideAnimated:YES];
+                
+            }else if ([api.Msg containsString:@"绑定"]) {
+                
                 HHPhoneBandVC *vc = [HHPhoneBandVC new];
                 vc.openId = openid;
                 vc.UserImage = resp.iconurl;

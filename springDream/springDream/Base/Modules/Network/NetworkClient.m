@@ -245,7 +245,7 @@
     }
 }
 
-- (void)readyForRequest:(UIView *)containerView {
+- (void)readyForRequest:(UIView *)containerView requestType:(NSString *)requestType{
     
     // 添加 UserId 和 Token
 //    if (self.baseAPI.parametersAddToken) {
@@ -262,7 +262,7 @@
         }
         
         self.containerView = tmpContainerView;
-        [self.baseAPI showHUDWhileRequest:tmpContainerView];
+        [self.baseAPI showHUDWhileRequest:tmpContainerView requestType:requestType];
     }
 }
 - (BaseAPI *)dealWhileSuccess:(id)responseObject {
@@ -402,7 +402,7 @@
 
 - (NSURLSessionDataTask *)getRequestInView:(UIView *)containerView finishedBlock:(APIFinishedBlock)finishedBlock {
     
-    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"GET"];
    
     // 开始请求
    return   [self.manager GET:self.subUrl parameters:self.parameters progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -423,7 +423,7 @@
 #pragma mark - Post Request
 
 - (void)postRequestInView:(UIView *)containerView successJCBlock:(APISuccessJushCodeBlock)successJCBlock {
-    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"POST"];
     
 #ifdef kNCLoaclResponse
     
@@ -449,7 +449,7 @@
 }
 
 - (void)postRequestInView:(UIView *)containerView successBlock:(APISuccessBlock)successBlock {
-    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"POST"];
     
 #ifdef kNCLoaclResponse
     
@@ -473,7 +473,7 @@
 }
 
 - (NSURLSessionDataTask *)postRequestInView:(UIView *)containerView finishedBlock:(APIFinishedBlock)finishedBlock {
-//    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"POST"];
     
 //#ifdef kNCLoaclResponse
 //
@@ -503,7 +503,7 @@
 #pragma mark - Upload Request
 
 - (void)uploadFileInView:(UIView *)containerView finishedBlock:(APIFinishedBlock)finishedBlock{
-    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"POST"];
     
     // 开始请求
     [self.manager POST:self.subUrl parameters:self.parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -533,7 +533,7 @@
 
 - (void)uploadVideoFileInView:(UIView *)containerView finishedBlock:(APIFinishedBlock)finishedBlock  progressBlock:(APIProgressBlock)progressBlock{
     
-    [self readyForRequest:containerView];
+    [self readyForRequest:containerView requestType:@"POST"];
     
     [self.manager POST:self.subUrl parameters:self.parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         

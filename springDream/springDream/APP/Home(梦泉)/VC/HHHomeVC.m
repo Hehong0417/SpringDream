@@ -214,6 +214,14 @@
         [self.navigationController pushVC:vc];
         decisionHandler(WKNavigationResponsePolicyCancel);
         
+    }else if ([responseUrl containsString:@"Personal/BargainList"]) {
+        //砍价
+        HHWebVC *vc = [HHWebVC new];
+        vc.title_str = @"砍价";
+        vc.url_str = responseUrl;
+        [self.navigationController pushVC:vc];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        
     }else{
         decisionHandler(WKNavigationResponsePolicyCancel);
     }

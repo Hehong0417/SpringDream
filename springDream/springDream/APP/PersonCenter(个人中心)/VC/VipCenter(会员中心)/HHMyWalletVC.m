@@ -98,7 +98,7 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:self.isloaded?@"record_icon_no":@""];
+    return [UIImage imageNamed:self.isloaded?@"no_order":@""];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     

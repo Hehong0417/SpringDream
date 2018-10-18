@@ -50,7 +50,7 @@
 
 static CGFloat textFieldH = 40;
 
-@interface SDTimeLineTableViewController () <SDTimeLineCellDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,HHPostTimeLineVCDelegate>
+@interface SDTimeLineTableViewController () <SDTimeLineCellDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,HHPostTimeLineVCDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, assign) BOOL isReplayingComment;
@@ -61,6 +61,7 @@ static CGFloat textFieldH = 40;
 
 @property (nonatomic, strong) UITableView *tabView;
 @property (nonatomic, assign) BOOL isCanBack;
+@property (nonatomic, assign) BOOL isLoaded;
 
 @end
 
@@ -79,7 +80,8 @@ static CGFloat textFieldH = 40;
     self.view = [UIView lh_viewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) backColor:KVCBackGroundColor];
     self.tabView= [UITableView lh_tableViewWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-STATUS_NAV_HEIGHT-50) tableViewStyle:UITableViewStylePlain delegate:self dataSourec:self];
     self.tabView.backgroundColor = kClearColor;
-    
+    self.tabView.emptyDataSetSource = self;
+    self.tabView.emptyDataSetDelegate = self;
     [self.view addSubview:self.tabView];
     self.tabView.tableFooterView = [UIView new];
     
@@ -179,8 +181,8 @@ static CGFloat textFieldH = 40;
 }
 - (void)getTimeLineData{
     
-    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20 commentLimit:@5] netWorkClient] getRequestInView:self.isFooterRefresh?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
-      
+    [[[SDTimeLineAPI  GetContentECSubjectListWithPage:@(self.page) pageSize:@20 commentLimit:@5] netWorkClient] getRequestInView:self.isLoaded?nil:self.view finishedBlock:^(SDTimeLineAPI *api, NSError *error) {
+        self.isLoaded = YES;
         if (!error) {
             if (api.State == 1) {
                 SDListModel *model = [SDListModel mj_objectWithKeyValues:api.Data];
@@ -313,7 +315,51 @@ static CGFloat textFieldH = 40;
     return width;
 }
 
+#pragma mark - DZNEmptyDataSetDelegate
 
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:self.isLoaded?@"no_order":@""];
+}
+//- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+//
+//    NSAttributedString *attrStr = [NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"购物车还没有商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)];
+//
+//  return attrStr;
+//}
+
+//- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
+//
+//    NSAttributedString *attrStr = [NSString lh_attriStrWithprotocolStr:@"去逛逛 >" content:@"购物车还没有商品哦～ 去逛逛 >" protocolStrColor:APP_COMMON_COLOR contentColor:KACLabelColor commonFont:FONT(14)];
+//
+//    return attrStr;
+//}
+
+//- (UIImage *)buttonBackgroundImageForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+//{
+//    UIEdgeInsets capInsets = UIEdgeInsetsMake(22.0, 22.0, 22.0, 22.0);
+//    UIEdgeInsets   rectInsets = UIEdgeInsetsMake(0.0, -130, 0.0, -130);
+//
+//    UIImage *image = [UIImage imageWithColor:APP_COMMON_COLOR redius:20 size:CGSizeMake(ScreenW-240, 35)];
+//
+//    return [[image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch] imageWithAlignmentRectInsets:rectInsets];
+//}
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    
+    CGFloat offset = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    offset += CGRectGetHeight(self.navigationController.navigationBar.frame);
+    return -offset;
+    
+}
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView{
+    
+    return 20;
+    
+}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
+    
+    
+}
 #pragma mark - SDTimeLineCellDelegate
 
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell

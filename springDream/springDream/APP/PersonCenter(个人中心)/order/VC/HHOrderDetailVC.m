@@ -11,6 +11,7 @@
 #import "HHOrderDetailCellOne.h"
 #import "HHOrderDetailHead.h"
 #import "HHOrderDetailCell3.h"
+#import "HHGoodDetailVC.h"
 
 @interface HHOrderDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -49,14 +50,26 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HHSubmitOrderCell" bundle:nil] forCellReuseIdentifier:@"HHSubmitOrderCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HHOrderDetailCellOne" bundle:nil] forCellReuseIdentifier:@"HHOrderDetailCellOne"];
     [self.tableView registerClass:[HHOrderDetailCell3 class] forCellReuseIdentifier:@"HHOrderDetailCell3"];
-
     
-//    20w   2 + 10 + 4
+//  20w   2 + 10 + 4
     //添加头部
     [self addTableHeader];
     
     //获取数据
     [self getDatas];
+    
+    //抓取返回按钮
+    UIButton *backBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    [backBtn bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+}
+- (void)backBtnAction{
+    
+    if (self.isCreateOrderEnter == YES) {
+        [self.navigationController popToRootVC];
+    }else{
+        [self.navigationController popVC];
+    }
 }
 - (NSMutableArray *)datas{
     if (!_datas) {
@@ -72,8 +85,6 @@
             if (api.State == 1) {
         
                     self.model = [HHCartModel mj_objectWithKeyValues:api.Data];
-//                    orderIdLabel.text = [NSString stringWithFormat:@"订单编号：%@",self.model.orderid];
-//                    createdateLabel.text = [NSString stringWithFormat:@"下单时间：%@",self.model.orderDate];
                     self.state_label.text = self.model.statusName;
                   [self.model.prodcuts enumerateObjectsUsingBlock:^(HHproductsModel *  product_model, NSUInteger idx, BOOL * _Nonnull stop) {
                     [product_model.skuid  enumerateObjectsUsingBlock:^(HHskuidModel *  sku_model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -84,6 +95,7 @@
                         model.price = sku_model.Price;
                         model.quantity = sku_model.Quantity;
                         model.sku_name = sku_model.Value;
+                        model.pid = product_model.pid;
                         [self.datas addObject:model];
                         
                     }];
@@ -174,7 +186,7 @@
             
         }else  if (indexPath.row == 1){
             cell.textLabel.text = @"原价";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",self.model.payTotal?self.model.payTotal.floatValue:0.00];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"¥%.2f",self.model.payTotal?self.model.payTotal.doubleValue:0.00];
 
         }else if (indexPath.row == 2){
             cell.textLabel.text = @"优惠价";
@@ -200,6 +212,16 @@
     gridCell.selectionStyle = UITableViewCellSelectionStyleNone;
     gridCell.separatorInset = UIEdgeInsetsMake(0, -15, 0, 0);
     return gridCell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+       HHproductsModel *model = self.datas[indexPath.row];
+        HHGoodDetailVC *vc = [HHGoodDetailVC new];
+        vc.Id = model.pid;
+        [self.navigationController pushVC:vc];
+        vc.goodDetail_backBlock = ^{
+    
+        };
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -258,7 +280,7 @@
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
     headView.backgroundColor = kWhiteColor;
     if (section == 1) {
-        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW-20, 50) text:[NSString stringWithFormat:@"共%ld件商品 合计:¥%.2f",self.datas.count,self.model.payTotal.floatValue] textColor:KTitleLabelColor font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(0, 0, ScreenW-20, 50) text:[NSString stringWithFormat:@"共%ld件商品 合计:¥%.2f",self.datas.count,self.model.payTotal.doubleValue] textColor:KTitleLabelColor font:FONT(13) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
         [headView addSubview:label];
         return headView;
     }
@@ -266,7 +288,7 @@
         
         UILabel *label = [UILabel lh_labelWithFrame:CGRectMake(15, 0, 80, 50) text:@"合计" textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentLeft backgroundColor:kWhiteColor];
         [headView addSubview:label];
-        UILabel *label2 = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-120, 0, 100, 50) text:[NSString stringWithFormat:@"¥%.2f",self.model.payTotal.floatValue] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
+        UILabel *label2 = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-120, 0, 100, 50) text:[NSString stringWithFormat:@"¥%.2f",self.model.payTotal.doubleValue] textColor:kBlackColor font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
         [headView addSubview:label2];
         return headView;
 

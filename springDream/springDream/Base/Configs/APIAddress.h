@@ -11,15 +11,19 @@
 //(57)
 //#ifdef DEBUG
 
+//测试环境
+//#define API_HOST @"http://mrs-base.mooncherrymrs.com/api"
+//#define API_HOST1 @"http://mrs.mooncherrymrs.com"
+//#define API_HOST2 @"http://mrs-order.mooncherrymrs.com/api"
+//#define API_HOST3  @"http://mrs-product.mooncherrymrs.com/api/Product"
+//#define API_HOST4  @"http://mrs-product.mooncherrymrs.com/api"
+
+
+//开发环境
 #define API_HOST @"http://mrs-base.elevo.cn/api"
-
 #define API_HOST1 @"http://mrs.elevo.cn"
-
 #define API_HOST2 @"http://mrs-order.elevo.cn/api"
-
-//分类、商品详情
 #define API_HOST3  @"http://mrs-product.elevo.cn/api/Product"
-
 #define API_HOST4  @"http://mrs-product.elevo.cn/api"
 
 
@@ -226,6 +230,7 @@
 #define API_GetOrderDetail API_SUB_URL2(@"Order/GetOrderDetail")
 //4.33获取提现信息
 #define API_GetUserApplyMessage API_SUB_URL(@"Commission/GetUserApplyMessage")
+
 //4.21佣金申请
 #define API_CommissionApply  API_SUB_URL(@"Commission/Apply")
 //4.34获取积分列表
@@ -300,6 +305,8 @@
 #define API_GetUserStoreCommission API_SUB_URL(@"Store/GetUserStoreCommission")
 //4.24 门店zo收益
 #define API_GetUserStoreCommissionStatictis API_SUB_URL(@"Store/GetUserStoreCommissionStatictis")
+//4.33申请提现
+#define API_Integral_Cash API_SUB_URL(@"Integral/Cash")
 
 /**
  *  支付

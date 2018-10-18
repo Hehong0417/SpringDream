@@ -96,7 +96,7 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"chosecopon_icon_no"];
+    return [UIImage imageNamed:@"no_order"];
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
@@ -148,5 +148,12 @@
     
     return 0.01;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    HHMineModel *model =  [HHMineModel mj_objectWithKeyValues:self.datas[indexPath.row]];
+    if (self.cardModelBlock) {
+        self.cardModelBlock(model);
+        [self.navigationController popVC];
+    }
+}
 @end

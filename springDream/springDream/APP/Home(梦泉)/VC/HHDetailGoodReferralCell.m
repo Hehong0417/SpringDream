@@ -41,8 +41,8 @@
         self.product_nameLabel.text = gooodDetailModel.ProductName;
     }
     self.subtitle_label.text = gooodDetailModel.subtitle?gooodDetailModel.subtitle:@"";
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice.floatValue:0.00];
-    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice.floatValue:0.00]];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",gooodDetailModel.BuyPrice?gooodDetailModel.BuyPrice.doubleValue:0.00];
+    NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:¥%.2f",gooodDetailModel.MarketPrice?gooodDetailModel.MarketPrice.doubleValue:0.00]];
     [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
     self.product_s_intergralLabel.attributedText = newPrice;
     self.package_lab.text = [NSString stringWithFormat:@"运费：%@",gooodDetailModel.StrFreightModey?gooodDetailModel.StrFreightModey:@"0"];
