@@ -27,6 +27,10 @@
     
     [self.goodsIco lh_setCornerRadius:0 borderWidth:0 borderColor:nil];
     [self.StandardLab lh_setCornerRadius:0 borderWidth:1 borderColor:KA0LabelColor];
+    self.goodsNameLab.font = FONT(14);
+    self.sku_nameLab.font = FONT(13);
+    self.quantityLab.font = FONT(14);
+
 
 }
 - (void)setProductModel:(HHproducts_item_Model *)productModel{
@@ -34,7 +38,8 @@
 
     [self.goodsIco sd_setImageWithURL:[NSURL URLWithString:productModel.icon] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
     NSString *product_item_act_name = productModel.product_item_act_name.length>0?[NSString stringWithFormat:@"【%@】",productModel.product_item_act_name]:@"";
-    self.goodsNameLab.text = [NSString stringWithFormat:@"%@%@",productModel.prodcut_name,product_item_act_name];
+    NSString *contentStr = [NSString stringWithFormat:@"%@%@",product_item_act_name,productModel.prodcut_name];
+    self.goodsNameLab.attributedText = [NSString lh_attriStrWithprotocolStr:product_item_act_name content:contentStr protocolStrColor:APP_COMMON_COLOR contentColor:kBlackColor commonFont:FONT(14)];
     self.quantityLab.text = [NSString stringWithFormat:@"￥%.2f",productModel.product_item_price.doubleValue];
     
     self.priceLab.text = [NSString stringWithFormat:@"x%@",productModel.product_item_quantity];

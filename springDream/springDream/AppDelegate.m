@@ -96,8 +96,15 @@
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
         // 其他如支付等SDK的回调
-        return [WXApi handleOpenURL:url delegate:self];
-
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+        }else{
+            //微信支付
+          return [WXApi handleOpenURL:url delegate:self];
+        }
     }
     return result;
 }
@@ -106,7 +113,15 @@
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (!result) {
         // 其他如支付等SDK的回调
-        return [WXApi handleOpenURL:url delegate:self];
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+        }else{
+            //微信支付
+            return [WXApi handleOpenURL:url delegate:self];
+        }
 
     }
     return result;
@@ -117,7 +132,15 @@
     BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
     if (!result) {
         // 其他如支付等SDK的回调
-        return [WXApi handleOpenURL:url delegate:self];
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+        }else{
+            //微信支付
+            return [WXApi handleOpenURL:url delegate:self];
+        }
     }
     return result;
 }

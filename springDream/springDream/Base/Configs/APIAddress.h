@@ -30,6 +30,9 @@
 ////公共设置
 #define APP_key @"59334e721bcd31"
 #define APP_scode @"15ca7554e8cb486f3b8cbe1fa166c75b"
+#define Alipay_appScheme  @"MoonCherryScheme"
+
+
 // [NSString md5:[APP_key stringByAppendingString:@"trans"]]
 
 //MD5加密（APP_key+”weicai”）
@@ -167,6 +170,8 @@
 #define API_GetUserSearch API_SUB_URL(@"UserInfo/GetUserSearchAndHotSearch")
 // APP订单去支付
 #define API_Order_AppPay API_SUB_URL2(@"Order/AppPay")
+// APP订单去支付(支付宝)
+#define API_Order_AppPay_alipay API_SUB_URL1(@"api/Order/AliPay")
 //3.9创建订单
 #define API_Order_Create API_SUB_URL2(@"Order/Create")
 //3.10 发布评价

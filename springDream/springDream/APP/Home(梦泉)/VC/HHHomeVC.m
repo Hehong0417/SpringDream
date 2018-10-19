@@ -64,6 +64,7 @@
     //
         NSString  *url = [NSString stringWithFormat:@"%@/MiniPrograms/Index",API_HOST1];
         self.htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
+
         if(self.htmlString == nil ||self.htmlString.length == 0){
             NSLog(@"load failed!");
         }else{

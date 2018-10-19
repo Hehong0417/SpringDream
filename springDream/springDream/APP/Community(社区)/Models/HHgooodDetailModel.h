@@ -35,6 +35,7 @@
 @property(nonatomic,strong) NSString *VideoUrl;
 @property(nonatomic,strong) NSString *subtitle;
 @property(nonatomic,strong) NSNumber *IsCutProduct;
+@property(nonatomic,strong) NSString *MinSaleCount;
 
 
 @property(nonatomic,strong) NSArray <MeetActivityModel *>*Coupons;

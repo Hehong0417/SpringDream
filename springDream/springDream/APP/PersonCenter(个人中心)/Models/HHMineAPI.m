@@ -682,11 +682,29 @@
     api.parametersAddToken = NO;
     return api;
 }
-//订单支付
+//订单支付(微信)
 + (instancetype)postOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money{
     
     HHMineAPI *api = [self new];
     api.subUrl = API_Order_AppPay;
+    if (addrId) {
+        [api.parameters setObject:addrId forKey:@"addrId"];
+    }
+    if (orderId) {
+        [api.parameters setObject:orderId forKey:@"orderId"];
+    }
+    if (money) {
+        [api.parameters setObject:money forKey:@"money"];
+    }
+    api.parametersAddToken = NO;
+    return api;
+    
+}
+//订单支付(支付宝)
++ (instancetype)postAlipayOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money{
+    
+    HHMineAPI *api = [self new];
+    api.subUrl = API_Order_AppPay_alipay;
     if (addrId) {
         [api.parameters setObject:addrId forKey:@"addrId"];
     }

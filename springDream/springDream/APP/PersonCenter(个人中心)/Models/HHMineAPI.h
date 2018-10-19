@@ -160,6 +160,8 @@
 + (instancetype)postSms_SendCode:(NSString *)mobile code:(NSString *)code;
 //订单支付
 + (instancetype)postOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money;
+//订单支付(支付宝)
++ (instancetype)postAlipayOrder_AppPayAddrId:(NSString *)addrId orderId:(NSString *)orderId money:(NSString *)money;
 //创建订单
 + (instancetype)postOrder_CreateWithAddrId:(NSString *)addr_id skuId:(NSString *)skuId count:(NSString *)count mode:(NSNumber *)mode gbId:(NSString *)gbId couponId:(NSString *)couponId integralTempIds:(NSString *)integralTempIds message:(NSString *)message cartIds:(NSString *)cartIds storeId:(NSString *)storeId shippingStoreIds:(NSString *)shippingStoreIds;
 //发布评价

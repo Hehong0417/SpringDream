@@ -55,6 +55,7 @@
 @property(nonatomic,strong) NSNumber *order_mode;
 @property(nonatomic,strong) NSString *order_mode_name;
 @property(nonatomic,strong) NSString *store_name;
+@property(nonatomic,strong) NSString *product_group;
 
 @property(nonatomic,strong) NSArray <HHproductsModel*>*items;
 @property(nonatomic,assign) CGFloat footHeight;

@@ -79,6 +79,12 @@
 @property (nonatomic, assign) BOOL IsSecKill;
 @property (nonatomic, assign) BOOL IsGroupBuy;
 
+//剩余可限购数
+@property (nonatomic, strong) NSString *RemainJoinCount;
+//限购数
+@property (nonatomic, strong) NSString *LimitCount;
+
+
 @end
 
 static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商品信息
@@ -128,6 +134,7 @@ static NSArray *lastSele_IdArray_;
     [self regsterTableCell];
     [self addCartOrBuyAction];
 
+    
     //获取数据
     [self getDatas];
    
@@ -141,15 +148,22 @@ static NSArray *lastSele_IdArray_;
     self.foot = [[HHGoodDetailFoot alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 500)];
     weakSelf.tabView.tableFooterView = weakSelf.foot;
 
+    
     self.foot.reloadBlock = ^{
-             weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
-             weakSelf.tabView.tableFooterView = weakSelf.foot;
+        
+        weakSelf.foot.frame = CGRectMake(0, 0, ScreenW, [HHGoodDetailFoot cellHeight]);
+        weakSelf.tabView.tableFooterView = weakSelf.foot;
     };
     
     _pickView = [[HXCommonPickView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
     
     self.tabView.hidden = YES;
     self.addCartTool.hidden = YES;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
 }
 - (void)backBtnAction{
     
@@ -233,6 +247,7 @@ static NSArray *lastSele_IdArray_;
             }
     };
     self.addCartTool.buyBlock = ^(UIButton *btn) {
+        
         HHActivityModel *GroupBy_m = [HHActivityModel mj_objectWithKeyValues:weakSelf.gooodDetailModel.GroupBuy];
         if ([GroupBy_m.IsJoin isEqual:@1]) {
             //单独购买
@@ -259,7 +274,7 @@ static NSArray *lastSele_IdArray_;
         
         HHShoppingVC *shop_vc = [HHShoppingVC new];
         shop_vc.cartType = HHcartType_goodDetail;
-        [self.navigationController pushVC:shop_vc];
+        [weakSelf.navigationController pushVC:shop_vc];
     };
 }
 #pragma mark - 处理立即购买数据
@@ -268,9 +283,22 @@ static NSArray *lastSele_IdArray_;
     
     HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     if (cell.seleArray.count != cell.featureAttr.count) {
-        [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+        NSMutableArray *no_select_arr = [NSMutableArray array];
+        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[NSIndexPath class]]) {
+            }else{
+                [no_select_arr addObject:cell.featureAttr[idx]];
+            }
+        }];
+        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [no_select_ValueName_arr addObject:model.ValueName];
+        }];
+        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD dismissWithDelay:1.0];
+
     }else{
         NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
         NSString *sku_id;
@@ -285,8 +313,33 @@ static NSArray *lastSele_IdArray_;
             quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
         }
         if (sku_id_Str.length>0) {
-            //立即购买 是否存在收货地址
-            [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+            if (self.gooodDetailModel.MinSaleCount.floatValue>0&&(quantity.floatValue>self.gooodDetailModel.MinSaleCount.floatValue)) {
+                
+                [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品起卖数为%@",self.gooodDetailModel.MinSaleCount]];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                [SVProgressHUD dismissWithDelay:1.0];
+
+            }else{
+                //不限起卖数 、数量
+                if ([self.LimitCount isEqualToString:@"0"]) {
+                    //不限购
+                    //立即购买 是否存在收货地址
+                    [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+                }else{
+                    //数量大于剩余可购买数
+                    if (quantity.floatValue>self.RemainJoinCount.floatValue) {
+                        
+                        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品还可购买数为%@",self.RemainJoinCount]];
+                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                        [SVProgressHUD dismissWithDelay:1.5];
+                    }else{
+                        [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+                    }
+                    
+                }
+
+            }
+
         }
     }
 }
@@ -739,6 +792,8 @@ static NSArray *lastSele_IdArray_;
 
 - (void)getDatas{
     
+    self.RemainJoinCount = nil;
+    self.LimitCount = @"0";
     self.addCartTool.userInteractionEnabled = NO;
     WEAK_SELF();
     self.Mode = @1;
@@ -842,6 +897,10 @@ static NSArray *lastSele_IdArray_;
                 if ([SecKill_m.IsSecKill isEqual:@1]) {
                     weakSelf.IsSecKill = YES;
                     weakSelf.seckill_view.hidden = NO;
+                    
+                    self.RemainJoinCount = SecKill_m.RemainJoinCount;
+                    self.LimitCount = SecKill_m.LimitCount;
+                    
                     weakSelf.seckill_view.activity_m = SecKill_m;
                     weakSelf.seckill_view.price_label.text = [NSString stringWithFormat:@"¥%.2f",SecKill_m.Price.doubleValue];
                     NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"原价:%.2f",weakSelf.gooodDetailModel.MarketPrice?weakSelf.gooodDetailModel.MarketPrice.doubleValue:0.00]];
@@ -1060,6 +1119,6 @@ static NSArray *lastSele_IdArray_;
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-     [self.foot.wkWebView  reload];
+//     [self.foot.wkWebView  reload];
 }
 @end

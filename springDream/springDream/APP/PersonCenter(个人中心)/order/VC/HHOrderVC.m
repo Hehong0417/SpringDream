@@ -654,13 +654,13 @@
     UILabel *storeName_label = [UILabel lh_labelWithFrame:CGRectMake(44, 0, storeName_size.width+10, 40) text:model.store_name textColor:kBlackColor font:FONT(13) textAlignment:NSTextAlignmentLeft backgroundColor:kClearColor];
     [headView addSubview:storeName_label];
     
-//    if (model.groupName.length>0) {
-//        CGSize mode_size = [model.groupName lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-//        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(storeName_label.frame)+5, 0,mode_size.width+10, 20) text:model.groupName textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
-//        activityLabel.centerY = headView.centerY;
-//        [activityLabel lh_setCornerRadius:5 borderWidth:1 borderColor:APP_NAV_COLOR];
-//        [headView addSubview:activityLabel];
-//    }
+    if (model.product_group.length>0) {
+        CGSize mode_size = [model.product_group lh_sizeWithFont:FONT(13)  constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+        UILabel *activityLabel = [UILabel lh_labelWithFrame:CGRectMake(CGRectGetMaxX(storeName_label.frame)+5, 0,mode_size.width+10, 20) text:model.product_group textColor:APP_NAV_COLOR font:FONT(13) textAlignment:NSTextAlignmentCenter backgroundColor:kClearColor];
+        activityLabel.centerY = headView.centerY;
+        [activityLabel lh_setCornerRadius:5 borderWidth:1 borderColor:APP_NAV_COLOR];
+        [headView addSubview:activityLabel];
+    }
 
     UILabel *textLabel = [UILabel lh_labelWithFrame:CGRectMake(ScreenW-95, 0, 80, 40) text:model.status_name textColor:APP_COMMON_COLOR font:FONT(14) textAlignment:NSTextAlignmentRight backgroundColor:kWhiteColor];
     [headView addSubview:textLabel];

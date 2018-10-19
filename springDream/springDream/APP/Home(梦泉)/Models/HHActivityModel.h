@@ -21,6 +21,7 @@
 @property(nonatomic,strong) NSString *LimitCount;
 @property(nonatomic,strong) NSArray <HHJoinActivityModel *>*JoinActivity;
 @property(nonatomic,strong) NSString *UserJoinCount;
+@property(nonatomic,strong) NSString *RemainJoinCount;
 
 @end
 @interface HHJoinActivityModel : BaseModel

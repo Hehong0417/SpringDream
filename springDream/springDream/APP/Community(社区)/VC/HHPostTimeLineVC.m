@@ -292,11 +292,13 @@ typedef   void (^completeHandle)();
     [_collectionView performBatchUpdates:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag-100 inSection:0];
         [_collectionView deleteItemsAtIndexPaths:@[indexPath]];
+        
     } completion:^(BOOL finished) {
         SDPostTimeLinePicItem *oEvaluateItem = [SDPostTimeLinePicItem sharedSDPostTimeLinePicItem];
-        [oEvaluateItem.ContentECSubjectPicModel removeObjectAtIndex:sender.tag-100];
+        NSMutableArray *subject_copyArr = [NSMutableArray arrayWithArray:oEvaluateItem.ContentECSubjectPicModel];
+        [subject_copyArr removeObjectAtIndex:sender.tag-100];
+        oEvaluateItem.ContentECSubjectPicModel = subject_copyArr;
         [oEvaluateItem write];
-        [_collectionView reloadData];
     }];
 }
 

@@ -50,7 +50,6 @@
 #import "MBProgressHUD+LH.h"
 #import "YYText.h"
 #import "SDAutoLayout.h"
-
 #import "HHLoadingView.h"
 
 //api
@@ -85,6 +84,7 @@
 #import "UIButton+LXExpandBtn.h"
 #import "NSString+Extension.h"
 #import "UIColor+LXExpand.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 
 
