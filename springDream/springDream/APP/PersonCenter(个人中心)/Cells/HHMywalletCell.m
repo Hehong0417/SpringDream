@@ -101,9 +101,9 @@
     self.date_time_label.textColor = kDarkGrayColor;
     self.integral_label.textColor = kDarkGrayColor;
     
-    self.left_title_label.text = [NSString stringWithFormat:@"%@",wallet_model.Remarks];
+    self.left_title_label.text = [NSString stringWithFormat:@"%@",wallet_model.ChangeModeString];
     self.left_detail_label.text = [NSString stringWithFormat:@"订单号:%@",wallet_model.oid.length>0?wallet_model.oid:@"无"];
-    self.date_time_label.text = [NSString stringWithFormat:@"%@",wallet_model.ChangeMoney];
+    self.date_time_label.text = [NSString stringWithFormat:@"%.2lf",wallet_model.ChangeMoney.doubleValue];
     self.integral_label.text = [NSString stringWithFormat:@"%@",wallet_model.CreateDate];
 }
 @end

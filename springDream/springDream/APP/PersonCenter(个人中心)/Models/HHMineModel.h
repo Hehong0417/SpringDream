@@ -27,6 +27,7 @@
 @property(nonatomic,strong) NSString  *CardID;
 @property(nonatomic,strong) NSString  *OpenId;
 @property(nonatomic,strong) NSString  *userRegin;
+@property(nonatomic,strong) NSString  *total;
 
 
 @property(nonatomic,strong) NSNumber  *isUserAgent;

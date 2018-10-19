@@ -58,10 +58,13 @@
     
     [[[HHMineAPI GetBalanceChangeListWithPage:@(self.page) pageSize:@20] netWorkClient] getRequestInView:nil finishedBlock:^(HHMineAPI *api, NSError *error) {
         self.isloaded = YES;
+        
         if (!error) {
             if (api.State == 1) {
-                NSNumber *total = api.Data[@"total"];
-                self.wallet_head.total_price_label.text = [NSString stringWithFormat:@"%@",total];
+                
+                HHMineModel *model = [HHMineModel mj_objectWithKeyValues:api.Data];
+                self.wallet_head.total_price_label.text = [NSString stringWithFormat:@"%.2lf",model.total.doubleValue];
+                
                 if (self.isFooterRefresh==YES) {
                     [self loadDataFinish:api.Data[@"list"]];
                 }else{

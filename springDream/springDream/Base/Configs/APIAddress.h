@@ -306,7 +306,7 @@
 //4.24 门店zo收益
 #define API_GetUserStoreCommissionStatictis API_SUB_URL(@"Store/GetUserStoreCommissionStatictis")
 //4.33申请提现
-#define API_Integral_Cash API_SUB_URL(@"Integral/Cash")
+#define API_Integral_Cash API_SUB_URL(@"Money/Cash")
 
 /**
  *  支付
