@@ -46,7 +46,7 @@
     }else if (status_code == 9){
         //        @"已退款
         self.footHeight = 5;
-    }else if (status_code == 8){
+    }else if (status_code == 10){
         //        @"已退货
         self.footHeight = 5;
     }

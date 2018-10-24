@@ -171,7 +171,7 @@
 // APP订单去支付
 #define API_Order_AppPay API_SUB_URL2(@"Order/AppPay")
 // APP订单去支付(支付宝)
-#define API_Order_AppPay_alipay API_SUB_URL1(@"api/Order/AliPay")
+#define API_Order_AppPay_alipay API_SUB_URL2(@"Order/AliPay")
 //3.9创建订单
 #define API_Order_Create API_SUB_URL2(@"Order/Create")
 //3.10 发布评价

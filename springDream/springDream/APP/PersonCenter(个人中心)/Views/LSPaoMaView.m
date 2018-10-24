@@ -33,16 +33,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         //
-        title = [NSString stringWithFormat:@"          %@             ",title];//间隔
+        title = [NSString stringWithFormat:@"  %@  ",title];//间隔
         
         timeInterval = [self displayDurationForString:title];
         
-        self.backgroundColor = RGB(255, 223, 224);
+        self.backgroundColor = [UIColor blackColor];
         self.clipsToBounds = YES;
+        
         //
         UILabel* textLb = [[UILabel alloc] initWithFrame:CGRectZero];
         textLb.textColor = TEXTCOLOR;
-        textLb.font = FONT(13);
+        textLb.font = [UIFont boldSystemFontOfSize:TEXTFONTSIZE];
         textLb.text = title;
         
         //计算textLb大小
@@ -65,7 +66,7 @@
             
             UILabel* reserveTextLb = [[UILabel alloc] initWithFrame:rectMark2];
             reserveTextLb.textColor = TEXTCOLOR;
-            reserveTextLb.font = FONT(13);
+            reserveTextLb.font = [UIFont boldSystemFontOfSize:TEXTFONTSIZE];
             reserveTextLb.text = title;
             [self addSubview:reserveTextLb];
             

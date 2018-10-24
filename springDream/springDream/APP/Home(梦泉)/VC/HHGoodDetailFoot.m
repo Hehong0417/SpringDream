@@ -46,7 +46,7 @@ static CGFloat staticheight = 0;
 //        NSString *oc_str = @"iframe style=""width:100%; height:220px"" src";
 //        NSString *Description =   [nsm_str stringByReplacingOccurrencesOfString:@"iframe src" withString:oc_str];
         
-        NSString *content = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}iframe{ width:%f;height:220px}</style></head>%@",SCREEN_WIDTH-16,SCREEN_WIDTH-16,model.Description];
+        NSString *content = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}p{font-size:16px}iframe{ width:%f;height:220px}</style></head>%@",SCREEN_WIDTH+5,SCREEN_WIDTH+5,model.Description];
 
         [self.wkWebView loadHTMLString:content baseURL:nil];
     }
@@ -56,7 +56,7 @@ static CGFloat staticheight = 0;
 {
     // document.body.offsetHeight
     CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue]+45;
-    self.wkWebView.frame = CGRectMake(0, 45, ScreenW, height);
+    self.wkWebView.frame = CGRectMake(-10, 45, ScreenW+30, height);
     self.wkWebView.hidden = NO;
     staticheight = height+1;
      if (_reloadBlock) {
@@ -66,7 +66,7 @@ static CGFloat staticheight = 0;
 - (UIWebView *)wkWebView{
     
     if (!_wkWebView) {
-        _wkWebView =[[UIWebView alloc]initWithFrame:CGRectMake(0, 45, ScreenW, 0)];
+        _wkWebView =[[UIWebView alloc]initWithFrame:CGRectMake(-10, 45, ScreenW+30, 0)];
         _wkWebView.userInteractionEnabled = YES;
         _wkWebView.hidden = YES;
     }

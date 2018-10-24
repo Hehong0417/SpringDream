@@ -48,7 +48,7 @@
     _tag_label.hidden = YES;
     self.product_nameLabel.text = goodsModel.product_name;
     [self.goodImageV sd_setImageWithURL:[NSURL URLWithString:goodsModel.product_image] placeholderImage:[UIImage imageNamed:KPlaceImageName]];
-    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.product_user_price.doubleValue];
+    self.product_min_priceLabel.text = [NSString stringWithFormat:@"¥%.2f",goodsModel.product_activity_price.doubleValue];
 
     self.product_s_intergralLabel.attributedText = [self.product_s_intergralLabel lh_addtrikethroughStyleAtContent:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.product_market_price.doubleValue] rangeStr:[NSString stringWithFormat:@"原价: ¥%.2f",goodsModel.product_market_price.doubleValue] color:KA0LabelColor];
     if ([goodsModel.product_is_collection isEqual:@1]) {

@@ -12,7 +12,7 @@
 @implementation DCConsts
 
 /** 常量数 */
-CGFloat const DCMargin = 25;
+CGFloat const DCMargin = 15;
 
 /** 属性距离常量数 */
 CGFloat const DCellMargin = 18;

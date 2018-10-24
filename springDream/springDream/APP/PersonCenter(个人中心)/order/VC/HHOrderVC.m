@@ -587,24 +587,50 @@
 
     btn.enabled = NO;
     //----->微信支付
-    [[[HHMineAPI postOrder_AppPayAddrId:nil orderId:orderid money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-        
+//    [[[HHMineAPI postOrder_AppPayAddrId:nil orderId:orderid money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+//
+//        btn.enabled = YES;
+//        if (!error) {
+//            if (api.State == 1) {
+//                HHWXModel *model = [HHWXModel mj_objectWithKeyValues:api.Data];
+//                HJUser *user = [HJUser sharedUser];
+//                user.pids = pid;
+//                [user write];
+//                [HHWXModel payReqWithModel:model];
+//            }else{
+//                [SVProgressHUD showInfoWithStatus:api.Msg];
+//            }
+//        }else {
+//            [SVProgressHUD showInfoWithStatus:api.Msg];
+//        }
+//    }];
+
+    //支付宝获取支付参数接口
+    [[[HHMineAPI postAlipayOrder_AppPayAddrId:nil orderId:orderid money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
         btn.enabled = YES;
         if (!error) {
             if (api.State == 1) {
-                HHWXModel *model = [HHWXModel mj_objectWithKeyValues:api.Data];
-                HJUser *user = [HJUser sharedUser];
-                user.pids = pid;
-                [user write];
-                [HHWXModel payReqWithModel:model];
+                HHCartModel *model = [HHCartModel mj_objectWithKeyValues:api.Data];
+                
+                if (model.sign) {
+                    [[AlipaySDK defaultService] payOrder:model.sign fromScheme:Alipay_appScheme callback:^(NSDictionary *resultDic) {
+                        
+                        
+                    }];
+                }
+                
             }else{
-                [SVProgressHUD showInfoWithStatus:api.Msg];
+                if ([api.Msg isEqualToString:@"客户不存在"]) {
+                    
+                    [SVProgressHUD showInfoWithStatus:@"微信支付相关公众号正在申请中，请耐心等候！"];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
             }
         }else {
-            [SVProgressHUD showInfoWithStatus:api.Msg];
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         }
     }];
-//    181018105538139
 }
 - (void)twoAction:(UIButton *)btn{
     

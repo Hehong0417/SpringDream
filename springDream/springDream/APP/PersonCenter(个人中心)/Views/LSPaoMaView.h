@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define TEXTCOLOR [UIColor darkGrayColor]
+#define TEXTCOLOR [UIColor redColor]
+#define TEXTFONTSIZE 14
 
 @interface LSPaoMaView : UIView
 
@@ -16,4 +17,5 @@
 
 - (void)start;//开始跑马
 - (void)stop;//停止跑马
+
 @end

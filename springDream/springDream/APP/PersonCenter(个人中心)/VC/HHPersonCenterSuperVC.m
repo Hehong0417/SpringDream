@@ -13,6 +13,7 @@
 #import "HHPersonCenterSub2.h"
 #import "HHPersonCenterSub3.h"
 #import "HHPersonCenterSub4.h"
+#import "HHCommonSetVC.h"
 
 @interface HHPersonCenterSuperVC ()<UIScrollViewDelegate,SGSegmentedControlDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
@@ -38,17 +39,22 @@
     
     [self.title_arr addObject:@"会员中心"];
     
-    self.personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
-    self.personHead.nav = self.navigationController;
+    self.tabView.tableHeaderView = self.personHead;
     
-    // 1.添加所有子控制器
+
+//     1.添加所有子控制器
     [self setupChildViewController];
-    
+
     [self setupSegmentedControl];
 
     [self getDatas];
 
     [self addHeadRefresh];
+    WEAK_SELF();
+    self.personHead.commonSetBlock = ^{
+        HHCommonSetVC *vc = [HHCommonSetVC new];
+        [weakSelf.navigationController pushVC:vc];
+    };
 }
 - (void)loadView{
     
@@ -68,6 +74,13 @@
         _title_arr = [NSMutableArray array];
     }
     return _title_arr;
+}
+- (HHPersonCenterHead *)personHead{
+
+    if (!_personHead) {
+        _personHead = [[HHPersonCenterHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 175) notice_title:@"重要通知重要通知重要通知重要通知重要通知重要通知！！！"];
+    }
+    return _personHead;
 }
 #pragma mark - 刷新控件
 - (void)addHeadRefresh{
@@ -233,34 +246,34 @@
 - (void)setupChildViewController {
     
     [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+
         [obj removeFromParentViewController];
-        
+
     }];
     if (self.title_arr.count <=3) {
         HHPersonCenterSub1 *vc1 = [HHPersonCenterSub1 new];
         [self addChildViewController:vc1];
-        
+
         HHPersonCenterSub2 *vc2 = [HHPersonCenterSub2 new];
         [self addChildViewController:vc2];
-        
+
         HHPersonCenterSub4 *vc4 = [HHPersonCenterSub4 new];
         [self addChildViewController:vc4];
-        
+
     }else {
+
     HHPersonCenterSub1 *vc1 = [HHPersonCenterSub1 new];
     [self addChildViewController:vc1];
-    
+
     HHPersonCenterSub2 *vc2 = [HHPersonCenterSub2 new];
     [self addChildViewController:vc2];
-    
+
     HHPersonCenterSub3 *vc3 = [HHPersonCenterSub3 new];
     [self addChildViewController:vc3];
-    
+
     HHPersonCenterSub4 *vc4 = [HHPersonCenterSub4 new];
     [self addChildViewController:vc4];
 }
-    
 }
 
 // 显示控制器的view
@@ -268,10 +281,9 @@
     
     CGFloat offsetX = index * self.view.frame.size.width;
     
-    
     UIViewController *vc = self.childViewControllers[index];
     // 判断控制器的view有没有加载过,如果已经加载过,就不需要加载
-    //    if (vc.isViewLoaded) return;
+    if (vc.isViewLoaded) return;
     [self.mainScrollView addSubview:vc.view];
     vc.view.frame = CGRectMake(offsetX, 0, self.view.frame.size.width, self.view.frame.size.height);
 }
@@ -281,6 +293,7 @@
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    
     [self resetSideBack];
 }
 #pragma mark -- 禁用边缘返回

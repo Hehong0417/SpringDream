@@ -376,7 +376,7 @@ static CGFloat textFieldH = 40;
     NSIndexPath *indexPath = [self.tabView indexPathForCell:cell];
     SDTimeLineModel *model = [SDTimeLineModel mj_objectWithKeyValues:self.dataArray[indexPath.row]];
     
-    [self shareActionWithText:model.SubjectContent pic:model.ContentECSubjectPicModel];
+    [self shareActionWithModel:model];
     
 }
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell likeButton:(UIButton *)likeButton
@@ -506,30 +506,30 @@ static CGFloat textFieldH = 40;
         [self adjustTableViewToFitKeyboard];
     }
 }
--(void)shareActionWithText:(NSString *)text pic:(NSArray *)pic{
+-(void)shareActionWithModel:(SDTimeLineModel *)model{
 
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         // 根据获取的platformType确定所选平台进行下一步操作
 
-            [self shareVedioToPlatformType:platformType pic:pic Text:text];
+            [self shareVedioToPlatformType:platformType Model:model];
     }];
 }
 //分享到不同平台
-- (void)shareVedioToPlatformType:(UMSocialPlatformType)platformType pic:(NSArray *)pic Text:(NSString *)text
+- (void)shareVedioToPlatformType:(UMSocialPlatformType)platformType Model:(SDTimeLineModel *)model
 {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
-    if (pic.count>0) {
-        UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:@"" descr:@"" thumImage:nil];
-        SDContentECSubjectPicModel *picMode = pic[0];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:picMode.PicUrl]];
-        shareObject.shareImage = data;
-        messageObject.shareObject = shareObject;
-        
-    }else{
-        messageObject.text = text;
+
+    NSString *picStr = nil;
+    if (model.ContentECSubjectPicModel.count>0) {
+        SDContentECSubjectPicModel *picMode = model.ContentECSubjectPicModel[0];
+        picStr = picMode.PicUrl;
     }
+    UMShareWebpageObject *webpageObject = [UMShareWebpageObject shareObjectWithTitle:model.Title descr:model.SubjectContent thumImage:picStr];
+    webpageObject.webpageUrl = @"http://mrs.elevo.cn/ContentECWeb/Index";
+
+    messageObject.shareObject = webpageObject;
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         

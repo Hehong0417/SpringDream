@@ -20,7 +20,7 @@
 #import "HHDetailGoodReferralCell.h"
 #import "HHActivityModel.h"
 #import "MLMenuView.h"
-#import "HHFeatureSelectionViewCell.h"
+#import "FeatureSelectionViewCell.h"
 #import "UIViewController+XWTransition.h"
 #import "HHdiscountPackageViewTabCell.h"
 #import "HHGoodDetailFoot.h"
@@ -32,11 +32,12 @@
 #import "HHCouponListVC.h"
 #import "HHActivityWebVC.h"
 #import "HHBargainingWebVC.h"
+#import "DCFeatureSelectionViewController.h"
 #import <AVKit/AVKit.h>   //包含类 AVPlayerViewController
 #import <AVFoundation/AVFoundation.h>  //包含类 AVPlayer
 
 
-@interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate,HHFeatureSelectionViewCellDelegate>
+@interface HHGoodDetailVC ()<UITableViewDelegate,UITableViewDataSource,WKNavigationDelegate,SDCycleScrollViewDelegate>
 {
     HXCommonPickView *_pickView;
     AVPlayerViewController *aVPlayerViewController;
@@ -61,7 +62,6 @@
 @property (nonatomic, strong) UIView *tableHeader;
 @property (nonatomic, strong) UILabel *title_label;
 @property (nonatomic, strong) UITableView *tabView;
-@property (nonatomic, assign) CGFloat collectionHeight;
 @property (nonatomic, strong) HHSeckillCustomView *seckill_view;
 @property (nonatomic, strong) HHGoodDetailFoot *foot;
 
@@ -69,6 +69,9 @@
 @property (nonatomic, strong) NSMutableArray *productStores_ids;
 
 @property (nonatomic, strong) HHpreferModel *preferModel;
+
+//已选规格
+@property (nonatomic, strong) NSString *selectSkuStr;
 
 //优惠数组
 @property (nonatomic, strong) NSMutableArray *preferentialArr;
@@ -88,7 +91,7 @@
 @end
 
 static NSString *HHDetailGoodReferralCellID = @"HHDetailGoodReferralCell";//商品信息
-static NSString *HHFeatureSelectionViewCellID = @"HHFeatureSelectionViewCell";//商品属性
+static NSString *HHFeatureSelectionViewCellID = @"FeatureSelectionViewCell";//商品属性
 static NSString *HHdiscountPackageViewTabCellID = @"HHdiscountPackageViewTabCell";//推荐商品
 static NSString *HHEvaluationListCellID = @"HHEvaluationListCell";//评价
 static NSString *HHSpellGroupCellID = @"HHSpellGroupCell";
@@ -117,6 +120,9 @@ static NSArray *lastSele_IdArray_;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    
+    //接收到通知
+    [self acceptanceNote];
     
     self.preferModel = [HHpreferModel new];
     self.preferModel.items = @[@"满1500减50",@"满100减5",@"满200减15"];
@@ -205,7 +211,7 @@ static NSArray *lastSele_IdArray_;
 
 - (void)regsterTableCell{
     [self.tabView registerNib:[UINib nibWithNibName:HHDetailGoodReferralCellID bundle:nil] forCellReuseIdentifier:HHDetailGoodReferralCellID];
-    [self.tabView registerClass:[HHFeatureSelectionViewCell class] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
+    [self.tabView registerNib:[UINib nibWithNibName:HHFeatureSelectionViewCellID bundle:nil] forCellReuseIdentifier:HHFeatureSelectionViewCellID];
     [self.tabView registerClass:[HHdiscountPackageViewTabCell class] forCellReuseIdentifier:HHdiscountPackageViewTabCellID];
     [self.tabView registerClass:[HHEvaluationListCell class] forCellReuseIdentifier:HHEvaluationListCellID];
     [self.tabView registerClass:[HHSpellGroupCell class] forCellReuseIdentifier:HHSpellGroupCellID];
@@ -277,128 +283,186 @@ static NSArray *lastSele_IdArray_;
         [weakSelf.navigationController pushVC:shop_vc];
     };
 }
+#pragma mark - 接受通知
+- (void)acceptanceNote
+{
+    //删除通知
+    _deleteDcObj = [[NSNotificationCenter defaultCenter] addObserverForName:DELETE_SHOPITEMSELECTBACK object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        
+        [self deleteObj];
+        
+    }];
+    
+    WEAK_SELF();
+    //选择Item通知
+    _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:SHOPITEMSELECTBACK object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        
+        NSArray *selectArray = note.userInfo[@"Array"];
+        NSArray *select_IdArray = note.userInfo[@"id_Array"];
+        NSString *num = note.userInfo[@"Num"];
+        NSString *buttonTag = note.userInfo[@"Tag"];
+        NSString *button_title = note.userInfo[@"button_title"];
+        NSString *pid = note.userInfo[@"pid"];
+        
+        lastNum_ = num;
+        lastSeleArray_ = selectArray;
+        lastSele_IdArray_ = select_IdArray;
+        
+        //更新价格和库存
+        NSString *seleId_str = [NSString stringWithFormat:@"%@_%@",self.gooodDetailModel.Id,[select_IdArray componentsJoinedByString:@"_"]];
+        NSString *select_str = [selectArray componentsJoinedByString:@","];
+
+        
+        [self.gooodDetailModel.AllSkuList enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([obj.Sku isEqualToString:seleId_str]) {
+                self.gooodDetailModel.BuyPrice = obj.Price;
+                self.gooodDetailModel.Stock = obj.Stock;
+                self.selectSkuStr = select_str;
+                [self.tabView reloadData];
+            }
+        }];
+        if ([buttonTag isEqualToString:@"0"]) { //加入购物车
+            
+            if ([button_title isEqualToString:@"加入购物车"]) {
+                
+//                [weakSelf setUpWithAddSuccessWithselect_IdArray:select_IdArray quantity:num pid:pid];
+//                NSLog(@" 加入购物车");
+                
+            }else{
+                NSLog(@"参加拼团");
+                
+//                [weakSelf instanceBuyActionWithselect_IdArray:select_IdArray quantity:num pid:pid];
+            }
+        }
+        
+    }];
+    
+}
+- (void)deleteObj{
+    [[NSNotificationCenter defaultCenter]removeObserver:self.dcObj];
+}
 #pragma mark - 处理立即购买数据
 
 - (void)buyProductHandleData{
     
-    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    if (cell.seleArray.count != cell.featureAttr.count) {
-        NSMutableArray *no_select_arr = [NSMutableArray array];
-        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[NSIndexPath class]]) {
-            }else{
-                [no_select_arr addObject:cell.featureAttr[idx]];
-            }
-        }];
-        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
-        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [no_select_ValueName_arr addObject:model.ValueName];
-        }];
-        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
-        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
-        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-        [SVProgressHUD dismissWithDelay:1.0];
-
-    }else{
-        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
-        NSString *sku_id;
-        if (select_Id.length>0) {
-            sku_id = select_Id;
-        }else{
-            sku_id = @"0";
-        }
-        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
-        NSString *quantity = @"1";
-        if (cell.Num_>0) {
-            quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
-        }
-        if (sku_id_Str.length>0) {
-            if (self.gooodDetailModel.MinSaleCount.floatValue>0&&(quantity.floatValue>self.gooodDetailModel.MinSaleCount.floatValue)) {
-                
-                [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品起卖数为%@",self.gooodDetailModel.MinSaleCount]];
-                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                [SVProgressHUD dismissWithDelay:1.0];
-
-            }else{
-                //不限起卖数 、数量
-                if ([self.LimitCount isEqualToString:@"0"]) {
-                    //不限购
-                    //立即购买 是否存在收货地址
-                    [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
-                }else{
-                    //数量大于剩余可购买数
-                    if (quantity.floatValue>self.RemainJoinCount.floatValue) {
-                        
-                        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品还可购买数为%@",self.RemainJoinCount]];
-                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                        [SVProgressHUD dismissWithDelay:1.5];
-                    }else{
-                        [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
-                    }
-                    
-                }
-
-            }
-
-        }
-    }
+//    FeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//    if (cell.seleArray.count != cell.featureAttr.count) {
+//        NSMutableArray *no_select_arr = [NSMutableArray array];
+//        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if ([obj isKindOfClass:[NSIndexPath class]]) {
+//            }else{
+//                [no_select_arr addObject:cell.featureAttr[idx]];
+//            }
+//        }];
+//        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+//        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [no_select_ValueName_arr addObject:model.ValueName];
+//        }];
+//        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
+//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//        [SVProgressHUD dismissWithDelay:1.0];
+//
+//    }else{
+//        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+//        NSString *sku_id;
+//        if (select_Id.length>0) {
+//            sku_id = select_Id;
+//        }else{
+//            sku_id = @"0";
+//        }
+//        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
+//        NSString *quantity = @"1";
+//        if (cell.Num_>0) {
+//            quantity = [NSString stringWithFormat:@"%ld",cell.Num_];
+//        }
+//        if (sku_id_Str.length>0) {
+//            if (self.gooodDetailModel.MinSaleCount.floatValue>0&&(quantity.floatValue>self.gooodDetailModel.MinSaleCount.floatValue)) {
+//
+//                [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品起卖数为%@",self.gooodDetailModel.MinSaleCount]];
+//                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//                [SVProgressHUD dismissWithDelay:1.0];
+//
+//            }else{
+//                //不限起卖数 、数量
+//                if ([self.LimitCount isEqualToString:@"0"]) {
+//                    //不限购
+//                    //立即购买 是否存在收货地址
+//                    [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+//                }else{
+//                    //数量大于剩余可购买数
+//                    if (quantity.floatValue>self.RemainJoinCount.floatValue) {
+//
+//                        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"该商品还可购买数为%@",self.RemainJoinCount]];
+//                        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//                        [SVProgressHUD dismissWithDelay:1.5];
+//                    }else{
+//                        [self isExitAddressWithsku_id_Str:sku_id_Str quantity:quantity];
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//    }
 }
 
 #pragma mark - 处理加入购物车数据
 
 - (void)addCartHandleData{
     
-    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    if (cell.seleArray.count != cell.featureAttr.count) {
-        NSMutableArray *no_select_arr = [NSMutableArray array];
-        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[NSIndexPath class]]) {
-            }else{
-                [no_select_arr addObject:cell.featureAttr[idx]];
-            }
-        }];
-        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
-        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [no_select_ValueName_arr addObject:model.ValueName];
-        }];
-        
-        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
-        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
-        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-        [SVProgressHUD dismissWithDelay:1.0];
-    }else{
-        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
-        NSString *sku_id;
-        if (select_Id.length>0) {
-            sku_id = select_Id;
-        }else{
-            sku_id = @"0";
-        }
-        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
-        NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
-        
-        //加入购物车
-        [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity storeId:self.store_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
-            
-            if (!error) {
-                if (api.State == 1) {
-                    [SVProgressHUD showSuccessWithStatus:@"加入购物车成功～"];
-                    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-                    [SVProgressHUD dismissWithDelay:1.0];
-                    
-                }else{
-                    
-                    [SVProgressHUD showInfoWithStatus:api.Msg];
-                }
-            }else{
-                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
-            }
-        }];
-        
-        //----------//
-        
-    }
-    
+//    FeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//    if (cell.seleArray.count != cell.featureAttr.count) {
+//        NSMutableArray *no_select_arr = [NSMutableArray array];
+//        [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if ([obj isKindOfClass:[NSIndexPath class]]) {
+//            }else{
+//                [no_select_arr addObject:cell.featureAttr[idx]];
+//            }
+//        }];
+//        NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+//        [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [no_select_ValueName_arr addObject:model.ValueName];
+//        }];
+//
+//        NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
+//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//        [SVProgressHUD dismissWithDelay:1.0];
+//    }else{
+//        NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+//        NSString *sku_id;
+//        if (select_Id.length>0) {
+//            sku_id = select_Id;
+//        }else{
+//            sku_id = @"0";
+//        }
+//        NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
+//        NSString *quantity = [NSString stringWithFormat:@"%ld",cell.numberButton.currentNumber];
+//
+//        //加入购物车
+//        [[[HHCartAPI postAddProductsWithsku_id:sku_id_Str quantity:quantity storeId:self.store_id] netWorkClient] postRequestInView:self.view finishedBlock:^(HHCartAPI *api, NSError *error) {
+//
+//            if (!error) {
+//                if (api.State == 1) {
+//                    [SVProgressHUD showSuccessWithStatus:@"加入购物车成功～"];
+//                    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//                    [SVProgressHUD dismissWithDelay:1.0];
+//
+//                }else{
+//
+//                    [SVProgressHUD showInfoWithStatus:api.Msg];
+//                }
+//            }else{
+//                [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+//            }
+//        }];
+//
+//        //----------//
+//
+//    }
+//
 }
 
 #pragma mark - 是否存在收货地址
@@ -491,19 +555,9 @@ static NSArray *lastSele_IdArray_;
         gridcell = cell;
     }
     if (indexPath.section == 1) {
-        HHFeatureSelectionViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HHFeatureSelectionViewCellID];
+        FeatureSelectionViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HHFeatureSelectionViewCellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.delegate = self;
-        cell.gooodDetailModel = self.gooodDetailModel;
-        cell.product_sku_value_arr = self.gooodDetailModel.SKUValues;
-        cell.lastNum = @"1";
-        cell.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
-        cell.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
-        cell.product_sku_arr = self.gooodDetailModel.AllSkuList;
-        cell.product_id = self.gooodDetailModel.Id;
-        [cell.collectionView reloadData];
-        [cell.collectionView layoutIfNeeded];
-        self.collectionHeight = cell.collectionView.contentSize.height;
+        cell.sku_label.text = self.selectSkuStr?[NSString stringWithFormat:@"已选%@",self.selectSkuStr]:@"请选择规格";
         gridcell = cell;
     }
     if (indexPath.section == 2) {
@@ -635,7 +689,7 @@ static NSArray *lastSele_IdArray_;
     
     if (indexPath.section == 1) {
         
-        return   self.collectionHeight+10;
+        return   60;
     }
 
     if (indexPath.section == 2) {
@@ -695,6 +749,35 @@ static NSArray *lastSele_IdArray_;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if(indexPath.section == 1){
+      
+        DCFeatureSelectionViewController *dcNewFeaVc = [DCFeatureSelectionViewController new];
+        dcNewFeaVc.product_sku_value_arr = self.gooodDetailModel.SKUValues;
+        dcNewFeaVc.lastNum = lastNum_;
+        dcNewFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
+        dcNewFeaVc.lastSele_IdArray = [NSMutableArray arrayWithArray:lastSele_IdArray_];
+        dcNewFeaVc.product_sku_arr = self.gooodDetailModel.AllSkuList;
+        dcNewFeaVc.button_Title = @"确定";
+        dcNewFeaVc.product_price = self.gooodDetailModel.BuyPrice;
+        dcNewFeaVc.product_id = self.gooodDetailModel.Id;
+        
+        dcNewFeaVc.product_stock = self.gooodDetailModel.Stock;
+        if (self.gooodDetailModel.ImageUrls.count>0) {
+            dcNewFeaVc.goodImageView = self.gooodDetailModel.ImageUrls[0];
+        }
+        CGFloat  distance;
+        if (self.gooodDetailModel.SKUValues.count == 0) {
+            distance = ScreenH/2.3;
+        }else if (self.gooodDetailModel.SKUValues.count == 1){
+            distance = ScreenH/1.75;
+        }else{
+            distance = ScreenH*2/3;
+        }
+        dcNewFeaVc.nowScreenH = distance;
+        [self setUpAlterViewControllerWith:dcNewFeaVc WithDistance:distance WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:NO WithFlipEnable:NO];
+        
+        
+    }
     if (indexPath.section == 2&&indexPath.row == 0) {
         HHCouponListVC *vc = [HHCouponListVC new];
         vc.pid = self.gooodDetailModel.Id;
@@ -709,67 +792,67 @@ static NSArray *lastSele_IdArray_;
         }
     }
     if (indexPath.section == 3) {
-        //选择门店
-        HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        if (cell.seleArray.count != cell.featureAttr.count) {
-            NSMutableArray *no_select_arr = [NSMutableArray array];
-            [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isKindOfClass:[NSIndexPath class]]) {
-                }else{
-                    [no_select_arr addObject:cell.featureAttr[idx]];
-                }
-            }];
-            NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
-            [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                [no_select_ValueName_arr addObject:model.ValueName];
-            }];
-            
-            NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
-            [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1.0];
-            
-        }else{
-            [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.productStores_names];
-            WEAK_SELF();
-            _pickView.completeBlock = ^(NSString *result) {
-                weakSelf.detailText_lab.text = result;
-                NSInteger index = [weakSelf.productStores_names indexOfObject:result];
-                weakSelf.store_id = weakSelf.productStores_ids[index];
-                
-                [weakSelf updateStockWithStoreId:weakSelf.store_id];
-                
-            };
-            [_pickView showPickViewAnimation:YES];
-        }
+//        //选择门店
+//        HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//        if (cell.seleArray.count != cell.featureAttr.count) {
+//            NSMutableArray *no_select_arr = [NSMutableArray array];
+//            [cell.seletedIndexPaths enumerateObjectsUsingBlock:^(id  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                if ([obj isKindOfClass:[NSIndexPath class]]) {
+//                }else{
+//                    [no_select_arr addObject:cell.featureAttr[idx]];
+//                }
+//            }];
+//            NSMutableArray *no_select_ValueName_arr = [NSMutableArray array];
+//            [no_select_arr enumerateObjectsUsingBlock:^(HHproduct_sku_valueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+//                [no_select_ValueName_arr addObject:model.ValueName];
+//            }];
+//
+//            NSString *noSelectValueName_str = [no_select_ValueName_arr componentsJoinedByString:@" "];
+//            [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"请选择 %@",noSelectValueName_str]];
+//            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//            [SVProgressHUD dismissWithDelay:1.0];
+//
+//        }else{
+//            [_pickView setStyle:HXCommonPickViewStyleDIY titleArr:self.productStores_names];
+//            WEAK_SELF();
+//            _pickView.completeBlock = ^(NSString *result) {
+//                weakSelf.detailText_lab.text = result;
+//                NSInteger index = [weakSelf.productStores_names indexOfObject:result];
+//                weakSelf.store_id = weakSelf.productStores_ids[index];
+//
+//                [weakSelf updateStockWithStoreId:weakSelf.store_id];
+//
+//            };
+//            [_pickView showPickViewAnimation:YES];
+//        }
     }
 }
 - (void)updateStockWithStoreId:(NSString *)storeId{
 
-    WEAK_SELF();
-    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    __block BOOL isNoStock = NO;
-    NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
-    NSString *sku_id;
-    if (select_Id.length>0) {
-        sku_id = select_Id;
-    }else{
-        sku_id = @"0";
-    }
-    NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
-    [weakSelf.gooodDetailModel.AllSkuList enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([weakSelf.store_id isEqualToString:obj.StoreId]&&[obj.Sku isEqualToString:sku_id_Str]) {
-            HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[weakSelf.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",obj.Stock];
-            isNoStock = YES;
-        }
-    }];
-        if (isNoStock == NO) {
-            
-            HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[weakSelf.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            cell.stock_label.text = [NSString stringWithFormat:@"库存：0件"];
-        }
-        
+//    WEAK_SELF();
+//    HHFeatureSelectionViewCell *cell = [self.tabView  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//    __block BOOL isNoStock = NO;
+//    NSString *select_Id = [cell.seletedIdArray componentsJoinedByString:@"_"];
+//    NSString *sku_id;
+//    if (select_Id.length>0) {
+//        sku_id = select_Id;
+//    }else{
+//        sku_id = @"0";
+//    }
+//    NSString *sku_id_Str = [NSString stringWithFormat:@"%@_%@",self.Id,sku_id];
+//    [weakSelf.gooodDetailModel.AllSkuList enumerateObjectsUsingBlock:^(HHproduct_skuModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([weakSelf.store_id isEqualToString:obj.StoreId]&&[obj.Sku isEqualToString:sku_id_Str]) {
+//            HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[weakSelf.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+//            cell.stock_label.text = [NSString stringWithFormat:@"库存：%@件",obj.Stock];
+//            isNoStock = YES;
+//        }
+//    }];
+//        if (isNoStock == NO) {
+//
+//            HHDetailGoodReferralCell  *cell = (HHDetailGoodReferralCell  *)[weakSelf.tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+//            cell.stock_label.text = [NSString stringWithFormat:@"库存：0件"];
+//        }
+    
 }
 #pragma mark - HHFeatureSelectionViewCellDelegate
 
@@ -1047,7 +1130,12 @@ static NSArray *lastSele_IdArray_;
     self.tabView.estimatedSectionFooterHeight = 0;
     self.tabView.rowHeight = UITableViewAutomaticDimension;
     
+    //初始化
+    lastSeleArray_ = [NSArray array];
+    lastSele_IdArray_ = [NSArray array];
+    lastNum_ = 0;
     
+
     self.tableHeader = [UIView lh_viewWithFrame:CGRectMake(0, 0, ScreenW, SCREEN_WIDTH+65) backColor:kWhiteColor];
     [self.tableHeader addSubview:self.cycleScrollView];
 
@@ -1074,6 +1162,31 @@ static NSArray *lastSele_IdArray_;
     }
 
 }
+#pragma mark - 转场动画弹出控制器
+- (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
+{
+    [self dismissViewControllerAnimated:YES completion:nil]; //以防有控制未退出
+    XWDrawerAnimatorDirection direction = vcDirection;
+    XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
+    animator.parallaxEnable = parallaxEnable;
+    animator.flipEnable = flipEnable;
+    [self xw_presentViewController:vc withAnimator:animator];
+    //    WEAK_SELF();
+    [animator xw_enableEdgeGestureAndBackTapWithConfig:^{
+        //        [weakSelf selfAlterViewback];
+    }];
+}
+#pragma 退出界面
+- (void)selfAlterViewback{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
+//
+//}
 #pragma mark - 懒加载
 
 - (NSMutableArray *)datas{

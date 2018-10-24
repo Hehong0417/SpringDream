@@ -7,7 +7,6 @@
 //
 
 #import "HHPersonCenterHead.h"
-#import "HHCommonSetVC.h"
 
 @implementation HHPersonCenterHead
 
@@ -62,7 +61,7 @@
         //通知条
         self.notice_bgV  = [UIView new];
         self.notice_bgV.backgroundColor = RGB(255, 223, 224);
-//        [self addSubview:self.notice_bgV];
+        [self addSubview:self.notice_bgV];
 
         self.notice_icon = [UIImageView new];
         self.paoma_view = [[LSPaoMaView alloc] initWithFrame:CGRectMake(0, 0, ScreenW-110, 20) title:notice_title];
@@ -117,15 +116,15 @@
     self.sign_button.sd_layout.widthIs(80);
     self.sign_button.sd_layout.rightSpaceToView(self, 0);
     self.sign_button.sd_layout.topSpaceToView(self.name_label, 0);
-    
+
     //通知条
     self.notice_bgV.sd_layout.spaceToSuperView(UIEdgeInsetsMake(self.mj_h-20, 0, 0, 0));
-    
+
     self.notice_icon.sd_layout.heightIs(20);
     self.notice_icon.sd_layout.widthIs(20);
     self.notice_icon.sd_layout.leftSpaceToView(self.notice_bgV, 23);
     self.notice_icon.sd_layout.topSpaceToView(self.notice_icon, 0);
-    
+
     self.paoma_view.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 55, 0, 55));
 
 }
@@ -135,8 +134,10 @@
  */
 - (void)message_buttonAction:(UIButton *)message_button{
     
-    HHCommonSetVC *vc = [HHCommonSetVC new];
-    [self.nav pushVC:vc];
+    if (self.commonSetBlock) {
+        self.commonSetBlock();
+    }
+
 }
 /**
 签到

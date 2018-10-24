@@ -732,11 +732,11 @@
 //                [self createOrder];
 //            }else{
                 //购物车
-//                [self createOrder];
+                [self createOrder];
 //            }
 //        }else if (self.enter_type == HHaddress_type_package){
 //            //优惠套餐
-            [self createOrder];
+//            [self createOrder];
 //        }
         
         // *********//
@@ -744,7 +744,7 @@
 //
 //        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"你未安装微信，是否安装？" preferredStyle:UIAlertControllerStyleAlert];
 //
-//        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"是" style:UIAlertActi123456onStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //
 //        }];
 //        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -757,16 +757,9 @@
 //        [self presentViewController:alertC animated:YES completion:nil];
 //    }
     //************//
-//    //支付宝
-//    NSString *orderString = @"app_id%3d2018101661663747%26biz_content%3d%7b%22subject%22%3a%22%e6%b5%8b%e8%af%95%e5%95%86%e5%93%81%22%2c%22out_trade_no%22%3a%22181019161912264%22%2c%22timeout_express%22%3a%2230m%22%2c%22total_amount%22%3a%220.01%22%2c%22product_code%22%3a%22QUICK_MSECURITY_PAY%22%7d%26charset%3dutf-8%26method%3dalipay.trade.app.pay%26notify_url%3dhttp%3a%2f%2fmrs.elevo.cn%2fApi%2fOrder%2fCallback%2fAliPay%26sign_type%3dRSA2%26timestamp%3d2018-10-19+16%3a19%3a14%26version%3d1.0%26sign%3dH4Oi8O41r2WFvpz4KjNoZx63O6vfty3knJ%2fJyzCdllm3zCKuqwS1%2bYhztQ1QlCStUbdX1%2bmwUN8WotjE2OvUSWyeDDUPOoCcAoIfCkmKOwvHthT7HkUzxrNhC0qVj72t2JrDIdCEYLO0MSYrJKleQ3k%2fM0v7ReCAbx872nZTicbq%2bJjx2fU%2fJfxgkpcSxU%2bjg%2f5WUkJu1NlX6mkLomDLHlniibzwDlVesAupCu4QkjmR0i3Gl7YMPecyCAOqaHRlVSZNtslh8W5UukGRCuaSJyEW%2fZZ%2fsuSA77QinMDthUfpRL%2fDgYZTlXvw8f8qC7eKQHevD3ecfTOZ1F5GakeLnQ%3d%3d";
-//
-//    NSString * escapeStr= [orderString stringByRemovingPercentEncoding];
-//
-//
-//    [[AlipaySDK defaultService] payOrder:escapeStr fromScheme:Alipay_appScheme callback:^(NSDictionary *resultDic) {
-//
-//
-//    }];
+
+
+
  
 }
 #pragma mark - 创建订单
@@ -863,32 +856,13 @@
 #pragma mark - 订单支付
 -(void)orderPayWithaddress_id:(NSString *)address_id orderId:(NSString *)orderId{
 
-    [[[HHMineAPI postOrder_AppPayAddrId:address_id orderId:orderId money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
-        self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled  = YES;
-        if (!error) {
-            if (api.State == 1) {
-                HHWXModel *model = [HHWXModel mj_objectWithKeyValues:api.Data];
-                [HHWXModel payReqWithModel:model];
-            }else{
-                if ([api.Msg isEqualToString:@"客户不存在"]) {
-
-                    [SVProgressHUD showInfoWithStatus:@"微信支付相关公众号正在申请中，请耐心等候！"];
-                }else{
-                    [SVProgressHUD showInfoWithStatus:api.Msg];
-                }
-            }
-        }else {
-            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
-        }
-    }];
-
-    
-//    [[[HHMineAPI postAlipayOrder_AppPayAddrId:nil orderId:nil money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+//    //微信获取支付参数接口
+//    [[[HHMineAPI postOrder_AppPayAddrId:address_id orderId:orderId money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
 //        self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled  = YES;
 //        if (!error) {
 //            if (api.State == 1) {
-//
-//
+//                HHWXModel *model = [HHWXModel mj_objectWithKeyValues:api.Data];
+//                [HHWXModel payReqWithModel:model];
 //            }else{
 //                if ([api.Msg isEqualToString:@"客户不存在"]) {
 //
@@ -901,6 +875,33 @@
 //            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
 //        }
 //    }];
+
+    //支付宝获取支付参数接口
+    [[[HHMineAPI postAlipayOrder_AppPayAddrId:nil orderId:orderId money:nil]netWorkClient]postRequestInView:self.view finishedBlock:^(HHMineAPI *api, NSError *error) {
+        self.submitOrderTool.ImmediatePayLabel.userInteractionEnabled  = YES;
+        if (!error) {
+            if (api.State == 1) {
+                HHCartModel *model = [HHCartModel mj_objectWithKeyValues:api.Data];
+                
+                if (model.sign) {
+                    [[AlipaySDK defaultService] payOrder:model.sign fromScheme:Alipay_appScheme callback:^(NSDictionary *resultDic) {
+                        
+                        
+                    }];
+                }
+
+            }else{
+                if ([api.Msg isEqualToString:@"客户不存在"]) {
+
+                    [SVProgressHUD showInfoWithStatus:@"微信支付相关公众号正在申请中，请耐心等候！"];
+                }else{
+                    [SVProgressHUD showInfoWithStatus:api.Msg];
+                }
+            }
+        }else {
+            [SVProgressHUD showInfoWithStatus:error.localizedDescription];
+        }
+    }];
     
 }
 

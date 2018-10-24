@@ -36,6 +36,7 @@
 @property(nonatomic,strong) NSString *product_market_price;
 @property(nonatomic,strong) NSString *product_cost_price;
 @property(nonatomic,strong) NSString *product_user_price;
+@property(nonatomic,strong) NSString *product_activity_price;
 
 
 

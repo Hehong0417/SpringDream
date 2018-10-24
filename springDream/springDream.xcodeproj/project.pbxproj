@@ -20,11 +20,11 @@
 		CE2184642125269C003F354F /* HXRecordVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2184632125269C003F354F /* HXRecordVideoVC.m */; };
 		CE21846821252D0B003F354F /* UIView+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21846621252D0B003F354F /* UIView+Badge.m */; };
 		CE218471212535F0003F354F /* HHPersonCenterHead.m in Sources */ = {isa = PBXBuildFile; fileRef = CE218470212535F0003F354F /* HHPersonCenterHead.m */; };
-		CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21847221254A6A003F354F /* LSPaoMaView.m */; };
 		CE27F06B216B4EB40014415E /* HHpreferIntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F06A216B4EB40014415E /* HHpreferIntegralCell.m */; };
 		CE27F06E216B67240014415E /* HHBankListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F06D216B67240014415E /* HHBankListVC.m */; };
 		CE27F075216B7E3C0014415E /* HHBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F073216B7E3C0014415E /* HHBankListCell.m */; };
 		CE27F076216B7E3C0014415E /* HHBankListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE27F074216B7E3C0014415E /* HHBankListCell.xib */; };
+		CE2A77B2217F25BB00E5F8D6 /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2A77B1217F25BA00E5F8D6 /* LSPaoMaView.m */; };
 		CE3246232154A7E8006A7527 /* HHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246222154A7E8006A7527 /* HHLoginVC.m */; };
 		CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246252154E439006A7527 /* HHrigsterVC.m */; };
 		CE3246292154F8E0006A7527 /* HHPhoneBandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246282154F8E0006A7527 /* HHPhoneBandVC.m */; };
@@ -322,6 +322,10 @@
 		CE734F28214A7478005748B7 /* HHDistributeServiceCell_one.m in Sources */ = {isa = PBXBuildFile; fileRef = CE734F27214A7478005748B7 /* HHDistributeServiceCell_one.m */; };
 		CE75CE6D214B566300AD126D /* HHGoodCategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */; };
 		CE75CE70214B969C00AD126D /* HHInviteCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */; };
+		CE818C75217D89A30024CEF2 /* DCFeatureSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE818C73217D89A10024CEF2 /* DCFeatureSelectionViewController.m */; };
+		CE818C79217DA65A0024CEF2 /* FeatureSelectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE818C77217DA65A0024CEF2 /* FeatureSelectionViewCell.m */; };
+		CE818C7A217DA65A0024CEF2 /* FeatureSelectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE818C78217DA65A0024CEF2 /* FeatureSelectionViewCell.xib */; };
+		CE818C7D217DAC710024CEF2 /* DCFeatureChoseTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE818C7C217DAC710024CEF2 /* DCFeatureChoseTopCell.m */; };
 		CE8A64EE212AA29600C7C57F /* HHRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */; };
 		CE8A64EF212AA29600C7C57F /* HHPhoneLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8A64EB212AA29400C7C57F /* HHPhoneLoginVC.xib */; };
 		CE8A64F0212AA29600C7C57F /* HHPhoneLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A64EC212AA29500C7C57F /* HHPhoneLoginVC.m */; };
@@ -513,8 +517,6 @@
 		CE21846721252D0B003F354F /* UIView+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Badge.h"; sourceTree = "<group>"; };
 		CE21846F212535F0003F354F /* HHPersonCenterHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPersonCenterHead.h; sourceTree = "<group>"; };
 		CE218470212535F0003F354F /* HHPersonCenterHead.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPersonCenterHead.m; sourceTree = "<group>"; };
-		CE21847221254A6A003F354F /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
-		CE21847321254A6A003F354F /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
 		CE27F069216B4EB40014415E /* HHpreferIntegralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHpreferIntegralCell.h; sourceTree = "<group>"; };
 		CE27F06A216B4EB40014415E /* HHpreferIntegralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHpreferIntegralCell.m; sourceTree = "<group>"; };
 		CE27F06C216B67240014415E /* HHBankListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBankListVC.h; sourceTree = "<group>"; };
@@ -522,6 +524,8 @@
 		CE27F072216B7E3C0014415E /* HHBankListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBankListCell.h; sourceTree = "<group>"; };
 		CE27F073216B7E3C0014415E /* HHBankListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHBankListCell.m; sourceTree = "<group>"; };
 		CE27F074216B7E3C0014415E /* HHBankListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHBankListCell.xib; sourceTree = "<group>"; };
+		CE2A77B0217F25BA00E5F8D6 /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
+		CE2A77B1217F25BA00E5F8D6 /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE3246212154A7E8006A7527 /* HHLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHLoginVC.h; sourceTree = "<group>"; };
 		CE3246222154A7E8006A7527 /* HHLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHLoginVC.m; sourceTree = "<group>"; };
 		CE3246242154E439006A7527 /* HHrigsterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHrigsterVC.h; sourceTree = "<group>"; };
@@ -1058,6 +1062,13 @@
 		CE75CE6C214B566300AD126D /* HHGoodCategoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHGoodCategoryVC.m; sourceTree = "<group>"; };
 		CE75CE6E214B969C00AD126D /* HHInviteCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHInviteCodeVC.h; sourceTree = "<group>"; };
 		CE75CE6F214B969C00AD126D /* HHInviteCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHInviteCodeVC.m; sourceTree = "<group>"; };
+		CE818C73217D89A10024CEF2 /* DCFeatureSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCFeatureSelectionViewController.m; sourceTree = "<group>"; };
+		CE818C74217D89A20024CEF2 /* DCFeatureSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCFeatureSelectionViewController.h; sourceTree = "<group>"; };
+		CE818C76217DA65A0024CEF2 /* FeatureSelectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeatureSelectionViewCell.h; sourceTree = "<group>"; };
+		CE818C77217DA65A0024CEF2 /* FeatureSelectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeatureSelectionViewCell.m; sourceTree = "<group>"; };
+		CE818C78217DA65A0024CEF2 /* FeatureSelectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeatureSelectionViewCell.xib; sourceTree = "<group>"; };
+		CE818C7B217DAC710024CEF2 /* DCFeatureChoseTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCFeatureChoseTopCell.h; sourceTree = "<group>"; };
+		CE818C7C217DAC710024CEF2 /* DCFeatureChoseTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCFeatureChoseTopCell.m; sourceTree = "<group>"; };
 		CE8A64E7212AA29100C7C57F /* HHRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHRegisterVC.h; sourceTree = "<group>"; };
 		CE8A64E8212AA29200C7C57F /* HHRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHRegisterVC.m; sourceTree = "<group>"; };
 		CE8A64E9212AA29200C7C57F /* HHPhoneLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPhoneLoginVC.h; sourceTree = "<group>"; };
@@ -1435,6 +1446,7 @@
 				CE472623212D1ECE002BD2A5 /* 属性选择 */,
 				CE47262E212D1ECE002BD2A5 /* CustionView */,
 				CE472631212D1ECE002BD2A5 /* PPNumberButton */,
+				CE818C7E217DAC8F0024CEF2 /* Cells */,
 				CE472634212D1ECE002BD2A5 /* Header */,
 			);
 			path = CollectionView;
@@ -2282,6 +2294,11 @@
 				CE5264F2212C1A1900F30D29 /* HHDetailGoodReferralCell.xib */,
 				CE472647212D37BB002BD2A5 /* HHFeatureSelectionViewCell.h */,
 				CE472648212D37BB002BD2A5 /* HHFeatureSelectionViewCell.m */,
+				CE818C76217DA65A0024CEF2 /* FeatureSelectionViewCell.h */,
+				CE818C77217DA65A0024CEF2 /* FeatureSelectionViewCell.m */,
+				CE818C78217DA65A0024CEF2 /* FeatureSelectionViewCell.xib */,
+				CE818C74217D89A20024CEF2 /* DCFeatureSelectionViewController.h */,
+				CE818C73217D89A10024CEF2 /* DCFeatureSelectionViewController.m */,
 				CE5264E9212C143E00F30D29 /* HHNotWlanView.h */,
 				CE5264EA212C143F00F30D29 /* HHNotWlanView.m */,
 				CE32EC45213F90FE0088C652 /* HHGoodDetailItem.h */,
@@ -2735,6 +2752,15 @@
 			path = AlipaySDK;
 			sourceTree = "<group>";
 		};
+		CE818C7E217DAC8F0024CEF2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE818C7B217DAC710024CEF2 /* DCFeatureChoseTopCell.h */,
+				CE818C7C217DAC710024CEF2 /* DCFeatureChoseTopCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		CE8A64E1212AA04D00C7C57F /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
@@ -3031,8 +3057,6 @@
 				CE218470212535F0003F354F /* HHPersonCenterHead.m */,
 				CE21845221251531003F354F /* HHModelsView.h */,
 				CE21845321251531003F354F /* HHModelsView.m */,
-				CE21847321254A6A003F354F /* LSPaoMaView.h */,
-				CE21847221254A6A003F354F /* LSPaoMaView.m */,
 				CE99386421364FFD002B256D /* HHmyEarningsHead.h */,
 				CE99386521364FFD002B256D /* HHmyEarningsHead.m */,
 				CE99385E21364E1B002B256D /* HHMyIntegralHead.h */,
@@ -3040,6 +3064,8 @@
 				CE9938582136439A002B256D /* HHMyWalletHead.h */,
 				CE9938592136439A002B256D /* HHMyWalletHead.m */,
 				CE9065C721563B5C00A13992 /* HHMyWalletHead.xib */,
+				CE2A77B0217F25BA00E5F8D6 /* LSPaoMaView.h */,
+				CE2A77B1217F25BA00E5F8D6 /* LSPaoMaView.m */,
 				CE90EABF2159DE5600F62B8A /* HHDistributionCommissionHead.h */,
 				CE90EAC02159DE5600F62B8A /* HHDistributionCommissionHead.m */,
 				CE90EAC22159DE6700F62B8A /* HHDistributionCommissionHead.xib */,
@@ -3273,6 +3299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE818C7A217DA65A0024CEF2 /* FeatureSelectionViewCell.xib in Resources */,
 				CE4FFE2A2148F4E800767DF1 /* icon2.jpg in Resources */,
 				CE4FFE222148F4E800767DF1 /* 11.jpg in Resources */,
 				CE4FFE1A2148F4E800767DF1 /* 8.jpg in Resources */,
@@ -3501,6 +3528,7 @@
 				CE8A6520212AAB7A00C7C57F /* SKTagButton.m in Sources */,
 				CE8A66A5212ABAB100C7C57F /* HHAddCartTool.m in Sources */,
 				CE47263F212D1ECE002BD2A5 /* DCFeatureHeaderView.m in Sources */,
+				CE2A77B2217F25BB00E5F8D6 /* LSPaoMaView.m in Sources */,
 				CE5264DA212BBFE600F30D29 /* XWCoolAnimator.m in Sources */,
 				CE90EAD1215A1BA500F62B8A /* HHStoreEarningsVC.m in Sources */,
 				CE4D0A13212423F200796FEE /* LHAlertView.m in Sources */,
@@ -3634,7 +3662,6 @@
 				CE8A66A8212ABAB100C7C57F /* HHSendGiftWebVC.m in Sources */,
 				CE6806CE216EEC94008CBF7E /* HHStoreServiceCell.m in Sources */,
 				CE47263A212D1ECE002BD2A5 /* DCFeatureTitleItem.m in Sources */,
-				CE21847421254A6B003F354F /* LSPaoMaView.m in Sources */,
 				CE3B0472214FC3F000FC0AE2 /* HHMyServiceCell.m in Sources */,
 				CE5E6F5A2160C6ED00FE875D /* SDPostContentModel.m in Sources */,
 				CEDBA263212D70C200CB8002 /* HHdiscountPackageViewTabCell.m in Sources */,
@@ -3736,11 +3763,13 @@
 				CE5264CD212BBFE600F30D29 /* SDBrowserImageView.m in Sources */,
 				CE99385D213649FC002B256D /* HHMyIntegralVC.m in Sources */,
 				CE5DBEAC213E55EA00F17FCB /* HHLogisticsVC.m in Sources */,
+				CE818C75217D89A30024CEF2 /* DCFeatureSelectionViewController.m in Sources */,
 				CE5264DF212BBFE600F30D29 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				CE4286CE215B1E3E0080B24A /* HHStoreStatusCell.m in Sources */,
 				CE8A6521212AAB7A00C7C57F /* SearchDetailView.m in Sources */,
 				CEECFB2C2175C6EB00B5A6AD /* HHSubmitTitleCell.m in Sources */,
 				CE8A6501212AAB6D00C7C57F /* HXHomeCollectionCell.m in Sources */,
+				CE818C7D217DAC710024CEF2 /* DCFeatureChoseTopCell.m in Sources */,
 				CE8A67C2212ACA2E00C7C57F /* HHSelectPhotosCell.m in Sources */,
 				CE5264CC212BBFE600F30D29 /* SDWaitingView.m in Sources */,
 				CE27F06E216B67240014415E /* HHBankListVC.m in Sources */,
@@ -3823,6 +3852,7 @@
 				CE8A66AA212ABAB100C7C57F /* HHSubmitOrdersVC.m in Sources */,
 				CE8A6536212AAC0100C7C57F /* HHCategoryModel.m in Sources */,
 				CE4FFDBB2148EEAF00767DF1 /* NSMutableAttributedString+MLLabel.m in Sources */,
+				CE818C79217DA65A0024CEF2 /* FeatureSelectionViewCell.m in Sources */,
 				CE6806D7216F01DE008CBF7E /* HHTimeLineCommentListVC.m in Sources */,
 				CE4FFDC12148EEAF00767DF1 /* NSString+MLExpression.m in Sources */,
 				CE494C1A21699E7A00039E23 /* HHDistributionInstructionsVC.m in Sources */,
