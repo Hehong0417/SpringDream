@@ -24,6 +24,9 @@
 		CE27F06E216B67240014415E /* HHBankListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F06D216B67240014415E /* HHBankListVC.m */; };
 		CE27F075216B7E3C0014415E /* HHBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F073216B7E3C0014415E /* HHBankListCell.m */; };
 		CE27F076216B7E3C0014415E /* HHBankListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE27F074216B7E3C0014415E /* HHBankListCell.xib */; };
+		CE29A20D2182BC4600767FDC /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29A20C2182BC4600767FDC /* HHMyOrderItem.m */; };
+		CE29A2312182F83E00767FDC /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE29A22F2182F83D00767FDC /* AlipaySDK.bundle */; };
+		CE29A2322182F83E00767FDC /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE29A2302182F83D00767FDC /* AlipaySDK.framework */; };
 		CE2A77B2217F25BB00E5F8D6 /* LSPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2A77B1217F25BA00E5F8D6 /* LSPaoMaView.m */; };
 		CE3246232154A7E8006A7527 /* HHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246222154A7E8006A7527 /* HHLoginVC.m */; };
 		CE3246262154E439006A7527 /* HHrigsterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3246252154E439006A7527 /* HHrigsterVC.m */; };
@@ -305,8 +308,6 @@
 		CE6806D4216EFC43008CBF7E /* HHModifyPassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D3216EFC43008CBF7E /* HHModifyPassWordVC.m */; };
 		CE6806D7216F01DE008CBF7E /* HHTimeLineCommentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D6216F01DE008CBF7E /* HHTimeLineCommentListVC.m */; };
 		CE6806DA216F0278008CBF7E /* HHTimeLineCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6806D9216F0278008CBF7E /* HHTimeLineCommentCell.m */; };
-		CE6F759921798696004DF4E9 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE6F759721798696004DF4E9 /* AlipaySDK.bundle */; };
-		CE6F759A21798696004DF4E9 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6F759821798696004DF4E9 /* AlipaySDK.framework */; };
 		CE6F759C217986C2004DF4E9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6F759B217986C2004DF4E9 /* libz.tbd */; };
 		CE6F759E217986CE004DF4E9 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6F759D217986CE004DF4E9 /* libc++.tbd */; };
 		CE6F75A0217986E2004DF4E9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6F759F217986E2004DF4E9 /* SystemConfiguration.framework */; };
@@ -415,7 +416,6 @@
 		CE8A67DC212ACA2E00C7C57F /* HHAdditionalCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67B8212ACA2D00C7C57F /* HHAdditionalCommentView.m */; };
 		CE8A67DD212ACA2E00C7C57F /* HHCellCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BB212ACA2D00C7C57F /* HHCellCommentView.m */; };
 		CE8A67DE212ACA2E00C7C57F /* HHOrderTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */; };
-		CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */; };
 		CE8D114B21718FAF00FC1015 /* HHCouponListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8D114A21718FAF00FC1015 /* HHCouponListVC.m */; };
 		CE90659C2155E1C700A13992 /* HHCommonSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659B2155E1C700A13992 /* HHCommonSetVC.m */; };
 		CE90659F2156141600A13992 /* HHAuthenticationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE90659E2156141600A13992 /* HHAuthenticationVC.m */; };
@@ -524,6 +524,10 @@
 		CE27F072216B7E3C0014415E /* HHBankListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBankListCell.h; sourceTree = "<group>"; };
 		CE27F073216B7E3C0014415E /* HHBankListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHBankListCell.m; sourceTree = "<group>"; };
 		CE27F074216B7E3C0014415E /* HHBankListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HHBankListCell.xib; sourceTree = "<group>"; };
+		CE29A20B2182BC4600767FDC /* HHMyOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMyOrderItem.h; sourceTree = "<group>"; };
+		CE29A20C2182BC4600767FDC /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHMyOrderItem.m; sourceTree = "<group>"; };
+		CE29A22F2182F83D00767FDC /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		CE29A2302182F83D00767FDC /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		CE2A77B0217F25BA00E5F8D6 /* LSPaoMaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaoMaView.h; sourceTree = "<group>"; };
 		CE2A77B1217F25BA00E5F8D6 /* LSPaoMaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaoMaView.m; sourceTree = "<group>"; };
 		CE3246212154A7E8006A7527 /* HHLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHLoginVC.h; sourceTree = "<group>"; };
@@ -1041,8 +1045,6 @@
 		CE6806D6216F01DE008CBF7E /* HHTimeLineCommentListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHTimeLineCommentListVC.m; sourceTree = "<group>"; };
 		CE6806D8216F0278008CBF7E /* HHTimeLineCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHTimeLineCommentCell.h; sourceTree = "<group>"; };
 		CE6806D9216F0278008CBF7E /* HHTimeLineCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHTimeLineCommentCell.m; sourceTree = "<group>"; };
-		CE6F759721798696004DF4E9 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		CE6F759821798696004DF4E9 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		CE6F759B217986C2004DF4E9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		CE6F759D217986CE004DF4E9 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		CE6F759F217986E2004DF4E9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1227,8 +1229,6 @@
 		CE8A67BC212ACA2D00C7C57F /* HHEvaluateListHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHEvaluateListHead.h; sourceTree = "<group>"; };
 		CE8A67BD212ACA2D00C7C57F /* HHEvaluationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHEvaluationListCell.h; sourceTree = "<group>"; };
 		CE8A67BE212ACA2D00C7C57F /* HHOrderTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHOrderTwoCell.m; sourceTree = "<group>"; };
-		CE8A67DF212ACA3F00C7C57F /* HHMyOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HHMyOrderItem.h; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.h; sourceTree = "<group>"; };
-		CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HHMyOrderItem.m; path = ../../../../../../../OptimizationMan/lw_Store/lw_Store/APP/order/models/HHMyOrderItem.m; sourceTree = "<group>"; };
 		CE8D114921718FAF00FC1015 /* HHCouponListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCouponListVC.h; sourceTree = "<group>"; };
 		CE8D114A21718FAF00FC1015 /* HHCouponListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHCouponListVC.m; sourceTree = "<group>"; };
 		CE90659A2155E1C700A13992 /* HHCommonSetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHCommonSetVC.h; sourceTree = "<group>"; };
@@ -1347,9 +1347,9 @@
 				CE6F75A2217986EC004DF4E9 /* CoreTelephony.framework in Frameworks */,
 				CE6F75A0217986E2004DF4E9 /* SystemConfiguration.framework in Frameworks */,
 				CE6F759E217986CE004DF4E9 /* libc++.tbd in Frameworks */,
+				CE29A2322182F83E00767FDC /* AlipaySDK.framework in Frameworks */,
 				CE6F759C217986C2004DF4E9 /* libz.tbd in Frameworks */,
 				ABEFC30E27D522FC9AF6DD7A /* Pods_springDream.framework in Frameworks */,
-				CE6F759A21798696004DF4E9 /* AlipaySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2746,8 +2746,8 @@
 		CE6F759621798696004DF4E9 /* AlipaySDK */ = {
 			isa = PBXGroup;
 			children = (
-				CE6F759721798696004DF4E9 /* AlipaySDK.bundle */,
-				CE6F759821798696004DF4E9 /* AlipaySDK.framework */,
+				CE29A22F2182F83D00767FDC /* AlipaySDK.bundle */,
+				CE29A2302182F83D00767FDC /* AlipaySDK.framework */,
 			);
 			path = AlipaySDK;
 			sourceTree = "<group>";
@@ -2926,8 +2926,8 @@
 		CE8A6781212ACA0400C7C57F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A67DF212ACA3F00C7C57F /* HHMyOrderItem.h */,
-				CE8A67E0212ACA3F00C7C57F /* HHMyOrderItem.m */,
+				CE29A20B2182BC4600767FDC /* HHMyOrderItem.h */,
+				CE29A20C2182BC4600767FDC /* HHMyOrderItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3338,7 +3338,6 @@
 				CE4FFDF92148F49A00767DF1 /* pic7.jpg in Resources */,
 				CE4FFDF32148F49A00767DF1 /* pic0.jpg in Resources */,
 				CE8A67CC212ACA2E00C7C57F /* HJOrderCell.xib in Resources */,
-				CE6F759921798696004DF4E9 /* AlipaySDK.bundle in Resources */,
 				CE3EAD8D216E061B00103F63 /* HHcategoryCollectionViewCell.xib in Resources */,
 				CE8A66B3212ABAB100C7C57F /* HHSubmitOrderTool.xib in Resources */,
 				CE4FFDF82148F49A00767DF1 /* pic6.jpg in Resources */,
@@ -3378,6 +3377,7 @@
 				CE4FFE352148F4E800767DF1 /* 1.jpg in Resources */,
 				CE4D0A3A212423F200796FEE /* Address.plist in Resources */,
 				CE4FFE362148F4E800767DF1 /* 0.jpg in Resources */,
+				CE29A2312182F83E00767FDC /* AlipaySDK.bundle in Resources */,
 				CE4FFDEF2148F49A00767DF1 /* test3.jpg in Resources */,
 				CE8A6500212AAB6D00C7C57F /* SearchDetailViewController.xib in Resources */,
 				CE9065C62156267F00A13992 /* HHMywalletCell.xib in Resources */,
@@ -3743,6 +3743,7 @@
 				CE4725C4212D0B18002BD2A5 /* HHCouponCell.m in Sources */,
 				CE8A6535212AAC0100C7C57F /* HHgooodDetailModel.m in Sources */,
 				CE472637212D1ECE002BD2A5 /* DCDetailOverFooterView.m in Sources */,
+				CE29A20D2182BC4600767FDC /* HHMyOrderItem.m in Sources */,
 				CE9065D821565C2300A13992 /* HHMyMembersCell.m in Sources */,
 				CE4D0A30212423F200796FEE /* NSObject+NC.m in Sources */,
 				CE9065CE21564BDA00A13992 /* HHDistributionOrderVC.m in Sources */,
@@ -3865,7 +3866,6 @@
 				CE8A67D7212ACA2E00C7C57F /* HHEvaluationHeadView.m in Sources */,
 				CE4D0A0E212423F200796FEE /* CDPStarEvaluation.m in Sources */,
 				CE0344662177029900F960FA /* HHWithDrawVC.m in Sources */,
-				CE8A67E1212ACA4000C7C57F /* HHMyOrderItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

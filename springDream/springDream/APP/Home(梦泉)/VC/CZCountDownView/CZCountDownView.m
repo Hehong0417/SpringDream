@@ -76,7 +76,7 @@
     }
 }
 
--(void)timer:(NSTimer*)timerr{
+-(void)timer:(NSTimer*)timer{
     _timestamp--;
     [self getDetailTimeWithTimestamp:_timestamp];
     if (_timestamp == 0) {

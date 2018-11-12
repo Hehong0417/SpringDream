@@ -1150,7 +1150,6 @@ static NSArray *lastSele_IdArray_;
     if (self.gooodDetailModel.VideoUrl.length>0) {
         if (index == 0) {
             aVPlayerViewController = [[AVPlayerViewController alloc]init];
-            
             if (self.gooodDetailModel.VideoUrl.length) {
                 aVPlayerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:self.gooodDetailModel.VideoUrl]];
             }else{

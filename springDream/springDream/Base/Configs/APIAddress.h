@@ -192,8 +192,6 @@
 #define API_AddProductCollection API_SUB_URL3(@"AddProductCollection")
 //3.8取消商品收藏
 #define API_DeleteProductCollection API_SUB_URL3(@"DeleteProductCollection")
-//3.9取消商品收藏
-#define API_DeleteProductCollection API_SUB_URL3(@"DeleteProductCollection")
 //3.10获取个人商品收藏
 #define API_GetProductCollection API_SUB_URL3(@"GetProductCollection")
 

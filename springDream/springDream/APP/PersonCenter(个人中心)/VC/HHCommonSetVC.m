@@ -166,7 +166,7 @@
     }
     if (indexPath.section == 3&&indexPath.row == 0) {
         if (self.mineModel.RealName) {
-            
+           
         }else{
             
             HHAuthenticationVC *vc = [HHAuthenticationVC new];

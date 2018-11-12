@@ -112,7 +112,6 @@
     api.parametersAddToken = NO;
     
     return api;
-    
 }
 #pragma mark - post
 //增加商品收藏

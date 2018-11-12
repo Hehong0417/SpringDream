@@ -46,7 +46,6 @@
     
     [WXApi registerApp:Wechat_AppKey];
         
-  
     //配置友盟
     [self UMSocialConfig];
     [self.window makeKeyAndVisible];
